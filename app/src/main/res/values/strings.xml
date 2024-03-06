@@ -6,4 +6,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dashboard_title">Dashboard</string>
+    <string name="input_title">Tambah Data</string>
+    <string name="name_label">Nama</string>
+    <string name="desc_label">Deskripsi</string>
 </resources>

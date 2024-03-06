@@ -1,7 +1,9 @@
 package com.ardclient.esikap
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -27,24 +29,28 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
         tvNoData = view.findViewById(R.id.no_data_text)
         recyclerView = view.findViewById(R.id.recycler_view)
 
+        // rv
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+
+        // init behavior
         tvNoData.visibility = View.INVISIBLE
-
-        val listData = getSampleData(context!!)
-        setupRecyclerView(context, view, listData)
-
-
-    }
-
-    private fun setupRecyclerView(context: Context, view: View, listData: ArrayList<Sample>) {
-
-        recyclerView.apply {
-            adapter = SampleAdapter(listData)
-            layoutManager = LinearLayoutManager(context)
+        fab.setOnClickListener {
+            val intent = Intent(context, InputDataActivity::class.java)
+            startActivity(intent)
         }
 
+
+        // get room data from db
+        getSampleData(context!!)
+
     }
 
-    private fun getSampleData(context: Context): ArrayList<Sample> {
+    private fun setupRecyclerView(context: Context,  listData: ArrayList<Sample>) {
+        recyclerView.adapter = SampleAdapter(listData)
+    }
+
+    private fun getSampleData(context: Context) {
         val database = SampleRoomDatabase.getDatabase(context)
         val dao = database.getSampleDao()
         val listItems = arrayListOf<Sample>()
@@ -56,6 +62,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
             tvNoData.visibility = View.VISIBLE
         }
 
-        return listItems
+        setupRecyclerView(context, listItems)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val context = activity?.applicationContext
+        getSampleData(context!!)
     }
 }
