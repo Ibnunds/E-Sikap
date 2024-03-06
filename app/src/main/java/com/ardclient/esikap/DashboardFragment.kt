@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.adapter.SampleAdapter
 import com.ardclient.esikap.database.sample.SampleRoomDatabase
 import com.ardclient.esikap.model.Sample
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard){
     private lateinit var tvNoData: TextView
@@ -22,11 +21,11 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
         val context = activity?.applicationContext
         loadingBar = view.findViewById(R.id.loading_view)
         tvNoData = view.findViewById(R.id.no_data_text)
         recyclerView = view.findViewById(R.id.recycler_view)
+
 
         // rv
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -35,14 +34,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
         // init behavior
         tvNoData.visibility = View.GONE
 
-        fab.setOnClickListener {
-            val intent = Intent(context, InputDataActivity::class.java)
-            startActivity(intent)
-        }
-
         // get room data from db
         getSampleData(context!!)
-
     }
 
     private fun setupRecyclerView(context: Context,  listData: ArrayList<Sample>) {
@@ -65,6 +58,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
 
         if (listItems.size < 1){
             tvNoData.visibility = View.VISIBLE
+        }else{
+            tvNoData.visibility = View.GONE
         }
 
         setupRecyclerView(context, listItems)
