@@ -64,7 +64,25 @@
             android:layout_marginTop="14dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:text="Simpan Data"
+            />
+        <Button
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:id="@+id/deleteButton"
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hapus Data"
+            android:visibility="gone"
+            />
+        <Button
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:id="@+id/uploadButton"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Data"
+            android:visibility="gone"
             />
     </LinearLayout>
 </LinearLayout>

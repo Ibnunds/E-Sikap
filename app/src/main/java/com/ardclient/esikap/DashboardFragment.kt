@@ -3,7 +3,6 @@ package com.ardclient.esikap
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -34,12 +33,12 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
 
 
         // init behavior
-        tvNoData.visibility = View.INVISIBLE
+        tvNoData.visibility = View.GONE
+
         fab.setOnClickListener {
             val intent = Intent(context, InputDataActivity::class.java)
             startActivity(intent)
         }
-
 
         // get room data from db
         getSampleData(context!!)
@@ -47,7 +46,13 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
     }
 
     private fun setupRecyclerView(context: Context,  listData: ArrayList<Sample>) {
-        recyclerView.adapter = SampleAdapter(listData)
+        recyclerView.adapter = SampleAdapter(listData, object : SampleAdapter.SampleListener{
+            override fun onItemClicked(sample: Sample) {
+                val intent = Intent(context, InputDataActivity::class.java)
+                intent.putExtra("EXISTING", sample)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun getSampleData(context: Context) {
@@ -56,7 +61,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
         val listItems = arrayListOf<Sample>()
         listItems.addAll(dao.getAllSample())
 
-        loadingBar.visibility = View.INVISIBLE
+        loadingBar.visibility = View.GONE
 
         if (listItems.size < 1){
             tvNoData.visibility = View.VISIBLE

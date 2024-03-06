@@ -9,12 +9,17 @@ import com.ardclient.esikap.R
 import com.ardclient.esikap.model.Sample
 
 class SampleAdapter(
-    private val listItems: ArrayList<Sample>
+    private val listItems: ArrayList<Sample>,
+    private val listener: SampleListener
 ) : RecyclerView.Adapter<SampleAdapter.SampleViewHolder>(){
 
     class SampleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var tvTitle: TextView = itemView.findViewById(R.id.card_title)
         var tvBody: TextView = itemView.findViewById(R.id.card_body)
+    }
+
+    interface SampleListener {
+        fun onItemClicked(sample: Sample)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleViewHolder {
@@ -30,5 +35,8 @@ class SampleAdapter(
         val item = listItems[position]
         holder.tvTitle.text = item.title
         holder.tvBody.text = item.message
+        holder.itemView.setOnClickListener {
+            listener.onItemClicked(item)
+        }
     }
 }

@@ -20,4 +20,7 @@ interface SampleDAO {
 
     @Update
     fun updateSample(sample: Sample)
+
+    @Query("SELECT * FROM sample WHERE id = :id")
+    fun getById(id: Int): List<Sample>
 }
