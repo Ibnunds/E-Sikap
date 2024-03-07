@@ -1,0 +1,66 @@
+package com.ardclient.esikap.model
+
+import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
+
+@Entity(tableName = "sscec")
+@Parcelize
+data class SSCECModel(
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int = 0,
+    @ColumnInfo(name = "nama_agen") var namaAgen: String = "",
+    @ColumnInfo(name = "kapten_kapal") var kaptenKapal: String = "",
+    @ColumnInfo(name = "nama_kapal") var namaKapal: String = "",
+    @ColumnInfo(name = "imo") var imo: String = "",
+    @ColumnInfo(name = "gross_tone") var grossTone : String = "",
+    @ColumnInfo(name = "bendera") var bendera: String = "",
+    @ColumnInfo(name = "negara_asal") var negaraAsal: String = "",
+    @ColumnInfo(name = "pelabuhanTujuan") var pelabuhanTujuan: String = "",
+    @ColumnInfo(name = "tgl_tiba") var tglTiba: String = "",
+    @ColumnInfo(name = "lokasi_sandar") var lokasiSandar: String = "",
+    @ColumnInfo(name = "jumlah_abk_asing") var jumlahABKAsing: Int = 0,
+    @ColumnInfo(name = "abk_asing_sehat") var asingSehat: Int = 0,
+    @ColumnInfo(name = "abk_asing_sakit") var asingSakit : Int = 0,
+    @ColumnInfo(name = "jumlah_abk_wni") var jumlahABKWNI: Int = 0,
+    @ColumnInfo(name = "abk_wni_sehat") var wniSehat: Int = 0,
+    @ColumnInfo(name = "abk_wni_sakit") var wniSakit: Int = 0,
+    @ColumnInfo(name = "san_dapur") var sanDapur: String = "",
+    @ColumnInfo(name = "san_ruang_sakit") var sanRuangSakit: String = "",
+    @ColumnInfo(name = "san_gudang") var sanGudang: String = "",
+    @ColumnInfo(name = "san_palka") var sanPalka: String = "",
+    @ColumnInfo(name = "san_ruang_tidur") var sanRuangTidur: String = "",
+    @ColumnInfo(name = "san_abk_req") var sanABKReq: String = "",
+    @ColumnInfo(name = "san_perwira") var sanPerwira: String = "",
+    @ColumnInfo(name = "san_penumpang") var sanPenumpang: String = "",
+    @ColumnInfo(name = "san_geladak") var sanGeladak: String = "",
+    @ColumnInfo(name = "san_air_minum") var sanAirMinum: String = "",
+    @ColumnInfo(name = "san_limba_cair") var sanLimbaCair: String = "",
+    @ColumnInfo(name = "san_air_tergenang") var sanAirTergenang: String = "",
+    @ColumnInfo(name = "san_ruang_mesin") var sanRuangMesin: String = "",
+    @ColumnInfo(name = "san_fasilitas_medik") var sanFasilitasMedik: String = "",
+    @ColumnInfo(name = "san_area_lainnya") var sanAreaLainnya: String = "",
+    @ColumnInfo(name = "vec_dapur") var vecDapur: String = "",
+    @ColumnInfo(name = "vec_ruang_sakit") var vecRuangSakit: String = "",
+    @ColumnInfo(name = "vec_gudang") var vecGudang: String = "",
+    @ColumnInfo(name = "vec_palka") var vecPalka: String = "",
+    @ColumnInfo(name = "vec_ruang_tidur") var vecRuangTidur: String = "",
+    @ColumnInfo(name = "vec_abk_req") var vecABKReq: String = "",
+    @ColumnInfo(name = "vec_perwira") var vecPerwira: String = "",
+    @ColumnInfo(name = "vec_penumpang") var vecPenumpang: String = "",
+    @ColumnInfo(name = "vec_geladak") var vecGeladak: String = "",
+    @ColumnInfo(name = "vec_air_minum") var vecAirMinum: String = "",
+    @ColumnInfo(name = "vec_limba_cair") var vecLimbaCair: String = "",
+    @ColumnInfo(name = "resiko_sanitasi") var resikoSanitasi: String = "",
+    @ColumnInfo(name = "risk_tidak_masalah") var riskTidakMasalah: String = "",
+    @ColumnInfo(name = "risk_ada_masalah") var riskAdaMasalah: String = "",
+    @ColumnInfo(name = "catatan_sanitasi") var catatanSanitasi: String = "",
+    @ColumnInfo(name = "rec_sscec") var recSSCEC: String = "",
+    @ColumnInfo(name = "rec_tanggal") var recTanggal: String = "",
+    @ColumnInfo(name = "rec_jam") var recJam: String = "",
+    @ColumnInfo(name = "sign_kapten") var signKapten: String = "",
+    @ColumnInfo(name = "sign_nama_kapten") var signNamaKapten: String = "",
+    @ColumnInfo(name = "sign_petugas") var signPetugas: String = "",
+    @ColumnInfo(name = "sign_nama_petugas") var signNamaPetugas: String = "",
+):Parcelable

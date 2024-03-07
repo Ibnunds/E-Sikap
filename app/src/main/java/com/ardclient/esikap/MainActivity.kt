@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         val bottomSheetModal = BottomSheetModal()
 
-
         // -- Handle bottom navigation
 
         // define fragment

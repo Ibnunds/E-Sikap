@@ -12,9 +12,7 @@
     <!-- Bottom Bar Indicator Styles -->
     <style name="BottomBarIndicatorStyle">
         <item name="android:color">@color/bottomBarBackground</item>
-        <item name="android:width"/>
         <item name="android:height">5dp</item>
-        <item name="shapeAppearance"/>
         <item name="marginHorizontal">2dp</item>
     </style>
 
