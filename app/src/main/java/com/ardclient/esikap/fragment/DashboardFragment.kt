@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ardclient.esikap.DetailKapalActivity
 import com.ardclient.esikap.KapalActivity
 import com.ardclient.esikap.R
 import com.ardclient.esikap.adapter.KapalAdapter
@@ -50,7 +51,9 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
     private fun setupRecyclerView(context: Context,  listData: ArrayList<KapalModel>) {
         recyclerView.adapter = KapalAdapter(listData, object : KapalAdapter.KapalListener {
             override fun onItemClicked(kapal: KapalModel) {
-                TODO("Not yet implemented")
+                val intent = Intent(context, DetailKapalActivity::class.java)
+                intent.putExtra("DETAIL_KAPAL", kapal)
+                startActivity(intent)
             }
         })
     }

@@ -10,4 +10,5 @@
     <string name="name_label">Nama</string>
     <string name="desc_label">Deskripsi</string>
     <string name="add_kapal_title">Tambah Kapal</string>
+    <string name="detail_kapal_title">Detail Kapal</string>
 </resources>

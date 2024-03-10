@@ -11,4 +11,6 @@
     <color name="categoryGreen">#7FA654</color>
     <color name="categoryOrange">#E08146</color>
     <color name="categoryAmber">#F8BC4E</color>
+
+    <color name="colorCyan">#66C2C1</color>
 </resources>

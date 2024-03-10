@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ESikap"
         tools:targetApi="31">
         <activity
+            android:name=".DetailKapalActivity"
+            android:exported="false" />
+        <activity
             android:name=".KapalActivity"
             android:exported="false" />
         <activity
