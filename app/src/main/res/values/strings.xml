@@ -9,4 +9,5 @@
     <string name="input_title">Tambah Data</string>
     <string name="name_label">Nama</string>
     <string name="desc_label">Deskripsi</string>
+    <string name="add_kapal_title">Tambah Kapal</string>
 </resources>
