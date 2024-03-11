@@ -30,16 +30,14 @@ class DetailKapalActivity : AppCompatActivity() {
         listOfTitles.add("Informasi Kapal")
         listOfTitles.add("Dokumen Kapal")
 
-        val pagerAdapter = DetailKapalViewPagerAdapter(this, listOfTitles)
+        val DATA_TO_SEND = "HOLLAW"
+
+        val pagerAdapter = DetailKapalViewPagerAdapter(this, listOfTitles, DATA_TO_SEND)
         viewPager.adapter = pagerAdapter
 
         // Integrate with tabLayout
         TabLayoutMediator(tabHeader, viewPager) {
             tab: TabLayout.Tab, position: Int -> tab.text = listOfTitles[position]
         }.attach()
-    }
-
-    private fun setCurrentFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.flFragment, fragment).commit()
     }
 }

@@ -52,7 +52,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
         recyclerView.adapter = KapalAdapter(listData, object : KapalAdapter.KapalListener {
             override fun onItemClicked(kapal: KapalModel) {
                 val intent = Intent(context, DetailKapalActivity::class.java)
-                intent.putExtra("DETAIL_KAPAL", kapal)
+                intent.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
         })
