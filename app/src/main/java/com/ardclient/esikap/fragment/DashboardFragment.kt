@@ -34,10 +34,6 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
         // rv
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-
-        // init behavior
-        tvNoData.visibility = View.GONE
-
         // get room data from db
         getSampleData(context!!)
 

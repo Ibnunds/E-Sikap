@@ -26,7 +26,7 @@ class DetailKapalActivity : AppCompatActivity() {
 
         // handle on navigation back
         header.setNavigationOnClickListener {
-            super.onBackPressed();
+            finish()
         }
 
         // Handle videpager

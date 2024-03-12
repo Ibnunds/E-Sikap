@@ -11,4 +11,6 @@
     <string name="desc_label">Deskripsi</string>
     <string name="add_kapal_title">Tambah Kapal</string>
     <string name="detail_kapal_title">Detail Kapal</string>
+    <string name="blue_cat_title">Dokumen PHQC</string>
+    <string name="add_data_title">Tambahkan Data</string>
 </resources>

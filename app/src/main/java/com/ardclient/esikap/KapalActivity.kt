@@ -38,7 +38,7 @@ class KapalActivity : AppCompatActivity() {
 
         // Handle on header back nav
         header.setNavigationOnClickListener {
-            super.onBackPressed()
+            finish()
         }
 
         // handle if existing data exist

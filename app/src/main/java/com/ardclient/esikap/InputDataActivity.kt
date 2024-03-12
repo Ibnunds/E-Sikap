@@ -31,7 +31,7 @@ class InputDataActivity : AppCompatActivity() {
 
         // handle back navigation
         topBarBackutton.setNavigationOnClickListener {
-            super.onBackPressed()
+            finish()
         }
 
         // Extras
