@@ -3,6 +3,7 @@ package com.ardclient.esikap
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
@@ -16,6 +17,7 @@ class KapalActivity : AppCompatActivity() {
     private lateinit var kapal: KapalModel
     private lateinit var database: KapalRoomDatabase
     private lateinit var dao: KapalDAO
+    private var isUpdate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kapal)
@@ -31,11 +33,24 @@ class KapalActivity : AppCompatActivity() {
         // button
         val saveButton = findViewById<Button>(R.id.submitButton)
 
+        // existing data
+        val existingData = intent.getParcelableExtra<KapalModel>("KAPAL")
+
         // Handle on header back nav
         header.setNavigationOnClickListener {
             super.onBackPressed()
         }
 
+        // handle if existing data exist
+        if (existingData != null){
+            isUpdate = true
+            kapal = existingData
+
+            // input
+            namaKapal.editText?.setText(kapal.namaKapal)
+            grossTone.editText?.setText(kapal.grossTone)
+            bendera.editText?.setText(kapal.bendera)
+        }
 
         // init database
         database = KapalRoomDatabase.getDatabase(this)
@@ -58,15 +73,22 @@ class KapalActivity : AppCompatActivity() {
             if (getNamaKapal.isEmpty() || getGrossTone.isEmpty() || getBendera.isEmpty()){
                 Toast.makeText(this, "Form belum lengkap!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
+            }else{
+                if (isUpdate){
+                    onSaveData(KapalModel(id = kapal.id, namaKapal = getNamaKapal, grossTone = getGrossTone, bendera = getBendera))
+                }else{
+                    onSaveData(KapalModel(namaKapal = getNamaKapal, grossTone = getGrossTone, bendera = getBendera))
+                }
             }
 
-            onSaveData(KapalModel(namaKapal = getNamaKapal, grossTone = getGrossTone, bendera = getBendera))
         }
     }
 
     private fun onSaveData(kapal: KapalModel) {
         if (dao.getKapalById(kapal.id).isEmpty()){
             dao.insertKapal(kapal)
+        }else{
+            dao.updateKapal(kapal)
         }
 
         Toast.makeText(this, "Data kapal berhasil disimpan!", Toast.LENGTH_SHORT).show()

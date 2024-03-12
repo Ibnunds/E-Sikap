@@ -18,10 +18,11 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Nama Kapal" />
         <TextView
+            android:id="@+id/tvDetailNamaKapal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="Ini nama kapalnya" />
+            android:text="-" />
     </LinearLayout>
 
     <LinearLayout
@@ -35,10 +36,11 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Gross Tone" />
         <TextView
+            android:id="@+id/tvDetailGrossTone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="Ini nama kapalnya" />
+            android:text="-" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,24 +54,36 @@
             android:fontFamily="@font/poppins_bold"
             android:text="Bendera" />
         <TextView
+            android:id="@+id/tvDetailBendera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:text="Bendera" />
+            android:text="-" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
-            style="@style/Widget.Material3.Button.IconButton.Filled"
-            android:id="@+id/updateDataButton"
-            android:layout_marginTop="24dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update Data"
             android:layout_alignParentBottom="true"
-            />
+            android:orientation="vertical">
+            <Button
+                style="@style/Widget.Material3.Button.IconButton.Filled"
+                android:id="@+id/updateDataButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update Data" />
+            <Button
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:id="@+id/deleteDataButton"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hapus Data" />
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>
