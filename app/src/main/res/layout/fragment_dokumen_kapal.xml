@@ -43,11 +43,13 @@
                             android:layout_marginHorizontal="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Dokumen PHQC"
+                                android:textSize="14sp"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"
                                 />
@@ -56,6 +58,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0 Dokumen"
+                                android:textSize="10sp"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 android:textColor="?android:attr/textColorSecondary"
                                 />
@@ -94,11 +97,13 @@
                             android:layout_marginHorizontal="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Dokumen COP"
+                                android:textSize="14sp"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"
                                 />
@@ -107,6 +112,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0 Dokumen"
+                                android:textSize="10sp"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 android:textColor="?android:attr/textColorSecondary"
                                 />
@@ -145,11 +151,13 @@
                             android:layout_marginHorizontal="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Dokumen SSCEC"
+                                android:textSize="14sp"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"
                                 />
@@ -158,6 +166,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0 Dokumen"
+                                android:textSize="10sp"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 android:textColor="?android:attr/textColorSecondary"
                                 />
@@ -196,11 +205,13 @@
                             android:layout_marginHorizontal="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:orientation="vertical">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Dokumen P3K"
+                                android:textSize="14sp"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:textAppearance="?attr/textAppearanceTitleMedium"
                                 />
@@ -209,6 +220,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0 Dokumen"
+                                android:textSize="10sp"
                                 android:textAppearance="?attr/textAppearanceBodyMedium"
                                 android:textColor="?android:attr/textColorSecondary"
                                 />

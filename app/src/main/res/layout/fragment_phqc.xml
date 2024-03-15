@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.input.phqc.PHQCFragment">
     <ScrollView
         android:layout_width="match_parent"
@@ -13,6 +14,7 @@
             android:padding="14dp"
             android:orientation="vertical">
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etAgen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -28,6 +30,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etAsal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -42,6 +45,7 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etTujuan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -57,6 +61,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etDokumen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -72,6 +77,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etPemeriksaan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -87,6 +93,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etJmlABK"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -96,12 +103,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etDemam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -111,12 +121,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etJmlSehat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -126,12 +139,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etJmlSakit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -141,12 +157,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etJmlMeninggal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -156,11 +175,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etJmlDirujuk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -170,12 +192,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
+                    android:inputType="number"
+                    android:maxLength="4"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_regular"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etSanitasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -191,6 +216,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etKesimpulan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
@@ -204,6 +230,53 @@
                     android:fontFamily="@font/poppins_regular"
                     />
             </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:id="@+id/addSignButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="+ Tanda Tangan Petugas"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_semibold"
+                />
+            <LinearLayout
+                android:id="@+id/signLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/tvSignName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tanda Tangan Petugas : "
+                    android:layout_marginTop="14dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"/>
+                <ImageView
+                    android:clickable="true"
+                    android:id="@+id/ivSignature"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_margin="24dp"
+                    android:background="@drawable/bg_signature_pad"
+                    android:visibility="visible"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Ketuk tanda tangan untuk mengubah"
+                    android:textColor="@color/colorSecondary"/>
+            </LinearLayout>
+
+            <Button
+                style="@style/Widget.Material3.Button.IconButton.Filled"
+                android:id="@+id/saveButton"
+                android:layout_marginTop="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simpan" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

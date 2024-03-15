@@ -10,6 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class PHQCModel(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int = 0,
+    @ColumnInfo(name = "kapalId") var kapalId: Int = 0,
     @ColumnInfo(name = "nama_agen") var namaAgen: String = "",
     @ColumnInfo(name = "nama_kapal") var namaKapal: String = "",
     @ColumnInfo(name = "gros_tone") var grosTone: String = "",

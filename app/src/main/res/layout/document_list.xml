@@ -27,19 +27,25 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_margin="8dp"
-                app:srcCompat="@drawable/ic_ship" />
+                app:srcCompat="@drawable/ic_doc" />
         </com.google.android.material.card.MaterialCardView>
         <LinearLayout
+            android:id="@+id/infoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            android:layout_toLeftOf="@id/chipStatus"
             android:layout_toRightOf="@id/ship_icon">
             <TextView
                 android:id="@+id/card_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ini judul"
+                android:text="Dokumen PHQC"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textSize="14sp"
                 android:fontFamily="@font/poppins_bold"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
@@ -49,11 +55,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Ini body"
                 android:textSize="10sp"
+                android:text="datetime"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?android:attr/textColorSecondary"
                 />
         </LinearLayout>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipStatus"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.Chip.Suggestion"
+            android:text="Belum Diupload"/>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

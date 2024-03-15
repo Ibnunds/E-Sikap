@@ -16,7 +16,7 @@ class DetailKapalViewPagerAdapter(fa: FragmentActivity, private val listOfTitle:
     override fun createFragment(position: Int): Fragment {
         when (position) {
             0 -> return DetailKapalFragment.newInstance(data)
-            1 -> return DokumenKapalFragment()
+            1 -> return DokumenKapalFragment.newInstance(data)
         }
 
         return DetailKapalFragment()

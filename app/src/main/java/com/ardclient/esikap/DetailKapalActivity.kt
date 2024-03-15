@@ -34,7 +34,6 @@ class DetailKapalActivity : AppCompatActivity() {
         listOfTitles.add("Informasi Kapal")
         listOfTitles.add("Dokumen Kapal")
 
-        val DATA_TO_SEND = "HOLLAW"
 
         val pagerAdapter = DetailKapalViewPagerAdapter(this, listOfTitles, existingData!!)
         viewPager.adapter = pagerAdapter

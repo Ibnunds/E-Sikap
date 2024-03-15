@@ -6,6 +6,7 @@
     <color name="colorSecondary">#C1D83E</color>
     <color name="bottomBarBackground">#F6F6F6</color>
     <color name="bottomBarInactive">#C0C0C0</color>
+    <color name="gray">#DDDDDD</color>
 
     <color name="categoryBlue">#629FD5</color>
     <color name="categoryGreen">#7FA654</color>
