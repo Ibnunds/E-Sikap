@@ -22,6 +22,11 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding = ActivityPhqcDocumentDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // header
+        binding.topAppBar.setNavigationOnClickListener {
+            finish()
+        }
+
         // handle selected data
         val existingData = intent.getParcelableExtra<PHQCModel>("PHQC")
         if (existingData != null){
