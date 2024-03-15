@@ -1,7 +1,10 @@
 package com.ardclient.esikap
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.widget.Toast
 import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
@@ -66,5 +69,15 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.tvSanitasi.text = phqc.statusSanitasi
         binding.tvKesimpulan.text = phqc.kesimpulan
         binding.tvPetugas.text = phqc.petugasPelaksana
+
+        // signature
+        val bitmapSign = base64ToBitmap(phqc.signature)
+
+        binding.ivSignature.setImageBitmap(bitmapSign)
+    }
+
+    private fun base64ToBitmap(base64String: String): Bitmap {
+        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
     }
 }

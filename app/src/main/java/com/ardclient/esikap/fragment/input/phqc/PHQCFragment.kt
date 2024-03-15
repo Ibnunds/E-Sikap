@@ -2,8 +2,10 @@ package com.ardclient.esikap.fragment.input.phqc
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -21,11 +23,13 @@ import com.ardclient.esikap.fragment.DokumenKapalFragment
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.PHQCModel
 import com.google.android.material.textfield.TextInputLayout
+import java.io.ByteArrayOutputStream
 
 
 class PHQCFragment : Fragment(R.layout.fragment_phqc) {
     private var launcher: ActivityResultLauncher<Intent>? = null
     private var nmPetugas: String? = null
+    private var base64Sign: String? = null
     private lateinit var binding: FragmentPhqcBinding
 
     // database
@@ -61,6 +65,7 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
                     val decodedSign = data?.getByteArrayExtra("SIGNATURE")
 
                     val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
+                    base64Sign = bitmapToBase64(encodedSign)
 
                     if (!namaPetugas.isNullOrEmpty()) {
                         signLayout.visibility = View.VISIBLE
@@ -156,7 +161,7 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
                     statusSanitasi = sanitasi,
                     kesimpulan = kesimpulan,
                     petugasPelaksana = nmPetugas!!,
-                    signature = "TEST"
+                    signature = base64Sign!!
                 ))
             }else{
                 Toast.makeText(requireContext(), "Belum ada tanda tangan!", Toast.LENGTH_SHORT).show()
@@ -184,5 +189,12 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
             }
         }
         return true
+    }
+
+    fun bitmapToBase64(bitmap: Bitmap): String {
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream) // Ubah ke format yang diinginkan
+        val byteArray = outputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 }
