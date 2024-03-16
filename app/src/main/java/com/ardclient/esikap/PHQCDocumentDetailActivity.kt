@@ -1,5 +1,6 @@
 package com.ardclient.esikap
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -28,18 +29,26 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
             finish()
         }
 
+        // init db
+        db = PHQCRoomDatabase.getDatabase(this)
+        dao = db.getPHQCDao()
+
         // handle selected data
         val existingData = intent.getParcelableExtra<PHQCModel>("PHQC")
         if (existingData != null){
             phqc = existingData
         }
 
-        // init db
-        db = PHQCRoomDatabase.getDatabase(this)
-        dao = db.getPHQCDao()
-
         // handle detail view
         initDetail()
+
+
+        // == Button Listener
+        binding.updateButton.setOnClickListener {
+            val intent = Intent(this, PHQCInputActivity::class.java)
+            intent.putExtra("PHQC", phqc)
+            startActivity(intent)
+        }
 
         binding.deleteButton.setOnClickListener {
             MaterialAlertDialogBuilder(this)
@@ -80,5 +89,16 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         val bitmapSign = Base64Utils.convertBase64ToBitmap(phqc.signature)
 
         binding.ivSignature.setImageBitmap(bitmapSign)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getUpdatedData()
+    }
+
+    private fun getUpdatedData() {
+        val updatedData = dao.getPHQCById(phqc.id)
+        phqc = updatedData[0]
+        initDetail()
     }
 }

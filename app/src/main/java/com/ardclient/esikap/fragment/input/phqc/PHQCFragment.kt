@@ -33,6 +33,7 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
     private var nmPetugas: String? = null
     private var base64Sign: String? = null
     private lateinit var binding: FragmentPhqcBinding
+    private var isUpdate: Boolean? = false
 
     // database
     private lateinit var phqc: PHQCModel
@@ -42,10 +43,17 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
 
     companion object {
         private const val ARG_DATA = "KAPAL"
-        fun newInstance(data: KapalModel): PHQCFragment {
+        private const val ARG_EXISTING_DATA = "EXISTING"
+        private const val ARG_IS_UPDATE = "UPDATE"
+        fun newInstance(isUpdate: Boolean, data: KapalModel, existingData: PHQCModel): PHQCFragment {
             val fragment = PHQCFragment()
             val args = Bundle()
-            args.putParcelable(ARG_DATA, data)
+            args.putBoolean(ARG_IS_UPDATE, isUpdate)
+            if (isUpdate){
+                args.putParcelable(ARG_EXISTING_DATA, existingData)
+            }else{
+                args.putParcelable(ARG_DATA, data)
+            }
             fragment.arguments = args
             return fragment
         }
@@ -69,8 +77,6 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
                     val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
                     base64Sign = Base64Utils.convertBitmapToBase64(encodedSign)
 
-                    Log.d("BASE64", base64Sign!!)
-
                     if (!namaPetugas.isNullOrEmpty()) {
                         signLayout.visibility = View.VISIBLE
                         addSignButton.visibility = View.GONE
@@ -82,12 +88,27 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
                 }
             }
 
-            // Ambil data dari arguments
-            val kapalData = arguments?.getParcelable<KapalModel>(ARG_DATA)
 
-            if (kapalData != null){
-                kapal = kapalData
+            // check is from update
+            isUpdate = arguments?.getBoolean(ARG_IS_UPDATE)
+
+            if (isUpdate == true){
+                val existingData = arguments?.getParcelable<PHQCModel>(ARG_EXISTING_DATA)
+
+                if (existingData !=null){
+                    phqc = existingData
+                }
+
+                initExistingData()
+            }else{
+                // Ambil data dari arguments
+                val kapalData = arguments?.getParcelable<KapalModel>(ARG_DATA)
+
+                if (kapalData != null){
+                    kapal = kapalData
+                }
             }
+
 
             // init database
             database = PHQCRoomDatabase.getDatabase(requireContext())
@@ -109,6 +130,32 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
                 onSaveButtonPressed()
             }
         }
+    }
+
+    private fun initExistingData() {
+        binding.etAgen.editText?.setText(phqc.namaAgen)
+        binding.etAsal.editText?.setText(phqc.negaraAsal)
+        binding.etTujuan.editText?.setText(phqc.tujuan)
+        binding.etDokumen.editText?.setText(phqc.dokumenKapal)
+        binding.etPemeriksaan.editText?.setText(phqc.lokasiPemeriksaan)
+        binding.etJmlABK.editText?.setText(phqc.jumlahABK.toString())
+        binding.etDemam.editText?.setText(phqc.deteksiDemam.toString())
+        binding.etJmlSakit.editText?.setText(phqc.jumlahSakit.toString())
+        binding.etJmlSehat.editText?.setText(phqc.jumlahSehat.toString())
+        binding.etJmlMeninggal.editText?.setText(phqc.jumlahMeninggal.toString())
+        binding.etJmlDirujuk.editText?.setText(phqc.jumlahDirujuk.toString())
+        binding.etSanitasi.editText?.setText(phqc.statusSanitasi)
+        binding.etKesimpulan.editText?.setText(phqc.kesimpulan)
+        binding.tvSignName.text = "Tanda tangan : ${phqc.petugasPelaksana}"
+        nmPetugas = phqc.petugasPelaksana
+
+        // signature
+        val bitmapSign = Base64Utils.convertBase64ToBitmap(phqc.signature)
+        binding.ivSignature.setImageBitmap(bitmapSign)
+        base64Sign = phqc.signature
+
+        binding.signLayout.visibility = View.VISIBLE
+        binding.addSignButton.visibility = View.GONE
     }
 
     private fun onSaveButtonPressed() {
@@ -146,27 +193,53 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
 
         if (isAllFilled){
             if (nmPetugas != null){
-                onSaveData(PHQCModel(
-                    kapalId = kapal.id,
-                    namaAgen = agen,
-                    namaKapal = kapal.namaKapal,
-                    grosTone = kapal.grossTone,
-                    bendera = kapal.bendera,
-                    negaraAsal = asal,
-                    tujuan = tujuan,
-                    dokumenKapal = dokumen,
-                    lokasiPemeriksaan = pemeriksaan,
-                    jumlahABK = jmlABK.toInt(),
-                    deteksiDemam = demam.toInt(),
-                    jumlahSehat = jmlSehat.toInt(),
-                    jumlahSakit =  jmlSakit.toInt(),
-                    jumlahMeninggal = jmlMeninggal.toInt(),
-                    jumlahDirujuk = jmlDirujuk.toInt(),
-                    statusSanitasi = sanitasi,
-                    kesimpulan = kesimpulan,
-                    petugasPelaksana = nmPetugas!!,
-                    signature = base64Sign!!
-                ))
+                if (isUpdate == true){
+                    onSaveData(PHQCModel(
+                        id = phqc.id,
+                        kapalId = phqc.kapalId,
+                        namaAgen = agen,
+                        namaKapal = phqc.namaKapal,
+                        grosTone = phqc.grosTone,
+                        bendera = phqc.bendera,
+                        negaraAsal = asal,
+                        tujuan = tujuan,
+                        dokumenKapal = dokumen,
+                        lokasiPemeriksaan = pemeriksaan,
+                        jumlahABK = jmlABK.toInt(),
+                        deteksiDemam = demam.toInt(),
+                        jumlahSehat = jmlSehat.toInt(),
+                        jumlahSakit =  jmlSakit.toInt(),
+                        jumlahMeninggal = jmlMeninggal.toInt(),
+                        jumlahDirujuk = jmlDirujuk.toInt(),
+                        statusSanitasi = sanitasi,
+                        kesimpulan = kesimpulan,
+                        petugasPelaksana = nmPetugas!!,
+                        signature = base64Sign!!
+                    ))
+                }else{
+                    onSaveData(PHQCModel(
+                        kapalId = kapal.id,
+                        namaAgen = agen,
+                        namaKapal = kapal.namaKapal,
+                        grosTone = kapal.grossTone,
+                        bendera = kapal.grossTone,
+                        negaraAsal = asal,
+                        tujuan = tujuan,
+                        dokumenKapal = dokumen,
+                        lokasiPemeriksaan = pemeriksaan,
+                        jumlahABK = jmlABK.toInt(),
+                        deteksiDemam = demam.toInt(),
+                        jumlahSehat = jmlSehat.toInt(),
+                        jumlahSakit =  jmlSakit.toInt(),
+                        jumlahMeninggal = jmlMeninggal.toInt(),
+                        jumlahDirujuk = jmlDirujuk.toInt(),
+                        statusSanitasi = sanitasi,
+                        kesimpulan = kesimpulan,
+                        petugasPelaksana = nmPetugas!!,
+                        signature = base64Sign!!
+                    ))
+                }
+
             }else{
                 Toast.makeText(requireContext(), "Belum ada tanda tangan!", Toast.LENGTH_SHORT).show()
             }
@@ -176,7 +249,12 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
     }
 
     private fun onSaveData(phqc: PHQCModel) {
-        dao.createPHQC(phqc)
+        if (dao.getPHQCById(phqc.id).isEmpty()){
+            dao.createPHQC(phqc)
+        }else{
+            dao.updatePHQC(phqc)
+        }
+
 
         Toast.makeText(requireContext(), "Dokumen berhasil dibuat!", Toast.LENGTH_SHORT).show()
         activity?.finish()

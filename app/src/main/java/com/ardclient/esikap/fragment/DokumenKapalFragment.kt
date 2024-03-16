@@ -5,20 +5,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.ardclient.esikap.DocumentListActivity
-import com.ardclient.esikap.PHQCInputActivity
 import com.ardclient.esikap.R
 import com.ardclient.esikap.database.kapal.KapalDAO
 import com.ardclient.esikap.database.kapal.KapalRoomDatabase
-import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
+import com.ardclient.esikap.databinding.FragmentDokumenKapalBinding
 import com.ardclient.esikap.model.KapalModel
-import com.google.android.material.card.MaterialCardView
-
 
 class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
     private lateinit var db: KapalRoomDatabase
     private lateinit var dao: KapalDAO
     private lateinit var kapal: KapalModel
+    private lateinit var binding: FragmentDokumenKapalBinding
 
     companion object {
         private const val ARG_DATA = "KAPAL"
@@ -32,11 +30,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val catBlue = view.findViewById<MaterialCardView>(R.id.cardBlue) // phqc
-        val catGreen = view.findViewById<MaterialCardView>(R.id.cardGreen) // cop
-        val catOrange = view.findViewById<MaterialCardView>(R.id.cardOrange) // sscec
-        val catAmber = view.findViewById<MaterialCardView>(R.id.cardAmber) // p3k
+        binding = FragmentDokumenKapalBinding.bind(view)
 
         // init db
         db = KapalRoomDatabase.getDatabase(requireContext())
@@ -49,10 +43,25 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
             getKapalData(kapalData.id)
         }
 
-        catBlue.setOnClickListener {
+        // Document Count
+        initPHQCDocumentCount()
+
+        // On Category Card Pressed
+        binding.cardBlue.setOnClickListener {
             onCategoryPressed("BLUE")
         }
 
+    }
+
+    private fun initPHQCDocumentCount() {
+        val db = PHQCRoomDatabase.getDatabase(requireContext())
+        val dao = db.getPHQCDao()
+
+        val getData = dao.getAllPHQC()
+
+        if (getData != null){
+            binding.bodyBlue.text = "${getData.size} Dokumen"
+        }
     }
 
     private fun getKapalData(id: Int) {
@@ -69,5 +78,11 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
             }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Check Document Count
+        initPHQCDocumentCount()
     }
 }

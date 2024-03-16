@@ -22,9 +22,6 @@
             android:name=".PHQCInputActivity"
             android:exported="false" />
         <activity
-            android:name=".DocumentInputActivity"
-            android:exported="false" />
-        <activity
             android:name=".DocumentListActivity"
             android:exported="false" />
         <activity

@@ -14,11 +14,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ardclient.esikap.fragment.input.phqc.PHQCFragment
 import com.ardclient.esikap.model.KapalModel
+import com.ardclient.esikap.model.PHQCModel
 import com.google.android.material.appbar.MaterialToolbar
 
 
 class PHQCInputActivity : AppCompatActivity() {
     private lateinit var kapal: KapalModel
+    private lateinit var phqc: PHQCModel
+    private var isUpdate: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +30,26 @@ class PHQCInputActivity : AppCompatActivity() {
         // init
         val header = findViewById<MaterialToolbar>(R.id.topAppBar)
 
+        // check is from update
+        val updateData = intent.getParcelableExtra<PHQCModel>("PHQC")
+        if (updateData!=null){
+            phqc = updateData
+            isUpdate = true
+        }else{
+            phqc = PHQCModel()
+        }
+
         // existing kapal data
         val kapalData = intent.getParcelableExtra<KapalModel>("KAPAL")
 
         if (kapalData != null){
             kapal = kapalData
+        }else{
+            kapal = KapalModel()
         }
 
         // fragment
-        val blue1Fragment = PHQCFragment.newInstance(kapal)
+        val blue1Fragment = PHQCFragment.newInstance(isUpdate, kapal, phqc)
 
         // header
         header.setNavigationOnClickListener {

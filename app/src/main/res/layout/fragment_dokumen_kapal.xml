@@ -16,7 +16,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp">
+                android:layout_marginBottom="8dp">
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardBlue"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp">
+                android:layout_marginBottom="8dp">
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardGreen"
                     android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp">
+                android:layout_marginBottom="8dp">
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardOrange"
                     android:layout_height="wrap_content"
