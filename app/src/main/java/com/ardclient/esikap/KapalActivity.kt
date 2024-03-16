@@ -1,43 +1,34 @@
 package com.ardclient.esikap
 
-import android.content.Context
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.ardclient.esikap.database.kapal.KapalDAO
 import com.ardclient.esikap.database.kapal.KapalRoomDatabase
+import com.ardclient.esikap.databinding.ActivityKapalBinding
 import com.ardclient.esikap.model.KapalModel
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.textfield.TextInputLayout
+import com.ardclient.esikap.utils.InputValidation
 
 class KapalActivity : AppCompatActivity() {
     private lateinit var kapal: KapalModel
     private lateinit var database: KapalRoomDatabase
     private lateinit var dao: KapalDAO
     private var isUpdate = false
+    private lateinit var binding: ActivityKapalBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kapal)
-
-        // app bar
-        val header = findViewById<MaterialToolbar>(R.id.topAppBar)
-
-        // input
-        val namaKapal = findViewById<TextInputLayout>(R.id.in_kapal_name)
-        val grossTone = findViewById<TextInputLayout>(R.id.in_kapal_gross_tone)
-        val bendera = findViewById<TextInputLayout>(R.id.in_kapal_bendera)
-
-        // button
-        val saveButton = findViewById<Button>(R.id.submitButton)
+        binding = ActivityKapalBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // existing data
         val existingData = intent.getParcelableExtra<KapalModel>("KAPAL")
 
         // Handle on header back nav
-        header.setNavigationOnClickListener {
+        binding.topAppBar.setNavigationOnClickListener {
             finish()
         }
 
@@ -47,40 +38,33 @@ class KapalActivity : AppCompatActivity() {
             kapal = existingData
 
             // input
-            namaKapal.editText?.setText(kapal.namaKapal)
-            grossTone.editText?.setText(kapal.grossTone)
-            bendera.editText?.setText(kapal.bendera)
+            binding.inKapalName.editText?.setText(kapal.namaKapal)
+            binding.inKapalGrossTone.editText?.setText(kapal.grossTone)
+            binding.inKapalBendera.editText?.setText(kapal.bendera)
         }
 
         // init database
         database = KapalRoomDatabase.getDatabase(this)
         dao = database.getKapalDAO()
 
-        saveButton.setOnClickListener {
-            val getNamaKapal = namaKapal.editText?.text.toString()
-            val getGrossTone = grossTone.editText?.text.toString()
-            val getBendera = bendera.editText?.text.toString()
+        binding.submitButton.setOnClickListener {
+            val getNamaKapal = binding.inKapalName.editText?.text.toString()
+            val getGrossTone = binding.inKapalGrossTone.editText?.text.toString()
+            val getBendera = binding.inKapalBendera.editText?.text.toString()
 
-            // Hide keyboard
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+            val isFormComplete = InputValidation.isAllFieldComplete(
+                binding.inKapalName,
+                binding.inKapalGrossTone,
+                binding.inKapalBendera
+            )
 
-            // clear focus
-            bendera.clearFocus()
-            namaKapal.clearFocus()
-            grossTone.clearFocus()
-
-            if (getNamaKapal.isEmpty() || getGrossTone.isEmpty() || getBendera.isEmpty()){
-                Toast.makeText(this, "Form belum lengkap!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }else{
+            if (isFormComplete){
                 if (isUpdate){
                     onSaveData(KapalModel(id = kapal.id, namaKapal = getNamaKapal, grossTone = getGrossTone, bendera = getBendera))
                 }else{
                     onSaveData(KapalModel(namaKapal = getNamaKapal, grossTone = getGrossTone, bendera = getBendera))
                 }
             }
-
         }
     }
 
@@ -93,5 +77,21 @@ class KapalActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Data kapal berhasil disimpan!", Toast.LENGTH_SHORT).show()
         finish()
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val v = currentFocus
+            if (v is EditText) {
+                val outRect = Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    v.clearFocus()
+                    val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
     }
 }
