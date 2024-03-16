@@ -22,6 +22,8 @@ import com.ardclient.esikap.fragment.DetailKapalFragment
 import com.ardclient.esikap.fragment.DokumenKapalFragment
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.PHQCModel
+import com.ardclient.esikap.utils.Base64Utils
+import com.ardclient.esikap.utils.InputValidation
 import com.google.android.material.textfield.TextInputLayout
 import java.io.ByteArrayOutputStream
 
@@ -65,7 +67,9 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
                     val decodedSign = data?.getByteArrayExtra("SIGNATURE")
 
                     val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
-                    base64Sign = bitmapToBase64(encodedSign)
+                    base64Sign = Base64Utils.convertBitmapToBase64(encodedSign)
+
+                    Log.d("BASE64", base64Sign!!)
 
                     if (!namaPetugas.isNullOrEmpty()) {
                         signLayout.visibility = View.VISIBLE
@@ -124,7 +128,7 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
         val kesimpulan = binding.etKesimpulan.editText?.text.toString()
 
         // Mengecek apakah semua input terisi
-        val isAllFilled = areAllFieldsFilled(
+        val isAllFilled = InputValidation.isAllFieldComplete(
             binding.etAgen,
             binding.etAsal,
             binding.etTujuan,
@@ -176,25 +180,5 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
 
         Toast.makeText(requireContext(), "Dokumen berhasil dibuat!", Toast.LENGTH_SHORT).show()
         activity?.finish()
-    }
-
-    private fun areAllFieldsFilled(vararg fields: TextInputLayout): Boolean {
-        for (field in fields) {
-            if (field.editText?.text!!.isEmpty()) {
-                field.error = "${field.hint.toString()} tidak boleh kosong."
-                return false
-            }else{
-                field.isErrorEnabled = false
-                field.error = null
-            }
-        }
-        return true
-    }
-
-    fun bitmapToBase64(bitmap: Bitmap): String {
-        val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream) // Ubah ke format yang diinginkan
-        val byteArray = outputStream.toByteArray()
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
     }
 }

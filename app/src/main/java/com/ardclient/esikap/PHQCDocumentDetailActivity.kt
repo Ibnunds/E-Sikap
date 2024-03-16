@@ -10,6 +10,7 @@ import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.databinding.ActivityPhqcDocumentDetailBinding
 import com.ardclient.esikap.model.PHQCModel
+import com.ardclient.esikap.utils.Base64Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PHQCDocumentDetailActivity : AppCompatActivity() {
@@ -76,13 +77,8 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.tvPetugas.text = phqc.petugasPelaksana
 
         // signature
-        val bitmapSign = base64ToBitmap(phqc.signature)
+        val bitmapSign = Base64Utils.convertBase64ToBitmap(phqc.signature)
 
         binding.ivSignature.setImageBitmap(bitmapSign)
-    }
-
-    private fun base64ToBitmap(base64String: String): Bitmap {
-        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
     }
 }
