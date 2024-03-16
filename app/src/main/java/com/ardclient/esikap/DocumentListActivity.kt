@@ -65,7 +65,7 @@ class DocumentListActivity : AppCompatActivity() {
         val dao = database.getPHQCDao()
         val listData = arrayListOf<PHQCModel>()
 
-        listData.addAll(dao.getAllPHQC())
+        listData.addAll(dao.getAllPHQC(kapal.id))
 
         loadingBar.visibility = View.GONE
 

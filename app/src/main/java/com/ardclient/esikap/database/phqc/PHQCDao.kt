@@ -12,8 +12,8 @@ interface PHQCDao {
     @Insert
     fun createPHQC(phqc: PHQCModel)
 
-    @Query("SELECT * FROM phqc ORDER BY id DESC")
-    fun getAllPHQC(): List<PHQCModel>
+    @Query("SELECT * FROM phqc WHERE kapalId = :kapalId ORDER BY id DESC")
+    fun getAllPHQC(kapalId: Int): List<PHQCModel>
 
     @Delete
     fun deletePHQC(id: PHQCModel)

@@ -57,7 +57,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val db = PHQCRoomDatabase.getDatabase(requireContext())
         val dao = db.getPHQCDao()
 
-        val getData = dao.getAllPHQC()
+        val getData = dao.getAllPHQC(kapal.id)
 
         if (getData != null){
             binding.bodyBlue.text = "${getData.size} Dokumen"
