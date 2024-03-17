@@ -25,7 +25,7 @@ class COPAdapter(private val listItems: ArrayList<COPModel>, private val listene
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
-        holder.tvTitle.text = "COP ${item.namaKapal} - ${item.id}"
+        holder.tvTitle.text = "COP ${item.kapal.namaKapal} - ${item.id}"
         holder.tvBody.text = "timestamp"
         holder.itemView.setOnClickListener {
             listener.onItemClicked(item)

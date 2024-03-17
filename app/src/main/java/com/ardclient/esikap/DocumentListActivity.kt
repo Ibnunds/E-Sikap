@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardclient.esikap.adapter.COPAdapter
 import com.ardclient.esikap.adapter.PHQCAdapter
+import com.ardclient.esikap.cop.CopInputActivity
 import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.databinding.ActivityDocumentListBinding

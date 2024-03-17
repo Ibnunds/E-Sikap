@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CopInputActivity">
+    tools:context=".cop.CopInputActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
@@ -235,7 +235,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="Simpan"
+                android:text="Buat Dokumen"
                 />
         </RelativeLayout>
     </LinearLayout>

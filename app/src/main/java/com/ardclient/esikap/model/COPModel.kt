@@ -2,8 +2,11 @@ package com.ardclient.esikap.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ardclient.esikap.model.reusable.DokumenKapalModel
+import com.ardclient.esikap.model.reusable.SanitasiModel
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "cop")
@@ -11,12 +14,10 @@ import kotlinx.parcelize.Parcelize
 data class COPModel(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int = 0,
     @ColumnInfo(name = "kapalId") var kapalId: Int = 0,
+    @Embedded(prefix = "kapal_") var kapal: KapalModel = KapalModel(),
     @ColumnInfo(name = "nama_agen") var namaAgen: String = "",
     @ColumnInfo(name = "nama_kapten") var namaKapten: String = "",
-    @ColumnInfo(name = "nama_kapal") var namaKapal: String = "",
     @ColumnInfo(name = "imo") var imo: String = "",
-    @ColumnInfo(name = "gros_tone") var grosTone: String = "",
-    @ColumnInfo(name = "bendera") var bendera: String = "",
     @ColumnInfo(name = "negara_asal") var negaraAsal: String = "",
     @ColumnInfo(name = "tujuan") var tujuan: String = "",
     @ColumnInfo(name = "tanggal_tiba") var tglTiba: String = "",
@@ -33,46 +34,7 @@ data class COPModel(
     @ColumnInfo(name = "jumlah_penumpang_asing") var jumlahPenumpangAsing: Int = 0,
     @ColumnInfo(name = "penumpang_asing_sehat") var penumpangAsingSehat: Int = 0,
     @ColumnInfo(name = "penumpang_asing_sakit") var penumpangAsingSakit : Int = 0,
-    @ColumnInfo(name = "isyarat_karantina") var isyaratKarantina: String = "",
-    @ColumnInfo(name = "aktifitasKapal") var aktifitasKapal: String = "",
-    @ColumnInfo(name = "mdh") var mdh: String = "",
-    @ColumnInfo(name = "sscec") var sscec: String = "",
-    @ColumnInfo(name = "daftar_vaksinasi") var daftarVaksinasi: String = "",
-    @ColumnInfo(name = "daftar_abk") var daftarABK: String = "",
-    @ColumnInfo(name = "buku_kuning") var bukuKuning: String = "",
-    @ColumnInfo(name = "certP3K") var certP3K: String = "",
-    @ColumnInfo(name = "buku_kesehatan") var bukuKesehatan: String = "",
-    @ColumnInfo(name = "catatan_perjalanan") var catatanPerjalanan: String = "",
-    @ColumnInfo(name = "ship_particular") var shipParticular: String = "",
-    @ColumnInfo(name = "izinBerlayar") var izinBerlayar: String = "",
-    @ColumnInfo(name = "daftar_narkotik") var daftarNarkotik: String = "",
-    @ColumnInfo(name = "daftar_obat") var daftarObat: String = "",
-    @ColumnInfo(name = "daftar_alkes") var daftarAlkes: String = "",
-    @ColumnInfo(name = "san_dapur") var sanDapur: String = "",
-    @ColumnInfo(name = "san_ruang_sakit") var sanRuangSakit: String = "",
-    @ColumnInfo(name = "san_gudang") var sanGudang: String = "",
-    @ColumnInfo(name = "san_palka") var sanPalka: String = "",
-    @ColumnInfo(name = "san_ruang_tidur") var sanRuangTidur: String = "",
-    @ColumnInfo(name = "san_abk_req") var sanABKReq: String = "",
-    @ColumnInfo(name = "san_perwira") var sanPerwira: String = "",
-    @ColumnInfo(name = "san_penumpang") var sanPenumpang: String = "",
-    @ColumnInfo(name = "san_geladak") var sanGeladak: String = "",
-    @ColumnInfo(name = "san_air_minum") var sanAirMinum: String = "",
-    @ColumnInfo(name = "san_limba_cair") var sanLimbaCair: String = "",
-    @ColumnInfo(name = "san_air_tergenang") var sanAirTergenang: String = "",
-    @ColumnInfo(name = "san_ruang_mesin") var sanRuangMesin: String = "",
-    @ColumnInfo(name = "san_fasilitas_medik") var sanFasilitasMedik: String = "",
-    @ColumnInfo(name = "san_area_lainnya") var sanAreaLainnya: String = "",
-    @ColumnInfo(name = "vec_dapur") var vecDapur: String = "",
-    @ColumnInfo(name = "vec_ruang_sakit") var vecRuangSakit: String = "",
-    @ColumnInfo(name = "vec_gudang") var vecGudang: String = "",
-    @ColumnInfo(name = "vec_palka") var vecPalka: String = "",
-    @ColumnInfo(name = "vec_ruang_tidur") var vecRuangTidur: String = "",
-    @ColumnInfo(name = "vec_abk_req") var vecABKReq: String = "",
-    @ColumnInfo(name = "vec_perwira") var vecPerwira: String = "",
-    @ColumnInfo(name = "vec_penumpang") var vecPenumpang: String = "",
-    @ColumnInfo(name = "vec_geladak") var vecGeladak: String = "",
-    @ColumnInfo(name = "vec_air_minum") var vecAirMinum: String = "",
-    @ColumnInfo(name = "vec_limba_cair") var vecLimbaCair: String = "",
+    @Embedded(prefix = "doc_") var dokumenKapal: DokumenKapalModel = DokumenKapalModel(),
+    @Embedded(prefix = "sanitasi_") var sanitasiKapal: SanitasiModel = SanitasiModel(),
     @ColumnInfo(name = "rekomendasi") var rekomendasi: String = "",
 ) : Parcelable
