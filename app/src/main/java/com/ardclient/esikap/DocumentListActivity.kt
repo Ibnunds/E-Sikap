@@ -2,40 +2,37 @@ package com.ardclient.esikap
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.ardclient.esikap.adapter.COPAdapter
 import com.ardclient.esikap.adapter.PHQCAdapter
+import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
+import com.ardclient.esikap.databinding.ActivityDocumentListBinding
+import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.PHQCModel
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DocumentListActivity : AppCompatActivity() {
-    private lateinit var tvNoData: TextView
-    private lateinit var loadingBar: ProgressBar
-    private lateinit var recyclerView: RecyclerView
 
     private lateinit var kapal: KapalModel
 
+    // type handler
+    private var listType: String? = null
+
+    private lateinit var binding: ActivityDocumentListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_document_list)
-
-        // init
-        val header = findViewById<MaterialToolbar>(R.id.topAppBar)
-        loadingBar = findViewById(R.id.loading_view)
-        tvNoData = findViewById(R.id.no_data_text)
-        recyclerView = findViewById(R.id.recycler_view)
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        binding = ActivityDocumentListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // rv
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // get type
+        listType = intent.getStringExtra("TYPE")
 
         // existing kapal data
         val kapalData = intent.getParcelableExtra<KapalModel>("KAPAL")
@@ -44,19 +41,36 @@ class DocumentListActivity : AppCompatActivity() {
             kapal = kapalData
         }
 
-        // get PHQC DB
-        getPHQCDatabase()
+        // get db by type
+        initDBbyType()
 
         // header
-        header.setNavigationOnClickListener{
+        binding.topAppBar.setNavigationOnClickListener{
             finish()
         }
 
         // fab
-        fab.setOnClickListener {
-            val intent = Intent(this, PHQCInputActivity::class.java)
-            intent.putExtra("KAPAL", kapal)
-            startActivity(intent)
+        binding.fab.setOnClickListener {
+            val intent = when(listType) {
+                "BLUE" -> Intent(this, PHQCInputActivity::class.java)
+                "GREEN" -> Intent(this, CopInputActivity::class.java)
+                else -> null // Mungkin perlu penanganan lebih lanjut tergantung dari kasus Anda
+            }
+            intent?.putExtra("KAPAL", kapal)
+            intent?.let { startActivity(it) }
+        }
+    }
+
+    private fun initDBbyType() {
+        when(listType) {
+            "BLUE" -> {
+                binding.topAppBar.title = "Dokumen PHQC"
+                getPHQCDatabase()
+            }
+            "GREEN" -> {
+                binding.topAppBar.title = "Dokumen COP"
+                getCOPDatabase()
+            }
         }
     }
 
@@ -67,34 +81,53 @@ class DocumentListActivity : AppCompatActivity() {
 
         listData.addAll(dao.getAllPHQC(kapal.id))
 
-        loadingBar.visibility = View.GONE
+        binding.loadingView.visibility = View.GONE
 
         if (listData.size < 1){
-            tvNoData.visibility = View.VISIBLE
+            binding.noDataText.visibility = View.VISIBLE
         }else{
-            tvNoData.visibility = View.GONE
+            binding.noDataText.visibility = View.GONE
         }
 
-        setupRecyclerView("PHQC", listData)
+        // setupRecyclerView("PHQC", listData)
+        binding.recyclerView.adapter = PHQCAdapter(listData, object : PHQCAdapter.PHQCListner {
+            override fun onItemClicked(phqc: PHQCModel) {
+                val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
+                intent.putExtra("PHQC", phqc)
+                startActivity(intent)
+            }
+        })
 
     }
 
-    private fun setupRecyclerView(type: String, listData: ArrayList<PHQCModel>) {
-        when(type){
-            "PHQC" -> {
-                recyclerView.adapter = PHQCAdapter(listData, object : PHQCAdapter.PHQCListner {
-                    override fun onItemClicked(phqc: PHQCModel) {
-                        val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
-                        intent.putExtra("PHQC", phqc)
-                        startActivity(intent)
-                    }
-                })
-            }
+    private fun getCOPDatabase() {
+        val database = COPRoomDatabase.getDatabase(this)
+        val dao = database.getCOPDao()
+        val listData = arrayListOf<COPModel>()
+
+        listData.addAll(dao.getAllCOP(kapal.id))
+
+        binding.loadingView.visibility = View.GONE
+
+        if (listData.size < 1){
+            binding.noDataText.visibility = View.VISIBLE
+        }else{
+            binding.noDataText.visibility = View.GONE
         }
+
+        // setupRecyclerView("COP", listData)
+        binding.recyclerView.adapter = COPAdapter(listData, object : COPAdapter.COPListner {
+            override fun onItemClicked(cop: COPModel) {
+                val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
+                intent.putExtra("COP", cop)
+                startActivity(intent)
+            }
+
+        })
     }
 
     override fun onResume() {
         super.onResume()
-        getPHQCDatabase()
+        initDBbyType()
     }
 }

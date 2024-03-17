@@ -51,6 +51,10 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
             onCategoryPressed("BLUE")
         }
 
+        binding.cardGreen.setOnClickListener {
+            onCategoryPressed("GREEN")
+        }
+
     }
 
     private fun initPHQCDocumentCount() {
@@ -73,6 +77,14 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         when(type){
             "BLUE" -> {
                 val intent = Intent(requireContext(), DocumentListActivity::class.java)
+                intent.putExtra("TYPE", type)
+                intent.putExtra("KAPAL", kapal)
+                startActivity(intent)
+            }
+
+            "GREEN" -> {
+                val intent = Intent(requireContext(), DocumentListActivity::class.java)
+                intent.putExtra("TYPE", type)
                 intent.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
