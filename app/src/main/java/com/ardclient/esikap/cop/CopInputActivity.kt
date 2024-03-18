@@ -6,15 +6,18 @@ import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
-import com.ardclient.esikap.R
+import com.ardclient.esikap.SanitasiInputActivity
 import com.ardclient.esikap.databinding.ActivityCopInputBinding
 import com.ardclient.esikap.model.COPModel
+import com.ardclient.esikap.model.reusable.DokumenKapalModel
 
 class CopInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCopInputBinding
     private var launcher: ActivityResultLauncher<Intent>? = null
+
+    // result data
     private lateinit var copBasicData: COPModel
+    private lateinit var copDocData: DokumenKapalModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCopInputBinding.inflate(layoutInflater)
@@ -36,12 +39,23 @@ class CopInputActivity : AppCompatActivity() {
                 val data = result.data
 
                 // Receive Data
+
+                // == Basic Data
                 val basicCOPData = data?.getParcelableExtra<COPModel>("COP_BASIC")
                 if (basicCOPData !=null){
                     copBasicData = basicCOPData
                     binding.chipCOPDataUmum.isChecked = true
                     binding.chipCOPDataUmum.text = "Lengkap"
                 }
+
+                // == Doc Data
+                val docCOPdata = data?.getParcelableExtra<DokumenKapalModel>("COP_DOC")
+                if (docCOPdata != null){
+                    copDocData = docCOPdata
+                    binding.chipCOPDokumenKapal.isChecked = true
+                    binding.chipCOPDokumenKapal.text = "Lengkap"
+                }
+
             }
         }
 
@@ -56,10 +70,11 @@ class CopInputActivity : AppCompatActivity() {
             val intent = Intent(this, CopInputDokumenActivity::class.java)
             launcher?.launch(intent)
         }
-    }
 
-    private fun setCurrentFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.inputFragment, fragment).commit()
+        binding.cardCOPSanitasi.setOnClickListener {
+            val intent = Intent(this, SanitasiInputActivity::class.java)
+            launcher?.launch(intent)
+        }
     }
 
 

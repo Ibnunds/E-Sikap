@@ -64,4 +64,5 @@ dependencies {
     implementation("com.github.gcacace:signature-pad:1.3.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.picasso:picasso:2.8")
 }

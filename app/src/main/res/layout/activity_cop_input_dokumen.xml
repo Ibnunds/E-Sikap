@@ -101,6 +101,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevMDH"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectMDH"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -125,6 +133,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevSSCEC"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectSSCEC"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -148,6 +164,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevVaksin"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectVaksin"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -171,6 +195,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevABK"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectABK"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -194,6 +226,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevBukuKuning"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectBukuKuning"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -217,6 +257,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevP3K"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectCertP3K"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -240,6 +288,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevBukuKesehatan"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectBukuSehat"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -263,6 +319,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevCatatanPerjalanan"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectPerjalanan"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -286,6 +350,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevShipParticular"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectShipParticular"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -309,6 +381,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevIzinBerlayar"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectIzinBerlayar"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -332,6 +412,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevNarkotik"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectNarkotik"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -355,6 +443,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevObat"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectObat"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -378,6 +474,14 @@
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevAlkes"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
                     <Button
                         android:id="@+id/btnSelectAlkse"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
