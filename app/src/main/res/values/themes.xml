@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+        <item name="android:backgroundDimAmount">0.5</item>
     </style>
 
     <!-- Dialog Styles -->
