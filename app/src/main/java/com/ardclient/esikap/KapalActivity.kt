@@ -41,6 +41,10 @@ class KapalActivity : AppCompatActivity() {
             binding.inKapalName.editText?.setText(kapal.namaKapal)
             binding.inKapalGrossTone.editText?.setText(kapal.grossTone)
             binding.inKapalBendera.editText?.setText(kapal.bendera)
+            binding.inKapalImo.editText?.setText(kapal.imo)
+            binding.inKapalAgen.editText?.setText(kapal.namaAgen)
+            binding.inKapalAsal.editText?.setText(kapal.negaraAsal)
+            binding.inKapalKapten.editText?.setText(kapal.kaptenKapal)
         }
 
         // init database
@@ -51,18 +55,43 @@ class KapalActivity : AppCompatActivity() {
             val getNamaKapal = binding.inKapalName.editText?.text.toString()
             val getGrossTone = binding.inKapalGrossTone.editText?.text.toString()
             val getBendera = binding.inKapalBendera.editText?.text.toString()
+            val getIMO = binding.inKapalImo.editText?.text.toString()
+            val getAgen = binding.inKapalAgen.editText?.text.toString()
+            val getAsal = binding.inKapalAsal.editText?.text.toString()
+            val getKapten = binding.inKapalKapten.editText?.text.toString()
 
             val isFormComplete = InputValidation.isAllFieldComplete(
                 binding.inKapalName,
                 binding.inKapalGrossTone,
-                binding.inKapalBendera
+                binding.inKapalBendera,
+                binding.inKapalImo,
+                binding.inKapalAgen,
+                binding.inKapalAsal,
+                binding.inKapalKapten,
             )
 
             if (isFormComplete){
                 if (isUpdate){
-                    onSaveData(KapalModel(id = kapal.id, namaKapal = getNamaKapal, grossTone = getGrossTone, bendera = getBendera))
+                    onSaveData(KapalModel(
+                        id = kapal.id,
+                        namaKapal = getNamaKapal,
+                        grossTone = getGrossTone,
+                        bendera = getBendera,
+                        imo = getIMO,
+                        namaAgen = getAgen,
+                        negaraAsal = getAsal,
+                        kaptenKapal = getKapten
+                    ))
                 }else{
-                    onSaveData(KapalModel(namaKapal = getNamaKapal, grossTone = getGrossTone, bendera = getBendera))
+                    onSaveData(KapalModel(
+                        namaKapal = getNamaKapal,
+                        grossTone = getGrossTone,
+                        bendera = getBendera,
+                        imo = getIMO,
+                        namaAgen = getAgen,
+                        negaraAsal = getAsal,
+                        kaptenKapal = getKapten
+                    ))
                 }
             }
         }

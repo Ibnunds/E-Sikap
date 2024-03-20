@@ -54,8 +54,8 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
             MaterialAlertDialogBuilder(this)
                 .setTitle("Hapus Data")
                 .setMessage("Apakah anda yakin ingin menghapus data ini?")
-                .setNegativeButton("Batalkan") {dialog, which -> dialog.dismiss()}
-                .setPositiveButton("Konfirmasi") {dialog, which -> deleteDokumen() }
+                .setNegativeButton("Batalkan") { dialog, _ -> dialog.dismiss()}
+                .setPositiveButton("Konfirmasi") { _, _ -> deleteDokumen() }
                 .show()
         }
     }
@@ -67,11 +67,11 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
     }
 
     private fun initDetail() {
-        binding.tvNamaKapal.text = phqc.namaKapal
-        binding.tvDetailGrossTone.text = phqc.grosTone
-        binding.tvDetailBendera.text = phqc.bendera
-        binding.tvAgen.text = phqc.namaAgen
-        binding.tvAsal.text = phqc.negaraAsal
+        binding.tvNamaKapal.text = phqc.kapal.namaKapal
+        binding.tvDetailGrossTone.text = phqc.kapal.grossTone
+        binding.tvDetailBendera.text = phqc.kapal.bendera
+        binding.tvAgen.text = phqc.kapal.namaAgen
+        binding.tvAsal.text = phqc.kapal.negaraAsal
         binding.tvTujuan.text = phqc.tujuan
         binding.tvDokumen.text = phqc.dokumenKapal
         binding.tvPemeriksaan.text = phqc.lokasiPemeriksaan

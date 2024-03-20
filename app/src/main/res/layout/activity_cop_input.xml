@@ -235,7 +235,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="Buat Dokumen"
+                android:text="Simpan Dokumen"
                 />
         </RelativeLayout>
     </LinearLayout>

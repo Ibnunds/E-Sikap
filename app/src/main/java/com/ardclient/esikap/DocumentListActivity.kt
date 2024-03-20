@@ -7,13 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardclient.esikap.adapter.COPAdapter
 import com.ardclient.esikap.adapter.PHQCAdapter
+import com.ardclient.esikap.adapter.SSCECAdapter
 import com.ardclient.esikap.cop.CopInputActivity
 import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
+import com.ardclient.esikap.database.sscec.SSCECRoomDatabase
 import com.ardclient.esikap.databinding.ActivityDocumentListBinding
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.PHQCModel
+import com.ardclient.esikap.model.SSCECModel
 
 class DocumentListActivity : AppCompatActivity() {
 
@@ -72,7 +75,36 @@ class DocumentListActivity : AppCompatActivity() {
                 binding.topAppBar.title = "Dokumen COP"
                 getCOPDatabase()
             }
+            "ORANGE" -> {
+                binding.topAppBar.title = "Dokumen SSCEC"
+                getSSCECDatabase()
+            }
         }
+    }
+
+    private fun getSSCECDatabase() {
+        val database = SSCECRoomDatabase.getDatabase(this)
+        val dao = database.getSSCECDao()
+        val listData = arrayListOf<SSCECModel>()
+
+        listData.addAll(dao.getAllSSCEC(kapal.id))
+
+        binding.loadingView.visibility = View.GONE
+
+        if (listData.size < 1){
+            binding.noDataText.visibility = View.VISIBLE
+        }else{
+            binding.noDataText.visibility = View.GONE
+        }
+
+        // setupRecyclerView("PHQC", listData)
+        binding.recyclerView.adapter = SSCECAdapter(listData, object : SSCECAdapter.SSCEClistener {
+            override fun onItemClicked(sscec: SSCECModel) {
+                val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
+                intent.putExtra("SSCEC", sscec)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun getPHQCDatabase() {

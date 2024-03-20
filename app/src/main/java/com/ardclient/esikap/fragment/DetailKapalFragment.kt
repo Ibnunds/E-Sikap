@@ -12,6 +12,7 @@ import com.ardclient.esikap.KapalActivity
 import com.ardclient.esikap.R
 import com.ardclient.esikap.database.kapal.KapalDAO
 import com.ardclient.esikap.database.kapal.KapalRoomDatabase
+import com.ardclient.esikap.databinding.FragmentDetailKapalBinding
 import com.ardclient.esikap.model.KapalModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -19,6 +20,9 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
     private lateinit var kapal: KapalModel
     private lateinit var dao: KapalDAO
     private lateinit var db: KapalRoomDatabase
+
+    // binding
+    private lateinit var binding: FragmentDetailKapalBinding
 
     // detail text
     private lateinit var namaKapal: TextView
@@ -37,13 +41,7 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // init component
-        namaKapal = view.findViewById(R.id.tvDetailNamaKapal)
-        grossTone = view.findViewById(R.id.tvDetailGrossTone)
-        bendera = view.findViewById(R.id.tvDetailBendera)
-        val updateButton = view.findViewById<Button>(R.id.updateDataButton)
-        val deleteButton = view.findViewById<Button>(R.id.deleteDataButton)
+        binding = FragmentDetailKapalBinding.bind(view)
 
         // init db
         db = KapalRoomDatabase.getDatabase(requireContext())
@@ -57,20 +55,24 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
         }
 
         // show detail
-        namaKapal.text = kapal.namaKapal
-        grossTone.text = kapal.grossTone
-        bendera.text = kapal.bendera
+        binding.tvDetailNamaKapal.text = kapal.namaKapal
+        binding.tvDetailGrossTone.text = kapal.grossTone
+        binding.tvDetailBendera.text = kapal.bendera
+        binding.tvDetailIMO.text = kapal.imo
+        binding.tvDetailAgen.text = kapal.namaAgen
+        binding.tvDetailAsal.text = kapal.negaraAsal
+        binding.tvDetailKapten.text = kapal.kaptenKapal
 
 
         // handle on update button
-        updateButton.setOnClickListener {
+        binding.updateDataButton.setOnClickListener {
             val intent = Intent(context, KapalActivity::class.java)
             intent.putExtra("KAPAL", data)
             startActivity(intent)
         }
 
         // handle on delete button
-        deleteButton.setOnClickListener {
+        binding.deleteDataButton.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Hapus Data")
                 .setMessage("Apakah anda yakin ingin menghapus data ini?")
@@ -93,9 +95,13 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
     }
 
     private fun refreshData() {
-        namaKapal.text = kapal.namaKapal
-        grossTone.text = kapal.grossTone
-        bendera.text = kapal.bendera
+        binding.tvDetailNamaKapal.text = kapal.namaKapal
+        binding.tvDetailGrossTone.text = kapal.grossTone
+        binding.tvDetailBendera.text = kapal.bendera
+        binding.tvDetailIMO.text = kapal.imo
+        binding.tvDetailAgen.text = kapal.namaAgen
+        binding.tvDetailAsal.text = kapal.negaraAsal
+        binding.tvDetailKapten.text = kapal.kaptenKapal
     }
 
     override fun onResume() {

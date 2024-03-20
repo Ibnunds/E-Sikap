@@ -133,8 +133,6 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
     }
 
     private fun initExistingData() {
-        binding.etAgen.editText?.setText(phqc.namaAgen)
-        binding.etAsal.editText?.setText(phqc.negaraAsal)
         binding.etTujuan.editText?.setText(phqc.tujuan)
         binding.etDokumen.editText?.setText(phqc.dokumenKapal)
         binding.etPemeriksaan.editText?.setText(phqc.lokasiPemeriksaan)
@@ -160,8 +158,6 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
 
     private fun onSaveButtonPressed() {
         // Mengakses input menggunakan binding
-        val agen = binding.etAgen.editText?.text.toString()
-        val asal = binding.etAsal.editText?.text.toString()
         val tujuan = binding.etTujuan.editText?.text.toString()
         val dokumen = binding.etDokumen.editText?.text.toString()
         val pemeriksaan = binding.etPemeriksaan.editText?.text.toString()
@@ -176,8 +172,6 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
 
         // Mengecek apakah semua input terisi
         val isAllFilled = InputValidation.isAllFieldComplete(
-            binding.etAgen,
-            binding.etAsal,
             binding.etTujuan,
             binding.etDokumen,
             binding.etPemeriksaan,
@@ -197,11 +191,7 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
                     onSaveData(PHQCModel(
                         id = phqc.id,
                         kapalId = phqc.kapalId,
-                        namaAgen = agen,
-                        namaKapal = phqc.namaKapal,
-                        grosTone = phqc.grosTone,
-                        bendera = phqc.bendera,
-                        negaraAsal = asal,
+                        kapal = phqc.kapal,
                         tujuan = tujuan,
                         dokumenKapal = dokumen,
                         lokasiPemeriksaan = pemeriksaan,
@@ -219,11 +209,7 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
                 }else{
                     onSaveData(PHQCModel(
                         kapalId = kapal.id,
-                        namaAgen = agen,
-                        namaKapal = kapal.namaKapal,
-                        grosTone = kapal.grossTone,
-                        bendera = kapal.grossTone,
-                        negaraAsal = asal,
+                        kapal = kapal,
                         tujuan = tujuan,
                         dokumenKapal = dokumen,
                         lokasiPemeriksaan = pemeriksaan,

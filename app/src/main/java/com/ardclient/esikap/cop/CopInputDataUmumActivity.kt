@@ -14,7 +14,6 @@ import com.ardclient.esikap.utils.InputValidation
 
 class CopInputDataUmumActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCopInputDataUmumBinding
-    private var isUpdate: Boolean = false
     private lateinit var copBasicData: COPModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +28,6 @@ class CopInputDataUmumActivity : AppCompatActivity() {
         // check existing data
         val existingData = intent.getParcelableExtra<COPModel>("EXISTING_DATA")
         if (existingData != null){
-            isUpdate = true
             copBasicData = existingData
             initExistingData()
         }else{
@@ -43,10 +41,6 @@ class CopInputDataUmumActivity : AppCompatActivity() {
     }
 
     private fun initExistingData() {
-        binding.etAgen.editText?.setText(copBasicData.namaAgen)
-        binding.etKapten.editText?.setText(copBasicData.namaKapten)
-        binding.etIMO.editText?.setText(copBasicData.imo)
-        binding.etAsal.editText?.setText(copBasicData.negaraAsal)
         binding.etTujuan.editText?.setText(copBasicData.tujuan)
         binding.etTiba.editText?.setText(copBasicData.tglTiba)
         binding.etLokasiSandar.editText?.setText(copBasicData.lokasiSandar)
@@ -65,10 +59,6 @@ class CopInputDataUmumActivity : AppCompatActivity() {
     }
 
     private fun onSaveData() {
-        val etAgen = binding.etAgen.editText?.text.toString()
-        val etKapten = binding.etKapten.editText?.text.toString()
-        val etIMO = binding.etIMO.editText?.text.toString()
-        val etAsal = binding.etAsal.editText?.text.toString()
         val etTujuan = binding.etTujuan.editText?.text.toString()
         val etTiba = binding.etTiba.editText?.text.toString()
         val etLokasiSandar = binding.etLokasiSandar.editText?.text.toString()
@@ -87,10 +77,6 @@ class CopInputDataUmumActivity : AppCompatActivity() {
 
         // check is all filled
         val isAllFilled = InputValidation.isAllFieldComplete(
-            binding.etAgen,
-            binding.etKapten,
-            binding.etIMO,
-            binding.etAsal,
             binding.etTujuan,
             binding.etTiba,
             binding.etLokasiSandar,
@@ -110,10 +96,6 @@ class CopInputDataUmumActivity : AppCompatActivity() {
 
         if (isAllFilled){
             val copBasicData = COPModel(
-                namaAgen = etAgen,
-                namaKapten = etKapten,
-                imo = etIMO,
-                negaraAsal = etAsal,
                 tujuan = etTujuan,
                 tglTiba = etTiba,
                 lokasiSandar = etLokasiSandar,

@@ -6,9 +6,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.ardclient.esikap.DocumentListActivity
 import com.ardclient.esikap.R
+import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.database.kapal.KapalDAO
 import com.ardclient.esikap.database.kapal.KapalRoomDatabase
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
+import com.ardclient.esikap.database.sscec.SSCECRoomDatabase
 import com.ardclient.esikap.databinding.FragmentDokumenKapalBinding
 import com.ardclient.esikap.model.KapalModel
 
@@ -45,6 +47,8 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
 
         // Document Count
         initPHQCDocumentCount()
+        initCOPDocumentCount()
+        initSSCECDocumentCount()
 
         // On Category Card Pressed
         binding.cardBlue.setOnClickListener {
@@ -53,6 +57,10 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
 
         binding.cardGreen.setOnClickListener {
             onCategoryPressed("GREEN")
+        }
+
+        binding.cardOrange.setOnClickListener {
+            onCategoryPressed("ORANGE")
         }
 
     }
@@ -65,6 +73,28 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
 
         if (getData != null){
             binding.bodyBlue.text = "${getData.size} Dokumen"
+        }
+    }
+
+    private fun initCOPDocumentCount() {
+        val db = COPRoomDatabase.getDatabase(requireContext())
+        val dao = db.getCOPDao()
+
+        val getData = dao.getAllCOP(kapal.id)
+
+        if (getData != null){
+            binding.bodyGreen.text = "${getData.size} Dokumen"
+        }
+    }
+
+    private fun initSSCECDocumentCount() {
+        val db = SSCECRoomDatabase.getDatabase(requireContext())
+        val dao = db.getSSCECDao()
+
+        val getData = dao.getAllSSCEC(kapal.id)
+
+        if (getData != null){
+            binding.bodyOrange.text = "${getData.size} Dokumen"
         }
     }
 
@@ -83,6 +113,13 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
             }
 
             "GREEN" -> {
+                val intent = Intent(requireContext(), DocumentListActivity::class.java)
+                intent.putExtra("TYPE", type)
+                intent.putExtra("KAPAL", kapal)
+                startActivity(intent)
+            }
+
+            "ORANGE" -> {
                 val intent = Intent(requireContext(), DocumentListActivity::class.java)
                 intent.putExtra("TYPE", type)
                 intent.putExtra("KAPAL", kapal)

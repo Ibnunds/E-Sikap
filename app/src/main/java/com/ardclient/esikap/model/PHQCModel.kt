@@ -2,6 +2,7 @@ package com.ardclient.esikap.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
@@ -11,13 +12,9 @@ import kotlinx.parcelize.Parcelize
 data class PHQCModel(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int = 0,
     @ColumnInfo(name = "kapalId") var kapalId: Int = 0,
-    @ColumnInfo(name = "nama_agen") var namaAgen: String = "",
-    @ColumnInfo(name = "nama_kapal") var namaKapal: String = "",
-    @ColumnInfo(name = "gros_tone") var grosTone: String = "",
-    @ColumnInfo(name = "bendera") var bendera: String = "",
-    @ColumnInfo(name = "negara_asal") var negaraAsal: String = "",
+    @Embedded(prefix = "kapal_") var kapal: KapalModel = KapalModel(),
     @ColumnInfo(name = "tujuan") var tujuan: String = "",
-    @ColumnInfo(name = "dokumen_kapan") var dokumenKapal: String = "",
+    @ColumnInfo(name = "dokumen_kapal") var dokumenKapal: String = "",
     @ColumnInfo(name = "lokasi_pemeriksaan") var lokasiPemeriksaan: String = "",
     @ColumnInfo(name = "jumlah_abk") var jumlahABK: Int = 0,
     @ColumnInfo(name = "deteksi_demam") var deteksiDemam: Int = 0,

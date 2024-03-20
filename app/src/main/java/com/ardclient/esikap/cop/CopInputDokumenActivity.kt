@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso
 class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
     private lateinit var binding: ActivityCopInputDokumenBinding
     private var pickedDoc: String = ""
+    private lateinit var copDocData: DokumenKapalModel
 
     // document base64
     private var docMDH: String? = null
@@ -48,6 +49,15 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         // button
         binding.saveButton.setOnClickListener {
             onSaveButton()
+        }
+
+        // check existing data
+        val existingData = intent.getParcelableExtra<DokumenKapalModel>("EXISTING_DATA")
+        if (existingData != null){
+            copDocData = existingData
+            initExistingData()
+        }else{
+            copDocData = DokumenKapalModel()
         }
 
         // select button
@@ -104,6 +114,30 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         }
     }
 
+    private fun initExistingData() {
+        // text form
+        binding.etKarantina.editText?.setText(copDocData.isyaratKarantina)
+        binding.etAktifitas.editText?.setText(copDocData.aktifitasKapal)
+
+        // image form
+        docMDH = copDocData.mdh
+        docSSCEC = copDocData.sscec
+        docVaksin = copDocData.daftarVaksinasi
+        docABK = copDocData.daftarABK
+        docBukuKuning = copDocData.bukuKuning
+         docCertP3K = copDocData.certP3K
+        docBukuSehat = copDocData.bukuKesehatan
+        docPerjalanan = copDocData.catatanPerjalanan
+        docShipParticular = copDocData.shipParticular
+        docIzinBerlayar = copDocData.izinBerlayar
+        docNarkotik = copDocData.daftarNarkotik
+        docObat = copDocData.daftarObat
+        docAlkes = copDocData.daftarAlkes
+
+        // check updated doc
+        checkUpdatedDoc()
+    }
+
     private fun onSaveButton() {
         val isFormComplete = InputValidation.isAllFieldComplete(
             binding.etKarantina,
@@ -111,7 +145,6 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         )
 
         if (isFormComplete){
-
             val isyaratKarantinaValue = binding.etKarantina.editText?.text.toString()
             val aktifitasKapal = binding.etAktifitas.editText?.text.toString()
 
@@ -124,6 +157,8 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             }else{
                 Toast.makeText(this@CopInputDokumenActivity, "Dokumen belum lengkap!", Toast.LENGTH_SHORT).show()
             }
+        }else{
+            Toast.makeText(this@CopInputDokumenActivity, "Form belum lengkap!", Toast.LENGTH_SHORT).show()
         }
     }
 

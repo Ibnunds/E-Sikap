@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SanitasiModel(
     @ColumnInfo(name = "san_dapur") var sanDapur: String = "",
-    @ColumnInfo(name = "san_ruang_sakit") var sanRuangSakit: String = "",
+    @ColumnInfo(name = "san_ruang_rakit") var sanRuangRakit: String = "",
     @ColumnInfo(name = "san_gudang") var sanGudang: String = "",
     @ColumnInfo(name = "san_palka") var sanPalka: String = "",
     @ColumnInfo(name = "san_ruang_tidur") var sanRuangTidur: String = "",
@@ -22,7 +22,7 @@ data class SanitasiModel(
     @ColumnInfo(name = "san_fasilitas_medik") var sanFasilitasMedik: String = "",
     @ColumnInfo(name = "san_area_lainnya") var sanAreaLainnya: String = "",
     @ColumnInfo(name = "vec_dapur") var vecDapur: String = "",
-    @ColumnInfo(name = "vec_ruang_sakit") var vecRuangSakit: String = "",
+    @ColumnInfo(name = "vec_ruang_rakit") var vecRuangRakit: String = "",
     @ColumnInfo(name = "vec_gudang") var vecGudang: String = "",
     @ColumnInfo(name = "vec_palka") var vecPalka: String = "",
     @ColumnInfo(name = "vec_ruang_tidur") var vecRuangTidur: String = "",
@@ -34,4 +34,6 @@ data class SanitasiModel(
     @ColumnInfo(name = "vec_limba_cair") var vecLimbaCair: String = "",
     @ColumnInfo(name = "resiko_sanitasi") var resikoSanitasi: String = "",
     @ColumnInfo(name = "masalah_kesehatan") var masalahKesehatan: String = "",
+    @ColumnInfo(name = "masalah_kesehatan_file") var masalahKesehatanFile: String = "",
+    @ColumnInfo(name = "rekomendasi") var rekomendasi: String = "",
 ) : Parcelable

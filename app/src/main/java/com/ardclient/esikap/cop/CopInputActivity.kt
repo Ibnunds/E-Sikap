@@ -10,6 +10,7 @@ import com.ardclient.esikap.SanitasiInputActivity
 import com.ardclient.esikap.databinding.ActivityCopInputBinding
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.reusable.DokumenKapalModel
+import com.ardclient.esikap.model.reusable.SanitasiModel
 
 class CopInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCopInputBinding
@@ -18,6 +19,7 @@ class CopInputActivity : AppCompatActivity() {
     // result data
     private lateinit var copBasicData: COPModel
     private lateinit var copDocData: DokumenKapalModel
+    private lateinit var copSanitasi: SanitasiModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCopInputBinding.inflate(layoutInflater)
@@ -30,6 +32,8 @@ class CopInputActivity : AppCompatActivity() {
 
         // init value
         copBasicData = COPModel()
+        copDocData = DokumenKapalModel()
+        copSanitasi = SanitasiModel()
 
         // handle input result
         launcher = registerForActivityResult(
@@ -56,18 +60,31 @@ class CopInputActivity : AppCompatActivity() {
                     binding.chipCOPDokumenKapal.text = "Lengkap"
                 }
 
+                // == Sanitasi Data
+                val sanitasi = data?.getParcelableExtra<SanitasiModel>("COP_SANITASI")
+                if (sanitasi !=null){
+                    copSanitasi = sanitasi
+                    binding.chipCOPSanitasi.isChecked = true
+                    binding.chipCOPSanitasi.text = "Lengkap"
+                }
+
             }
         }
 
         // card button
         binding.cardCOPDataUmum.setOnClickListener {
             val intent = Intent(this, CopInputDataUmumActivity::class.java)
-            intent.putExtra("EXISTING_DATA", copBasicData)
+            if (copBasicData.tujuan.isNotEmpty()){
+                intent.putExtra("EXISTING_DATA", copBasicData)
+            }
             launcher?.launch(intent)
         }
 
         binding.cardCOPDokumenKapal.setOnClickListener {
             val intent = Intent(this, CopInputDokumenActivity::class.java)
+            if (copDocData.aktifitasKapal.isNotEmpty()){
+                intent.putExtra("EXISTING_DATA", copDocData)
+            }
             launcher?.launch(intent)
         }
 
