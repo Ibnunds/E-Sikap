@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Widget.Material3.Chip.Suggestion"
-                    android:text="Belum Dilengkapi"
+                    android:text="Belum Lengkap"
                     app:checkedIconEnabled="false"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -157,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Widget.Material3.Chip.Suggestion"
-                    android:text="Belum Dilengkapi"
+                    android:text="Belum Lengkap"
                     app:checkedIconEnabled="false"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -220,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Widget.Material3.Chip.Suggestion"
-                    android:text="Belum Dilengkapi"
+                    android:text="Belum Lengkap"
                     app:checkedIconEnabled="false"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>

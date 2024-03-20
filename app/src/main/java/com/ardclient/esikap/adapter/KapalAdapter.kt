@@ -29,7 +29,7 @@ class KapalAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
         holder.tvTitle.text = item.namaKapal
-        holder.tvBody.text = "${item.grossTone} - ${item.bendera}"
+        holder.tvBody.text = item.bendera
         holder.itemView.setOnClickListener{
             listener.onItemClicked(item)
         }

@@ -16,5 +16,6 @@ data class KapalModel(
     @ColumnInfo(name = "gross_tone") var grossTone: String = "",
     @ColumnInfo(name = "bendera") var bendera: String = "",
     @ColumnInfo(name = "imo") var imo: String = "",
-    @ColumnInfo(name = "negara_asal") var negaraAsal: String = ""
+    @ColumnInfo(name = "negara_asal") var negaraAsal: String = "",
+    @ColumnInfo(name = "tipe_kapal") var tipeKapal: String = ""
 ) : Parcelable

@@ -24,11 +24,6 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
     // binding
     private lateinit var binding: FragmentDetailKapalBinding
 
-    // detail text
-    private lateinit var namaKapal: TextView
-    private lateinit var grossTone: TextView
-    private lateinit var bendera: TextView
-
     companion object {
         const val ARG_DATA = "KAPAL"
         fun newInstance(data:KapalModel): DetailKapalFragment {
@@ -62,6 +57,7 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
         binding.tvDetailAgen.text = kapal.namaAgen
         binding.tvDetailAsal.text = kapal.negaraAsal
         binding.tvDetailKapten.text = kapal.kaptenKapal
+        binding.tvDetailTipe.text = kapal.tipeKapal
 
 
         // handle on update button
@@ -102,6 +98,7 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
         binding.tvDetailAgen.text = kapal.namaAgen
         binding.tvDetailAsal.text = kapal.negaraAsal
         binding.tvDetailKapten.text = kapal.kaptenKapal
+        binding.tvDetailTipe.text = kapal.tipeKapal
     }
 
     override fun onResume() {

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import com.ardclient.esikap.database.kapal.KapalDAO
 import com.ardclient.esikap.database.kapal.KapalRoomDatabase
@@ -45,6 +47,12 @@ class KapalActivity : AppCompatActivity() {
             binding.inKapalAgen.editText?.setText(kapal.namaAgen)
             binding.inKapalAsal.editText?.setText(kapal.negaraAsal)
             binding.inKapalKapten.editText?.setText(kapal.kaptenKapal)
+
+            if (kapal.tipeKapal == "Ferry"){
+                binding.radioType.check(R.id.radio_type_true)
+            }else{
+                binding.radioType.check(R.id.radio_type_false)
+            }
         }
 
         // init database
@@ -59,6 +67,8 @@ class KapalActivity : AppCompatActivity() {
             val getAgen = binding.inKapalAgen.editText?.text.toString()
             val getAsal = binding.inKapalAsal.editText?.text.toString()
             val getKapten = binding.inKapalKapten.editText?.text.toString()
+            val isTipeSelected = binding.radioType.checkedRadioButtonId != -1
+            val radioTypeVal = getSelectedRadioGroupValue(binding.radioType)
 
             val isFormComplete = InputValidation.isAllFieldComplete(
                 binding.inKapalName,
@@ -70,7 +80,7 @@ class KapalActivity : AppCompatActivity() {
                 binding.inKapalKapten,
             )
 
-            if (isFormComplete){
+            if (isFormComplete && isTipeSelected){
                 if (isUpdate){
                     onSaveData(KapalModel(
                         id = kapal.id,
@@ -80,7 +90,8 @@ class KapalActivity : AppCompatActivity() {
                         imo = getIMO,
                         namaAgen = getAgen,
                         negaraAsal = getAsal,
-                        kaptenKapal = getKapten
+                        kaptenKapal = getKapten,
+                        tipeKapal = radioTypeVal
                     ))
                 }else{
                     onSaveData(KapalModel(
@@ -90,9 +101,12 @@ class KapalActivity : AppCompatActivity() {
                         imo = getIMO,
                         namaAgen = getAgen,
                         negaraAsal = getAsal,
-                        kaptenKapal = getKapten
+                        kaptenKapal = getKapten,
+                        tipeKapal = radioTypeVal
                     ))
                 }
+            }else{
+                Toast.makeText(this@KapalActivity, "Data belum lengkap!", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -122,5 +136,11 @@ class KapalActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    fun getSelectedRadioGroupValue(radioGroup: RadioGroup): String {
+        val checkedRadioButtonId = radioGroup.checkedRadioButtonId
+        val checkedRadioButton = findViewById<RadioButton>(checkedRadioButtonId)
+        return checkedRadioButton.text.toString()
     }
 }
