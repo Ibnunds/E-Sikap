@@ -17,6 +17,7 @@ import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
+import com.ardclient.esikap.sscec.SSCECInputActivity
 
 class DocumentListActivity : AppCompatActivity() {
 
@@ -58,6 +59,7 @@ class DocumentListActivity : AppCompatActivity() {
             val intent = when(listType) {
                 "BLUE" -> Intent(this, PHQCInputActivity::class.java)
                 "GREEN" -> Intent(this, CopInputActivity::class.java)
+                "ORANGE" -> Intent(this, SSCECInputActivity::class.java)
                 else -> null // Mungkin perlu penanganan lebih lanjut tergantung dari kasus Anda
             }
             intent?.putExtra("KAPAL", kapal)

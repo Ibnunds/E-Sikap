@@ -901,6 +901,7 @@
                     android:layout_marginVertical="8dp"/>
 
                 <LinearLayout
+                    android:id="@+id/radio_rekomendasi_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -936,6 +937,109 @@
                             android:textSize="12sp"
                             android:text="Tidak ada masalah"/>
                     </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/radio_resiko_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Resiko Sanitasi"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginVertical="8dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/radioResiko"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radio_resiko_tinggi"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Resiko tinggi"/>
+                        <RadioButton
+                            android:id="@+id/radio_resiko_rendah"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Resiko rendah"/>
+                        <RadioButton
+                            android:id="@+id/radio_resiko_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Tidak ada resiko"/>
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/radio_health_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Masalah Kesehatan"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginVertical="8dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/radioHealth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radio_health_true"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Ada"/>
+                        <RadioButton
+                            android:id="@+id/radio__health_false"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Tidak ada"/>
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/health_file_layout"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bukti Masalah Kesehatan"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevHealth"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
+                    <Button
+                        android:id="@+id/btnSelectHealth"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unggah Dokumen"
+                        app:icon="@drawable/ic_doc"
+                        app:iconPadding="8dp"/>
+
                 </LinearLayout>
 
 

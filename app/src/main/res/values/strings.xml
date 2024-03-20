@@ -17,4 +17,5 @@
     <string name="add_signature_title">Tambah Tanda Tangan</string>
     <string name="document_detail_title">Detail Dokumen</string>
     <string name="cop_add_data_title">Tambah Dokumen COP</string>
+    <string name="sscec_add_data_title">Tambah Dokumen SSCEC</string>
 </resources>

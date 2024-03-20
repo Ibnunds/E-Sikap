@@ -61,7 +61,7 @@ class CopInputActivity : AppCompatActivity() {
                 }
 
                 // == Sanitasi Data
-                val sanitasi = data?.getParcelableExtra<SanitasiModel>("COP_SANITASI")
+                val sanitasi = data?.getParcelableExtra<SanitasiModel>("SANITASI")
                 if (sanitasi !=null){
                     copSanitasi = sanitasi
                     binding.chipCOPSanitasi.isChecked = true
@@ -90,6 +90,7 @@ class CopInputActivity : AppCompatActivity() {
 
         binding.cardCOPSanitasi.setOnClickListener {
             val intent = Intent(this, SanitasiInputActivity::class.java)
+            intent.putExtra("SENDER", "COP")
             if (copSanitasi.sanDapur.isNotEmpty()){
                 intent.putExtra("EXISTING_DATA", copSanitasi)
             }

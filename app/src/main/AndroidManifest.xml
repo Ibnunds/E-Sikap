@@ -30,6 +30,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".sscec.SSCECInputDataUmumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".sscec.SSCECInputActivity"
+            android:exported="false" />
+        <activity
             android:name=".SanitasiInputActivity"
             android:exported="false" />
 

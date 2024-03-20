@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -14,6 +15,8 @@ import com.ardclient.esikap.model.reusable.SanitasiModel
 class SanitasiInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySanitasiInputBinding
     private lateinit var copSanitasi: SanitasiModel
+
+    private lateinit var senderActivity: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySanitasiInputBinding.inflate(layoutInflater)
@@ -31,9 +34,34 @@ class SanitasiInputActivity : AppCompatActivity() {
             initExistingData()
         }
 
+        // handle sender string
+        val senderStr = intent.getStringExtra("SENDER")
+        if (senderStr != null){
+            senderActivity = senderStr
+        }
+
+        Log.d("SANIT_TYPE", senderActivity)
+
+        if (senderActivity == "SSCEC"){
+            binding.radioRekomendasiLayout.visibility = View.GONE
+        }else{
+            binding.radioResikoLayout.visibility = View.GONE
+            binding.radioHealthLayout.visibility = View.GONE
+            binding.healthFileLayout.visibility = View.GONE
+        }
+
         // button
         binding.saveButton.setOnClickListener {
             onSaveButton()
+        }
+
+        // on health issue checked
+        binding.radioHealth.setOnCheckedChangeListener{group, checkedId ->
+            if (checkedId == R.id.radio_health_true){
+                binding.healthFileLayout.visibility = View.VISIBLE
+            }else{
+                binding.healthFileLayout.visibility = View.GONE
+            }
         }
     }
 
@@ -178,7 +206,7 @@ class SanitasiInputActivity : AppCompatActivity() {
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
-        intent.putExtra("COP_SANITASI", sanitasiData)
+        intent.putExtra("SANITASI", sanitasiData)
         setResult(RESULT_OK, intent)
         finish()
     }
