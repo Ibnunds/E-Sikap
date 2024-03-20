@@ -786,7 +786,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Ada vector dan tanda - tandanya"/>
+                            android:text="Ada vektor dan tanda - tandanya"/>
                         <RadioButton
                             android:id="@+id/radio_penumpangVec_false"
                             android:layout_width="match_parent"
@@ -818,7 +818,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Ada vector dan tanda - tandanya"/>
+                            android:text="Ada vektor dan tanda - tandanya"/>
                         <RadioButton
                             android:id="@+id/radio_deckVec_false"
                             android:layout_width="match_parent"
@@ -850,7 +850,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Ada vector dan tanda - tandanya"/>
+                            android:text="Ada vektor dan tanda - tandanya"/>
                         <RadioButton
                             android:id="@+id/radio_waterVec_false"
                             android:layout_width="match_parent"
@@ -918,7 +918,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <RadioButton
-                            android:id="@+id/radio_rekomendasi_disinseksi"
+                            android:id="@+id/radio_disinseksi"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"

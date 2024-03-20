@@ -90,6 +90,9 @@ class CopInputActivity : AppCompatActivity() {
 
         binding.cardCOPSanitasi.setOnClickListener {
             val intent = Intent(this, SanitasiInputActivity::class.java)
+            if (copSanitasi.sanDapur.isNotEmpty()){
+                intent.putExtra("EXISTING_DATA", copSanitasi)
+            }
             launcher?.launch(intent)
         }
     }
