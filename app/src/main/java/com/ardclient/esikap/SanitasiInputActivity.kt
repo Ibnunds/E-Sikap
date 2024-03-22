@@ -139,9 +139,20 @@ class SanitasiInputActivity : AppCompatActivity() {
     private fun onSaveButton() {
         val isAllChecked = checkIsAllChecked()
 
-        if (isAllChecked){
-            onAllChecked()
-        }else{
+
+        if (isAllChecked) {
+            val errorMessage = when {
+                senderActivity == "SSCEC" && (binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1) -> "Data belum lengkap!"
+                senderActivity != "SSCEC" && binding.radioRekomendasi.checkedRadioButtonId == -1 -> "Data belum lengkap!"
+                else -> null
+            }
+
+            if (errorMessage != null) {
+                Toast.makeText(this@SanitasiInputActivity, errorMessage, Toast.LENGTH_SHORT).show()
+            } else {
+                onAllChecked()
+            }
+        } else {
             Toast.makeText(this@SanitasiInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -173,7 +184,9 @@ class SanitasiInputActivity : AppCompatActivity() {
         val engineValue = getSelectedRadioGroupValue(binding.radioEngine)
         val medikValue = getSelectedRadioGroupValue(binding.radioMedik)
         val otherAreaValue = getSelectedRadioGroupValue(binding.radioOtherArea)
-        val rekomendasiValue = getSelectedRadioGroupValue(binding.radioRekomendasi)
+        val rekomendasiValue = if (senderActivity != "SSCEC") getSelectedRadioGroupValue(binding.radioRekomendasi) else "-"
+        val resikoValue = if (senderActivity == "SSCEC") getSelectedRadioGroupValue(binding.radioResiko) else "-"
+        val healthValue = if (senderActivity == "SSCEC") getSelectedRadioGroupValue(binding.radioHealth) else "-"
 
         val sanitasiData = SanitasiModel(
             sanDapur = dapurValue,
@@ -202,7 +215,9 @@ class SanitasiInputActivity : AppCompatActivity() {
             vecGeladak = geladakVecValue,
             vecAirMinum = waterVecValue,
             vecLimbaCair = limbaCairVecValue,
-            rekomendasi = rekomendasiValue
+            rekomendasi = rekomendasiValue,
+            resikoSanitasi = resikoValue,
+            masalahKesehatan = healthValue
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
@@ -239,7 +254,6 @@ class SanitasiInputActivity : AppCompatActivity() {
             binding.radioEngine,
             binding.radioMedik,
             binding.radioOtherArea,
-            binding.radioRekomendasi
         )
 
         return radioGroups.all {

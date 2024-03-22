@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.ardclient.esikap.model.reusable.SanitasiModel
 import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "sscec")
@@ -13,6 +14,7 @@ data class SSCECModel(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") var id: Int = 0,
     @ColumnInfo(name = "kapalId") var kapalId: Int = 0,
     @Embedded(prefix = "kapal_") var kapal: KapalModel = KapalModel(),
+    @Embedded(prefix = "sanitasi_") var sanitasi: SanitasiModel = SanitasiModel(),
     @ColumnInfo(name = "pelabuhanTujuan") var pelabuhanTujuan: String = "",
     @ColumnInfo(name = "tgl_tiba") var tglTiba: String = "",
     @ColumnInfo(name = "lokasi_sandar") var lokasiSandar: String = "",

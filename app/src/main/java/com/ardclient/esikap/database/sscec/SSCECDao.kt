@@ -22,5 +22,5 @@ interface SSCECDao {
     fun updateSSCEC(sscec: SSCECModel)
 
     @Query("SELECT * FROM sscec WHERE id = :id")
-    fun getCOPById(id: Int): List<SSCECModel>
+    fun getSSCECById(id: Int): List<SSCECModel>
 }

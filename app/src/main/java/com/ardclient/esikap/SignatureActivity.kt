@@ -8,15 +8,11 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ardclient.esikap.databinding.ActivitySignatureBinding
 import com.github.gcacace.signaturepad.views.SignaturePad
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.textfield.TextInputLayout
 import java.io.ByteArrayOutputStream
 
 
@@ -25,44 +21,46 @@ class SignatureActivity : AppCompatActivity() {
     private var isSignedComplete: Boolean = false
     private var signatureBitmap: Bitmap? = null
 
+    private lateinit var binding: ActivitySignatureBinding
+    private lateinit var sendType: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signature)
-
-        // header
-        val header = findViewById<MaterialToolbar>(R.id.topAppBar)
+        binding = ActivitySignatureBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // signature pad
-        val signPad = findViewById<SignaturePad>(R.id.signaturePad)
-
-        // button
-        val clearButton = findViewById<Button>(R.id.clearButton)
-        val saveButton = findViewById<Button>(R.id.saveButton)
-        val changeButton = findViewById<Button>(R.id.changeButton)
-        val sendButton = findViewById<Button>(R.id.sendButton)
+        val signPad = binding.signaturePad
 
         // image
-        val signatureImage = findViewById<ImageView>(R.id.ivSignature)
+        val signatureImage = binding.ivSignature
 
         // layout
-        val savedFrame = findViewById<LinearLayout>(R.id.savedLinear)
-        val unsavedFrame = findViewById<LinearLayout>(R.id.unsavedLinear)
+        val savedFrame = binding.savedLinear
+        val unsavedFrame = binding.unsavedLinear
 
         // input
-        val namaPetugas = findViewById<TextInputLayout>(R.id.etNamaPetugas)
+        val namaPetugas = binding.etNamaPetugas
 
-        header.setNavigationOnClickListener {
+        binding.topAppBar.setNavigationOnClickListener {
             finish()
         }
 
 
         // handle if from existing
-        val existingNama = intent.getStringExtra("NAMA_PETUGAS")
+        val existingNama = intent.getStringExtra("NAMA")
         if (existingNama!!.isNotEmpty()){
             namaPetugas.editText?.setText(existingNama)
         }
 
-        clearButton.setOnClickListener {
+        val getSendType = intent.getStringExtra("TYPE")
+        if (getSendType != null){
+            sendType = getSendType
+        }else{
+            sendType = ""
+        }
+
+        binding.clearButton.setOnClickListener {
             if (isSigned){
                 signPad.clear()
             }else{
@@ -70,7 +68,7 @@ class SignatureActivity : AppCompatActivity() {
             }
         }
 
-        changeButton.setOnClickListener {
+        binding.changeButton.setOnClickListener {
             // layout
             savedFrame.visibility = View.GONE
             unsavedFrame.visibility = View.VISIBLE
@@ -79,7 +77,7 @@ class SignatureActivity : AppCompatActivity() {
             signatureImage.visibility = View.GONE
         }
 
-        saveButton.setOnClickListener {
+        binding.saveButton.setOnClickListener {
             if (isSigned){
                 signatureImage.setImageBitmap(signPad.transparentSignatureBitmap)
                 signatureBitmap = signPad.transparentSignatureBitmap
@@ -97,15 +95,16 @@ class SignatureActivity : AppCompatActivity() {
 
         }
 
-        sendButton.setOnClickListener {
+        binding.sendButton.setOnClickListener {
             val txNamaPetugas = namaPetugas.editText?.text.toString()
 
             if (isSignedComplete && txNamaPetugas.isNotEmpty()){
                 val decodedSignature = decodeSignature()
 
                 val intent = Intent(this, PHQCInputActivity::class.java)
-                intent.putExtra("NAMA_PETUGAS", txNamaPetugas)
+                intent.putExtra("NAMA", txNamaPetugas)
                 intent.putExtra("SIGNATURE", decodedSignature)
+                intent.putExtra("TYPE", sendType)
                 setResult(RESULT_OK, intent)
                 finish()
             }else{

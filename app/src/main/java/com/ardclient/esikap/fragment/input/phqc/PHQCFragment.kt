@@ -71,7 +71,7 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
             ) { result: ActivityResult ->
                 if (result.resultCode == RESULT_OK) {
                     val data = result.data
-                    val namaPetugas = data?.getStringExtra("NAMA_PETUGAS")
+                    val namaPetugas = data?.getStringExtra("NAMA")
                     val decodedSign = data?.getByteArrayExtra("SIGNATURE")
 
                     val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
@@ -116,13 +116,13 @@ class PHQCFragment : Fragment(R.layout.fragment_phqc) {
 
             ivSignature.setOnClickListener {
                 val intent = Intent(requireContext(), SignatureActivity::class.java)
-                intent.putExtra("NAMA_PETUGAS", nmPetugas)
+                intent.putExtra("NAMA", nmPetugas)
                 launcher!!.launch(intent)
             }
 
             addSignButton.setOnClickListener {
                 val intent = Intent(requireContext(), SignatureActivity::class.java)
-                intent.putExtra("NAMA_PETUGAS", "")
+                intent.putExtra("NAMA", "")
                 launcher!!.launch(intent)
             }
 
