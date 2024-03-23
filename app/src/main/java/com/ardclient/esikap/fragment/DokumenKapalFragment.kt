@@ -9,6 +9,7 @@ import com.ardclient.esikap.R
 import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.database.kapal.KapalDAO
 import com.ardclient.esikap.database.kapal.KapalRoomDatabase
+import com.ardclient.esikap.database.p3k.P3KRoomDatabase
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.database.sscec.SSCECRoomDatabase
 import com.ardclient.esikap.databinding.FragmentDokumenKapalBinding
@@ -49,6 +50,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         initPHQCDocumentCount()
         initCOPDocumentCount()
         initSSCECDocumentCount()
+        initP3KDocumentCount()
 
         // On Category Card Pressed
         binding.cardBlue.setOnClickListener {
@@ -63,6 +65,21 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
             onCategoryPressed("ORANGE")
         }
 
+        binding.cardAmber.setOnClickListener {
+            onCategoryPressed("AMBER")
+        }
+
+    }
+
+    private fun initP3KDocumentCount() {
+        val db = P3KRoomDatabase.getDatabase(requireContext())
+        val dao = db.getP3KDAO()
+
+        val getData = dao.getAllP3K(kapal.id)
+
+        if (getData != null){
+            binding.bodyAmber.text = "${getData.size} Dokumen"
+        }
     }
 
     private fun initPHQCDocumentCount() {
@@ -104,29 +121,10 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
     }
 
     private fun onCategoryPressed(type: String) {
-        when(type){
-            "BLUE" -> {
-                val intent = Intent(requireContext(), DocumentListActivity::class.java)
-                intent.putExtra("TYPE", type)
-                intent.putExtra("KAPAL", kapal)
-                startActivity(intent)
-            }
-
-            "GREEN" -> {
-                val intent = Intent(requireContext(), DocumentListActivity::class.java)
-                intent.putExtra("TYPE", type)
-                intent.putExtra("KAPAL", kapal)
-                startActivity(intent)
-            }
-
-            "ORANGE" -> {
-                val intent = Intent(requireContext(), DocumentListActivity::class.java)
-                intent.putExtra("TYPE", type)
-                intent.putExtra("KAPAL", kapal)
-                startActivity(intent)
-            }
-        }
-
+        val intent = Intent(requireContext(), DocumentListActivity::class.java)
+        intent.putExtra("TYPE", type)
+        intent.putExtra("KAPAL", kapal)
+        startActivity(intent)
     }
 
     override fun onResume() {
@@ -135,5 +133,6 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         initPHQCDocumentCount()
         initSSCECDocumentCount()
         initCOPDocumentCount()
+        initP3KDocumentCount()
     }
 }

@@ -7,17 +7,21 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardclient.esikap.adapter.COPAdapter
+import com.ardclient.esikap.adapter.P3KAdapter
 import com.ardclient.esikap.adapter.PHQCAdapter
 import com.ardclient.esikap.adapter.SSCECAdapter
 import com.ardclient.esikap.cop.CopInputActivity
 import com.ardclient.esikap.database.cop.COPRoomDatabase
+import com.ardclient.esikap.database.p3k.P3KRoomDatabase
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.database.sscec.SSCECRoomDatabase
 import com.ardclient.esikap.databinding.ActivityDocumentListBinding
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.KapalModel
+import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
+import com.ardclient.esikap.p3k.P3KInputActivity
 import com.ardclient.esikap.sscec.SSCECInputActivity
 
 class DocumentListActivity : AppCompatActivity() {
@@ -61,6 +65,7 @@ class DocumentListActivity : AppCompatActivity() {
                 "BLUE" -> Intent(this, PHQCInputActivity::class.java)
                 "GREEN" -> Intent(this, CopInputActivity::class.java)
                 "ORANGE" -> Intent(this, SSCECInputActivity::class.java)
+                "AMBER" -> Intent(this, P3KInputActivity::class.java)
                 else -> null // Mungkin perlu penanganan lebih lanjut tergantung dari kasus Anda
             }
             intent?.putExtra("KAPAL", kapal)
@@ -82,7 +87,37 @@ class DocumentListActivity : AppCompatActivity() {
                 binding.topAppBar.title = "Dokumen SSCEC"
                 getSSCECDatabase()
             }
+            "AMBER" -> {
+                binding.topAppBar.title = "Dokumen P3K"
+                getP3KDatabase()
+            }
         }
+    }
+
+    private fun getP3KDatabase() {
+        val database = P3KRoomDatabase.getDatabase(this)
+        val dao = database.getP3KDAO()
+        val listData = arrayListOf<P3KModel>()
+
+        listData.addAll(dao.getAllP3K(kapal.id))
+
+        binding.loadingView.visibility = View.GONE
+
+        if (listData.size < 1){
+            binding.noDataText.visibility = View.VISIBLE
+        }else{
+            binding.noDataText.visibility = View.GONE
+        }
+
+        // setupRecyclerView("PHQC", listData)
+        binding.recyclerView.adapter = P3KAdapter(listData, object : P3KAdapter.P3KListener {
+            override fun onItemClicked(p3k: P3KModel) {
+                val intent = Intent(this@DocumentListActivity, P3KInputActivity::class.java)
+                intent.putExtra("SSCEC", p3k)
+                intent?.putExtra("KAPAL", kapal)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun getSSCECDatabase() {

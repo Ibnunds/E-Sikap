@@ -40,8 +40,6 @@ class SanitasiInputActivity : AppCompatActivity() {
             senderActivity = senderStr
         }
 
-        Log.d("SANIT_TYPE", senderActivity)
-
         if (senderActivity == "SSCEC"){
             binding.radioRekomendasiLayout.visibility = View.GONE
         }else{

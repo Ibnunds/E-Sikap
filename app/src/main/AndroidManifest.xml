@@ -30,9 +30,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".p3k.P3KInputPemeriksaanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".p3k.P3KInputDataUmumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".p3k.P3KInputActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ESikap" />
+        <activity
             android:name=".sscec.SSCECInputRekomendasiActivity"
             android:exported="false"
-            android:label="@string/title_activity_sscecinput_rekomendasi"
             android:theme="@style/Theme.ESikap" />
         <activity
             android:name=".sscec.SSCECInputDataUmumActivity"
