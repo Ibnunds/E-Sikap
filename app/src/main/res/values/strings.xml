@@ -22,4 +22,9 @@
     <string name="radio_tidak_lengkap">Tidak lengkap</string>
     <string name="radio_tidak_tersedia">Tidak tersedia</string>
     <string name="p3k_add_data_title">Tambah Dokumen P3K</string>
+    <string name="radio_risk_high">Resiko tinggi</string>
+    <string name="radio_risk_low">Resiko rendah</string>
+    <string name="radio_risk_safe">Tidak ada resiko</string>
+    <string name="radio_istrue">Ada</string>
+    <string name="radio_isfalse">Tidak ada</string>
 </resources>

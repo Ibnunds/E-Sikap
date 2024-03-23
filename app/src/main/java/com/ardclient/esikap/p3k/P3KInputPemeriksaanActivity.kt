@@ -3,6 +3,7 @@ package com.ardclient.esikap.p3k
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivityP3kInputPemeriksaanBinding
@@ -12,6 +13,8 @@ import com.ardclient.esikap.utils.InputValidation
 class P3KInputPemeriksaanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityP3kInputPemeriksaanBinding
     private lateinit var pemeriksaanKapal: PemeriksaanKapalModel
+
+    private var needExtra: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityP3kInputPemeriksaanBinding.inflate(layoutInflater)
@@ -34,6 +37,19 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
         // button
         binding.saveButton.setOnClickListener {
             onSaveButton()
+        }
+
+        // on issue checked
+        binding.radioMasalah.setOnCheckedChangeListener{_, checkedId ->
+            if (checkedId == R.id.radio_masalah_true){
+                needExtra = true
+                binding.masalahFileLayout.visibility = View.VISIBLE
+                binding.etMasalahNote.visibility = View.VISIBLE
+            }else{
+                needExtra = false
+                binding.masalahFileLayout.visibility = View.GONE
+                binding.etMasalahNote.visibility = View.GONE
+            }
         }
     }
 
@@ -80,6 +96,17 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
             else -> R.id.radio_narkotik_failed
         }
 
+        val resikoId = when(getCheckedIntByString(pemeriksaanKapal.resiko)) {
+            1 -> R.id.radio_resiko_tinggi
+            2 -> R.id.radio_resiko_rendah
+            else -> R.id.radio_resiko_no
+        }
+
+        val masalahId = when(getCheckedIntByString(pemeriksaanKapal.masalah)) {
+            1 -> R.id.radio_masalah_true
+            else -> R.id.radio_masalah_false
+        }
+
         with(binding) {
             radioPeralatanP3K.check(peralatanP3KId)
             radioOxygen.check(oksigenId)
@@ -88,15 +115,24 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
             radioAnalgesik.check(analgesikId)
             radioObatLainnya.check(obatLainnyaId)
             radioNarkotik.check(narkotikId)
+            radioResiko.check(resikoId)
+            radioMasalah.check(masalahId)
+
+            if (getCheckedIntByString(pemeriksaanKapal.masalah) == 1){
+                needExtra = true
+                binding.masalahFileLayout.visibility = View.VISIBLE
+                binding.etMasalahNote.visibility = View.VISIBLE
+                binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
+            }
         }
     }
 
     private fun getCheckedIntByString(title: String): Int {
         return when (title) {
-            getString(R.string.radio_lengkap) -> {
+            getString(R.string.radio_lengkap), getString(R.string.radio_risk_high), getString(R.string.radio_istrue) -> {
                 1
             }
-            getString(R.string.radio_tidak_lengkap) -> {
+            getString(R.string.radio_tidak_lengkap), getString(R.string.radio_risk_low), getString(R.string.radio_isfalse) -> {
                 2
             }
             else -> {
@@ -114,35 +150,61 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
                 radioAntibiotik,
                 radioAnalgesik,
                 radioObatLainnya,
-                radioNarkotik
+                radioNarkotik,
+                radioResiko,
+                radioMasalah
+            )
+
+            val isInputFilled = InputValidation.isAllFieldComplete(
+                etMasalahNote
             )
 
             if (isAllFilled){
-                val peralatanP3KValue = InputValidation.getSelectedRadioGroupValue(this, radioPeralatanP3K)
-                val oksigenVal = InputValidation.getSelectedRadioGroupValue(this, radioOxygen)
-                val faskesVal = InputValidation.getSelectedRadioGroupValue(this, radioFasilitasMedis)
-                val antibiotikVal = InputValidation.getSelectedRadioGroupValue(this, radioAntibiotik)
-                val analgesikVal = InputValidation.getSelectedRadioGroupValue(this, radioAnalgesik)
-                val narkotikVal = InputValidation.getSelectedRadioGroupValue(this, radioNarkotik)
-                val obatLainnyaVal = InputValidation.getSelectedRadioGroupValue(this, radioObatLainnya)
-
-                val pemeriksaanData = PemeriksaanKapalModel(
-                    peralatanP3K = peralatanP3KValue,
-                    oxygenEmergency = oksigenVal,
-                    fasilitasMedis = faskesVal,
-                    obatAntibiotik = antibiotikVal,
-                    obatAnalgesik = analgesikVal,
-                    obatNarkotik = narkotikVal,
-                    obatLainnya = obatLainnyaVal
-                )
-
-                val intent = Intent(this@P3KInputPemeriksaanActivity, P3KInputActivity::class.java)
-                intent.putExtra("PEMERIKSAAN", pemeriksaanData)
-                setResult(RESULT_OK, intent)
-                finish()
+                if (needExtra){
+                    if (isInputFilled){
+                        onValidInput()
+                    }else{
+                        Toast.makeText(this@P3KInputPemeriksaanActivity, "Semua form belum teriisi!", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    onValidInput()
+                }
             }else{
                 Toast.makeText(this@P3KInputPemeriksaanActivity, "Semua form belum teriisi!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun onValidInput() {
+       with(binding) {
+           val peralatanP3KValue = InputValidation.getSelectedRadioGroupValue(this, radioPeralatanP3K)
+           val oksigenVal = InputValidation.getSelectedRadioGroupValue(this, radioOxygen)
+           val faskesVal = InputValidation.getSelectedRadioGroupValue(this, radioFasilitasMedis)
+           val antibiotikVal = InputValidation.getSelectedRadioGroupValue(this, radioAntibiotik)
+           val analgesikVal = InputValidation.getSelectedRadioGroupValue(this, radioAnalgesik)
+           val narkotikVal = InputValidation.getSelectedRadioGroupValue(this, radioNarkotik)
+           val obatLainnyaVal = InputValidation.getSelectedRadioGroupValue(this, radioObatLainnya)
+           val resikoVal = InputValidation.getSelectedRadioGroupValue(this, radioResiko)
+           val masalahVal = InputValidation.getSelectedRadioGroupValue(this, radioMasalah)
+           val masalahNote = if (needExtra) etMasalahNote.editText?.text.toString() else "-"
+
+           val pemeriksaanData = PemeriksaanKapalModel(
+               peralatanP3K = peralatanP3KValue,
+               oxygenEmergency = oksigenVal,
+               fasilitasMedis = faskesVal,
+               obatAntibiotik = antibiotikVal,
+               obatAnalgesik = analgesikVal,
+               obatNarkotik = narkotikVal,
+               obatLainnya = obatLainnyaVal,
+               resiko = resikoVal,
+               masalah = masalahVal,
+               masalahCatatan = masalahNote
+           )
+
+           val intent = Intent(this@P3KInputPemeriksaanActivity, P3KInputActivity::class.java)
+           intent.putExtra("PEMERIKSAAN", pemeriksaanData)
+           setResult(RESULT_OK, intent)
+           finish()
+       }
     }
 }

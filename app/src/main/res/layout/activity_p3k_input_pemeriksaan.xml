@@ -307,6 +307,125 @@
                             android:text="@string/radio_tidak_tersedia"/>
                     </RadioGroup>
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/radio_resiko_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Resiko"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginVertical="8dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/radioResiko"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radio_resiko_tinggi"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="@string/radio_risk_high"/>
+                        <RadioButton
+                            android:id="@+id/radio_resiko_rendah"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="@string/radio_risk_low"/>
+                        <RadioButton
+                            android:id="@+id/radio_resiko_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="@string/radio_risk_safe"/>
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/radio_health_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Masalah"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginVertical="8dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/radioMasalah"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radio_masalah_true"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="@string/radio_istrue"/>
+                        <RadioButton
+                            android:id="@+id/radio_masalah_false"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="@string/radio_isfalse"/>
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/masalah_file_layout"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bukti Masalah"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginVertical="8dp"/>
+                    <ImageView
+                        android:id="@+id/prevMasalah"
+                        android:layout_width="154dp"
+                        android:layout_height="210dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"/>
+                    <Button
+                        android:id="@+id/btnSelectMasalah"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unggah Dokumen"
+                        app:icon="@drawable/ic_doc"
+                        app:iconPadding="8dp"/>
+                </LinearLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etMasalahNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
+                    android:visibility="gone"
+                    android:hint="Catatan Permasalahan">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
                 <Button
                     style="@style/Widget.Material3.Button.IconButton.Filled"
                     android:id="@+id/saveButton"

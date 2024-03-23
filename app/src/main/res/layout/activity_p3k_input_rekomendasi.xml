@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".p3k.P3KInputRekomendasiActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/headerBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            app:title="@string/sscec_rekomendasi_add_data_title"
+            app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/ic_back"
+            app:navigationIconTint="@color/white"
+            app:titleTextAppearance="@style/TopBarTextStyle"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+    <FrameLayout
+        android:id="@+id/inputFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerBar">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="14dp"
+                android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etSSCEC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="Resiko">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etTanggal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="Tanggal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etJam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="Jam">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:id="@+id/signKaptenButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
+                    android:text="+ Tanda Tangan Kapten"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/signedKapten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_signature_pad"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:padding="14dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ketuk untuk ubah tanda tangan"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center"/>
+                    <ImageView
+                        android:clickable="true"
+                        android:id="@+id/ivSignKapten"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kapten Kapal"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvKapten"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kapten"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:id="@+id/signOfficerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="+ Tanda Tangan Petugas"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/signedOfficer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_signature_pad"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:padding="14dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ketuk untuk ubah tanda tangan"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center"/>
+                    <ImageView
+                        android:clickable="true"
+                        android:id="@+id/ivSignOfficer"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quarantine Officer"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Petugas"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <Button
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:id="@+id/saveButton"
+                    android:layout_marginTop="32dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Simpan" />
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

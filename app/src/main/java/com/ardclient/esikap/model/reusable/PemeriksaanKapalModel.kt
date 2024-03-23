@@ -13,4 +13,8 @@ data class PemeriksaanKapalModel(
     @ColumnInfo(name = "obat_analgesik") var obatAnalgesik: String = "",
     @ColumnInfo(name = "obat_lainnya") var obatLainnya: String = "",
     @ColumnInfo(name = "obat_narkotik") var obatNarkotik: String = "",
+    @ColumnInfo(name = "resiko") var resiko: String = "",
+    @ColumnInfo(name = "masalah") var masalah: String = "",
+    @ColumnInfo(name = "masalah_file") var masalahFile: String = "",
+    @ColumnInfo(name = "masalah_catatan") var masalahCatatan: String = "",
 ) : Parcelable
