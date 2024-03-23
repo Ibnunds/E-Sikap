@@ -133,5 +133,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         super.onResume()
         // Check Document Count
         initPHQCDocumentCount()
+        initSSCECDocumentCount()
+        initCOPDocumentCount()
     }
 }

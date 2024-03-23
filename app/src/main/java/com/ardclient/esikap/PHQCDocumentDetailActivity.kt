@@ -12,6 +12,7 @@ import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.databinding.ActivityPhqcDocumentDetailBinding
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.utils.Base64Utils
+import com.ardclient.esikap.utils.DialogUtils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PHQCDocumentDetailActivity : AppCompatActivity() {
@@ -51,12 +52,11 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         }
 
         binding.deleteButton.setOnClickListener {
-            MaterialAlertDialogBuilder(this)
-                .setTitle("Hapus Data")
-                .setMessage("Apakah anda yakin ingin menghapus data ini?")
-                .setNegativeButton("Batalkan") { dialog, _ -> dialog.dismiss()}
-                .setPositiveButton("Konfirmasi") { _, _ -> deleteDokumen() }
-                .show()
+            DialogUtils.showDeleteDialog(this, object : DialogUtils.OnDeleteConfirmListener {
+                override fun onDeleteConfirmed() {
+                    deleteDokumen()
+                }
+            })
         }
     }
 

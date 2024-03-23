@@ -2,6 +2,7 @@ package com.ardclient.esikap
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -102,8 +103,9 @@ class DocumentListActivity : AppCompatActivity() {
         // setupRecyclerView("PHQC", listData)
         binding.recyclerView.adapter = SSCECAdapter(listData, object : SSCECAdapter.SSCEClistener {
             override fun onItemClicked(sscec: SSCECModel) {
-                val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
+                val intent = Intent(this@DocumentListActivity, SSCECInputActivity::class.java)
                 intent.putExtra("SSCEC", sscec)
+                intent?.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
         })
@@ -129,6 +131,7 @@ class DocumentListActivity : AppCompatActivity() {
             override fun onItemClicked(phqc: PHQCModel) {
                 val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
                 intent.putExtra("PHQC", phqc)
+                intent?.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
         })
@@ -155,6 +158,7 @@ class DocumentListActivity : AppCompatActivity() {
             override fun onItemClicked(cop: COPModel) {
                 val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
                 intent.putExtra("COP", cop)
+                intent?.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
 

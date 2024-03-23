@@ -93,6 +93,8 @@ class SanitasiInputActivity : AppCompatActivity() {
         val medikValue = if (getCheckedIdByString(copSanitasi.sanFasilitasMedik) == 1) R.id.radio_medik_true else R.id.radio_medik_false
         val otherAreaValue = if (getCheckedIdByString(copSanitasi.sanAreaLainnya) == 1) R.id.radio_otherArea_true else R.id.radio_otherArea_false
         val rekomendasiValue = if (getCheckedIdByString(copSanitasi.rekomendasi) == 1) R.id.radio_disinseksi else if (getCheckedIdByString(copSanitasi.rekomendasi) == 2) R.id.radio_fumigasi else R.id.radio_no_problem
+        val resikoValue = if (getCheckedIdByString(copSanitasi.resikoSanitasi) == 1) R.id.radio_resiko_tinggi else if (getCheckedIdByString(copSanitasi.resikoSanitasi) == 2) R.id.radio_resiko_rendah else R.id.radio_resiko_no
+        val healthValue = if (getCheckedIdByString(copSanitasi.masalahKesehatan) == 1) R.id.radio_health_true else R.id.radio__health_false
 
 
         // asigning
@@ -123,13 +125,15 @@ class SanitasiInputActivity : AppCompatActivity() {
         binding.radioMedik.check(medikValue)
         binding.radioOtherArea.check(otherAreaValue)
         binding.radioRekomendasi.check(rekomendasiValue)
+        binding.radioResiko.check(resikoValue)
+        binding.radioHealth.check(healthValue)
     }
 
 
     private fun getCheckedIdByString(selected: String): Int {
-        return if (selected.lowercase() == "memenuhi syarat" || selected.lowercase() == "ada vektor dan tanda - tandanya" || selected.lowercase() == "disinseksi"){
+        return if (selected.lowercase() == "memenuhi syarat" || selected.lowercase() == "ada vektor dan tanda - tandanya" || selected.lowercase() == "disinseksi" || selected.lowercase() == "resiko tinggi" || selected.lowercase() == "ada"){
             1
-        }else if (selected.lowercase() == "tidak memenuhi syarat" || selected.lowercase() == "tidak ada vektor" || selected.lowercase() == "fumigasi"){
+        }else if (selected.lowercase() == "tidak memenuhi syarat" || selected.lowercase() == "tidak ada vektor" || selected.lowercase() == "fumigasi" || selected.lowercase() == "resiko rendah" || selected.lowercase() == "tidak ada"){
             2
         }else{
             3
