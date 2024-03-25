@@ -12,7 +12,9 @@ import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivityP3kInputDataUmumBinding
 import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.sscec.SSCECInputActivity
+import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class P3KInputDataUmumActivity : AppCompatActivity() {
     private lateinit var binding: ActivityP3kInputDataUmumBinding
@@ -38,6 +40,21 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             onSaveButton()
+        }
+
+        // Date picker
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Pilih tanggal")
+                .build()
+
+        binding.etTanggalDiperiksa.editText?.setOnClickListener {
+            datePicker.show(supportFragmentManager, "DATEPICKER")
+        }
+
+        datePicker.addOnPositiveButtonClickListener {
+            val selectedDate = DateTimeUtils.formatDate(it)
+            binding.etTanggalDiperiksa.editText?.setText(selectedDate)
         }
     }
 

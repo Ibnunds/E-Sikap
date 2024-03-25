@@ -10,7 +10,9 @@ import android.widget.EditText
 import android.widget.Toast
 import com.ardclient.esikap.databinding.ActivitySscecInputDataUmumBinding
 import com.ardclient.esikap.model.SSCECModel
+import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class SSCECInputDataUmumActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySscecInputDataUmumBinding
@@ -37,6 +39,21 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
         // button
         binding.saveButton.setOnClickListener {
             onSaveData()
+        }
+
+        // Date picker
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Pilih tanggal")
+                .build()
+
+        binding.etTiba.editText?.setOnClickListener {
+            datePicker.show(supportFragmentManager, "DATEPICKER")
+        }
+
+        datePicker.addOnPositiveButtonClickListener {
+            val selectedDate = DateTimeUtils.formatDate(it)
+            binding.etTiba.editText?.setText(selectedDate)
         }
     }
 

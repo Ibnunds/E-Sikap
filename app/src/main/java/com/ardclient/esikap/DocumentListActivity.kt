@@ -191,7 +191,7 @@ class DocumentListActivity : AppCompatActivity() {
         // setupRecyclerView("COP", listData)
         binding.recyclerView.adapter = COPAdapter(listData, object : COPAdapter.COPListner {
             override fun onItemClicked(cop: COPModel) {
-                val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
+                val intent = Intent(this@DocumentListActivity, CopInputActivity::class.java)
                 intent.putExtra("COP", cop)
                 intent?.putExtra("KAPAL", kapal)
                 startActivity(intent)

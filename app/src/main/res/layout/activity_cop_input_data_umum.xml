@@ -77,11 +77,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:inputType="date"
                         android:textColor="@color/black"
                         android:fontFamily="@font/poppins_regular"
+                        android:inputType="none"
+                        android:cursorVisible="false"
+                        android:focusable="false"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/etLokasiSandar"

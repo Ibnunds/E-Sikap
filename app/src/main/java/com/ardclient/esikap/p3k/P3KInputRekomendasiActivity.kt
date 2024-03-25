@@ -22,7 +22,12 @@ import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.sscec.SSCECInputActivity
 import com.ardclient.esikap.utils.Base64Utils
+import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
+import com.google.android.material.timepicker.TimeFormat
 
 class P3KInputRekomendasiActivity : AppCompatActivity() {
     private lateinit var binding: ActivityP3kInputRekomendasiBinding
@@ -100,6 +105,43 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
             intent.putExtra("TYPE", "PETUGAS")
             launcher!!.launch(intent)
         }
+
+        // Date picker
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Pilih tanggal")
+                .build()
+
+        binding.etTanggal.editText?.setOnClickListener {
+            datePicker.show(supportFragmentManager, "DATEPICKER")
+        }
+
+        datePicker.addOnPositiveButtonClickListener {
+            val selectedDate = DateTimeUtils.formatDate(it)
+            binding.etTanggal.editText?.setText(selectedDate)
+        }
+
+
+        // time picker
+        val timePicker =
+            MaterialTimePicker.Builder()
+                .setInputMode(INPUT_MODE_CLOCK)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setTitleText("Pilih jam")
+                .build()
+
+        binding.etJam.editText?.setOnClickListener {
+            timePicker.show(supportFragmentManager, "TIMEPICKER")
+        }
+
+        timePicker.addOnPositiveButtonClickListener {
+            val pickerHour = timePicker.hour
+            val pickerMinute = timePicker.minute
+            val formatted = "$pickerHour.$pickerMinute"
+
+            binding.etJam.editText?.setText(formatted)
+        }
+
     }
 
     private fun initExistingData() {
