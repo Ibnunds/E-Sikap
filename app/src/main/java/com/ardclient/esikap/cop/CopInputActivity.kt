@@ -96,6 +96,10 @@ class CopInputActivity : AppCompatActivity() {
             }
             launcher?.launch(intent)
         }
+
+        binding.submitButton.setOnClickListener {
+
+        }
     }
 
 

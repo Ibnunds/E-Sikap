@@ -113,7 +113,7 @@ class DocumentListActivity : AppCompatActivity() {
         binding.recyclerView.adapter = P3KAdapter(listData, object : P3KAdapter.P3KListener {
             override fun onItemClicked(p3k: P3KModel) {
                 val intent = Intent(this@DocumentListActivity, P3KInputActivity::class.java)
-                intent.putExtra("SSCEC", p3k)
+                intent.putExtra("P3K", p3k)
                 intent?.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }

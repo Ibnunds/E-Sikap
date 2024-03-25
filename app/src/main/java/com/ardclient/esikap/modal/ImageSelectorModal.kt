@@ -71,6 +71,10 @@ class ImageSelectorModal : DialogFragment() {
                 REQUEST_CODE_GALLERY -> {
                     // Gambar dipilih dari galeri, kirim kembali hasilnya ke aktivitas
                     val selectedImageUri = data?.data
+                    val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    val resolver = requireContext().contentResolver
+
+                    resolver.takePersistableUriPermission(selectedImageUri!!, flags)
                     selectedImageUri?.let {
                         (activity as? OnImageSelectedListener)?.onImageSelected(it)
                     }

@@ -34,6 +34,7 @@ data class SanitasiModel(
     @ColumnInfo(name = "vec_limba_cair") var vecLimbaCair: String = "",
     @ColumnInfo(name = "resiko_sanitasi") var resikoSanitasi: String = "",
     @ColumnInfo(name = "masalah_kesehatan") var masalahKesehatan: String = "",
+    @ColumnInfo(name = "masalah_kesehatan_catatan") var masalahKesehatanCatatan: String = "",
     @ColumnInfo(name = "masalah_kesehatan_file") var masalahKesehatanFile: String = "",
     @ColumnInfo(name = "rekomendasi") var rekomendasi: String = "",
 ) : Parcelable

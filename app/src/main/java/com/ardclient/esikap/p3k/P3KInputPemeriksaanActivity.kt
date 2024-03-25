@@ -1,19 +1,24 @@
 package com.ardclient.esikap.p3k
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivityP3kInputPemeriksaanBinding
+import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.PemeriksaanKapalModel
 import com.ardclient.esikap.utils.InputValidation
+import com.squareup.picasso.Picasso
 
-class P3KInputPemeriksaanActivity : AppCompatActivity() {
+class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
     private lateinit var binding: ActivityP3kInputPemeriksaanBinding
     private lateinit var pemeriksaanKapal: PemeriksaanKapalModel
 
+    private var masalahDoc: String = ""
     private var needExtra: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +55,10 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
                 binding.masalahFileLayout.visibility = View.GONE
                 binding.etMasalahNote.visibility = View.GONE
             }
+        }
+
+        binding.btnSelectMasalah.setOnClickListener {
+            pickDocument()
         }
     }
 
@@ -125,6 +134,19 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
                 binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
             }
         }
+
+        Log.d("FILE", pemeriksaanKapal.masalahFile)
+
+        // document
+        if (getCheckedIntByString(pemeriksaanKapal.masalah) == 1){
+            binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
+
+            binding.btnSelectMasalah.text = "Update Dokumen"
+            binding.prevMasalah.visibility  =View.VISIBLE
+            Picasso.get().load(pemeriksaanKapal.masalahFile).fit().into(binding.prevMasalah)
+
+            masalahDoc = pemeriksaanKapal.masalahFile
+        }
     }
 
     private fun getCheckedIntByString(title: String): Int {
@@ -161,7 +183,7 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
 
             if (isAllFilled){
                 if (needExtra){
-                    if (isInputFilled){
+                    if (isInputFilled && !masalahDoc.isNullOrBlank()){
                         onValidInput()
                     }else{
                         Toast.makeText(this@P3KInputPemeriksaanActivity, "Semua form belum teriisi!", Toast.LENGTH_SHORT).show()
@@ -198,7 +220,8 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
                obatLainnya = obatLainnyaVal,
                resiko = resikoVal,
                masalah = masalahVal,
-               masalahCatatan = masalahNote
+               masalahCatatan = masalahNote,
+               masalahFile = masalahDoc
            )
 
            val intent = Intent(this@P3KInputPemeriksaanActivity, P3KInputActivity::class.java)
@@ -206,5 +229,19 @@ class P3KInputPemeriksaanActivity : AppCompatActivity() {
            setResult(RESULT_OK, intent)
            finish()
        }
+    }
+
+    private fun pickDocument() {
+        // dialog
+        val imageSelectorDialog = ImageSelectorModal()
+        imageSelectorDialog.show(supportFragmentManager, "IMAGE_PICKER")
+    }
+
+    override fun onImageSelected(imageUri: Uri) {
+        val uriString = imageUri.toString()
+        masalahDoc = uriString
+        binding.btnSelectMasalah.text = "Update Dokumen"
+        binding.prevMasalah.visibility  =View.VISIBLE
+        Picasso.get().load(uriString).fit().into(binding.prevMasalah)
     }
 }

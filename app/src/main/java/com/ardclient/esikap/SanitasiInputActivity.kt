@@ -1,6 +1,7 @@
 package com.ardclient.esikap
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,13 +11,17 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import com.ardclient.esikap.cop.CopInputActivity
 import com.ardclient.esikap.databinding.ActivitySanitasiInputBinding
+import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.SanitasiModel
+import com.ardclient.esikap.utils.InputValidation
+import com.squareup.picasso.Picasso
 
-class SanitasiInputActivity : AppCompatActivity() {
+class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
     private lateinit var binding: ActivitySanitasiInputBinding
     private lateinit var copSanitasi: SanitasiModel
 
     private lateinit var senderActivity: String
+    private var masalahDoc: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySanitasiInputBinding.inflate(layoutInflater)
@@ -54,12 +59,18 @@ class SanitasiInputActivity : AppCompatActivity() {
         }
 
         // on health issue checked
-        binding.radioHealth.setOnCheckedChangeListener{group, checkedId ->
+        binding.radioHealth.setOnCheckedChangeListener{_, checkedId ->
             if (checkedId == R.id.radio_health_true){
                 binding.healthFileLayout.visibility = View.VISIBLE
+                binding.etMasalahNote.visibility = View.VISIBLE
             }else{
                 binding.healthFileLayout.visibility = View.GONE
+                binding.etMasalahNote.visibility = View.GONE
             }
+        }
+
+        binding.btnSelectMasalah.setOnClickListener {
+            pickDocument()
         }
     }
 
@@ -125,6 +136,21 @@ class SanitasiInputActivity : AppCompatActivity() {
         binding.radioRekomendasi.check(rekomendasiValue)
         binding.radioResiko.check(resikoValue)
         binding.radioHealth.check(healthValue)
+
+        if (getCheckedIdByString(copSanitasi.masalahKesehatan) == 1){
+            binding.healthFileLayout.visibility = View.VISIBLE
+            binding.etMasalahNote.visibility = View.VISIBLE
+
+            masalahDoc = copSanitasi.masalahKesehatanFile
+            binding.btnSelectMasalah.text = "Update Dokumen"
+            binding.prevMasalah.visibility = View.VISIBLE
+            Picasso.get().load(masalahDoc).fit().into(binding.prevMasalah)
+
+            binding.etMasalahNote.editText?.setText(copSanitasi.masalahKesehatanCatatan)
+        }else{
+            binding.healthFileLayout.visibility = View.GONE
+            binding.etMasalahNote.visibility = View.GONE
+        }
     }
 
 
@@ -143,8 +169,16 @@ class SanitasiInputActivity : AppCompatActivity() {
 
 
         if (isAllChecked) {
+
+            // SSCEC Masalah
+            val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
+
+            val isMasalahFilled = InputValidation.isAllFieldComplete(
+                binding.etMasalahNote
+            )
+
             val errorMessage = when {
-                senderActivity == "SSCEC" && (binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1) -> "Data belum lengkap!"
+                senderActivity == "SSCEC" && (binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || !isMasalahFilled || masalahDoc.isEmpty()) -> "Data belum lengkap!"
                 senderActivity != "SSCEC" && binding.radioRekomendasi.checkedRadioButtonId == -1 -> "Data belum lengkap!"
                 else -> null
             }
@@ -189,6 +223,7 @@ class SanitasiInputActivity : AppCompatActivity() {
         val rekomendasiValue = if (senderActivity != "SSCEC") getSelectedRadioGroupValue(binding.radioRekomendasi) else "-"
         val resikoValue = if (senderActivity == "SSCEC") getSelectedRadioGroupValue(binding.radioResiko) else "-"
         val healthValue = if (senderActivity == "SSCEC") getSelectedRadioGroupValue(binding.radioHealth) else "-"
+        val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
 
         val sanitasiData = SanitasiModel(
             sanDapur = dapurValue,
@@ -219,7 +254,9 @@ class SanitasiInputActivity : AppCompatActivity() {
             vecLimbaCair = limbaCairVecValue,
             rekomendasi = rekomendasiValue,
             resikoSanitasi = resikoValue,
-            masalahKesehatan = healthValue
+            masalahKesehatan = healthValue,
+            masalahKesehatanFile = masalahDoc,
+            masalahKesehatanCatatan = masalahCatatanVal
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
@@ -267,5 +304,19 @@ class SanitasiInputActivity : AppCompatActivity() {
         val checkedRadioButtonId = radioGroup.checkedRadioButtonId
         val checkedRadioButton = findViewById<RadioButton>(checkedRadioButtonId)
         return checkedRadioButton.text.toString()
+    }
+
+    private fun pickDocument() {
+        // dialog
+        val imageSelectorDialog = ImageSelectorModal()
+        imageSelectorDialog.show(supportFragmentManager, "IMAGE_PICKER")
+    }
+
+    override fun onImageSelected(imageUri: Uri) {
+        val uriString = imageUri.toString()
+        masalahDoc = uriString
+        binding.btnSelectMasalah.text = "Update Dokumen"
+        binding.prevMasalah.visibility = View.VISIBLE
+        Picasso.get().load(uriString).fit().into(binding.prevMasalah)
     }
 }
