@@ -33,4 +33,5 @@ data class COPModel(
     @Embedded(prefix = "doc_") var dokumenKapal: DokumenKapalModel = DokumenKapalModel(),
     @Embedded(prefix = "sanitasi_") var sanitasiKapal: SanitasiModel = SanitasiModel(),
     @ColumnInfo(name = "rekomendasi") var rekomendasi: String = "",
+    @ColumnInfo(name = "timestamp") var timestamp: Long = System.currentTimeMillis(),
 ) : Parcelable

@@ -22,6 +22,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
     private lateinit var senderActivity: String
     private var masalahDoc: String = ""
+    private var hasMasalah: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySanitasiInputBinding.inflate(layoutInflater)
@@ -61,9 +62,11 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         // on health issue checked
         binding.radioHealth.setOnCheckedChangeListener{_, checkedId ->
             if (checkedId == R.id.radio_health_true){
+                hasMasalah = true
                 binding.healthFileLayout.visibility = View.VISIBLE
                 binding.etMasalahNote.visibility = View.VISIBLE
             }else{
+                hasMasalah = false
                 binding.healthFileLayout.visibility = View.GONE
                 binding.etMasalahNote.visibility = View.GONE
             }
@@ -138,6 +141,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         binding.radioHealth.check(healthValue)
 
         if (getCheckedIdByString(copSanitasi.masalahKesehatan) == 1){
+            hasMasalah = true
             binding.healthFileLayout.visibility = View.VISIBLE
             binding.etMasalahNote.visibility = View.VISIBLE
 
@@ -148,6 +152,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
             binding.etMasalahNote.editText?.setText(copSanitasi.masalahKesehatanCatatan)
         }else{
+            hasMasalah = false
             binding.healthFileLayout.visibility = View.GONE
             binding.etMasalahNote.visibility = View.GONE
         }
@@ -177,8 +182,11 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 binding.etMasalahNote
             )
 
+            val requireMasalahDoc = hasMasalah && masalahDoc.isEmpty()
+            val requireMasalahCatatan = hasMasalah && masalahCatatanVal.isEmpty()
+
             val errorMessage = when {
-                senderActivity == "SSCEC" && (binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || !isMasalahFilled || masalahDoc.isEmpty()) -> "Data belum lengkap!"
+                senderActivity == "SSCEC" && (binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireMasalahCatatan) -> "Data belum lengkap!"
                 senderActivity != "SSCEC" && binding.radioRekomendasi.checkedRadioButtonId == -1 -> "Data belum lengkap!"
                 else -> null
             }

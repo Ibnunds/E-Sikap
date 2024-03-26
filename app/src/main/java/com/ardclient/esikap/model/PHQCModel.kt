@@ -26,5 +26,6 @@ data class PHQCModel(
     @ColumnInfo(name = "status_sanitasi") var statusSanitasi: String = "",
     @ColumnInfo(name = "kesimpulan") var kesimpulan: String = "",
     @ColumnInfo(name = "petugas_pelaksana") var petugasPelaksana: String = "",
-    @ColumnInfo(name = "signature") var signature: String = ""
+    @ColumnInfo(name = "signature") var signature: String = "",
+    @ColumnInfo(name = "timestamp") var timestamp: Long = System.currentTimeMillis(),
 ) : Parcelable

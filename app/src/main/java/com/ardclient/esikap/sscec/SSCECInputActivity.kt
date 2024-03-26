@@ -59,8 +59,8 @@ class SSCECInputActivity : AppCompatActivity() {
             SSCECSignature = existingData
 
             // button
-            binding.uploadButton.visibility = View.VISIBLE
-            binding.deleteButton.visibility = View.VISIBLE
+            binding.bottomContainerEdit.visibility = View.VISIBLE
+            binding.bottomContainerSave.visibility = View.GONE
 
             // header
             binding.topAppBar.title = "Dokumen SSCEC"
@@ -142,59 +142,11 @@ class SSCECInputActivity : AppCompatActivity() {
         }
 
         binding.submitButton.setOnClickListener {
-            if (binding.chipDataUmum.isChecked && binding.chipSanitasi.isChecked && binding.chipDokumenKapal.isChecked) {
-                val sscecUpdate = if (isUpdate) {
-                    SSCECModel(
-                        id = existingID,
-                        kapalId = kapal.id,
-                        kapal = kapal,
-                        pelabuhanTujuan = SSCECDataUmum.pelabuhanTujuan,
-                        tglTiba = SSCECDataUmum.tglTiba,
-                        lokasiSandar = SSCECDataUmum.lokasiSandar,
-                        jumlahABKAsing = SSCECDataUmum.jumlahABKAsing,
-                        asingSehat = SSCECDataUmum.asingSehat,
-                        asingSakit = SSCECDataUmum.asingSakit,
-                        jumlahABKWNI = SSCECDataUmum.jumlahABKWNI,
-                        wniSehat = SSCECDataUmum.wniSehat,
-                        wniSakit = SSCECDataUmum.wniSakit,
-                        recSSCEC = SSCECSignature.recSSCEC,
-                        recTanggal = SSCECSignature.recTanggal,
-                        recJam = SSCECSignature.recJam,
-                        signNamaPetugas = SSCECSignature.signNamaPetugas,
-                        signNamaKapten = SSCECSignature.signNamaKapten,
-                        signKapten = SSCECSignature.signKapten,
-                        signPetugas = SSCECSignature.signPetugas,
-                        sanitasi = SSCECSanitasi
-                    )
-                } else {
-                    SSCECModel(
-                        kapalId = kapal.id,
-                        kapal = kapal,
-                        pelabuhanTujuan = SSCECDataUmum.pelabuhanTujuan,
-                        tglTiba = SSCECDataUmum.tglTiba,
-                        lokasiSandar = SSCECDataUmum.lokasiSandar,
-                        jumlahABKAsing = SSCECDataUmum.jumlahABKAsing,
-                        asingSehat = SSCECDataUmum.asingSehat,
-                        asingSakit = SSCECDataUmum.asingSakit,
-                        jumlahABKWNI = SSCECDataUmum.jumlahABKWNI,
-                        wniSehat = SSCECDataUmum.wniSehat,
-                        wniSakit = SSCECDataUmum.wniSakit,
-                        recSSCEC = SSCECSignature.recSSCEC,
-                        recTanggal = SSCECSignature.recTanggal,
-                        recJam = SSCECSignature.recJam,
-                        signNamaPetugas = SSCECSignature.signNamaPetugas,
-                        signNamaKapten = SSCECSignature.signNamaKapten,
-                        signKapten = SSCECSignature.signKapten,
-                        signPetugas = SSCECSignature.signPetugas,
-                        sanitasi = SSCECSanitasi
-                    )
-                }
+            onSaveButton()
+        }
 
-                onSubmitData(sscecUpdate)
-            } else {
-                Toast.makeText(this@SSCECInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
-                    .show()
-            }
+        binding.updateButton.setOnClickListener {
+            onSaveButton()
         }
 
         binding.deleteButton.setOnClickListener {
@@ -204,6 +156,62 @@ class SSCECInputActivity : AppCompatActivity() {
                 }
 
             })
+        }
+    }
+
+    private fun onSaveButton() {
+        if (binding.chipDataUmum.isChecked && binding.chipSanitasi.isChecked && binding.chipDokumenKapal.isChecked) {
+            val sscecUpdate = if (isUpdate) {
+                SSCECModel(
+                    id = existingID,
+                    kapalId = kapal.id,
+                    kapal = kapal,
+                    pelabuhanTujuan = SSCECDataUmum.pelabuhanTujuan,
+                    tglTiba = SSCECDataUmum.tglTiba,
+                    lokasiSandar = SSCECDataUmum.lokasiSandar,
+                    jumlahABKAsing = SSCECDataUmum.jumlahABKAsing,
+                    asingSehat = SSCECDataUmum.asingSehat,
+                    asingSakit = SSCECDataUmum.asingSakit,
+                    jumlahABKWNI = SSCECDataUmum.jumlahABKWNI,
+                    wniSehat = SSCECDataUmum.wniSehat,
+                    wniSakit = SSCECDataUmum.wniSakit,
+                    recSSCEC = SSCECSignature.recSSCEC,
+                    recTanggal = SSCECSignature.recTanggal,
+                    recJam = SSCECSignature.recJam,
+                    signNamaPetugas = SSCECSignature.signNamaPetugas,
+                    signNamaKapten = SSCECSignature.signNamaKapten,
+                    signKapten = SSCECSignature.signKapten,
+                    signPetugas = SSCECSignature.signPetugas,
+                    sanitasi = SSCECSanitasi
+                )
+            } else {
+                SSCECModel(
+                    kapalId = kapal.id,
+                    kapal = kapal,
+                    pelabuhanTujuan = SSCECDataUmum.pelabuhanTujuan,
+                    tglTiba = SSCECDataUmum.tglTiba,
+                    lokasiSandar = SSCECDataUmum.lokasiSandar,
+                    jumlahABKAsing = SSCECDataUmum.jumlahABKAsing,
+                    asingSehat = SSCECDataUmum.asingSehat,
+                    asingSakit = SSCECDataUmum.asingSakit,
+                    jumlahABKWNI = SSCECDataUmum.jumlahABKWNI,
+                    wniSehat = SSCECDataUmum.wniSehat,
+                    wniSakit = SSCECDataUmum.wniSakit,
+                    recSSCEC = SSCECSignature.recSSCEC,
+                    recTanggal = SSCECSignature.recTanggal,
+                    recJam = SSCECSignature.recJam,
+                    signNamaPetugas = SSCECSignature.signNamaPetugas,
+                    signNamaKapten = SSCECSignature.signNamaKapten,
+                    signKapten = SSCECSignature.signKapten,
+                    signPetugas = SSCECSignature.signPetugas,
+                    sanitasi = SSCECSanitasi
+                )
+            }
+
+            onSubmitData(sscecUpdate)
+        } else {
+            Toast.makeText(this@SSCECInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

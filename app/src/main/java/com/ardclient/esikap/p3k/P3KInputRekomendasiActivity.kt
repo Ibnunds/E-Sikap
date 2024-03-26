@@ -137,7 +137,7 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
         timePicker.addOnPositiveButtonClickListener {
             val pickerHour = timePicker.hour
             val pickerMinute = timePicker.minute
-            val formatted = "$pickerHour.$pickerMinute"
+            val formatted = DateTimeUtils.formatTime(pickerHour, pickerMinute)
 
             binding.etJam.editText?.setText(formatted)
         }

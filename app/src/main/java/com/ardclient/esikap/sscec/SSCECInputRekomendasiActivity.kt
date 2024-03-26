@@ -21,6 +21,8 @@ import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 
 class SSCECInputRekomendasiActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySscecInputRekomendasiBinding
@@ -110,6 +112,26 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
         datePicker.addOnPositiveButtonClickListener {
             val selectedDate = DateTimeUtils.formatDate(it)
             binding.etTanggal.editText?.setText(selectedDate)
+        }
+
+        // time picker
+        val timePicker =
+            MaterialTimePicker.Builder()
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setTitleText("Pilih jam")
+                .build()
+
+        binding.etJam.editText?.setOnClickListener {
+            timePicker.show(supportFragmentManager, "TIMEPICKER")
+        }
+
+        timePicker.addOnPositiveButtonClickListener {
+            val pickerHour = timePicker.hour
+            val pickerMinute = timePicker.minute
+            val formatted = DateTimeUtils.formatTime(pickerHour, pickerMinute)
+
+            binding.etJam.editText?.setText(formatted)
         }
     }
 

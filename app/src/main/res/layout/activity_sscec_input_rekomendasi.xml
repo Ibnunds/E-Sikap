@@ -90,6 +90,9 @@
                                 android:singleLine="true"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/poppins_regular"
+                                android:inputType="none"
+                                android:cursorVisible="false"
+                                android:focusable="false"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
 

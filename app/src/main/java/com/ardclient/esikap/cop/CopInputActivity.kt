@@ -58,8 +58,8 @@ class CopInputActivity : AppCompatActivity() {
             copDocData = existingData.dokumenKapal
 
             // button
-            binding.uploadButton.visibility = View.VISIBLE
-            binding.deleteButton.visibility = View.VISIBLE
+            binding.bottomContainerEdit.visibility = View.VISIBLE
+            binding.bottomContainerSave.visibility = View.GONE
 
             // header
             binding.topAppBar.title = "Dokumen COP"
@@ -144,61 +144,11 @@ class CopInputActivity : AppCompatActivity() {
         }
 
         binding.submitButton.setOnClickListener {
-            if (binding.chipCOPSanitasi.isChecked && binding.chipCOPDataUmum.isChecked && binding.chipCOPDokumenKapal.isChecked){
-                val data = if (isUpdate) {
-                    COPModel(
-                        id = existingID,
-                        kapal = kapal,
-                        kapalId = kapal.id,
-                        tujuan = copBasicData.tujuan,
-                        tglTiba = copBasicData.tglTiba,
-                        lokasiSandar = copBasicData.lokasiSandar,
-                        jumlahABKAsing = copBasicData.jumlahABKAsing,
-                        asingSakit = copBasicData.asingSakit,
-                        asingSehat = copBasicData.asingSehat,
-                        jumlahABKWNI = copBasicData.jumlahABKWNI,
-                        wniSakit = copBasicData.wniSakit,
-                        wniSehat = copBasicData.wniSehat,
-                        jumlahPenumpangWNI = copBasicData.jumlahPenumpangWNI,
-                        penumpangSakit = copBasicData.penumpangSakit,
-                        penumpangSehat = copBasicData.penumpangSehat,
-                        jumlahPenumpangAsing = copBasicData.jumlahPenumpangAsing,
-                        penumpangAsingSakit = copBasicData.penumpangAsingSakit,
-                        penumpangAsingSehat = copBasicData.penumpangAsingSehat,
-                        dokumenKapal = copDocData,
-                        sanitasiKapal = copSanitasi,
-                        rekomendasi = copBasicData.rekomendasi
-                    )
-                } else {
-                    COPModel(
-                        kapal = kapal,
-                        kapalId = kapal.id,
-                        tujuan = copBasicData.tujuan,
-                        tglTiba = copBasicData.tglTiba,
-                        lokasiSandar = copBasicData.lokasiSandar,
-                        jumlahABKAsing = copBasicData.jumlahABKAsing,
-                        asingSakit = copBasicData.asingSakit,
-                        asingSehat = copBasicData.asingSehat,
-                        jumlahABKWNI = copBasicData.jumlahABKWNI,
-                        wniSakit = copBasicData.wniSakit,
-                        wniSehat = copBasicData.wniSehat,
-                        jumlahPenumpangWNI = copBasicData.jumlahPenumpangWNI,
-                        penumpangSakit = copBasicData.penumpangSakit,
-                        penumpangSehat = copBasicData.penumpangSehat,
-                        jumlahPenumpangAsing = copBasicData.jumlahPenumpangAsing,
-                        penumpangAsingSakit = copBasicData.penumpangAsingSakit,
-                        penumpangAsingSehat = copBasicData.penumpangAsingSehat,
-                        dokumenKapal = copDocData,
-                        sanitasiKapal = copSanitasi,
-                        rekomendasi = copBasicData.rekomendasi
-                    )
-                }
+            onSaveButton()
+        }
 
-                onSubmitData(data)
-            }else{
-                Toast.makeText(this@CopInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
-                    .show()
-            }
+        binding.updateButton.setOnClickListener {
+            onSaveButton()
         }
 
         binding.deleteButton.setOnClickListener {
@@ -207,6 +157,64 @@ class CopInputActivity : AppCompatActivity() {
                     onDeleteData()
                 }
             })
+        }
+    }
+
+    private fun onSaveButton() {
+        if (binding.chipCOPSanitasi.isChecked && binding.chipCOPDataUmum.isChecked && binding.chipCOPDokumenKapal.isChecked){
+            val data = if (isUpdate) {
+                COPModel(
+                    id = existingID,
+                    kapal = kapal,
+                    kapalId = kapal.id,
+                    tujuan = copBasicData.tujuan,
+                    tglTiba = copBasicData.tglTiba,
+                    lokasiSandar = copBasicData.lokasiSandar,
+                    jumlahABKAsing = copBasicData.jumlahABKAsing,
+                    asingSakit = copBasicData.asingSakit,
+                    asingSehat = copBasicData.asingSehat,
+                    jumlahABKWNI = copBasicData.jumlahABKWNI,
+                    wniSakit = copBasicData.wniSakit,
+                    wniSehat = copBasicData.wniSehat,
+                    jumlahPenumpangWNI = copBasicData.jumlahPenumpangWNI,
+                    penumpangSakit = copBasicData.penumpangSakit,
+                    penumpangSehat = copBasicData.penumpangSehat,
+                    jumlahPenumpangAsing = copBasicData.jumlahPenumpangAsing,
+                    penumpangAsingSakit = copBasicData.penumpangAsingSakit,
+                    penumpangAsingSehat = copBasicData.penumpangAsingSehat,
+                    dokumenKapal = copDocData,
+                    sanitasiKapal = copSanitasi,
+                    rekomendasi = copBasicData.rekomendasi
+                )
+            } else {
+                COPModel(
+                    kapal = kapal,
+                    kapalId = kapal.id,
+                    tujuan = copBasicData.tujuan,
+                    tglTiba = copBasicData.tglTiba,
+                    lokasiSandar = copBasicData.lokasiSandar,
+                    jumlahABKAsing = copBasicData.jumlahABKAsing,
+                    asingSakit = copBasicData.asingSakit,
+                    asingSehat = copBasicData.asingSehat,
+                    jumlahABKWNI = copBasicData.jumlahABKWNI,
+                    wniSakit = copBasicData.wniSakit,
+                    wniSehat = copBasicData.wniSehat,
+                    jumlahPenumpangWNI = copBasicData.jumlahPenumpangWNI,
+                    penumpangSakit = copBasicData.penumpangSakit,
+                    penumpangSehat = copBasicData.penumpangSehat,
+                    jumlahPenumpangAsing = copBasicData.jumlahPenumpangAsing,
+                    penumpangAsingSakit = copBasicData.penumpangAsingSakit,
+                    penumpangAsingSehat = copBasicData.penumpangAsingSehat,
+                    dokumenKapal = copDocData,
+                    sanitasiKapal = copSanitasi,
+                    rekomendasi = copBasicData.rekomendasi
+                )
+            }
+
+            onSubmitData(data)
+        }else{
+            Toast.makeText(this@CopInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

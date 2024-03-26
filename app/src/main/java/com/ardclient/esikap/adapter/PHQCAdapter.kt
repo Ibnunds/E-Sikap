@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.PHQCModel
+import com.ardclient.esikap.utils.DateTimeUtils
 
 class PHQCAdapter(private val listItems: ArrayList<PHQCModel>, private val listener: PHQCListner) : RecyclerView.Adapter<PHQCAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +27,7 @@ class PHQCAdapter(private val listItems: ArrayList<PHQCModel>, private val liste
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
         holder.tvTitle.text = "PHQC ${item.kapal.namaKapal} - ${item.id}"
-        holder.tvBody.text = "timestamp"
+        holder.tvBody.text = DateTimeUtils.formatDate(item.timestamp, "dd MMMM yyyy")
         holder.itemView.setOnClickListener {
             listener.onItemClicked(item)
         }

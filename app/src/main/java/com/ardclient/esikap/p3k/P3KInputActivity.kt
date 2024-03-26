@@ -63,8 +63,8 @@ class P3KInputActivity : AppCompatActivity() {
             P3KPemeriksaan = existingData.pemeriksaan
 
             // button
-            binding.uploadButton.visibility = View.VISIBLE
-            binding.deleteButton.visibility = View.VISIBLE
+            binding.bottomContainerEdit.visibility = View.VISIBLE
+            binding.bottomContainerSave.visibility = View.GONE
 
             // header
             binding.topAppBar.title = "Dokumen P3K"
@@ -153,55 +153,11 @@ class P3KInputActivity : AppCompatActivity() {
         }
 
         binding.submitButton.setOnClickListener {
-            if (binding.chipDataUmum.isChecked && binding.chipDokumenKapal.isChecked && binding.chipSanitasi.isChecked){
-                val data = if (isUpdate) {
-                    P3KModel(
-                        id = existingID,
-                        kapal = kapal,
-                        kapalId = kapal.id,
-                        pemeriksaan = P3KPemeriksaan,
-                        jenisLayanan = P3KDataUmum.jenisLayanan,
-                        jenisPelayanan = P3KDataUmum.jenisPelayanan,
-                        lokasiPemeriksaan = P3KDataUmum.lokasiPemeriksaan,
-                        tglDiperiksa = P3KDataUmum.tglDiperiksa,
-                        jmlABK = P3KDataUmum.jmlABK,
-                        abkSehat = P3KDataUmum.abkSehat,
-                        abkSakit = P3KDataUmum.abkSakit,
-                        recP3K = P3KRekomendasi.recP3K,
-                        recTanggal = P3KRekomendasi.recTanggal,
-                        recJam = P3KRekomendasi.recJam,
-                        signKapten = P3KRekomendasi.signKapten,
-                        signPetugas = P3KRekomendasi.signPetugas,
-                        signNamaKapten = P3KRekomendasi.signNamaKapten,
-                        signNamaPetugas = P3KRekomendasi.signNamaPetugas
-                    )
-                } else {
-                    P3KModel(
-                        kapal = kapal,
-                        kapalId = kapal.id,
-                        pemeriksaan = P3KPemeriksaan,
-                        jenisLayanan = P3KDataUmum.jenisLayanan,
-                        jenisPelayanan = P3KDataUmum.jenisPelayanan,
-                        lokasiPemeriksaan = P3KDataUmum.lokasiPemeriksaan,
-                        tglDiperiksa = P3KDataUmum.tglDiperiksa,
-                        jmlABK = P3KDataUmum.jmlABK,
-                        abkSehat = P3KDataUmum.abkSehat,
-                        abkSakit = P3KDataUmum.abkSakit,
-                        recP3K = P3KRekomendasi.recP3K,
-                        recTanggal = P3KRekomendasi.recTanggal,
-                        recJam = P3KRekomendasi.recJam,
-                        signKapten = P3KRekomendasi.signKapten,
-                        signPetugas = P3KRekomendasi.signPetugas,
-                        signNamaKapten = P3KRekomendasi.signNamaKapten,
-                        signNamaPetugas = P3KRekomendasi.signNamaPetugas
-                    )
-                }
+            onSaveButton()
+        }
 
-                onSubmitData(data)
-            }else{
-                Toast.makeText(this@P3KInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
-                    .show()
-            }
+        binding.updateButton.setOnClickListener {
+            onSaveButton()
         }
 
         binding.deleteButton.setOnClickListener {
@@ -212,6 +168,59 @@ class P3KInputActivity : AppCompatActivity() {
             })
         }
     }
+
+    private fun onSaveButton() {
+        if (binding.chipDataUmum.isChecked && binding.chipDokumenKapal.isChecked && binding.chipSanitasi.isChecked){
+            val data = if (isUpdate) {
+                P3KModel(
+                    id = existingID,
+                    kapal = kapal,
+                    kapalId = kapal.id,
+                    pemeriksaan = P3KPemeriksaan,
+                    jenisLayanan = P3KDataUmum.jenisLayanan,
+                    jenisPelayanan = P3KDataUmum.jenisPelayanan,
+                    lokasiPemeriksaan = P3KDataUmum.lokasiPemeriksaan,
+                    tglDiperiksa = P3KDataUmum.tglDiperiksa,
+                    jmlABK = P3KDataUmum.jmlABK,
+                    abkSehat = P3KDataUmum.abkSehat,
+                    abkSakit = P3KDataUmum.abkSakit,
+                    recP3K = P3KRekomendasi.recP3K,
+                    recTanggal = P3KRekomendasi.recTanggal,
+                    recJam = P3KRekomendasi.recJam,
+                    signKapten = P3KRekomendasi.signKapten,
+                    signPetugas = P3KRekomendasi.signPetugas,
+                    signNamaKapten = P3KRekomendasi.signNamaKapten,
+                    signNamaPetugas = P3KRekomendasi.signNamaPetugas
+                )
+            } else {
+                P3KModel(
+                    kapal = kapal,
+                    kapalId = kapal.id,
+                    pemeriksaan = P3KPemeriksaan,
+                    jenisLayanan = P3KDataUmum.jenisLayanan,
+                    jenisPelayanan = P3KDataUmum.jenisPelayanan,
+                    lokasiPemeriksaan = P3KDataUmum.lokasiPemeriksaan,
+                    tglDiperiksa = P3KDataUmum.tglDiperiksa,
+                    jmlABK = P3KDataUmum.jmlABK,
+                    abkSehat = P3KDataUmum.abkSehat,
+                    abkSakit = P3KDataUmum.abkSakit,
+                    recP3K = P3KRekomendasi.recP3K,
+                    recTanggal = P3KRekomendasi.recTanggal,
+                    recJam = P3KRekomendasi.recJam,
+                    signKapten = P3KRekomendasi.signKapten,
+                    signPetugas = P3KRekomendasi.signPetugas,
+                    signNamaKapten = P3KRekomendasi.signNamaKapten,
+                    signNamaPetugas = P3KRekomendasi.signNamaPetugas
+                )
+            }
+
+            onSubmitData(data)
+        }else{
+            Toast.makeText(this@P3KInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
 
     private fun onSubmitData(data: P3KModel) {
         if (dao.getP3KById(data.id).isEmpty()){
