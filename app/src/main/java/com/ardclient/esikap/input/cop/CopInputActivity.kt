@@ -14,6 +14,7 @@ import com.ardclient.esikap.input.SanitasiInputActivity
 import com.ardclient.esikap.database.cop.COPDao
 import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.databinding.ActivityCopInputBinding
+import com.ardclient.esikap.modal.SpinnerModal
 import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.KapalModel
@@ -43,6 +44,10 @@ class CopInputActivity : AppCompatActivity() {
     // db
     private lateinit var db: COPRoomDatabase
     private lateinit var dao: COPDao
+
+    // modal
+    private lateinit var spinner: SpinnerModal
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCopInputBinding.inflate(layoutInflater)
@@ -52,6 +57,10 @@ class CopInputActivity : AppCompatActivity() {
         binding.topAppBar.setNavigationOnClickListener {
             finish()
         }
+
+
+        // modal
+        spinner = SpinnerModal()
 
         // db
         db = COPRoomDatabase.getDatabase(this)
@@ -174,10 +183,20 @@ class CopInputActivity : AppCompatActivity() {
     }
 
     private fun onUploadButton() {
+        spinner.show(supportFragmentManager, "LOADING")
         val allDocs = convertAllDocumentsToBase64(copDocData)
 
         uploadAllDocuments(allDocs) {result ->
+            spinner.dismiss()
             val uploadResult: UploadResponse = result
+            val uploadStatus = uploadResult.status
+
+            if (uploadStatus == "DONE"){
+                Toast.makeText(this@CopInputActivity, "Upload dokumen sukses!", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this@CopInputActivity, "Upload dokumen gagal, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+            }
+
             Log.d("UPLOAD_RESPONSE", uploadResult.toString())
         }
     }
@@ -303,9 +322,9 @@ class CopInputActivity : AppCompatActivity() {
                     // Jika semua dokumen telah diunggah, panggil callback dengan hasil
                     if (successCount + errorCount == documents.size) {
                         val result = if (errorCount == 0) {
-                            UploadResponse("DONE", uploadResults)
+                            UploadResponse("DONE", successCount.toString(), errorCount.toString(),  uploadResults)
                         } else {
-                            UploadResponse("ERROR", emptyMap())
+                            UploadResponse("ERROR", successCount.toString(), errorCount.toString(), emptyMap())
                         }
                         callback.invoke(result)
                     }
@@ -317,9 +336,9 @@ class CopInputActivity : AppCompatActivity() {
                     // Jika semua dokumen telah diunggah, panggil callback dengan hasil
                     if (successCount + errorCount == documents.size) {
                         val result = if (errorCount == 0) {
-                            UploadResponse("DONE", uploadResults)
+                            UploadResponse("DONE", successCount.toString(), errorCount.toString(), uploadResults)
                         } else {
-                            UploadResponse("ERROR", emptyMap())
+                            UploadResponse("ERROR", successCount.toString(), errorCount.toString(), emptyMap())
                         }
                         callback.invoke(result)
                     }
