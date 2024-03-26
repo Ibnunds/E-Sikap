@@ -1,4 +1,4 @@
-package com.ardclient.esikap.p3k
+package com.ardclient.esikap.input.p3k
 
 import android.content.Intent
 import android.graphics.Rect
@@ -11,7 +11,7 @@ import android.widget.Toast
 import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivityP3kInputDataUmumBinding
 import com.ardclient.esikap.model.P3KModel
-import com.ardclient.esikap.sscec.SSCECInputActivity
+import com.ardclient.esikap.input.sscec.SSCECInputActivity
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
 import com.google.android.material.datepicker.MaterialDatePicker

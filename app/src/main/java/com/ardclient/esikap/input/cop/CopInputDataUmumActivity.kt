@@ -1,4 +1,4 @@
-package com.ardclient.esikap.cop
+package com.ardclient.esikap.input.cop
 
 import android.content.Intent
 import android.graphics.Rect

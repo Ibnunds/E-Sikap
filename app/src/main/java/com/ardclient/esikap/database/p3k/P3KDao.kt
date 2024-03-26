@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.ardclient.esikap.model.P3KModel
+import com.ardclient.esikap.model.P3KUpdateStatusModel
 
 @Dao
 interface P3KDao {
@@ -20,6 +21,9 @@ interface P3KDao {
 
     @Update
     fun updateP3K(p3k: P3KModel)
+
+    @Update(entity = P3KModel::class)
+    fun updateP3KStatus(p3k: P3KUpdateStatusModel)
 
     @Query("SELECT * FROM p3k WHERE id = :id")
     fun getP3KById(id: Int): List<P3KModel>

@@ -28,4 +28,11 @@ data class PHQCModel(
     @ColumnInfo(name = "petugas_pelaksana") var petugasPelaksana: String = "",
     @ColumnInfo(name = "signature") var signature: String = "",
     @ColumnInfo(name = "timestamp") var timestamp: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "isUpload") var isUpload: Boolean = false,
 ) : Parcelable
+
+@Entity
+data class PHQCStatusUpdateModel(
+    @ColumnInfo(name = "id") var id: Int = 0,
+    @ColumnInfo(name = "isUpload") var isUpload: Boolean = false,
+)

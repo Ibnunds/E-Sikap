@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".p3k.P3KInputDataUmumActivity">
+    tools:context=".input.p3k.P3KInputDataUmumActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"

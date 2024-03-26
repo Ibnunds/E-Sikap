@@ -34,4 +34,12 @@ data class COPModel(
     @Embedded(prefix = "sanitasi_") var sanitasiKapal: SanitasiModel = SanitasiModel(),
     @ColumnInfo(name = "rekomendasi") var rekomendasi: String = "",
     @ColumnInfo(name = "timestamp") var timestamp: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "isUpload") var isUpload: Boolean = false,
 ) : Parcelable
+
+
+@Entity
+data class COPUpdateStatusModel(
+    @ColumnInfo(name = "id") var id: Int = 0,
+    @ColumnInfo(name = "isUpload") var isUpload: Boolean = false,
+)

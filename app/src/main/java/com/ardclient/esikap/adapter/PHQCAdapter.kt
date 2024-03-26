@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.utils.DateTimeUtils
+import com.google.android.material.chip.Chip
 
 class PHQCAdapter(private val listItems: ArrayList<PHQCModel>, private val listener: PHQCListner) : RecyclerView.Adapter<PHQCAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,6 +19,7 @@ class PHQCAdapter(private val listItems: ArrayList<PHQCModel>, private val liste
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.card_title)
         val tvBody: TextView = itemView.findViewById(R.id.card_body)
+        val chipStatus: Chip = itemView.findViewById(R.id.chipStatus)
     }
 
     interface PHQCListner {
@@ -30,6 +32,13 @@ class PHQCAdapter(private val listItems: ArrayList<PHQCModel>, private val liste
         holder.tvBody.text = DateTimeUtils.formatDate(item.timestamp, "dd MMMM yyyy")
         holder.itemView.setOnClickListener {
             listener.onItemClicked(item)
+        }
+        if (item.isUpload){
+            holder.chipStatus.text = "Sudah Diupload"
+            holder.chipStatus.isChecked = true
+        }else{
+            holder.chipStatus.text = "Belum Diupload"
+            holder.chipStatus.isChecked = false
         }
     }
 

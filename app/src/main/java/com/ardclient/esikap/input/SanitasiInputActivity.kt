@@ -1,15 +1,15 @@
-package com.ardclient.esikap
+package com.ardclient.esikap.input
 
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
-import com.ardclient.esikap.cop.CopInputActivity
+import com.ardclient.esikap.R
+import com.ardclient.esikap.input.cop.CopInputActivity
 import com.ardclient.esikap.databinding.ActivitySanitasiInputBinding
 import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.SanitasiModel

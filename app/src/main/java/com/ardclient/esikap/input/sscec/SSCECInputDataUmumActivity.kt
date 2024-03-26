@@ -1,4 +1,4 @@
-package com.ardclient.esikap.sscec
+package com.ardclient.esikap.input.sscec
 
 import android.content.Intent
 import android.graphics.Rect

@@ -1,4 +1,4 @@
-package com.ardclient.esikap.cop
+package com.ardclient.esikap.input.cop
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,13 +8,12 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.ardclient.esikap.SanitasiInputActivity
+import com.ardclient.esikap.input.SanitasiInputActivity
 import com.ardclient.esikap.database.cop.COPDao
 import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.databinding.ActivityCopInputBinding
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.KapalModel
-import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.reusable.DokumenKapalModel
 import com.ardclient.esikap.model.reusable.SanitasiModel
 import com.ardclient.esikap.utils.DialogUtils

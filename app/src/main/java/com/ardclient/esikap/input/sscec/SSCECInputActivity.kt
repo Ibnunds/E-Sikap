@@ -1,4 +1,4 @@
-package com.ardclient.esikap.sscec
+package com.ardclient.esikap.input.sscec
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.ardclient.esikap.SanitasiInputActivity
+import com.ardclient.esikap.input.SanitasiInputActivity
 import com.ardclient.esikap.database.sscec.SSCECDao
 import com.ardclient.esikap.database.sscec.SSCECRoomDatabase
 import com.ardclient.esikap.databinding.ActivitySscecInputBinding

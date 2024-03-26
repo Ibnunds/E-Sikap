@@ -1,19 +1,16 @@
-package com.ardclient.esikap
+package com.ardclient.esikap.input.phqc
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
 import android.widget.Toast
 import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.databinding.ActivityPhqcDocumentDetailBinding
 import com.ardclient.esikap.model.PHQCModel
+import com.ardclient.esikap.model.PHQCStatusUpdateModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PHQCDocumentDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPhqcDocumentDetailBinding
@@ -58,6 +55,17 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
                 }
             })
         }
+
+        binding.uploadButton.setOnClickListener {
+            onUploadButton()
+        }
+    }
+
+    private fun onUploadButton() {
+        val updatedData = PHQCStatusUpdateModel(id = phqc.id, isUpload = true)
+        dao.updateStatusPHQC(updatedData)
+        Toast.makeText(this@PHQCDocumentDetailActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     private fun deleteDokumen() {

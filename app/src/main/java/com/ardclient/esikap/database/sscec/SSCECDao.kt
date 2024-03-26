@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.ardclient.esikap.model.SSCECModel
+import com.ardclient.esikap.model.SSCECUpdateStatusModel
 
 @Dao
 interface SSCECDao {
@@ -20,6 +21,9 @@ interface SSCECDao {
 
     @Update
     fun updateSSCEC(sscec: SSCECModel)
+
+    @Update(entity = SSCECModel::class)
+    fun updateSSCECStatus(sscec: SSCECUpdateStatusModel)
 
     @Query("SELECT * FROM sscec WHERE id = :id")
     fun getSSCECById(id: Int): List<SSCECModel>

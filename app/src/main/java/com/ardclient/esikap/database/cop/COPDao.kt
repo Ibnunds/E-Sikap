@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.ardclient.esikap.model.COPModel
+import com.ardclient.esikap.model.COPUpdateStatusModel
 
 @Dao
 interface COPDao {
@@ -20,6 +21,9 @@ interface COPDao {
 
     @Update
     fun updateCOP(cop: COPModel)
+
+    @Update(entity = COPModel::class)
+    fun updateCOPStatus(cop: COPUpdateStatusModel)
 
     @Query("SELECT * FROM cop WHERE id = :id")
     fun getCOPById(id: Int): List<COPModel>

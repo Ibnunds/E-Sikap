@@ -1,4 +1,4 @@
-package com.ardclient.esikap
+package com.ardclient.esikap.input.phqc
 
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.ardclient.esikap.input.SignatureActivity
 import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.databinding.ActivityPhqcInputBinding

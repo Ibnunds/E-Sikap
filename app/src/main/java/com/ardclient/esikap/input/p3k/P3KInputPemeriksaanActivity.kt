@@ -1,4 +1,4 @@
-package com.ardclient.esikap.p3k
+package com.ardclient.esikap.input.p3k
 
 import android.content.Intent
 import android.net.Uri

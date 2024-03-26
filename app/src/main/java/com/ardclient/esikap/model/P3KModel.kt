@@ -31,4 +31,11 @@ data class P3KModel(
     @ColumnInfo(name = "sign_petugas") var signPetugas: String = "",
     @ColumnInfo(name = "sign_nama_petugas") var signNamaPetugas: String = "",
     @ColumnInfo(name = "timestamp") var timestamp: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "isUpload") var isUpload: Boolean = false,
 ):Parcelable
+
+@Entity
+data class P3KUpdateStatusModel(
+    @ColumnInfo(name = "id") var id: Int = 0,
+    @ColumnInfo(name = "isUpload") var isUpload: Boolean = false,
+)

@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.ardclient.esikap.model.PHQCModel
+import com.ardclient.esikap.model.PHQCStatusUpdateModel
 
 @Dao
 interface PHQCDao {
@@ -20,6 +21,9 @@ interface PHQCDao {
 
     @Update
     fun updatePHQC(phqc: PHQCModel)
+
+    @Update(entity = PHQCModel::class)
+    fun updateStatusPHQC(phqcStatus: PHQCStatusUpdateModel)
 
     @Query("SELECT * FROM phqc WHERE id = :id")
     fun getPHQCById(id: Int): List<PHQCModel>

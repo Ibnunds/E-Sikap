@@ -2,7 +2,6 @@ package com.ardclient.esikap
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +9,7 @@ import com.ardclient.esikap.adapter.COPAdapter
 import com.ardclient.esikap.adapter.P3KAdapter
 import com.ardclient.esikap.adapter.PHQCAdapter
 import com.ardclient.esikap.adapter.SSCECAdapter
-import com.ardclient.esikap.cop.CopInputActivity
+import com.ardclient.esikap.input.cop.CopInputActivity
 import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.database.p3k.P3KRoomDatabase
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
@@ -21,8 +20,10 @@ import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
-import com.ardclient.esikap.p3k.P3KInputActivity
-import com.ardclient.esikap.sscec.SSCECInputActivity
+import com.ardclient.esikap.input.p3k.P3KInputActivity
+import com.ardclient.esikap.input.phqc.PHQCDocumentDetailActivity
+import com.ardclient.esikap.input.phqc.PHQCInputActivity
+import com.ardclient.esikap.input.sscec.SSCECInputActivity
 
 class DocumentListActivity : AppCompatActivity() {
 

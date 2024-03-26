@@ -30,30 +30,30 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".p3k.P3KInputRekomendasiActivity"
+            android:name=".input.p3k.P3KInputRekomendasiActivity"
             android:exported="false" />
         <activity
-            android:name=".p3k.P3KInputPemeriksaanActivity"
+            android:name=".input.p3k.P3KInputPemeriksaanActivity"
             android:exported="false" />
         <activity
-            android:name=".p3k.P3KInputDataUmumActivity"
+            android:name=".input.p3k.P3KInputDataUmumActivity"
             android:exported="false" />
         <activity
-            android:name=".p3k.P3KInputActivity"
+            android:name=".input.p3k.P3KInputActivity"
             android:exported="false"
             android:theme="@style/Theme.ESikap" />
         <activity
-            android:name=".sscec.SSCECInputRekomendasiActivity"
+            android:name=".input.sscec.SSCECInputRekomendasiActivity"
             android:exported="false"
             android:theme="@style/Theme.ESikap" />
         <activity
-            android:name=".sscec.SSCECInputDataUmumActivity"
+            android:name=".input.sscec.SSCECInputDataUmumActivity"
             android:exported="false" />
         <activity
-            android:name=".sscec.SSCECInputActivity"
+            android:name=".input.sscec.SSCECInputActivity"
             android:exported="false" />
         <activity
-            android:name=".SanitasiInputActivity"
+            android:name=".input.SanitasiInputActivity"
             android:exported="false" />
 
         <provider
@@ -67,22 +67,22 @@
         </provider>
 
         <activity
-            android:name=".cop.CopInputDokumenActivity"
+            android:name=".input.cop.CopInputDokumenActivity"
             android:exported="false" />
         <activity
-            android:name=".cop.CopInputDataUmumActivity"
+            android:name=".input.cop.CopInputDataUmumActivity"
             android:exported="false" />
         <activity
-            android:name=".cop.CopInputActivity"
+            android:name=".input.cop.CopInputActivity"
             android:exported="false" />
         <activity
-            android:name=".PHQCDocumentDetailActivity"
+            android:name=".input.phqc.PHQCDocumentDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".SignatureActivity"
+            android:name=".input.SignatureActivity"
             android:exported="false" />
         <activity
-            android:name=".PHQCInputActivity"
+            android:name=".input.phqc.PHQCInputActivity"
             android:exported="false" />
         <activity
             android:name=".DocumentListActivity"

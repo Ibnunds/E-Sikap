@@ -1,29 +1,19 @@
-package com.ardclient.esikap.p3k
+package com.ardclient.esikap.input.p3k
 
 import android.content.Intent
-import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.ardclient.esikap.R
-import com.ardclient.esikap.SanitasiInputActivity
 import com.ardclient.esikap.database.p3k.P3KDao
 import com.ardclient.esikap.database.p3k.P3KRoomDatabase
 import com.ardclient.esikap.databinding.ActivityP3kInputBinding
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.P3KModel
-import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.model.reusable.PemeriksaanKapalModel
-import com.ardclient.esikap.model.reusable.SanitasiModel
-import com.ardclient.esikap.sscec.SSCECInputDataUmumActivity
 import com.ardclient.esikap.utils.DialogUtils
 
 class P3KInputActivity : AppCompatActivity() {

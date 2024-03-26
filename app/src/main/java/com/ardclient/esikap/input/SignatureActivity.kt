@@ -1,4 +1,4 @@
-package com.ardclient.esikap
+package com.ardclient.esikap.input
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ardclient.esikap.databinding.ActivitySignatureBinding
+import com.ardclient.esikap.input.phqc.PHQCInputActivity
 import com.github.gcacace.signaturepad.views.SignaturePad
 import java.io.ByteArrayOutputStream
 

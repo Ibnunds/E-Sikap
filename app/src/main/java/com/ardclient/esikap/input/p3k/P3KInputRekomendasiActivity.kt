@@ -1,10 +1,12 @@
-package com.ardclient.esikap.sscec
+package com.ardclient.esikap.input.p3k
 
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -13,28 +15,28 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import com.ardclient.esikap.SignatureActivity
-import com.ardclient.esikap.databinding.ActivitySscecInputRekomendasiBinding
-import com.ardclient.esikap.model.SSCECModel
+import com.ardclient.esikap.input.SignatureActivity
+import com.ardclient.esikap.databinding.ActivityP3kInputRekomendasiBinding
+import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
 import com.google.android.material.timepicker.TimeFormat
 
-class SSCECInputRekomendasiActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySscecInputRekomendasiBinding
+class P3KInputRekomendasiActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityP3kInputRekomendasiBinding
     private var launcher: ActivityResultLauncher<Intent>? = null
 
     private var signKaptenData: String? = null
     private var signPetugasData: String? = null
 
-    private lateinit var basicData: SSCECModel
+    private lateinit var basicData: P3KModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySscecInputRekomendasiBinding.inflate(layoutInflater)
+        binding = ActivityP3kInputRekomendasiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // handle sign result
@@ -55,12 +57,14 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
             }
         }
 
-        val existingData = intent.getParcelableExtra<SSCECModel>("EXISTING_DATA")
+        val existingData = intent.getParcelableExtra<P3KModel>("EXISTING_DATA")
         if (existingData !=null){
             basicData = existingData
             initExistingData()
+            Log.d("EXISTING_DATAS", existingData.toString())
         }else{
-            basicData = SSCECModel()
+            basicData = P3KModel()
+            Log.d("EXISTING_DATAS", "NO DATA")
         }
 
         // header
@@ -114,10 +118,11 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
             binding.etTanggal.editText?.setText(selectedDate)
         }
 
+
         // time picker
         val timePicker =
             MaterialTimePicker.Builder()
-                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .setInputMode(INPUT_MODE_CLOCK)
                 .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setTitleText("Pilih jam")
                 .build()
@@ -133,13 +138,13 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
 
             binding.etJam.editText?.setText(formatted)
         }
+
     }
 
     private fun initExistingData() {
-        binding.etSSCEC.editText?.setText(basicData.recSSCEC)
+        binding.etDoc.editText?.setText(basicData.recP3K)
         binding.etTanggal.editText?.setText(basicData.recTanggal)
         binding.etJam.editText?.setText(basicData.recJam)
-
 
         // signature
         binding.signKaptenButton.visibility = View.GONE
@@ -152,12 +157,15 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
         val kaptenSign = Base64Utils.convertBase64ToBitmap(basicData.signKapten)
         val officerSign = Base64Utils.convertBase64ToBitmap(basicData.signPetugas)
 
+        signKaptenData = basicData.signKapten
+        signPetugasData = basicData.signPetugas
+
         binding.ivSignKapten.setImageBitmap(kaptenSign)
         binding.ivSignOfficer.setImageBitmap(officerSign)
     }
 
     private fun onSaveButtonPressed() {
-        val sscecVal = binding.etSSCEC.editText?.text.toString()
+        val docVal = binding.etDoc.editText?.text.toString()
         val tanggalVal = binding.etTanggal.editText?.text.toString()
         val jamVal = binding.etJam.editText?.text.toString()
         val namaKapten = binding.tvKapten.text.toString()
@@ -165,14 +173,14 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
 
         // check is all filled
         val isAllFilled = InputValidation.isAllFieldComplete(
-            binding.etSSCEC,
+            binding.etDoc,
             binding.etTanggal,
             binding.etJam
         )
 
         if (isAllFilled && namaKapten.isNotEmpty() && namaPetugas.isNotEmpty()){
-            val basicData = SSCECModel(
-                recSSCEC = sscecVal,
+            val basicData = P3KModel(
+                recP3K = docVal,
                 recJam = jamVal,
                 recTanggal = tanggalVal,
                 signKapten = signKaptenData!!,
@@ -181,7 +189,7 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
                 signNamaPetugas = namaPetugas
             )
 
-            val intent = Intent(this, SSCECInputActivity::class.java)
+            val intent = Intent(this, P3KInputActivity::class.java)
             intent.putExtra("SIGNATURE", basicData)
             setResult(RESULT_OK, intent)
             finish()
@@ -207,7 +215,7 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
     }
 
     private fun onUnsignButtonPress(type: String) {
-        val intent = Intent(this@SSCECInputRekomendasiActivity, SignatureActivity::class.java)
+        val intent = Intent(this@P3KInputRekomendasiActivity, SignatureActivity::class.java)
         intent.putExtra("NAMA", "")
         intent.putExtra("TYPE", type)
         launcher!!.launch(intent)
