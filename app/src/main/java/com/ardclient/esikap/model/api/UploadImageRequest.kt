@@ -4,5 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class UploadImageRequest(
     @SerializedName("image")
-    val image: String
+    val image: String,
+    @SerializedName("folder")
+    val folder: String
 )
