@@ -20,7 +20,9 @@ import com.ardclient.esikap.databinding.ActivityPhqcInputBinding
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.utils.Base64Utils
+import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.google.android.material.datepicker.MaterialDatePicker
 
 
 class PHQCInputActivity : AppCompatActivity() {
@@ -109,6 +111,21 @@ class PHQCInputActivity : AppCompatActivity() {
             intent.putExtra("NAMA", namaOfficer)
             intent.putExtra("TYPE", "PETUGAS")
             launcher!!.launch(intent)
+        }
+
+        // Date picker
+        val datePicker =
+            MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Pilih tanggal")
+                .build()
+
+        binding.etTanggal.editText?.setOnClickListener {
+            datePicker.show(supportFragmentManager, "DATEPICKER")
+        }
+
+        datePicker.addOnPositiveButtonClickListener {
+            val selectedDate = DateTimeUtils.formatDate(it)
+            binding.etTanggal.editText?.setText(selectedDate)
         }
     }
 

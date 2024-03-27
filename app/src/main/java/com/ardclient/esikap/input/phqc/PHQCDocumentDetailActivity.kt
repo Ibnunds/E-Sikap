@@ -75,6 +75,8 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.uploadButton.setOnClickListener {
             onUploadButton()
         }
+
+
     }
 
     private fun onUploadButton() {
