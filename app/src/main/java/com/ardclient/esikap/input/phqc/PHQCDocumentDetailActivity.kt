@@ -89,12 +89,12 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
                 if (response.isSuccessful){
                     onUploadSuccess()
                 }else{
-                    Log.d("API_RESPONSE", "ERROR")
+                    Toast.makeText(this@PHQCDocumentDetailActivity, response.message(), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
-                Log.d("API_RESPONSE", "ERROR")
+                Toast.makeText(this@PHQCDocumentDetailActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
             }
 
         })
