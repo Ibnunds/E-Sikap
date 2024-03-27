@@ -3,20 +3,31 @@ package com.ardclient.esikap.input.phqc
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
+import com.ardclient.esikap.R
 import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.databinding.ActivityPhqcDocumentDetailBinding
+import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.PHQCStatusUpdateModel
+import com.ardclient.esikap.model.api.UploadModel
+import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class PHQCDocumentDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPhqcDocumentDetailBinding
     private lateinit var phqc: PHQCModel
     private lateinit var db: PHQCRoomDatabase
     private lateinit var dao: PHQCDao
+
+    private var isUploaded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPhqcDocumentDetailBinding.inflate(layoutInflater)
@@ -35,6 +46,11 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         val existingData = intent.getParcelableExtra<PHQCModel>("PHQC")
         if (existingData != null){
             phqc = existingData
+        }
+
+        if (phqc.isUpload){
+            isUploaded = true
+            updateUIonUploaded()
         }
 
         // handle detail view
@@ -62,10 +78,43 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
     }
 
     private fun onUploadButton() {
+        val bodyRequest = UploadModel(phqc)
+        val call = ApiClient.apiService.uploadPHQC(bodyRequest)
+
+        call.enqueue(object : Callback<ApiResponse<Any>>{
+            override fun onResponse(
+                call: Call<ApiResponse<Any>>,
+                response: Response<ApiResponse<Any>>
+            ) {
+                if (response.isSuccessful){
+                    onUploadSuccess()
+                }else{
+                    Log.d("API_RESPONSE", "ERROR")
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                Log.d("API_RESPONSE", "ERROR")
+            }
+
+        })
+    }
+
+    private fun onUploadSuccess() {
         val updatedData = PHQCStatusUpdateModel(id = phqc.id, isUpload = true)
         dao.updateStatusPHQC(updatedData)
+        isUploaded = true
         Toast.makeText(this@PHQCDocumentDetailActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
-        finish()
+        updateUIonUploaded()
+    }
+
+    private fun updateUIonUploaded() {
+        binding.deleteButton.visibility = View.GONE
+        binding.updateButton.visibility = View.GONE
+        binding.uploadButton.text = "Sudah Diupload"
+        binding.uploadButton.setBackgroundColor(getColor(R.color.gray))
+        binding.uploadButton.setTextColor(getColor(R.color.black))
+        binding.uploadButton.isEnabled = false
     }
 
     private fun deleteDokumen() {

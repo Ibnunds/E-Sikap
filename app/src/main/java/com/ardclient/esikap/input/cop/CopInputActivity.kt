@@ -309,8 +309,11 @@ class CopInputActivity : AppCompatActivity() {
             // Melakukan panggilan API untuk mengunggah dokumen
             val call = ApiClient.apiService.uploadImage(bodyRequest)
 
-            call.enqueue(object : Callback<ApiResponse> {
-                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+            call.enqueue(object : Callback<ApiResponse<Map<String, Any>>> {
+                override fun onResponse(
+                    call: Call<ApiResponse<Map<String, Any>>>,
+                    response: Response<ApiResponse<Map<String, Any>>>
+                ) {
                     if (response.isSuccessful) {
                         val uploadedUrl = response.body()?.data?.get("url") ?: ""
                         uploadResults[docName] = uploadedUrl.toString()
@@ -330,7 +333,7 @@ class CopInputActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                override fun onFailure(call: Call<ApiResponse<Map<String, Any>>>, t: Throwable) {
                     errorCount++
 
                     // Jika semua dokumen telah diunggah, panggil callback dengan hasil

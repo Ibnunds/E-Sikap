@@ -6,4 +6,5 @@ object Constants {
     val USERNAME_KEY = "USERNAME"
     val NAME_KEY = "NAME"
     val WILAYAH_KEY = "WILAYAH"
+    val USER_LEVEL = "USER_LEVEL"
 }
