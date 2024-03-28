@@ -28,4 +28,6 @@
     <string name="radio_istrue">Ada</string>
     <string name="radio_isfalse">Tidak ada</string>
     <string name="profile_title">Profil</string>
+    <string name="quarantine_use">Pasang</string>
+    <string name="quarantine_not_use">Tidak pasang</string>
 </resources>

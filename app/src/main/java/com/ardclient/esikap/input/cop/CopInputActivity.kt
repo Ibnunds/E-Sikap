@@ -146,7 +146,7 @@ class CopInputActivity : AppCompatActivity() {
 
         binding.cardCOPDokumenKapal.setOnClickListener {
             val intent = Intent(this, CopInputDokumenActivity::class.java)
-            if (copDocData.aktifitasKapal.isNotEmpty()){
+            if (binding.chipCOPDokumenKapal.isChecked){
                 intent.putExtra("EXISTING_DATA", copDocData)
             }
             launcher?.launch(intent)
@@ -209,15 +209,14 @@ class CopInputActivity : AppCompatActivity() {
         copDocData.sscec?.let { documents["docSSCEC"] = Base64Utils.uriToBase64(this, it.toUri()) }
         copDocData.daftarVaksinasi?.let { documents["docVaksinasi"] = Base64Utils.uriToBase64(this, it.toUri()) }
         copDocData.daftarABK?.let { documents["docDaftarABK"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.bukuKuning?.let { documents["docBukuKuning"] = Base64Utils.uriToBase64(this, it.toUri()) }
+        copDocData.bukuVaksin?.let { documents["docBukuVaksin"] = Base64Utils.uriToBase64(this, it.toUri()) }
         copDocData.certP3K?.let { documents["docP3K"] = Base64Utils.uriToBase64(this, it.toUri()) }
         copDocData.bukuKesehatan?.let { documents["docBukuKesehatan"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.catatanPerjalanan?.let { documents["docCatatanPerjalanan"] = Base64Utils.uriToBase64(this, it.toUri()) }
+        copDocData.lpoc?.let { documents["docLPOC"] = Base64Utils.uriToBase64(this, it.toUri()) }
         copDocData.shipParticular?.let { documents["docShipParticular"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.izinBerlayar?.let { documents["docIzinBerlayar"] = Base64Utils.uriToBase64(this, it.toUri()) }
+        copDocData.lpc?.let { documents["docLPC"] = Base64Utils.uriToBase64(this, it.toUri()) }
         copDocData.daftarNarkotik?.let { documents["docNarkotik"] = Base64Utils.uriToBase64(this, it.toUri()) }
         copDocData.daftarObat?.let { documents["docObatObatan"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.daftarAlkes?.let { documents["docAlkes"] = Base64Utils.uriToBase64(this, it.toUri()) }
 
         return documents
     }

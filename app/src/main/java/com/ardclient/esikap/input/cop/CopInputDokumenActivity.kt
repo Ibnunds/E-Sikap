@@ -1,20 +1,20 @@
 package com.ardclient.esikap.input.cop
 
-import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ardclient.esikap.adapter.DokumenInputAdapter
 import com.ardclient.esikap.databinding.ActivityCopInputDokumenBinding
 import com.ardclient.esikap.modal.ImageSelectorModal
+import com.ardclient.esikap.model.reusable.DokumenKapalListModel
 import com.ardclient.esikap.model.reusable.DokumenKapalModel
-import com.ardclient.esikap.utils.InputValidation
-import com.squareup.picasso.Picasso
 
 class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
     private lateinit var binding: ActivityCopInputDokumenBinding
@@ -26,15 +26,23 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
     private var docSSCEC: String? = null
     private var docVaksin: String? = null
     private var docABK: String? = null
-    private var docBukuKuning: String? = null
+    private var docBukuVaksin: String? = null
     private var docCertP3K: String? = null
     private var docBukuSehat: String? = null
-    private var docPerjalanan: String? = null
+    private var docLPOC: String? = null
     private var docShipParticular: String? = null
-    private var docIzinBerlayar: String? = null
+    private var docLPC: String? = null
     private var docNarkotik: String? = null
     private var docObat: String? = null
-    private var docAlkes: String? = null
+
+    // radio checked value
+    private val radioMap = mutableMapOf<String, String>()
+    private val noteMap = mutableMapOf<String, String>()
+    private val docMap = mutableMapOf<String, String>()
+
+
+    private var listData = ArrayList<DokumenKapalListModel>()
+    private lateinit var dokumenInputAdapter: DokumenInputAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,119 +57,155 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         // button
         binding.saveButton.setOnClickListener {
             onSaveButton()
+            //onSaveButtonTest()
         }
+
+        // list input
+        val layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
 
         // check existing data
         val existingData = intent.getParcelableExtra<DokumenKapalModel>("EXISTING_DATA")
         if (existingData != null){
             copDocData = existingData
-            initExistingData()
+            Log.d("EXISTING DATA", existingData.toString())
+            //initExistingData()
         }else{
             copDocData = DokumenKapalModel()
         }
 
-        // select button
-        binding.btnSelectMDH.setOnClickListener {
-            pickDocument("MDH")
-        }
+        // init lis data
+        initListData()
+    }
 
-        binding.btnSelectSSCEC.setOnClickListener {
-            pickDocument("SSCEC")
-        }
+//    private fun onSaveButtonTest() {
+//        intent.putExtra("COP_DOC", "testDoc")
+//        setResult(RESULT_OK, intent)
+//        finish()
+//    }
 
-        binding.btnSelectVaksin.setOnClickListener {
-            pickDocument("Vaksin")
-        }
+    private fun initListData() {
+        listData = arrayListOf(
+            DokumenKapalListModel("Dokumen MDH", "MDH", copDocData.mdh, copDocData.mdhDoc, copDocData.mdhNote, true),
+            DokumenKapalListModel("Dokumen SSCEC", "SSCEC", copDocData.sscec, copDocData.sscecDoc, copDocData.sscecNote, true),
+            DokumenKapalListModel("Dokumen P3K", "P3K", copDocData.certP3K, copDocData.p3kDoc, copDocData.p3kNote, true),
+            DokumenKapalListModel("Dokumen Buku Kesehatan", "BUKUKES", copDocData.bukuKesehatan, copDocData.bukuKesehatanDoc, copDocData.bukuKesehatanNote, true),
+            DokumenKapalListModel("Dokumen Buku Vaksin", "BUKUVAKSIN", copDocData.bukuVaksin, copDocData.bukuVaksinDoc, copDocData.bukuVaksinNote, true),
+            DokumenKapalListModel("Dokumen Daftar ABK", "DAFTARABK", copDocData.daftarABK, copDocData.daftarABKDoc, "", false),
+            DokumenKapalListModel("Dokumen Daftar Vaksin", "DAFTARVAKSIN", copDocData.daftarVaksinasi, copDocData.daftarVaksinasiDoc, "", false),
+            DokumenKapalListModel("Dokumen Daftar Obat", "DAFTAROBAT", copDocData.daftarObat, copDocData.daftarObatDoc, "", false),
+            DokumenKapalListModel("Dokumen Daftar Narkotik", "DAFTARNARKOTIK", copDocData.daftarNarkotik, copDocData.daftarNarkotikDoc, "", false),
+            DokumenKapalListModel("Dokumen Last Port Off Call", "LPOC", copDocData.lpoc, copDocData.lpocDoc, "", false),
+            DokumenKapalListModel("Dokumen Ship Particular", "SHIPPAR", copDocData.shipParticular, copDocData.shipParticularDoc, "", false),
+            DokumenKapalListModel("Dokumen Last Port Clearance", "LPC", copDocData.lpc, copDocData.lpcDoc, copDocData.lpcNote, true)
+        )
 
-        binding.btnSelectABK.setOnClickListener {
-            pickDocument("ABK")
-        }
 
-        binding.btnSelectBukuKuning.setOnClickListener {
-            pickDocument("BukuKuning")
-        }
+        dokumenInputAdapter = DokumenInputAdapter(listData, object: DokumenInputAdapter.UploadButtonListener {
+            override fun onUploadButton(key: String) {
+                pickDocument(key)
+            }
 
-        binding.btnSelectCertP3K.setOnClickListener {
-            pickDocument("CertP3K")
-        }
+            override fun onRadioChangedListener(key: String, radioVal: String) {
+                radioMap[key] = radioVal
+                listData.find { it.key == key }?.apply {
+                    docImage = if (radioVal == "Tidak ada") "" else docMap[key] ?: ""
+                    checkedVal = radioVal
+                    note = noteMap[key] ?: ""
+                }
+            }
 
-        binding.btnSelectBukuSehat.setOnClickListener {
-            pickDocument("BukuSehat")
-        }
+            override fun onNoteChanged(key: String, inputText: CharSequence?) {
+                noteMap[key] = inputText.toString()
+                listData.find { it.key == key }?.apply {
+                    docImage = docMap[key] ?: ""
+                    checkedVal = radioMap[key] ?: ""
+                    note = inputText.toString()
+                }
+            }
+        })
 
-        binding.btnSelectPerjalanan.setOnClickListener {
-            pickDocument("Perjalanan")
-        }
-
-        binding.btnSelectShipParticular.setOnClickListener {
-            pickDocument("ShipParticular")
-        }
-
-        binding.btnSelectIzinBerlayar.setOnClickListener {
-            pickDocument("IzinBerlayar")
-        }
-
-        binding.btnSelectNarkotik.setOnClickListener {
-            pickDocument("Narkotik")
-        }
-
-        binding.btnSelectObat.setOnClickListener {
-            pickDocument("Obat")
-        }
-
-        binding.btnSelectAlkse.setOnClickListener {
-            pickDocument("Alkes")
-        }
+        binding.recyclerView.adapter = dokumenInputAdapter
     }
 
     private fun initExistingData() {
         // text form
-        binding.etKarantina.editText?.setText(copDocData.isyaratKarantina)
-        binding.etAktifitas.editText?.setText(copDocData.aktifitasKapal)
 
         // image form
         docMDH = copDocData.mdh
         docSSCEC = copDocData.sscec
         docVaksin = copDocData.daftarVaksinasi
         docABK = copDocData.daftarABK
-        docBukuKuning = copDocData.bukuKuning
-         docCertP3K = copDocData.certP3K
+        docBukuVaksin = copDocData.bukuVaksin
+        docCertP3K = copDocData.certP3K
         docBukuSehat = copDocData.bukuKesehatan
-        docPerjalanan = copDocData.catatanPerjalanan
+        docLPOC = copDocData.lpoc
         docShipParticular = copDocData.shipParticular
-        docIzinBerlayar = copDocData.izinBerlayar
+        docLPC = copDocData.lpc
         docNarkotik = copDocData.daftarNarkotik
         docObat = copDocData.daftarObat
-        docAlkes = copDocData.daftarAlkes
-
-        // check updated doc
-        checkUpdatedDoc()
     }
 
     private fun onSaveButton() {
-        val isFormComplete = InputValidation.isAllFieldComplete(
-            binding.etKarantina,
-            binding.etAktifitas
-        )
+        var isDataComplete = true // Variabel flag untuk menandai apakah semua data lengkap
 
-        if (isFormComplete){
-            val isyaratKarantinaValue = binding.etKarantina.editText?.text.toString()
-            val aktifitasKapal = binding.etAktifitas.editText?.text.toString()
+        for (item in listData) {
+            val key = item.key
+            val valueInRadioMap = radioMap[key]
+            val noteVal = noteMap[key]
 
-            if (docMDH != null && docSSCEC != null && docVaksin != null && docABK != null && docBukuKuning != null && docCertP3K != null && docBukuSehat != null && docPerjalanan != null && docShipParticular != null && docIzinBerlayar != null && docNarkotik != null && docObat != null && docAlkes != null){
-                val documentData = DokumenKapalModel(isyaratKarantina = isyaratKarantinaValue, aktifitasKapal = aktifitasKapal, mdh = docMDH!!, sscec = docSSCEC!!, daftarVaksinasi = docVaksin!!, daftarABK = docABK!!, bukuKuning = docBukuKuning!!, certP3K = docCertP3K!!, bukuKesehatan = docBukuSehat!!, catatanPerjalanan = docPerjalanan!!, shipParticular = docShipParticular!!, izinBerlayar = docIzinBerlayar!!, daftarNarkotik = docNarkotik!!, daftarObat = docObat!!, daftarAlkes = docAlkes!!)
-                val intent = Intent(this@CopInputDokumenActivity, CopInputActivity::class.java)
-                intent.putExtra("COP_DOC", documentData)
-                setResult(RESULT_OK, intent)
-                finish()
-            }else{
-                Toast.makeText(this@CopInputDokumenActivity, "Dokumen belum lengkap!", Toast.LENGTH_SHORT).show()
+            if (valueInRadioMap.isNullOrBlank() || (valueInRadioMap == "Ada" && docMap[key].isNullOrEmpty()) || (item.needNote && noteVal.isNullOrEmpty())) {
+                isDataComplete = false // Setel flag menjadi false jika ada data yang null
+                break // Hentikan loop jika data tidak lengkap
             }
-        }else{
-            Toast.makeText(this@CopInputDokumenActivity, "Form belum lengkap!", Toast.LENGTH_SHORT).show()
+        }
+
+        if (!isDataComplete) {
+            Toast.makeText(this@CopInputDokumenActivity, "Data belum lengkap!", Toast.LENGTH_SHORT).show()
+        } else {
+            onDataCompleted()
         }
     }
 
+    private fun onDataCompleted() {
+        val copDokumen = DokumenKapalModel(
+            mdh = radioMap["MDH"]!!,
+            mdhDoc = docMap["MDH"]!!,
+            mdhNote = noteMap["MDH"]!!,
+            sscec = radioMap["SSCEC"]!!,
+            sscecDoc = docMap["SSCEC"]!!,
+            sscecNote = noteMap["SSCEC"]!!,
+            certP3K = radioMap["P3K"]!!,
+            p3kDoc = docMap["P3K"]!!,
+            p3kNote = noteMap["P3K"]!!,
+            bukuKesehatan = radioMap["BUKUKES"]!!,
+            bukuKesehatanDoc = docMap["BUKUKES"]!!,
+            bukuKesehatanNote = noteMap["BUKUKES"]!!,
+            bukuVaksin = radioMap["BUKUVAKSIN"]!!,
+            bukuVaksinDoc = docMap["BUKUVAKSIN"]!!,
+            bukuVaksinNote = noteMap["BUKUVAKSIN"]!!,
+            daftarABK = radioMap["DAFTARABK"]!!,
+            daftarABKDoc = docMap["DAFTARABK"]!!,
+            daftarVaksinasi = radioMap["DAFTARVAKSIN"]!!,
+            daftarVaksinasiDoc = docMap["DAFTARVAKSIN"]!!,
+            daftarObat = radioMap["DAFTAROBAT"]!!,
+            daftarObatDoc = docMap["DAFTAROBAT"]!!,
+            daftarNarkotik = radioMap["DAFTARNARKOTIK"]!!,
+            daftarNarkotikDoc = docMap["DAFTARNARKOTIK"]!!,
+            lpoc = radioMap["LPOC"]!!,
+            lpocDoc = docMap["LPOC"]!!,
+            shipParticular = radioMap["SHIPPAR"]!!,
+            shipParticularDoc = docMap["SHIPPAR"]!!,
+            lpc = radioMap["LPC"]!!,
+            lpcDoc = docMap["LPC"]!!,
+            lpcNote = noteMap["LPC"]!!
+        )
+        Log.d("HASIL_DATA", copDokumen.toString())
+
+//         intent.putExtra("COP_DOC", copDokumen)
+//         setResult(RESULT_OK, intent)
+//         finish()
+    }
 
 
     private fun pickDocument(documentType: String) {
@@ -174,146 +218,17 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
 
     override fun onImageSelected(imageUri: Uri) {
         //val imageBase64 = Base64Utils.uriToBase64(this, imageUri)
+
+        // apply to recycler view
         val uriString = imageUri.toString()
-        when(pickedDoc) {
-            "MDH" -> {
-                docMDH = uriString
-            }
-            "SSCEC" -> {
-                docSSCEC = uriString
-            }
-            "Vaksin" -> {
-                docVaksin = uriString
-            }
-            "ABK" -> {
-                docABK = uriString
-            }
-            "BukuKuning" -> {
-                docBukuKuning = uriString
-            }
-            "CertP3K" -> {
-                docCertP3K = uriString
-            }
-            "BukuSehat" -> {
-                docBukuSehat = uriString
-            }
-            "Perjalanan" -> {
-                docPerjalanan = uriString
-            }
-            "ShipParticular" -> {
-                docShipParticular = uriString
-            }
-            "IzinBerlayar" -> {
-                docIzinBerlayar = uriString
-            }
-            "Narkotik" -> {
-                docNarkotik = uriString
-            }
-            "Obat" -> {
-                docObat = uriString
-            }
-            "Alkes" -> {
-                docAlkes = uriString
-            }
+        docMap[pickedDoc] = uriString
+        listData.find { it.key == pickedDoc }?.apply {
+            docImage = uriString
+            checkedVal = radioMap[pickedDoc] ?: ""
+            note = noteMap[pickedDoc] ?: ""
         }
 
-        // check updated doc
-        checkUpdatedDoc()
-    }
-
-    private fun checkUpdatedDoc() {
-        val selectedTitle = "Update Dokumen"
-
-        // MDH
-        if (docMDH != null){
-            binding.btnSelectMDH.text = selectedTitle
-            binding.prevMDH.visibility = View.VISIBLE
-            Picasso.get().load(docMDH).fit().into(binding.prevMDH)
-        }
-
-        //SSCEC
-        if (docSSCEC != null){
-            binding.btnSelectSSCEC.text = selectedTitle
-            binding.prevSSCEC.visibility = View.VISIBLE
-            Picasso.get().load(docSSCEC).fit().into(binding.prevSSCEC)
-        }
-
-        //Vaksin
-        if (docVaksin != null){
-            binding.btnSelectVaksin.text = selectedTitle
-            binding.prevVaksin.visibility = View.VISIBLE
-            Picasso.get().load(docVaksin).fit().into(binding.prevVaksin)
-        }
-
-        //ABK
-        if (docABK != null){
-            binding.btnSelectABK.text = selectedTitle
-            binding.prevABK.visibility = View.VISIBLE
-            Picasso.get().load(docABK).fit().into(binding.prevABK)
-        }
-
-        //Buku Kuning
-        if (docBukuKuning != null){
-            binding.btnSelectBukuKuning.text = selectedTitle
-            binding.prevBukuKuning.visibility = View.VISIBLE
-            Picasso.get().load(docBukuKuning).fit().into(binding.prevBukuKuning)
-        }
-
-        //P3K
-        if (docCertP3K != null){
-            binding.btnSelectCertP3K.text = selectedTitle
-            binding.prevP3K.visibility = View.VISIBLE
-            Picasso.get().load(docCertP3K).fit().into(binding.prevP3K)
-        }
-
-        //Buku Kesahatan
-        if (docBukuSehat != null){
-            binding.btnSelectBukuSehat.text = selectedTitle
-            binding.prevBukuKesehatan.visibility = View.VISIBLE
-            Picasso.get().load(docBukuSehat).fit().into(binding.prevBukuKesehatan)
-        }
-
-        //Catatan Perjalanan
-        if (docPerjalanan != null){
-            binding.btnSelectPerjalanan.text = selectedTitle
-            binding.prevCatatanPerjalanan.visibility = View.VISIBLE
-            Picasso.get().load(docPerjalanan).fit().into(binding.prevCatatanPerjalanan)
-        }
-
-        //Ship Particular
-        if (docShipParticular != null){
-            binding.btnSelectShipParticular.text = selectedTitle
-            binding.prevShipParticular.visibility = View.VISIBLE
-            Picasso.get().load(docShipParticular).fit().into(binding.prevShipParticular)
-        }
-
-        //Izin berlayar
-        if (docIzinBerlayar != null){
-            binding.btnSelectIzinBerlayar.text = selectedTitle
-            binding.prevIzinBerlayar.visibility = View.VISIBLE
-            Picasso.get().load(docIzinBerlayar).fit().into(binding.prevIzinBerlayar)
-        }
-
-        //Daftar Narkotik
-        if (docNarkotik != null){
-            binding.btnSelectNarkotik.text = selectedTitle
-            binding.prevNarkotik.visibility = View.VISIBLE
-            Picasso.get().load(docNarkotik).fit().into(binding.prevNarkotik)
-        }
-
-        //Daftar Obat
-        if (docObat != null){
-            binding.btnSelectObat.text = selectedTitle
-            binding.prevObat.visibility = View.VISIBLE
-            Picasso.get().load(docObat).fit().into(binding.prevObat)
-        }
-
-        //Alkse
-        if (docAlkes != null){
-            binding.btnSelectAlkse.text = selectedTitle
-            binding.prevAlkes.visibility = View.VISIBLE
-            Picasso.get().load(docAlkes).fit().into(binding.prevAlkes)
-        }
+        dokumenInputAdapter.notifyDataSetChanged()
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {

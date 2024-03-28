@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,10 +10,7 @@
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/colorPrimary">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
@@ -26,480 +23,105 @@
             app:titleTextAppearance="@style/TopBarTextStyle"
             />
     </com.google.android.material.appbar.AppBarLayout>
-    <FrameLayout
-        android:id="@+id/inputFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerBar">
-        <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="14dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pelanggaran Karantina"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginBottom="8dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="14dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Umum"
-                    android:textSize="16sp"
+                    android:text="Isyarat Karantina"
+                    android:textSize="12sp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:layout_marginBottom="8dp"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etKarantina"
+                    android:layout_marginVertical="8dp"/>
+
+                <RadioGroup
+                    android:id="@+id/radioKarantina"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:hint="Isyarat Karantina">
-
-                    <com.google.android.material.textfield.TextInputEditText
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/radio_karantina_true"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etAktifitas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:hint="Aktifitas Diatas Kapal">
-
-                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_height="match_parent"
+                        android:textSize="12sp"
+                        android:text="@string/quarantine_use"/>
+                    <RadioButton
+                        android:id="@+id/radio_karantina_false"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="match_parent"
+                        android:textSize="12sp"
+                        android:text="@string/quarantine_not_use"/>
+                </RadioGroup>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dokumen Kapal"
-                    android:textSize="16sp"
+                    android:text="Kegiatan sebelum petugas datang"
+                    android:textSize="12sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginVertical="8dp"/>
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
+
+                <RadioGroup
+                    android:id="@+id/radioActivity"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dokumen MDH"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/radio_activity_true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevMDH"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectMDH"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dokumen SSCEC"
+                        android:text="@string/radio_istrue"/>
+                    <RadioButton
+                        android:id="@+id/radio_activity_false"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevSSCEC"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectSSCEC"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Daftar Vaksinasi"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevVaksin"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectVaksin"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Daftar ABK"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevABK"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectABK"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Buku Kuning"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevBukuKuning"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectBukuKuning"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sertifikat P3K"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevP3K"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectCertP3K"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Buku Kesehatan"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevBukuKesehatan"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectBukuSehat"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Catatan Perjalanan"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevCatatanPerjalanan"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectPerjalanan"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ship Particular"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevShipParticular"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectShipParticular"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Izin Berlayar"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevIzinBerlayar"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectIzinBerlayar"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Daftar Narkotik"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevNarkotik"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectNarkotik"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Daftar Obat - Obatan"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevObat"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectObat"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Daftar Alkses"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
-                    <ImageView
-                        android:id="@+id/prevAlkes"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectAlkse"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
-
-                <Button
-                    style="@style/Widget.Material3.Button.IconButton.Filled"
-                    android:id="@+id/saveButton"
-                    android:layout_marginTop="32dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Simpan" />
+                        android:text="@string/radio_isfalse"/>
+                </RadioGroup>
             </LinearLayout>
-        </ScrollView>
-    </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dokumen Kesehatan Kapal"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginVertical="8dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"/>
+            <Button
+                style="@style/Widget.Material3.Button.IconButton.Filled"
+                android:id="@+id/saveButton"
+                android:layout_marginTop="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Simpan"
+                />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
