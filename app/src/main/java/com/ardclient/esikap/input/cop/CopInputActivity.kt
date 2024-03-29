@@ -40,6 +40,7 @@ class CopInputActivity : AppCompatActivity() {
     private lateinit var copBasicData: COPModel
     private lateinit var copDocData: DokumenKapalModel
     private lateinit var copSanitasi: SanitasiModel
+    private lateinit var copSignature: COPModel
 
     // db
     private lateinit var db: COPRoomDatabase
@@ -74,6 +75,7 @@ class CopInputActivity : AppCompatActivity() {
             copBasicData = existingData
             copSanitasi = existingData.sanitasiKapal
             copDocData = existingData.dokumenKapal
+            copSignature = existingData
 
             // button
             binding.bottomContainerEdit.visibility = View.VISIBLE
@@ -89,11 +91,14 @@ class CopInputActivity : AppCompatActivity() {
             binding.chipCOPDataUmum.text = "Lengkap"
             binding.chipCOPDokumenKapal.isChecked = true
             binding.chipCOPDokumenKapal.text = "Lengkap"
+            binding.chipCOPRekomendasi.isChecked = true
+            binding.chipCOPRekomendasi.text = "Lengkap"
         }else{
             // init value
             copBasicData = COPModel()
             copDocData = DokumenKapalModel()
             copSanitasi = SanitasiModel()
+            copSignature = COPModel()
         }
 
         // existing kapal data
@@ -132,6 +137,14 @@ class CopInputActivity : AppCompatActivity() {
                     binding.chipCOPSanitasi.text = "Lengkap"
                 }
 
+                // == Signature Data
+                val signature = data?.getParcelableExtra<COPModel>("SIGNATURE")
+                if (signature !=null){
+                    copSignature = signature
+                    binding.chipCOPRekomendasi.isChecked = true
+                    binding.chipCOPRekomendasi.text = "Lengkap"
+                }
+
             }
         }
 
@@ -157,6 +170,14 @@ class CopInputActivity : AppCompatActivity() {
             intent.putExtra("SENDER", "COP")
             if (copSanitasi.sanDapur.isNotEmpty()){
                 intent.putExtra("EXISTING_DATA", copSanitasi)
+            }
+            launcher?.launch(intent)
+        }
+
+        binding.cardCOPRekomendasi.setOnClickListener {
+            val intent = Intent(this, CopInputSignatureActivity::class.java)
+            if (binding.chipCOPRekomendasi.isChecked){
+                intent.putExtra("EXISTING_DATA", copSignature)
             }
             launcher?.launch(intent)
         }
@@ -245,7 +266,6 @@ class CopInputActivity : AppCompatActivity() {
                     penumpangAsingSehat = copBasicData.penumpangAsingSehat,
                     dokumenKapal = copDocData,
                     sanitasiKapal = copSanitasi,
-                    rekomendasi = copBasicData.rekomendasi
                 )
             } else {
                 COPModel(
@@ -268,7 +288,6 @@ class CopInputActivity : AppCompatActivity() {
                     penumpangAsingSehat = copBasicData.penumpangAsingSehat,
                     dokumenKapal = copDocData,
                     sanitasiKapal = copSanitasi,
-                    rekomendasi = copBasicData.rekomendasi
                 )
             }
 

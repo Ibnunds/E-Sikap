@@ -9,19 +9,20 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.reusable.DokumenKapalListModel
 import com.google.android.material.textfield.TextInputLayout
 import com.squareup.picasso.Picasso
 
-class DokumenInputAdapter(private val listData: ArrayList<DokumenKapalListModel>, private val listener: UploadButtonListener?) : RecyclerView.Adapter<DokumenInputAdapter.ViewHolder>() {
+class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKapalListModel>>, private val listener: UploadButtonListener?) : RecyclerView.Adapter<DokumenInputAdapter.ViewHolder>() {
 
     interface UploadButtonListener{
         fun onUploadButton(key: String)
         fun onRadioChangedListener(key: String, radioVal: String)
 
-        fun onNoteChanged(key: String, inputText: CharSequence?)
+        fun onNoteChanged(key: String, inputText: String?)
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -40,58 +41,62 @@ class DokumenInputAdapter(private val listData: ArrayList<DokumenKapalListModel>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = listData[position]
-        holder.tvTitle.text = item.title
+        val itemLiveData = listDataLiveData.value?.get(position)
 
-        // handle existing
+        itemLiveData?.let { item ->
+            holder.tvTitle.text = item.title
 
-        if (!item.checkedVal.isNullOrEmpty()){
-            if (item.checkedVal == "Ada"){
-                holder.radio.check(R.id.radio_true)
-                holder.selectButton.visibility = View.VISIBLE
-            }else{
-                holder.radio.check(R.id.radio_false)
+            // handle existing
+            if (!item.checkedVal.isNullOrEmpty()) {
+                if (item.checkedVal == "Ada") {
+                    holder.radio.check(R.id.radio_true)
+                    holder.selectButton.visibility = View.VISIBLE
+                } else {
+                    holder.radio.check(R.id.radio_false)
+                }
             }
-        }
 
-        // note layout
-        if (item.needNote) holder.inNote.visibility = View.VISIBLE else holder.inNote.visibility = View.GONE
+            // note layout
+            if (item.needNote) holder.inNote.visibility = View.VISIBLE else holder.inNote.visibility = View.GONE
 
-        // radio and doc
-        holder.radio.setOnCheckedChangeListener { _, checkedId ->
-            val radioLabel = if (checkedId == R.id.radio_true) "Ada" else "Tidak ada"
-            listener?.onRadioChangedListener(item.key, radioLabel)
-            if (checkedId == R.id.radio_true) {
-                holder.selectButton.visibility = View.VISIBLE
-            } else {
-                holder.prevDoc.visibility = View.GONE
-                holder.selectButton.visibility = View.GONE
+            // radio and doc
+            holder.radio.setOnCheckedChangeListener { _, checkedId ->
+                val radioLabel = if (checkedId == R.id.radio_true) "Ada" else "Tidak ada"
+                listener?.onRadioChangedListener(item.key, radioLabel)
+                if (checkedId == R.id.radio_true) {
+                    holder.selectButton.visibility = View.VISIBLE
+                } else {
+                    holder.prevDoc.visibility = View.GONE
+                    holder.selectButton.visibility = View.GONE
+                }
             }
-        }
 
-        holder.selectButton.setOnClickListener {
-            listener?.onUploadButton(item.key)
-        }
+            holder.selectButton.setOnClickListener {
+                listener?.onUploadButton(item.key)
+            }
 
-        // preview doc
-        if (!item.docImage.isNullOrEmpty()){
-            holder.prevDoc.visibility = View.VISIBLE
-            holder.selectButton.text = "Update Dokumen"
-            Picasso.get().load(item.docImage).fit().into(holder.prevDoc)
-        }
+            // preview doc
+            if (!item.docImage.isNullOrEmpty()) {
+                holder.prevDoc.visibility = View.VISIBLE
+                holder.selectButton.text = "Update Dokumen"
+                Picasso.get().load(item.docImage).fit().into(holder.prevDoc)
+            }
 
-        // note
-        holder.inNote.editText?.doOnTextChanged {inputText, _, _, _ ->
-            listener?.onNoteChanged(item.key, inputText)
-        }
+            // note
+            holder.inNote.editText?.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
+                if (!hasFocus) {
+                    val inputText = holder.inNote.editText?.text.toString()
+                    listener?.onNoteChanged(item.key, inputText)
+                }
+            }
 
-
-        if (!item.note.isNullOrBlank()){
-            holder.inNote.editText?.setText(item.note)
+            if (!item.note.isNullOrBlank()) {
+                holder.inNote.editText?.setText(item.note)
+            }
         }
     }
 
     override fun getItemCount(): Int {
-        return listData.size
+        return listDataLiveData.value?.size ?: 0
     }
 }
