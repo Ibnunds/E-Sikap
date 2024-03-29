@@ -170,7 +170,7 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
             binding.etJam
         )
 
-        if (isAllFilled && namaKapten.isNotEmpty() && namaPetugas.isNotEmpty()){
+        if (isAllFilled && namaKapten.isNotEmpty() && namaPetugas.isNotEmpty() && signKaptenData != null && signPetugasData != null){
             val basicData = SSCECModel(
                 recSSCEC = sscecVal,
                 recJam = jamVal,

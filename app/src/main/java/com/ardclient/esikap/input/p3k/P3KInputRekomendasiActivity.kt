@@ -178,7 +178,7 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
             binding.etJam
         )
 
-        if (isAllFilled && namaKapten.isNotEmpty() && namaPetugas.isNotEmpty()){
+        if (isAllFilled && namaKapten.isNotEmpty() && namaPetugas.isNotEmpty() && signKaptenData != null && signPetugasData != null){
             val basicData = P3KModel(
                 recP3K = docVal,
                 recJam = jamVal,
