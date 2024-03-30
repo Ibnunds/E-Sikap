@@ -199,7 +199,7 @@ class CopInputActivity : AppCompatActivity() {
         }
 
         binding.uploadButton.setOnClickListener {
-            onUploadButton()
+            //onUploadButton()
         }
     }
 
@@ -266,6 +266,17 @@ class CopInputActivity : AppCompatActivity() {
                     penumpangAsingSehat = copBasicData.penumpangAsingSehat,
                     dokumenKapal = copDocData,
                     sanitasiKapal = copSanitasi,
+                    obatP3K = copSignature.obatP3K,
+                    pelanggaranKarantina = copSignature.pelanggaranKarantina,
+                    dokumenKesehatanKapal = copSignature.dokumenKesehatanKapal,
+                    signNamaPetugas = copSignature.signNamaPetugas,
+                    signNamaKapten = copSignature.signNamaKapten,
+                    signPetugas = copSignature.signPetugas,
+                    signKapten = copSignature.signKapten,
+                    docFile = copSignature.docFile,
+                    docJam = copSignature.docJam,
+                    docTanggal = copSignature.docTanggal,
+                    docType = copSignature.docType
                 )
             } else {
                 COPModel(
@@ -288,6 +299,17 @@ class CopInputActivity : AppCompatActivity() {
                     penumpangAsingSehat = copBasicData.penumpangAsingSehat,
                     dokumenKapal = copDocData,
                     sanitasiKapal = copSanitasi,
+                    obatP3K = copSignature.obatP3K,
+                    pelanggaranKarantina = copSignature.pelanggaranKarantina,
+                    dokumenKesehatanKapal = copSignature.dokumenKesehatanKapal,
+                    signNamaPetugas = copSignature.signNamaPetugas,
+                    signNamaKapten = copSignature.signNamaKapten,
+                    signPetugas = copSignature.signPetugas,
+                    signKapten = copSignature.signKapten,
+                    docFile = copSignature.docFile,
+                    docJam = copSignature.docJam,
+                    docTanggal = copSignature.docTanggal,
+                    docType = copSignature.docType
                 )
             }
 

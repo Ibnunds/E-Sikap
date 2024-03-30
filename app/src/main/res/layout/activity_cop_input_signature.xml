@@ -42,22 +42,6 @@
                 android:layout_height="match_parent"
                 android:padding="14dp"
                 android:orientation="vertical">
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etHasilP3K"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:hint="Pemeriksaan Obat P3K">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,37 +51,110 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="14dp"/>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etPelanggaranKarantina"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:hint="Pelanggaran Karantina">
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginVertical="8dp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="Pemeriksaan Obat P3K"
+                        android:textSize="12sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etDokKesehatanKapal"
+                    <RadioGroup
+                        android:id="@+id/radioObatP3K"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radio_obatp3k_true"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Lengkap"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_obatp3k_false"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Tidak lengkap"
+                            android:textSize="12sp" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:hint="Dokumen Kesehatan Kapal">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:text="Pelanggaran Karantina"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginVertical="8dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/radioKarantinaPinalti"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radio_karantinapinalti_true"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Ada"/>
+                        <RadioButton
+                            android:id="@+id/radio_karantinapinalti_false"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Tidak ada"/>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dokumen Kesehatan Kapal"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_marginVertical="8dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/radioDokKes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radio_dokkes_lengkapberlaku"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Lengkap berlaku"/>
+                        <RadioButton
+                            android:id="@+id/radio_dokkes_lengkaptidakberlaku"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Lengkap tidak berlaku"/>
+                        <RadioButton
+                            android:id="@+id/radio_dokkes_tidaklengkaptidakberlaku"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Tidak lengkap tidak berlaku"/>
+                    </RadioGroup>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -110,87 +167,45 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Free Pratique"
-                        android:textSize="14sp"
+                        android:text="Dokumen"
+                        android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginVertical="8dp"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etTanggalFP"
+                    <RadioGroup
+                        android:id="@+id/radioTipeDok"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:hint="Tanggal">
-
-                        <com.google.android.material.textfield.TextInputEditText
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/radio_tipedok_fp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/poppins_regular"
-                            android:inputType="none"
-                            android:cursorVisible="false"
-                            android:focusable="false"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etJamFP"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:hint="Jam">
-
-                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Free Pratique"/>
+                        <RadioButton
+                            android:id="@+id/radio_tipedok_rp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/poppins_regular"
-                            android:inputType="none"
-                            android:cursorVisible="false"
-                            android:focusable="false"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <ImageView
-                        android:id="@+id/prevDocFP"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:layout_marginTop="8dp"
-                        android:visibility="gone"
-                        android:layout_marginBottom="12dp"/>
-
-                    <Button
-                        android:id="@+id/btnSelectDocFP"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:text="Restresed Pratique"/>
+                    </RadioGroup>
                 </LinearLayout>
-
                 <LinearLayout
-                    android:layout_marginVertical="24dp"
+                    android:id="@+id/layout_doc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Restresed Pratique"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etTanggalRP"
+                        android:id="@+id/etTanggal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
@@ -209,7 +224,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etJamRP"
+                        android:id="@+id/etJam"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
@@ -228,7 +243,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <ImageView
-                        android:id="@+id/prevDocRP"
+                        android:id="@+id/prevDoc"
                         android:layout_width="154dp"
                         android:layout_height="210dp"
                         android:background="@drawable/bg_signature_pad"
@@ -237,7 +252,7 @@
                         android:layout_marginBottom="12dp"/>
 
                     <Button
-                        android:id="@+id/btnSelectDocRP"
+                        android:id="@+id/btnSelectDoc"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

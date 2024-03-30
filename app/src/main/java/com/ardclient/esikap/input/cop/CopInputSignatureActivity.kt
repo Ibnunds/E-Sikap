@@ -15,9 +15,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivityCopInputSignatureBinding
 import com.ardclient.esikap.input.SignatureActivity
-import com.ardclient.esikap.input.p3k.P3KInputActivity
 import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.utils.Base64Utils
@@ -30,8 +30,6 @@ import com.squareup.picasso.Picasso
 
 class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
     private lateinit var binding: ActivityCopInputSignatureBinding
-    private var selectedTanggal = ""
-    private var selectedJam = ""
 
     private var launcher: ActivityResultLauncher<Intent>? = null
 
@@ -39,9 +37,13 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
     private var signPetugasData: String? = null
 
     // dok
-    private var selectedDoc = ""
-    private var dokFP: String? = null
-    private var dokRP: String? = null
+    private var selectedDoc: String? = null
+
+    // radio
+    private val radioMap = mutableMapOf<String, String?>()
+
+    private lateinit var copSignature: COPModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCopInputSignatureBinding.inflate(layoutInflater)
@@ -70,6 +72,15 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             }
         }
 
+        // Existing data
+        val existingData = intent.getParcelableExtra<COPModel>("EXISTING_DATA")
+        if (existingData != null){
+            copSignature = existingData
+            initExisting()
+        }else{
+            copSignature = COPModel()
+        }
+
         // Date picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
@@ -84,34 +95,18 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
                 .setTitleText("Pilih jam")
                 .build()
 
-        binding.etTanggalFP.editText?.setOnClickListener {
-            selectedTanggal = "FP"
+        binding.etTanggal.editText?.setOnClickListener {
             datePicker.show(supportFragmentManager, "DATEPICKER")
         }
 
-        binding.etJamFP.editText?.setOnClickListener {
-            selectedJam = "FP"
-            timePicker.show(supportFragmentManager, "DATEPICKER")
-        }
-
-        binding.etTanggalRP.editText?.setOnClickListener {
-            selectedTanggal = "RP"
-            datePicker.show(supportFragmentManager, "DATEPICKER")
-        }
-
-        binding.etJamRP.editText?.setOnClickListener {
-            selectedJam = "RP"
+        binding.etJam.editText?.setOnClickListener {
             timePicker.show(supportFragmentManager, "DATEPICKER")
         }
 
         // ON DATE CB
         datePicker.addOnPositiveButtonClickListener {
             val selectedDate = DateTimeUtils.formatDate(it)
-            if (selectedTanggal == "FP"){
-                binding.etTanggalFP.editText?.setText(selectedDate)
-            }else{
-                binding.etTanggalRP.editText?.setText(selectedDate)
-            }
+            binding.etTanggal.editText?.setText(selectedDate)
         }
 
 
@@ -121,11 +116,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             val pickerMinute = timePicker.minute
             val formatted = DateTimeUtils.formatTime(pickerHour, pickerMinute)
 
-            if (selectedJam == "FP"){
-                binding.etJamFP.editText?.setText(formatted)
-            }else{
-                binding.etJamRP.editText?.setText(formatted)
-            }
+            binding.etJam.editText?.setText(formatted)
         }
 
         // Button
@@ -162,14 +153,112 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         }
 
         // PICK DOC
-        binding.btnSelectDocFP.setOnClickListener {
+        binding.btnSelectDoc.setOnClickListener {
             selectedDoc = "FP"
             pickDocument()
         }
 
-        binding.btnSelectDocRP.setOnClickListener {
-            selectedDoc = "RP"
-            pickDocument()
+        // RADIO
+        binding.radioObatP3K.setOnCheckedChangeListener { group, checkedId ->
+            if (checkedId == R.id.radio_obatp3k_true){
+                radioMap["OBATP3K"] = "Lengkap"
+            }else{
+                radioMap["OBATP3K"] = "Tidak lengkap"
+            }
+        }
+
+        binding.radioKarantinaPinalti.setOnCheckedChangeListener { group, checkedId ->
+            if (checkedId == R.id.radio_karantinapinalti_true){
+                radioMap["KARANTINA"] = "Ada"
+            }else{
+                radioMap["KARANTINA"] = "Tidak ada"
+            }
+        }
+
+        binding.radioDokKes.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.radio_dokkes_lengkapberlaku -> radioMap["DOKKES"] = "Lengkap berlaku"
+                R.id.radio_dokkes_lengkaptidakberlaku -> radioMap["DOKKES"] = "Lengkap tidak berlaku"
+                else -> radioMap["DOKKES"] = "Tidak lengkap tidak berlaku"
+            }
+        }
+
+        binding.radioTipeDok.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.radio_tipedok_fp -> {
+                    radioMap["TIPEDOK"] = "FP"
+                    binding.layoutDoc.visibility = View.VISIBLE
+                }
+                R.id.radio_tipedok_rp -> {
+                    radioMap["TIPEDOK"] = "RP"
+                    binding.layoutDoc.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.layoutDoc.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun initExisting() {
+        with(binding){
+            // Radio P3K
+            radioMap["OBATP3K"] = copSignature.obatP3K
+            if (copSignature.obatP3K == "Lengkap"){
+                radioObatP3K.check(R.id.radio_obatp3k_true)
+            }else{
+                radioObatP3K.check(R.id.radio_obatp3k_false)
+            }
+
+            // Radio Karantina
+            radioMap["KARANTINA"] = copSignature.pelanggaranKarantina
+            if (copSignature.pelanggaranKarantina == "Ada"){
+                radioKarantinaPinalti.check(R.id.radio_karantinapinalti_true)
+            }else{
+                radioKarantinaPinalti.check(R.id.radio_karantinapinalti_false)
+            }
+
+            // Radio dokkes
+            radioMap["DOKKES"] = copSignature.dokumenKesehatanKapal
+            when(copSignature.dokumenKesehatanKapal){
+                "Lengkap berlaku" -> radioDokKes.check(R.id.radio_dokkes_lengkapberlaku)
+                "Lengkap tidak berlaku" -> radioDokKes.check(R.id.radio_dokkes_lengkaptidakberlaku)
+                else -> radioDokKes.check(R.id.radio_dokkes_tidaklengkaptidakberlaku)
+            }
+
+            // Radio dok
+            radioMap["TIPEDOK"] = copSignature.docType
+            if (copSignature.docType == "FP"){
+                radioTipeDok.check(R.id.radio_tipedok_fp)
+            }else{
+                radioTipeDok.check(R.id.radio_tipedok_rp)
+            }
+
+            etTanggal.editText?.setText(copSignature.docTanggal)
+            etJam.editText?.setText(copSignature.docJam)
+
+            selectedDoc = copSignature.docFile
+            binding.btnSelectDoc.text = "Update Dokumen"
+            binding.prevDoc.visibility = View.VISIBLE
+            Picasso.get().load(selectedDoc).fit().into(binding.prevDoc)
+
+
+            // signature
+            binding.signKaptenButton.visibility = View.GONE
+            binding.signOfficerButton.visibility = View.GONE
+            binding.signedKapten.visibility = View.VISIBLE
+            binding.signedOfficer.visibility = View.VISIBLE
+            binding.tvKapten.text = copSignature.signNamaKapten
+            binding.tvPetugas.text = copSignature.signNamaPetugas
+
+            val kaptenSign = Base64Utils.convertBase64ToBitmap(copSignature.signKapten)
+            val officerSign = Base64Utils.convertBase64ToBitmap(copSignature.signPetugas)
+
+            signKaptenData = copSignature.signKapten
+            signPetugasData = copSignature.signPetugas
+
+            binding.ivSignKapten.setImageBitmap(kaptenSign)
+            binding.ivSignOfficer.setImageBitmap(officerSign)
         }
     }
 
@@ -181,44 +270,45 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
     private fun onSaveButton() {
         with(binding){
-            val hasilP3K = etHasilP3K.editText?.text.toString()
-            val pelanggaranKarantina = etPelanggaranKarantina.editText?.text.toString()
-            val dokKesKapal = etDokKesehatanKapal.editText?.text.toString()
             // FP
-            val fpTanggal = etTanggalFP.editText?.text.toString()
-            val fpJam = etJamFP.editText?.text.toString()
-            val rpTanggal = etTanggalRP.editText?.text.toString()
-            val rpJam = etJamRP.editText?.text.toString()
+            val tanggal = etTanggal.editText?.text.toString()
+            val jam = etJam.editText?.text.toString()
 
             //sign
             val namaKapten = binding.tvKapten.text.toString()
             val namaPetugas = binding.tvPetugas.text.toString()
 
-            val isFormComplete = InputValidation.isAllFieldComplete(
-                etHasilP3K,
-                etPelanggaranKarantina,
-                etDokKesehatanKapal,
-                etTanggalFP,
-                etJamFP,
-                etTanggalRP,
-                etJamRP
+            // radio
+            val pemeriksaanP3K = radioMap["OBATP3K"]
+            val pelanggaranKarantina = radioMap["KARANTINA"]
+            val dokKesKapal = radioMap["DOKKES"]
+
+            // Tanggal form
+            val isFormComplete = InputValidation.isAllFieldComplete(etTanggal, etJam)
+
+            // Radio from
+            val isRadioComplete = InputValidation.isAllRadioFilled(
+                radioObatP3K,
+                radioKarantinaPinalti,
+                radioDokKes,
+                radioTipeDok
             )
 
-            if (isFormComplete && namaKapten.isNotEmpty() && namaPetugas.isNotEmpty() && dokFP != null && dokRP != null && signPetugasData != null && signKaptenData != null){
+            val dokType = radioMap["TIPEDOK"]
+
+            if (isFormComplete && isRadioComplete && selectedDoc != null && dokType != null && signPetugasData != null && signKaptenData != null){
                 val signatureData = COPModel(
-                    obatP3K = hasilP3K,
-                    pelanggaranKarantina = pelanggaranKarantina,
-                    dokumenKesehatanKapal = dokKesKapal,
-                    docFreePratique = dokFP!!,
-                    docRestresedPratique = dokRP!!,
-                    docFreePratiqueTanggal = fpTanggal,
-                    docFreePratiqueJam = fpJam,
-                    docRestresedPratiqueTanggal = rpTanggal,
-                    docRestresedPratiqueJam = rpJam,
+                    obatP3K = pemeriksaanP3K!!,
+                    pelanggaranKarantina = pelanggaranKarantina!!,
+                    dokumenKesehatanKapal = dokKesKapal!!,
                     signNamaPetugas = namaPetugas,
                     signNamaKapten = namaKapten,
                     signPetugas = signPetugasData!!,
-                    signKapten = signKaptenData!!
+                    signKapten = signKaptenData!!,
+                    docFile = selectedDoc!!,
+                    docJam = jam,
+                    docTanggal = tanggal,
+                    docType = dokType
                 )
 
                 val intent = Intent(this@CopInputSignatureActivity, CopInputActivity::class.java)
@@ -273,16 +363,9 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
-        if (selectedDoc == "FP"){
-            dokFP = uriString
-            binding.btnSelectDocFP.text = "Update Dokumen"
-            binding.prevDocFP.visibility = View.VISIBLE
-            Picasso.get().load(uriString).fit().into(binding.prevDocFP)
-        }else{
-            dokRP = uriString
-            binding.btnSelectDocRP.text = "Update Dokumen"
-            binding.prevDocRP.visibility = View.VISIBLE
-            Picasso.get().load(uriString).fit().into(binding.prevDocRP)
-        }
+        selectedDoc = uriString
+        binding.btnSelectDoc.text = "Update Dokumen"
+        binding.prevDoc.visibility = View.VISIBLE
+        Picasso.get().load(uriString).fit().into(binding.prevDoc)
     }
 }
