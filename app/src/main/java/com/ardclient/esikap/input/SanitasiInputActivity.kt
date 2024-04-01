@@ -21,8 +21,11 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
     private lateinit var copSanitasi: SanitasiModel
 
     private lateinit var senderActivity: String
+    private var selectedDocType: String = ""
     private var masalahDoc: String = ""
     private var hasMasalah: Boolean = false
+    private var hasilDoc: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySanitasiInputBinding.inflate(layoutInflater)
@@ -69,6 +72,12 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         }
 
         binding.btnSelectMasalah.setOnClickListener {
+            selectedDocType = "MASALAH"
+            pickDocument()
+        }
+
+        binding.btnSelectHasil.setOnClickListener {
+            selectedDocType = "HASIL"
             pickDocument()
         }
     }
@@ -136,6 +145,8 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         binding.radioResiko.check(resikoValue)
         binding.radioHealth.check(healthValue)
 
+
+        // Has masalah kesehatan
         if (getCheckedIdByString(copSanitasi.masalahKesehatan) == 1){
             hasMasalah = true
             binding.healthFileLayout.visibility = View.VISIBLE
@@ -169,7 +180,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val isAllChecked = checkIsAllChecked()
 
 
-        if (isAllChecked) {
+        if (isAllChecked && hasilDoc != null) {
 
             // SSCEC Masalah
             val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
@@ -260,7 +271,8 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             resikoSanitasi = resikoValue,
             masalahKesehatan = healthValue,
             masalahKesehatanFile = masalahDoc,
-            masalahKesehatanCatatan = masalahCatatanVal
+            masalahKesehatanCatatan = masalahCatatanVal,
+            hasilFile = hasilDoc!!
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
@@ -318,9 +330,16 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
-        masalahDoc = uriString
-        binding.btnSelectMasalah.text = "Update Dokumen"
-        binding.prevMasalah.visibility = View.VISIBLE
-        Picasso.get().load(uriString).fit().into(binding.prevMasalah)
+        if (selectedDocType == "MASALAH"){
+            masalahDoc = uriString
+            binding.btnSelectMasalah.text = "Update Dokumen"
+            binding.prevMasalah.visibility = View.VISIBLE
+            Picasso.get().load(uriString).fit().into(binding.prevMasalah)
+        }else{
+            hasilDoc = uriString
+            binding.btnSelectHasil.text = "Update Dokumen"
+            binding.prevHasil.visibility = View.VISIBLE
+            Picasso.get().load(uriString).fit().into(binding.prevHasil)
+        }
     }
 }
