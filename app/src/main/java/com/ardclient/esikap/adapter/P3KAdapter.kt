@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.P3KModel
+import com.ardclient.esikap.utils.DateTimeUtils
 
 class P3KAdapter(private val listItems: ArrayList<P3KModel>, private val listener: P3KListener) : RecyclerView.Adapter<P3KAdapter.ViewHolder>() {
     interface P3KListener {
@@ -25,8 +26,8 @@ class P3KAdapter(private val listItems: ArrayList<P3KModel>, private val listene
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
-        holder.tvTitle.text = "P3K ${item.kapal.namaKapal} - ${item.id}"
-        holder.tvBody.text = "timestamp"
+        holder.tvTitle.text = "P3K ${item.kapal.namaKapal} #${item.id}"
+        holder.tvBody.text = DateTimeUtils.formatDate(item.timestamp, "dd MMMM yyyy")
         holder.itemView.setOnClickListener {
             listener.onItemClicked(item)
         }

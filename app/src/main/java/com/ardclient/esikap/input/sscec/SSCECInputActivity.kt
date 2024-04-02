@@ -3,6 +3,7 @@ package com.ardclient.esikap.input.sscec
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -119,7 +120,7 @@ class SSCECInputActivity : AppCompatActivity() {
         binding.cardSanitasi.setOnClickListener {
             val intent = Intent(this, SanitasiInputActivity::class.java)
             intent.putExtra("SENDER", "SSCEC")
-            if (SSCECSanitasi.sanDapur.isNotEmpty()) {
+            if (binding.chipSanitasi.isChecked) {
                 intent.putExtra("EXISTING_DATA", SSCECSanitasi)
             }
             launcher?.launch(intent)
@@ -127,7 +128,7 @@ class SSCECInputActivity : AppCompatActivity() {
 
         binding.cardDataUmum.setOnClickListener {
             val intent = Intent(this, SSCECInputDataUmumActivity::class.java)
-            if (SSCECDataUmum.pelabuhanTujuan.isNotEmpty()) {
+            if (binding.chipDataUmum.isChecked) {
                 intent.putExtra("EXISTING_DATA", SSCECDataUmum)
             }
             launcher?.launch(intent)
@@ -135,7 +136,7 @@ class SSCECInputActivity : AppCompatActivity() {
 
         binding.cardDokumenKapal.setOnClickListener {
             val intent = Intent(this, SSCECInputRekomendasiActivity::class.java)
-            if (SSCECSignature.signNamaKapten.isNotEmpty()) {
+            if (binding.chipDokumenKapal.isChecked) {
                 intent.putExtra("EXISTING_DATA", SSCECSignature)
             }
             launcher?.launch(intent)
@@ -222,6 +223,7 @@ class SSCECInputActivity : AppCompatActivity() {
     }
 
     private fun onSubmitData(sscec: SSCECModel) {
+        Log.d("SAVED DATA SSCEC", sscec.sanitasi.toString())
         if (dao.getSSCECById(sscec.id).isEmpty()){
             dao.createSSCEC(sscec)
             Toast.makeText(this, "Dokumen berhasil dibuat!", Toast.LENGTH_SHORT).show()

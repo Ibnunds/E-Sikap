@@ -17,6 +17,7 @@ import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -140,9 +141,17 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.tvSakit.text = phqc.jumlahSakit.toString()
         binding.tvMeninggal.text = phqc.jumlahMeninggal.toString()
         binding.tvDirujuk.text = phqc.jumlahDirujuk.toString()
+        binding.tvJmlPenumpang.text = phqc.jumlahPenumpang.toString()
+        binding.tvCustDemam.text = phqc.custDeteksiDemam.toString()
+        binding.tvCustSehat.text = phqc.custJumlahSehat.toString()
+        binding.tvCustSakit.text = phqc.custJumlahSakit.toString()
+        binding.tvCustMeninggal.text = phqc.custJumlahMeninggal.toString()
+        binding.tvCustDirujuk.text = phqc.custJumlahDirujuk.toString()
         binding.tvSanitasi.text = phqc.statusSanitasi
         binding.tvKesimpulan.text = phqc.kesimpulan
         binding.tvPetugas.text = phqc.petugasPelaksana
+        binding.tvTanggal.text = phqc.tanggalDiperiksa
+        Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
 
         // signature
         val bitmapSign = Base64Utils.convertBase64ToBitmap(phqc.signature)

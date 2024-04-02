@@ -3,6 +3,7 @@ package com.ardclient.esikap.database.sscec
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.ardclient.esikap.model.SSCECModel
@@ -22,7 +23,7 @@ interface SSCECDao {
     @Update
     fun updateSSCEC(sscec: SSCECModel)
 
-    @Update(entity = SSCECModel::class)
+    @Update(entity = SSCECModel::class, onConflict = OnConflictStrategy.REPLACE)
     fun updateSSCECStatus(sscec: SSCECUpdateStatusModel)
 
     @Query("SELECT * FROM sscec WHERE id = :id")

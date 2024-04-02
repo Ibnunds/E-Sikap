@@ -3,6 +3,7 @@ package com.ardclient.esikap.database.cop
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.ardclient.esikap.model.COPModel
@@ -22,7 +23,7 @@ interface COPDao {
     @Update
     fun updateCOP(cop: COPModel)
 
-    @Update(entity = COPModel::class)
+    @Update(entity = COPModel::class, onConflict = OnConflictStrategy.REPLACE)
     fun updateCOPStatus(cop: COPUpdateStatusModel)
 
     @Query("SELECT * FROM cop WHERE id = :id")

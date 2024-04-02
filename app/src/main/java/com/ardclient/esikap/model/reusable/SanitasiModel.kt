@@ -36,6 +36,7 @@ data class SanitasiModel(
     @ColumnInfo(name = "masalah_kesehatan") var masalahKesehatan: String = "",
     @ColumnInfo(name = "masalah_kesehatan_catatan") var masalahKesehatanCatatan: String = "",
     @ColumnInfo(name = "masalah_kesehatan_file") var masalahKesehatanFile: String = "",
+    @ColumnInfo(name = "hasil_pemeriksaan_kapal") var pemeriksanDoc: String = "",
     @ColumnInfo(name = "hasil_file") var hasilFile: String = "",
     @ColumnInfo(name = "rekomendasi") var rekomendasi: String = "",
 ) : Parcelable

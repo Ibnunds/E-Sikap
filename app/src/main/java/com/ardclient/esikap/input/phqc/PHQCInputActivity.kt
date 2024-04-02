@@ -3,6 +3,7 @@ package com.ardclient.esikap.input.phqc
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -17,15 +18,17 @@ import com.ardclient.esikap.input.SignatureActivity
 import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.databinding.ActivityPhqcInputBinding
+import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.squareup.picasso.Picasso
 
 
-class PHQCInputActivity : AppCompatActivity() {
+class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
     private lateinit var kapal: KapalModel
     private lateinit var phqc: PHQCModel
     private var isUpdate: Boolean = false
@@ -38,6 +41,9 @@ class PHQCInputActivity : AppCompatActivity() {
     // database
     private lateinit var database: PHQCRoomDatabase
     private lateinit var dao: PHQCDao
+
+    // doc
+    private var pemeriksaanDoc: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,6 +133,24 @@ class PHQCInputActivity : AppCompatActivity() {
             val selectedDate = DateTimeUtils.formatDate(it)
             binding.etTanggal.editText?.setText(selectedDate)
         }
+
+        binding.btnSelectHasil.setOnClickListener {
+            pickDocument()
+        }
+    }
+
+    private fun pickDocument() {
+        // dialog
+        val imageSelectorDialog = ImageSelectorModal()
+        imageSelectorDialog.show(supportFragmentManager, "IMAGE_PICKER")
+    }
+
+    override fun onImageSelected(imageUri: Uri) {
+        val uriString = imageUri.toString()
+        pemeriksaanDoc = uriString
+        binding.btnSelectHasil.text = "Update Dokumen"
+        binding.prevHasil.visibility = View.VISIBLE
+        Picasso.get().load(uriString).fit().into(binding.prevHasil)
     }
 
     private fun initExistingData() {
@@ -139,8 +163,15 @@ class PHQCInputActivity : AppCompatActivity() {
         binding.etJmlSehat.editText?.setText(phqc.jumlahSehat.toString())
         binding.etJmlMeninggal.editText?.setText(phqc.jumlahMeninggal.toString())
         binding.etJmlDirujuk.editText?.setText(phqc.jumlahDirujuk.toString())
+        binding.etJmlPenumpang.editText?.setText(phqc.jumlahPenumpang.toString())
+        binding.etCustDemam.editText?.setText(phqc.custDeteksiDemam.toString())
+        binding.etCustJmlSakit.editText?.setText(phqc.custJumlahSakit.toString())
+        binding.etCustJmlSehat.editText?.setText(phqc.custJumlahSehat.toString())
+        binding.etCustJmlMeninggal.editText?.setText(phqc.custJumlahMeninggal.toString())
+        binding.etCustJmlDirujuk.editText?.setText(phqc.custJumlahDirujuk.toString())
         binding.etSanitasi.editText?.setText(phqc.statusSanitasi)
         binding.etKesimpulan.editText?.setText(phqc.kesimpulan)
+        binding.etTanggal.editText?.setText(phqc.tanggalDiperiksa)
         nmPetugas = phqc.petugasPelaksana
 
         // signature
@@ -148,6 +179,13 @@ class PHQCInputActivity : AppCompatActivity() {
         binding.ivSign.setImageBitmap(bitmapSign)
         binding.tvPetugas.text = phqc.petugasPelaksana
         base64Sign = phqc.signature
+
+        // doc
+        pemeriksaanDoc = phqc.pemeriksaanFile
+        binding.btnSelectHasil.text = "Update Dokumen"
+        binding.prevHasil.visibility = View.VISIBLE
+        Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
+
 
         binding.signLayout.visibility = View.VISIBLE
         binding.addSignButton.visibility = View.GONE
@@ -164,8 +202,15 @@ class PHQCInputActivity : AppCompatActivity() {
         val jmlSehat = binding.etJmlSehat.editText?.text.toString()
         val jmlMeninggal = binding.etJmlMeninggal.editText?.text.toString()
         val jmlDirujuk = binding.etJmlDirujuk.editText?.text.toString()
+        val jmlPenumpang = binding.etJmlPenumpang.editText?.text.toString()
+        val custDemam = binding.etCustDemam.editText?.text.toString()
+        val custJmlSakit = binding.etCustJmlSakit.editText?.text.toString()
+        val custJmlSehat = binding.etCustJmlSehat.editText?.text.toString()
+        val custjmlMeninggal = binding.etCustJmlMeninggal.editText?.text.toString()
+        val custJmlDirujuk = binding.etCustJmlDirujuk.editText?.text.toString()
         val sanitasi = binding.etSanitasi.editText?.text.toString()
         val kesimpulan = binding.etKesimpulan.editText?.text.toString()
+        val tanggal = binding.etTanggal.editText?.text.toString()
 
         // Mengecek apakah semua input terisi
         val isAllFilled = InputValidation.isAllFieldComplete(
@@ -178,53 +223,71 @@ class PHQCInputActivity : AppCompatActivity() {
             binding.etJmlSehat,
             binding.etJmlMeninggal,
             binding.etJmlDirujuk,
+            binding.etJmlPenumpang,
+            binding.etCustJmlSakit,
+            binding.etCustDemam,
+            binding.etCustJmlSehat,
+            binding.etCustJmlMeninggal,
+            binding.etCustJmlDirujuk,
             binding.etSanitasi,
-            binding.etKesimpulan
+            binding.etKesimpulan,
+            binding.etTanggal
         )
 
-        if (isAllFilled){
-            if (nmPetugas != null){
-                if (isUpdate){
-                    onSaveData(PHQCModel(
-                        id = phqc.id,
-                        kapalId = phqc.kapalId,
-                        kapal = phqc.kapal,
-                        tujuan = tujuan,
-                        dokumenKapal = dokumen,
-                        lokasiPemeriksaan = pemeriksaan,
-                        jumlahABK = jmlABK.toInt(),
-                        deteksiDemam = demam.toInt(),
-                        jumlahSehat = jmlSehat.toInt(),
-                        jumlahSakit =  jmlSakit.toInt(),
-                        jumlahMeninggal = jmlMeninggal.toInt(),
-                        jumlahDirujuk = jmlDirujuk.toInt(),
-                        statusSanitasi = sanitasi,
-                        kesimpulan = kesimpulan,
-                        petugasPelaksana = nmPetugas!!,
-                        signature = base64Sign!!
-                    ))
-                }else{
-                    onSaveData(PHQCModel(
-                        kapalId = kapal.id,
-                        kapal = kapal,
-                        tujuan = tujuan,
-                        dokumenKapal = dokumen,
-                        lokasiPemeriksaan = pemeriksaan,
-                        jumlahABK = jmlABK.toInt(),
-                        deteksiDemam = demam.toInt(),
-                        jumlahSehat = jmlSehat.toInt(),
-                        jumlahSakit =  jmlSakit.toInt(),
-                        jumlahMeninggal = jmlMeninggal.toInt(),
-                        jumlahDirujuk = jmlDirujuk.toInt(),
-                        statusSanitasi = sanitasi,
-                        kesimpulan = kesimpulan,
-                        petugasPelaksana = nmPetugas!!,
-                        signature = base64Sign!!
-                    ))
-                }
-
+        if (isAllFilled && pemeriksaanDoc != null && nmPetugas != null){
+            if (isUpdate){
+                onSaveData(PHQCModel(
+                    id = phqc.id,
+                    kapalId = phqc.kapalId,
+                    kapal = phqc.kapal,
+                    tujuan = tujuan,
+                    dokumenKapal = dokumen,
+                    lokasiPemeriksaan = pemeriksaan,
+                    jumlahABK = jmlABK.toInt(),
+                    deteksiDemam = demam.toInt(),
+                    jumlahSehat = jmlSehat.toInt(),
+                    jumlahSakit =  jmlSakit.toInt(),
+                    jumlahMeninggal = jmlMeninggal.toInt(),
+                    jumlahDirujuk = jmlDirujuk.toInt(),
+                    jumlahPenumpang=jmlPenumpang.toInt(),
+                    custDeteksiDemam = custDemam.toInt(),
+                    custJumlahSehat = custJmlSehat.toInt(),
+                    custJumlahSakit = custJmlSakit.toInt(),
+                    custJumlahMeninggal = custjmlMeninggal.toInt(),
+                    custJumlahDirujuk = custJmlDirujuk.toInt(),
+                    statusSanitasi = sanitasi,
+                    kesimpulan = kesimpulan,
+                    petugasPelaksana = nmPetugas!!,
+                    signature = base64Sign!!,
+                    pemeriksaanFile = pemeriksaanDoc!!,
+                    tanggalDiperiksa = tanggal
+                ))
             }else{
-                Toast.makeText(this@PHQCInputActivity, "Belum ada tanda tangan!", Toast.LENGTH_SHORT).show()
+                onSaveData(PHQCModel(
+                    kapalId = kapal.id,
+                    kapal = kapal,
+                    tujuan = tujuan,
+                    dokumenKapal = dokumen,
+                    lokasiPemeriksaan = pemeriksaan,
+                    jumlahABK = jmlABK.toInt(),
+                    deteksiDemam = demam.toInt(),
+                    jumlahSehat = jmlSehat.toInt(),
+                    jumlahSakit =  jmlSakit.toInt(),
+                    jumlahMeninggal = jmlMeninggal.toInt(),
+                    jumlahDirujuk = jmlDirujuk.toInt(),
+                    jumlahPenumpang=jmlPenumpang.toInt(),
+                    custDeteksiDemam = custDemam.toInt(),
+                    custJumlahSehat = custJmlSehat.toInt(),
+                    custJumlahSakit = custJmlSakit.toInt(),
+                    custJumlahMeninggal = custjmlMeninggal.toInt(),
+                    custJumlahDirujuk = custJmlDirujuk.toInt(),
+                    statusSanitasi = sanitasi,
+                    kesimpulan = kesimpulan,
+                    petugasPelaksana = nmPetugas!!,
+                    signature = base64Sign!!,
+                    pemeriksaanFile = pemeriksaanDoc!!,
+                    tanggalDiperiksa = tanggal
+                ))
             }
         }else{
             Toast.makeText(this@PHQCInputActivity, "Mohon lengkapi semua input", Toast.LENGTH_SHORT).show()

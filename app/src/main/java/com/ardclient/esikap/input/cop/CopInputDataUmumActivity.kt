@@ -18,6 +18,8 @@ import com.google.android.material.datepicker.MaterialDatePicker
 class CopInputDataUmumActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCopInputDataUmumBinding
     private lateinit var copBasicData: COPModel
+
+    private var isUpdate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCopInputDataUmumBinding.inflate(layoutInflater)
@@ -32,6 +34,7 @@ class CopInputDataUmumActivity : AppCompatActivity() {
         val existingData = intent.getParcelableExtra<COPModel>("EXISTING_DATA")
         if (existingData != null){
             copBasicData = existingData
+            isUpdate = true
             initExistingData()
         }else{
             copBasicData = COPModel()
@@ -133,6 +136,9 @@ class CopInputDataUmumActivity : AppCompatActivity() {
 
             val intent = Intent(this, CopInputActivity::class.java)
             intent.putExtra("COP_BASIC", copBasicData)
+            if (isUpdate){
+                intent.putExtra("HAS_UPDATE", true)
+            }
             setResult(RESULT_OK, intent)
             finish()
         }else{

@@ -37,6 +37,8 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
     private lateinit var viewModel: DokumenViewModel
     private lateinit var bindingListData: List<DokumenKapalListModel>
 
+    private var isUpdate = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCopInputDokumenBinding.inflate(layoutInflater)
@@ -56,6 +58,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         val existingData = intent.getParcelableExtra<DokumenKapalModel>("EXISTING_DATA")
         if (existingData != null){
             copDocData = existingData
+            isUpdate = true
             initExistingData()
         }else{
             copDocData = DokumenKapalModel()
@@ -228,6 +231,9 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         )
 
          intent.putExtra("COP_DOC", copDokumen)
+        if (isUpdate){
+            intent.putExtra("HAS_UPDATE", true)
+        }
          setResult(RESULT_OK, intent)
          finish()
     }

@@ -71,16 +71,16 @@ class LoginActivity : AppCompatActivity() {
             )
 
             if (inputValidate){
-                //onLogin(username, password)
-                spinner.dismiss()
-                if (username == "dev" && password == "123456"){
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-
-                    finish()
-                }else{
-                    Toast.makeText(this@LoginActivity, "Akun tidak ditemukan!", Toast.LENGTH_SHORT).show()
-                }
+                onLogin(username, password)
+//                spinner.dismiss()
+//                if (username == "dev" && password == "123456"){
+//                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//                    startActivity(intent)
+//
+//                    finish()
+//                }else{
+//                    Toast.makeText(this@LoginActivity, "Akun tidak ditemukan!", Toast.LENGTH_SHORT).show()
+//                }
             }
         }
     }

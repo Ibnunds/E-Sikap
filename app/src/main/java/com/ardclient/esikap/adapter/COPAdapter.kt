@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.COPModel
+import com.ardclient.esikap.utils.DateTimeUtils
 
 class COPAdapter(private val listItems: ArrayList<COPModel>, private val listener: COPAdapter.COPListner) : RecyclerView.Adapter<COPAdapter.ViewHolder>() {
     interface COPListner {
@@ -25,8 +26,8 @@ class COPAdapter(private val listItems: ArrayList<COPModel>, private val listene
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
-        holder.tvTitle.text = "COP ${item.kapal.namaKapal} - ${item.id}"
-        holder.tvBody.text = "timestamp"
+        holder.tvTitle.text = "COP ${item.kapal.namaKapal} #${item.id}"
+        holder.tvBody.text = DateTimeUtils.formatDate(item.timestamp, "dd MMMM yyyy")
         holder.itemView.setOnClickListener {
             listener.onItemClicked(item)
         }

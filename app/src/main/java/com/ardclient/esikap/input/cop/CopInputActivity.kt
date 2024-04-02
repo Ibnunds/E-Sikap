@@ -112,6 +112,11 @@ class CopInputActivity : AppCompatActivity() {
                 val data = result.data
 
                 // Receive Data
+                val isUpdate = data?.getBooleanExtra("HAS_UPDATE", false)
+                if (isUpdate == true){
+                    binding.uploadButton.isEnabled = false
+                    binding.tvHasUpdate.visibility = View.VISIBLE
+                }
 
                 // == Basic Data
                 val basicCOPData = data?.getParcelableExtra<COPModel>("COP_BASIC")
@@ -135,6 +140,7 @@ class CopInputActivity : AppCompatActivity() {
                     copSanitasi = sanitasi
                     binding.chipCOPSanitasi.isChecked = true
                     binding.chipCOPSanitasi.text = "Lengkap"
+                    Log.d("SANITASI KAPAL", sanitasi.toString())
                 }
 
                 // == Signature Data
@@ -151,7 +157,7 @@ class CopInputActivity : AppCompatActivity() {
         // card button
         binding.cardCOPDataUmum.setOnClickListener {
             val intent = Intent(this, CopInputDataUmumActivity::class.java)
-            if (copBasicData.tujuan.isNotEmpty()){
+            if (binding.chipCOPDataUmum.isChecked){
                 intent.putExtra("EXISTING_DATA", copBasicData)
             }
             launcher?.launch(intent)
@@ -168,7 +174,7 @@ class CopInputActivity : AppCompatActivity() {
         binding.cardCOPSanitasi.setOnClickListener {
             val intent = Intent(this, SanitasiInputActivity::class.java)
             intent.putExtra("SENDER", "COP")
-            if (copSanitasi.sanDapur.isNotEmpty()){
+            if (binding.chipCOPSanitasi.isChecked){
                 intent.putExtra("EXISTING_DATA", copSanitasi)
             }
             launcher?.launch(intent)
@@ -313,6 +319,8 @@ class CopInputActivity : AppCompatActivity() {
                 )
             }
 
+            Log.d("SAVED_X3D", data.sanitasiKapal.toString())
+
             onSubmitData(data)
         }else{
             Toast.makeText(this@CopInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
@@ -334,6 +342,9 @@ class CopInputActivity : AppCompatActivity() {
         }else{
             dao.updateCOP(data)
             Toast.makeText(this, "Dokumen berhasil diupdate!", Toast.LENGTH_SHORT).show()
+            // reset has update
+            binding.uploadButton.isEnabled = true
+            binding.tvHasUpdate.visibility = View.GONE
         }
     }
 
@@ -389,8 +400,4 @@ class CopInputActivity : AppCompatActivity() {
             })
         }
     }
-
-
-
-
 }

@@ -28,7 +28,7 @@ class PHQCAdapter(private val listItems: ArrayList<PHQCModel>, private val liste
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
-        holder.tvTitle.text = "PHQC ${item.kapal.namaKapal} - ${item.id}"
+        holder.tvTitle.text = "PHQC ${item.kapal.namaKapal} #${item.id}"
         holder.tvBody.text = DateTimeUtils.formatDate(item.timestamp, "dd MMMM yyyy")
         holder.itemView.setOnClickListener {
             listener.onItemClicked(item)

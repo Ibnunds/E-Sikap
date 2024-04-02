@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.SSCECModel
+import com.ardclient.esikap.utils.DateTimeUtils
 
 class SSCECAdapter(private val listItems: ArrayList<SSCECModel>, private val listener: SSCEClistener) : RecyclerView.Adapter<SSCECAdapter.ViewHolder>() {
     interface SSCEClistener {
@@ -25,8 +26,8 @@ class SSCECAdapter(private val listItems: ArrayList<SSCECModel>, private val lis
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
-        holder.tvTitle.text = "SSCEC ${item.kapal.namaKapal} - ${item.id}"
-        holder.tvBody.text = "timestamp"
+        holder.tvTitle.text = "SSCEC ${item.kapal.namaKapal}  #${item.id}"
+        holder.tvBody.text = DateTimeUtils.formatDate(item.timestamp, "dd MMMM yyyy")
         holder.itemView.setOnClickListener {
             listener.onItemClicked(item)
         }

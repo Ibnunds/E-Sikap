@@ -4,15 +4,18 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import com.ardclient.esikap.R
 import com.ardclient.esikap.input.cop.CopInputActivity
 import com.ardclient.esikap.databinding.ActivitySanitasiInputBinding
 import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.SanitasiModel
+import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.InputValidation
 import com.squareup.picasso.Picasso
 
@@ -22,7 +25,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
     private lateinit var senderActivity: String
     private var selectedDocType: String = ""
-    private var masalahDoc: String = ""
+    private var masalahDoc: String? = null
     private var hasMasalah: Boolean = false
     private var hasilDoc: String? = null
 
@@ -145,6 +148,15 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         binding.radioResiko.check(resikoValue)
         binding.radioHealth.check(healthValue)
 
+        // Doc
+        hasilDoc = copSanitasi.pemeriksanDoc
+        binding.btnSelectHasil.text = "Update Dokumen"
+        binding.prevHasil.visibility = View.VISIBLE
+        if (hasilDoc != null){
+            Picasso.get().load(copSanitasi.pemeriksanDoc).fit().into(binding.prevHasil)
+        }
+
+
 
         // Has masalah kesehatan
         if (getCheckedIdByString(copSanitasi.masalahKesehatan) == 1){
@@ -189,7 +201,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 binding.etMasalahNote
             )
 
-            val requireMasalahDoc = hasMasalah && masalahDoc.isEmpty()
+            val requireMasalahDoc = hasMasalah && masalahDoc.isNullOrEmpty()
             val requireMasalahCatatan = hasMasalah && masalahCatatanVal.isEmpty()
 
             val errorMessage = when {
@@ -270,9 +282,10 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             rekomendasi = rekomendasiValue,
             resikoSanitasi = resikoValue,
             masalahKesehatan = healthValue,
-            masalahKesehatanFile = masalahDoc,
+            masalahKesehatanFile = masalahDoc ?: "",
             masalahKesehatanCatatan = masalahCatatanVal,
-            hasilFile = hasilDoc!!
+            pemeriksanDoc = hasilDoc!!,
+            hasilFile = "TESTING"
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
@@ -330,16 +343,19 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
-        if (selectedDocType == "MASALAH"){
-            masalahDoc = uriString
-            binding.btnSelectMasalah.text = "Update Dokumen"
-            binding.prevMasalah.visibility = View.VISIBLE
-            Picasso.get().load(uriString).fit().into(binding.prevMasalah)
-        }else{
-            hasilDoc = uriString
-            binding.btnSelectHasil.text = "Update Dokumen"
-            binding.prevHasil.visibility = View.VISIBLE
-            Picasso.get().load(uriString).fit().into(binding.prevHasil)
+        when(selectedDocType){
+            "MASALAH" -> {
+                masalahDoc = uriString
+                binding.btnSelectMasalah.text = "Update Dokumen"
+                binding.prevMasalah.visibility = View.VISIBLE
+                Picasso.get().load(uriString).fit().into(binding.prevMasalah)
+            }
+            "HASIL" -> {
+                hasilDoc = uriString
+                binding.btnSelectHasil.text = "Update Dokumen"
+                binding.prevHasil.visibility = View.VISIBLE
+                Picasso.get().load(hasilDoc).fit().into(binding.prevHasil)
+            }
         }
     }
 }

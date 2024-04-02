@@ -43,6 +43,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
     private val radioMap = mutableMapOf<String, String?>()
 
     private lateinit var copSignature: COPModel
+    private var isUpdate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +78,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         if (existingData != null){
             copSignature = existingData
             initExisting()
+            isUpdate = true
         }else{
             copSignature = COPModel()
         }
@@ -313,6 +315,9 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
                 val intent = Intent(this@CopInputSignatureActivity, CopInputActivity::class.java)
                 intent.putExtra("SIGNATURE", signatureData)
+                if (isUpdate){
+                    intent.putExtra("HAS_UPDATE", true)
+                }
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
