@@ -19,6 +19,10 @@ import com.google.android.material.datepicker.MaterialDatePicker
 class P3KInputDataUmumActivity : AppCompatActivity() {
     private lateinit var binding: ActivityP3kInputDataUmumBinding
     private lateinit var P3KDataUmum: P3KModel
+
+    // Radio
+    private val radioMap = mutableMapOf<String, String?>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityP3kInputDataUmumBinding.inflate(layoutInflater)
@@ -56,24 +60,52 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
             val selectedDate = DateTimeUtils.formatDate(it)
             binding.etTanggalDiperiksa.editText?.setText(selectedDate)
         }
+
+        binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
+            if (checkedId == R.id.radio_layanan_kedatangan){
+                radioMap["LAYANAN"] = "Kedatangan"
+            }else{
+                radioMap["LAYANAN"] = "Keberangkatan"
+            }
+        }
+
+        binding.radioJenisPelayaran.setOnCheckedChangeListener{ _, checkedId ->
+            if (checkedId == R.id.radio_pelayaran_domestik){
+                radioMap["PELAYARAN"] = "Domestik"
+            }else{
+                radioMap["PELAYARAN"] = "Internasional"
+            }
+        }
     }
 
     private fun initExistingData() {
         with(binding) {
-            etJenisLayanan.editText?.setText(P3KDataUmum.jenisLayanan)
-            etJenisPelayanan.editText?.setText(P3KDataUmum.jenisPelayanan)
             etLokasiPemeriksaan.editText?.setText(P3KDataUmum.lokasiPemeriksaan)
             etTanggalDiperiksa.editText?.setText(P3KDataUmum.tglDiperiksa)
             etJmlABK.editText?.setText(P3KDataUmum.jmlABK.toString())
             etJmlSehat.editText?.setText(P3KDataUmum.abkSehat.toString())
             etJmlSakit.editText?.setText(P3KDataUmum.abkSakit.toString())
+
+
+            // radio
+            radioMap["LAYANAN"] = P3KDataUmum.jenisLayanan
+            if (P3KDataUmum.jenisLayanan == "Kedatangan"){
+                radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
+            }else{
+                radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
+            }
+
+            radioMap["PELAYARAN"] = P3KDataUmum.jenisPelayanan
+            if (P3KDataUmum.jenisPelayanan == "Domestik"){
+                radioJenisPelayaran.check(R.id.radio_pelayaran_domestik)
+            }else{
+                radioJenisPelayaran.check(R.id.radio_pelayaran_inter)
+            }
         }
     }
 
     private fun onSaveButton() {
         with(binding){
-            val jenisLayanan = etJenisLayanan.editText?.text.toString()
-            val jenisPelayanan = etJenisPelayanan.editText?.text.toString()
             val lokasiPemeriksaan = etLokasiPemeriksaan.editText?.text.toString()
             val tanggalDiperiksa = etTanggalDiperiksa.editText?.text.toString()
 
@@ -82,8 +114,6 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
             val abkSakit = etJmlSakit.editText?.text.toString()
 
             val isFormCompleted = InputValidation.isAllFieldComplete(
-                etJenisLayanan,
-                etJenisPelayanan,
                 etLokasiPemeriksaan,
                 etTanggalDiperiksa,
                 etJmlABK,
@@ -91,10 +121,15 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
                 etJmlSakit
             )
 
-            if (isFormCompleted){
+            val isRadioComplete = InputValidation.isAllRadioFilled(
+                radioJenisPelayaran,
+                radioJenisLayanan
+            )
+
+            if (isFormCompleted && isRadioComplete){
                 val dataUmum = P3KModel(
-                    jenisLayanan = jenisLayanan,
-                    jenisPelayanan = jenisPelayanan,
+                    jenisLayanan = radioMap["LAYANAN"]!!,
+                    jenisPelayanan = radioMap["PELAYARAN"]!!,
                     lokasiPemeriksaan = lokasiPemeriksaan,
                     tglDiperiksa = tanggalDiperiksa,
                     jmlABK = jumlahABK.toInt(),
