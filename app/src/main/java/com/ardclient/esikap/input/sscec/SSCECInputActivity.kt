@@ -108,6 +108,12 @@ class SSCECInputActivity : AppCompatActivity() {
         }
 
 
+        // hanlde on uploaded
+        if (sscecData.isUpload){
+            isUploaded = true
+            updateUIonUploaded()
+        }
+
         // handle input result
         launcher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -151,6 +157,7 @@ class SSCECInputActivity : AppCompatActivity() {
 
         binding.cardSanitasi.setOnClickListener {
             val intent = Intent(this, SanitasiInputActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipSanitasi.isChecked) {
                 intent.putExtra("EXISTING_DATA", SSCECSanitasi)
             }
@@ -159,6 +166,7 @@ class SSCECInputActivity : AppCompatActivity() {
 
         binding.cardDataUmum.setOnClickListener {
             val intent = Intent(this, SSCECInputDataUmumActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipDataUmum.isChecked) {
                 intent.putExtra("EXISTING_DATA", SSCECDataUmum)
             }
@@ -167,6 +175,7 @@ class SSCECInputActivity : AppCompatActivity() {
 
         binding.cardDokumenKapal.setOnClickListener {
             val intent = Intent(this, SSCECInputRekomendasiActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipDokumenKapal.isChecked) {
                 intent.putExtra("EXISTING_DATA", SSCECSignature)
             }

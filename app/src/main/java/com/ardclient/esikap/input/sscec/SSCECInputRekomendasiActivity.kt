@@ -34,6 +34,7 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
 
     private lateinit var basicData: SSCECModel
     private var isUpdate = false
+    private var isUploaded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySscecInputRekomendasiBinding.inflate(layoutInflater)
@@ -66,6 +67,12 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
             basicData = SSCECModel()
         }
 
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            updateUIonUploaded()
+        }
+
         // header
         binding.topAppBar.setNavigationOnClickListener {
             finish()
@@ -85,21 +92,25 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
         }
 
         binding.ivSignKapten.setOnClickListener{
-            val namaKapten = binding.tvKapten.text.toString()
+            if (!isUploaded){
+                val namaKapten = binding.tvKapten.text.toString()
 
-            val intent = Intent(this, SignatureActivity::class.java)
-            intent.putExtra("NAMA", namaKapten)
-            intent.putExtra("TYPE", "KAPTEN")
-            launcher!!.launch(intent)
+                val intent = Intent(this, SignatureActivity::class.java)
+                intent.putExtra("NAMA", namaKapten)
+                intent.putExtra("TYPE", "KAPTEN")
+                launcher!!.launch(intent)
+            }
         }
 
         binding.ivSignOfficer.setOnClickListener{
-            val namaOfficer = binding.tvPetugas.text.toString()
+            if (!isUploaded){
+                val namaOfficer = binding.tvPetugas.text.toString()
 
-            val intent = Intent(this, SignatureActivity::class.java)
-            intent.putExtra("NAMA", namaOfficer)
-            intent.putExtra("TYPE", "PETUGAS")
-            launcher!!.launch(intent)
+                val intent = Intent(this, SignatureActivity::class.java)
+                intent.putExtra("NAMA", namaOfficer)
+                intent.putExtra("TYPE", "PETUGAS")
+                launcher!!.launch(intent)
+            }
         }
 
         // Date picker
@@ -135,6 +146,19 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
             val formatted = DateTimeUtils.formatTime(pickerHour, pickerMinute)
 
             binding.etJam.editText?.setText(formatted)
+        }
+    }
+
+    private fun updateUIonUploaded() {
+        with(binding){
+            etSSCEC.editText?.isEnabled = false
+            etTanggal.editText?.isEnabled = false
+            etJam.editText?.isEnabled = false
+
+            tvSignHelpKapten.visibility = View.GONE
+            tvSignHelpPetugas.visibility = View.GONE
+
+            saveButton.visibility = View.GONE
         }
     }
 

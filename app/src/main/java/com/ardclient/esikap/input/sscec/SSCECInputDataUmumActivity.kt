@@ -5,6 +5,7 @@ import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
@@ -19,6 +20,7 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
     private lateinit var basicData: SSCECModel
 
     private var isUpdate = false
+    private var isUploaded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySscecInputDataUmumBinding.inflate(layoutInflater)
@@ -37,6 +39,24 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
             isUpdate = true
         }else{
             basicData = SSCECModel()
+        }
+
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            InputValidation.disabledAllInput(
+                binding.etTujuan,
+                binding.etTiba,
+                binding.etLokasiSandar,
+                binding.etJmlABKAsing,
+                binding.etJmlSehatABKAsing,
+                binding.etJmlSakitABKAsing,
+                binding.etJmlABKWNI,
+                binding.etJmlSehatABKWNI,
+                binding.etJmlSakitABKWNI,
+            )
+
+            binding.saveButton.visibility = View.GONE
         }
 
         // button

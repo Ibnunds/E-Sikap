@@ -119,6 +119,8 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 radioHealth,
             )
 
+            etMasalahNote.editText?.isEnabled = false
+
             btnSelectHasil.visibility = View.GONE
             btnSelectMasalah.visibility = View.GONE
             saveButton.visibility = View.GONE
