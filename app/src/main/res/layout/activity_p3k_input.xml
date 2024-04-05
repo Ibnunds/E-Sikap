@@ -251,6 +251,16 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_alignParentBottom="true">
+                <TextView
+                    android:id="@+id/tvHasUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginBottom="14dp"
+                    android:text="@string/has_update"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

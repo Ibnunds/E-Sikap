@@ -20,6 +20,8 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
 
     private var masalahDoc: String = ""
     private var needExtra: Boolean = false
+
+    private var isUpdate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityP3kInputPemeriksaanBinding.inflate(layoutInflater)
@@ -35,6 +37,7 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
         if (existingData != null){
             pemeriksaanKapal = existingData
             initExistingData()
+            isUpdate = true
         }else{
             pemeriksaanKapal = PemeriksaanKapalModel()
         }
@@ -226,6 +229,9 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
 
            val intent = Intent(this@P3KInputPemeriksaanActivity, P3KInputActivity::class.java)
            intent.putExtra("PEMERIKSAAN", pemeriksaanData)
+           if (isUpdate){
+               intent.putExtra("HAS_UPDATE", true)
+           }
            setResult(RESULT_OK, intent)
            finish()
        }

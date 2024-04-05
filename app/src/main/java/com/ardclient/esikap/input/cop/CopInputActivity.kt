@@ -329,11 +329,9 @@ class CopInputActivity : AppCompatActivity() {
             ) {
                 spinner.dismiss()
                 if (response.isSuccessful){
-                    spinner.dismiss()
                     onUploadSuccess()
                     //Toast.makeText(this@CopInputActivity, "SUKSES", Toast.LENGTH_SHORT).show()
                 }else{
-                    spinner.dismiss()
                     Toast.makeText(this@CopInputActivity, response.message(), Toast.LENGTH_SHORT).show()
                 }
             }

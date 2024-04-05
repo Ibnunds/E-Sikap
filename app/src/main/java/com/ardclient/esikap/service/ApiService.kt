@@ -2,6 +2,7 @@ package com.ardclient.esikap.service
 
 import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.COPModel
+import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.model.api.FileModel
@@ -26,6 +27,10 @@ interface ApiService {
     // Upload PHQC
     @POST("upload/phqc")
     fun uploadPHQC(@Body body: UploadModel<PHQCModel>) : Call<ApiResponse<Any>>
+
+    // Upload PHQC
+    @POST("upload/p3k")
+    fun uploadP3K(@Body body: UploadModel<P3KModel>) : Call<ApiResponse<Any>>
 
 
     // Upload COP

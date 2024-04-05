@@ -35,6 +35,8 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
     private var signPetugasData: String? = null
 
     private lateinit var basicData: P3KModel
+
+    private var isUpdate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityP3kInputRekomendasiBinding.inflate(layoutInflater)
@@ -63,6 +65,7 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
             basicData = existingData
             initExistingData()
             Log.d("EXISTING_DATAS", existingData.toString())
+            isUpdate = true
         }else{
             basicData = P3KModel()
             Log.d("EXISTING_DATAS", "NO DATA")
@@ -192,6 +195,9 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
 
             val intent = Intent(this, P3KInputActivity::class.java)
             intent.putExtra("SIGNATURE", basicData)
+            if (isUpdate){
+                intent.putExtra("HAS_UPDATE", true)
+            }
             setResult(RESULT_OK, intent)
             finish()
         }else{

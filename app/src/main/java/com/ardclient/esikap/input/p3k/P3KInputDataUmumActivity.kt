@@ -22,6 +22,7 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
 
     // Radio
     private val radioMap = mutableMapOf<String, String?>()
+    private var isUpdate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,7 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
         if (existingData != null){
             P3KDataUmum = existingData
             initExistingData()
+            isUpdate = true
         }else{
             P3KDataUmum = P3KModel()
         }
@@ -139,6 +141,9 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
 
                 val intent = Intent(this@P3KInputDataUmumActivity, P3KInputActivity::class.java)
                 intent.putExtra("BASIC", dataUmum)
+                if (isUpdate){
+                    intent.putExtra("HAS_UPDATE", true)
+                }
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
