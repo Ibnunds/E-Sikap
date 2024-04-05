@@ -195,6 +195,7 @@ class CopInputActivity : AppCompatActivity() {
         binding.cardCOPRekomendasi.setOnClickListener {
             val intent = Intent(this, CopInputSignatureActivity::class.java)
             intent.putExtra("IS_UPLOAD", isUploaded)
+            intent.putExtra("KAPTEN", kapal.kaptenKapal)
             if (binding.chipCOPRekomendasi.isChecked){
                 intent.putExtra("EXISTING_DATA", copSignature)
             }

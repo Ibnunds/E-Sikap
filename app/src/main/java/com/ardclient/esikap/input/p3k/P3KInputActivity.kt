@@ -120,7 +120,7 @@ class P3KInputActivity : AppCompatActivity() {
 
         binding.cardDataUmum.setOnClickListener {
             val intent = Intent(this, P3KInputDataUmumActivity::class.java)
-            if (P3KDataUmum.jenisLayanan.isNotEmpty()) {
+            if (binding.chipDataUmum.isChecked) {
                 intent.putExtra("EXISTING_DATA", P3KDataUmum)
             }
             launcher?.launch(intent)
@@ -128,7 +128,7 @@ class P3KInputActivity : AppCompatActivity() {
 
         binding.cardSanitasi.setOnClickListener {
             val intent = Intent(this, P3KInputPemeriksaanActivity::class.java)
-            if (P3KPemeriksaan.peralatanP3K.isNotEmpty()) {
+            if (binding.chipSanitasi.isChecked) {
                 intent.putExtra("EXISTING_DATA", P3KPemeriksaan)
             }
             launcher?.launch(intent)
@@ -136,9 +136,10 @@ class P3KInputActivity : AppCompatActivity() {
 
         binding.cardDokumenKapal.setOnClickListener {
             val intent = Intent(this, P3KInputRekomendasiActivity::class.java)
-            if (P3KRekomendasi.recP3K.isNotEmpty()) {
+            if (binding.chipDokumenKapal.isChecked) {
                 intent.putExtra("EXISTING_DATA", P3KRekomendasi)
             }
+            intent.putExtra("KAPTEN", kapal.kaptenKapal)
             launcher?.launch(intent)
         }
 

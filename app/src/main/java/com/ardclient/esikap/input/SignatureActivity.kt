@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ardclient.esikap.databinding.ActivitySignatureBinding
 import com.ardclient.esikap.input.phqc.PHQCInputActivity
+import com.ardclient.esikap.utils.SessionUtils
 import com.github.gcacace.signaturepad.views.SignaturePad
 import java.io.ByteArrayOutputStream
 
@@ -47,24 +48,20 @@ class SignatureActivity : AppCompatActivity() {
             finish()
         }
 
-
         // handle if from existing
         val existingNama = intent.getStringExtra("NAMA")
-        if (existingNama!!.isNotEmpty()){
+        if (existingNama!!.isNotEmpty()) {
             namaPetugas.editText?.setText(existingNama)
         }
 
-        val getSendType = intent.getStringExtra("TYPE")
-        if (getSendType != null){
-            sendType = getSendType
-        }else{
-            sendType = ""
-        }
+        sendType = intent.getStringExtra("TYPE") ?: ""
+
+        namaPetugas.editText?.isEnabled = false
 
         binding.clearButton.setOnClickListener {
-            if (isSigned){
+            if (isSigned) {
                 signPad.clear()
-            }else{
+            } else {
                 Toast.makeText(this, "Belum ada tanda tangan!", Toast.LENGTH_SHORT).show()
             }
         }
@@ -79,7 +76,7 @@ class SignatureActivity : AppCompatActivity() {
         }
 
         binding.saveButton.setOnClickListener {
-            if (isSigned){
+            if (isSigned) {
                 signatureImage.setImageBitmap(signPad.transparentSignatureBitmap)
                 signatureBitmap = signPad.transparentSignatureBitmap
                 signPad.visibility = View.GONE
@@ -90,7 +87,7 @@ class SignatureActivity : AppCompatActivity() {
                 unsavedFrame.visibility = View.GONE
 
                 isSignedComplete = true
-            }else{
+            } else {
                 Toast.makeText(this, "Belum ada tanda tangan!", Toast.LENGTH_SHORT).show()
             }
 
@@ -99,7 +96,7 @@ class SignatureActivity : AppCompatActivity() {
         binding.sendButton.setOnClickListener {
             val txNamaPetugas = namaPetugas.editText?.text.toString()
 
-            if (isSignedComplete && txNamaPetugas.isNotEmpty()){
+            if (isSignedComplete && txNamaPetugas.isNotEmpty()) {
                 val decodedSignature = decodeSignature()
 
                 val intent = Intent(this, PHQCInputActivity::class.java)
@@ -108,7 +105,7 @@ class SignatureActivity : AppCompatActivity() {
                 intent.putExtra("TYPE", sendType)
                 setResult(RESULT_OK, intent)
                 finish()
-            }else{
+            } else {
                 Toast.makeText(this, "Form belum lengkap!", Toast.LENGTH_SHORT).show()
             }
         }

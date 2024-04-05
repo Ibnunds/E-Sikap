@@ -139,6 +139,7 @@ class SSCECInputActivity : AppCompatActivity() {
             if (binding.chipDokumenKapal.isChecked) {
                 intent.putExtra("EXISTING_DATA", SSCECSignature)
             }
+            intent.putExtra("KAPTEN", kapal.kaptenKapal)
             launcher?.launch(intent)
         }
 

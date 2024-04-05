@@ -21,6 +21,7 @@ import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.SessionUtils
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
@@ -215,8 +216,13 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
     }
 
     private fun onUnsignButtonPress(type: String) {
+        val session = SessionUtils.getUserSession(this)
+        val kapten = intent.getStringExtra("KAPTEN")
+
+        val name = if (type == "KAPTEN") kapten else session.name
+
         val intent = Intent(this@P3KInputRekomendasiActivity, SignatureActivity::class.java)
-        intent.putExtra("NAMA", "")
+        intent.putExtra("NAMA", name)
         intent.putExtra("TYPE", type)
         launcher!!.launch(intent)
     }

@@ -25,6 +25,7 @@ import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.SessionUtils
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.squareup.picasso.Picasso
 
@@ -104,9 +105,12 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             finish()
         }
 
+        val session = SessionUtils.getUserSession(this)
+
         binding.addSignButton.setOnClickListener {
             val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
-            intent.putExtra("NAMA", "")
+            intent.putExtra("NAMA", session.name)
+            intent.putExtra("TYPE", "PETUGAS")
             launcher!!.launch(intent)
         }
 
