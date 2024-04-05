@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.utils.DateTimeUtils
+import com.google.android.material.chip.Chip
 
 class SSCECAdapter(private val listItems: ArrayList<SSCECModel>, private val listener: SSCEClistener) : RecyclerView.Adapter<SSCECAdapter.ViewHolder>() {
     interface SSCEClistener {
@@ -17,6 +18,7 @@ class SSCECAdapter(private val listItems: ArrayList<SSCECModel>, private val lis
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val tvTitle: TextView = itemView.findViewById(R.id.card_title)
         val tvBody: TextView = itemView.findViewById(R.id.card_body)
+        val chipStatus: Chip = itemView.findViewById(R.id.chipStatus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,6 +32,14 @@ class SSCECAdapter(private val listItems: ArrayList<SSCECModel>, private val lis
         holder.tvBody.text = DateTimeUtils.formatDate(item.timestamp, "dd MMMM yyyy")
         holder.itemView.setOnClickListener {
             listener.onItemClicked(item)
+        }
+
+        if (item.isUpload){
+            holder.chipStatus.text = "Sudah Diupload"
+            holder.chipStatus.isChecked = true
+        }else{
+            holder.chipStatus.text = "Belum Diupload"
+            holder.chipStatus.isChecked = false
         }
     }
 

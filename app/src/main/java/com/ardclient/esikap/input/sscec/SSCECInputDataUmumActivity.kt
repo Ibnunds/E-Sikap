@@ -17,6 +17,8 @@ import com.google.android.material.datepicker.MaterialDatePicker
 class SSCECInputDataUmumActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySscecInputDataUmumBinding
     private lateinit var basicData: SSCECModel
+
+    private var isUpdate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySscecInputDataUmumBinding.inflate(layoutInflater)
@@ -32,6 +34,7 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
         if (existingData != null){
             basicData = existingData
             initExistingData()
+            isUpdate = true
         }else{
             basicData = SSCECModel()
         }
@@ -108,6 +111,9 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
 
             val intent = Intent(this, SSCECInputActivity::class.java)
             intent.putExtra("BASIC", basicData)
+            if (isUpdate){
+                intent.putExtra("HAS_UPDATE", true)
+            }
             setResult(RESULT_OK, intent)
             finish()
         }else{

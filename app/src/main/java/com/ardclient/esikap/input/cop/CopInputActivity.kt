@@ -184,7 +184,6 @@ class CopInputActivity : AppCompatActivity() {
 
         binding.cardCOPSanitasi.setOnClickListener {
             val intent = Intent(this, SanitasiInputActivity::class.java)
-            intent.putExtra("SENDER", "COP")
             intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipCOPSanitasi.isChecked){
                 intent.putExtra("EXISTING_DATA", copSanitasi)

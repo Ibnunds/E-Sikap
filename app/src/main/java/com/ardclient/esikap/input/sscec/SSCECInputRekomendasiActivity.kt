@@ -33,6 +33,7 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
     private var signPetugasData: String? = null
 
     private lateinit var basicData: SSCECModel
+    private var isUpdate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySscecInputRekomendasiBinding.inflate(layoutInflater)
@@ -60,6 +61,7 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
         if (existingData !=null){
             basicData = existingData
             initExistingData()
+            isUpdate = true
         }else{
             basicData = SSCECModel()
         }
@@ -153,6 +155,9 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
         val kaptenSign = Base64Utils.convertBase64ToBitmap(basicData.signKapten)
         val officerSign = Base64Utils.convertBase64ToBitmap(basicData.signPetugas)
 
+        signKaptenData = basicData.signKapten
+        signPetugasData = basicData.signPetugas
+
         binding.ivSignKapten.setImageBitmap(kaptenSign)
         binding.ivSignOfficer.setImageBitmap(officerSign)
     }
@@ -171,7 +176,7 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
             binding.etJam
         )
 
-        if (isAllFilled && namaKapten.isNotEmpty() && namaPetugas.isNotEmpty() && signKaptenData != null && signPetugasData != null){
+        if (isAllFilled &&  signKaptenData != null && signPetugasData != null){
             val basicData = SSCECModel(
                 recSSCEC = sscecVal,
                 recJam = jamVal,
@@ -184,6 +189,9 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
 
             val intent = Intent(this, SSCECInputActivity::class.java)
             intent.putExtra("SIGNATURE", basicData)
+            if (isUpdate){
+                intent.putExtra("HAS_UPDATE", true)
+            }
             setResult(RESULT_OK, intent)
             finish()
         }else{

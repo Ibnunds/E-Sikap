@@ -3,6 +3,7 @@ package com.ardclient.esikap.service
 import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.PHQCModel
+import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.model.api.FileModel
 import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadImageRequest
@@ -22,17 +23,26 @@ interface ApiService {
     @POST("user/login")
     fun userLogin(@Body body: UserLoginRequest) : Call<ApiResponse<UserLoginResponse>>
 
-    // Upload
+    // Upload PHQC
     @POST("upload/phqc")
     fun uploadPHQC(@Body body: UploadModel<PHQCModel>) : Call<ApiResponse<Any>>
+
+
+    // Upload COP
     @POST("upload/cop")
     fun uploadCOP(@Body body: UploadModel<COPModel>) : Call<ApiResponse<Any>>
-
     @POST("upload/cop/single")
     fun uploadCOPSingle(@Body body: UploadFileModel) : Call<ApiResponse<FileModel>>
-
     @POST("upload/cop/delete/{id}")
     fun uploadCOPDelete(@Path("id") id: String): Call<ApiResponse<Any>>
+
+    // Upload SCCEC
+    @POST("upload/sscec")
+    fun uploadSSCEC(@Body body: UploadModel<SSCECModel>) : Call<ApiResponse<Any>>
+    @POST("upload/sscec/single")
+    fun uploadSSCECSingle(@Body body: UploadFileModel) : Call<ApiResponse<FileModel>>
+    @POST("upload/sscec/delete/{id}")
+    fun uploadSSCECDelete(@Path("id") id: String): Call<ApiResponse<Any>>
 
     // Dev
     @POST("/dev")

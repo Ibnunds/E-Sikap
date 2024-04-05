@@ -23,7 +23,6 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
     private lateinit var binding: ActivitySanitasiInputBinding
     private lateinit var copSanitasi: SanitasiModel
 
-    private lateinit var senderActivity: String
     private var selectedDocType: String = ""
     private var masalahDoc: String? = null
     private var hasMasalah: Boolean = false
@@ -54,16 +53,6 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
         if (isUploaded){
             onUploadedUI()
-        }
-
-        // handle sender string
-        val senderStr = intent.getStringExtra("SENDER")
-        if (senderStr != null){
-            senderActivity = senderStr
-        }
-
-        if (senderActivity == "SSCEC"){
-            binding.radioRekomendasiLayout.visibility = View.GONE
         }
 
         // button
@@ -257,7 +246,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
             val errorMessage = when {
                 binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireMasalahCatatan -> "Data belum lengkap!"
-                senderActivity != "SSCEC" && binding.radioRekomendasi.checkedRadioButtonId == -1 -> "Data belum lengkap!"
+                binding.radioRekomendasi.checkedRadioButtonId == -1 -> "Data belum lengkap!"
                 else -> null
             }
 
@@ -298,7 +287,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val engineValue = getSelectedRadioGroupValue(binding.radioEngine)
         val medikValue = getSelectedRadioGroupValue(binding.radioMedik)
         val otherAreaValue = getSelectedRadioGroupValue(binding.radioOtherArea)
-        val rekomendasiValue = if (senderActivity != "SSCEC") getSelectedRadioGroupValue(binding.radioRekomendasi) else "-"
+        val rekomendasiValue = getSelectedRadioGroupValue(binding.radioRekomendasi)
         val resikoValue = getSelectedRadioGroupValue(binding.radioResiko)
         val healthValue = getSelectedRadioGroupValue(binding.radioHealth)
         val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
