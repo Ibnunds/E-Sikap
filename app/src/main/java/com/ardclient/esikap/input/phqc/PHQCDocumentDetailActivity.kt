@@ -6,17 +6,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.net.toUri
 import com.ardclient.esikap.R
 import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.databinding.ActivityPhqcDocumentDetailBinding
+import com.ardclient.esikap.modal.SpinnerModal
 import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.PHQCStatusUpdateModel
+import com.ardclient.esikap.model.api.FileModel
 import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
+import com.ardclient.esikap.utils.NetworkUtils
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +32,8 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
     private lateinit var db: PHQCRoomDatabase
     private lateinit var dao: PHQCDao
 
+    private lateinit var spinner: SpinnerModal
+
     private var isUploaded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,9 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.topAppBar.setNavigationOnClickListener {
             finish()
         }
+
+        // spinner
+        spinner = SpinnerModal()
 
         // init db
         db = PHQCRoomDatabase.getDatabase(this)
@@ -74,14 +83,35 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         }
 
         binding.uploadButton.setOnClickListener {
-            //onUploadButton()
+            DialogUtils.showUploadDialog(this, object : DialogUtils.DialogListener {
+                override fun onConfirmed() {
+                    onPreUploadButton()
+                }
+            })
+
         }
 
 
     }
 
+    private fun onPreUploadButton() {
+        if (NetworkUtils.isNetworkAvailable(this)){
+            onUploadButton()
+        }else{
+            Toast.makeText(this, "Tidak ada koneksi internet.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun onUploadButton() {
-        val bodyRequest = UploadModel(phqc)
+        spinner.show(supportFragmentManager, "LOADING")
+        // Convert URI to base64
+        val pemeriksaanKapalFile = Base64Utils.uriToBase64(this, phqc.pemeriksaanFile.toUri())
+
+        // Handle Request
+        val fileList = listOf(
+            FileModel("pemeriksaanKapal", pemeriksaanKapalFile!!)
+        )
+        val bodyRequest = UploadModel(phqc, fileList)
         val call = ApiClient.apiService.uploadPHQC(bodyRequest)
 
         call.enqueue(object : Callback<ApiResponse<Any>>{
@@ -89,6 +119,7 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
                 call: Call<ApiResponse<Any>>,
                 response: Response<ApiResponse<Any>>
             ) {
+                spinner.dismiss()
                 if (response.isSuccessful){
                     onUploadSuccess()
                 }else{
@@ -97,6 +128,7 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                spinner.dismiss()
                 Toast.makeText(this@PHQCDocumentDetailActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
             }
 
@@ -151,6 +183,8 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.tvKesimpulan.text = phqc.kesimpulan
         binding.tvPetugas.text = phqc.petugasPelaksana
         binding.tvTanggal.text = phqc.tanggalDiperiksa
+        binding.tvLayanan.text = phqc.jenisLayanan
+        binding.tvPelayaran.text = phqc.jenisPelayaran
         Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
 
         // signature

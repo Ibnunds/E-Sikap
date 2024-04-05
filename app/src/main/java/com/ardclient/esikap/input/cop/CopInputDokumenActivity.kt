@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
@@ -19,6 +20,7 @@ import com.ardclient.esikap.databinding.ActivityCopInputDokumenBinding
 import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.DokumenKapalListModel
 import com.ardclient.esikap.model.reusable.DokumenKapalModel
+import com.ardclient.esikap.utils.InputValidation
 import com.ardclient.esikap.view.DokumenViewModel
 
 class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
@@ -38,6 +40,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
     private lateinit var bindingListData: List<DokumenKapalListModel>
 
     private var isUpdate = false
+    private var isUploaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +67,11 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             copDocData = DokumenKapalModel()
         }
 
-
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            onUploadedUI()
+        }
 
         // list input
         val layoutManager = LinearLayoutManager(this)
@@ -95,6 +102,14 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             }else{
                 radioMap["ACTIVITY"] = "Tidak ada"
             }
+        }
+    }
+
+    private fun onUploadedUI() {
+        with(binding){
+            InputValidation.disableRadioGroup(radioKarantina)
+            InputValidation.disableRadioGroup(radioActivity)
+            saveButton.visibility = View.GONE
         }
     }
 
@@ -145,7 +160,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
 
     private fun initListAdapter(listDataLiveData: MutableLiveData<List<DokumenKapalListModel>>) {
         // Inisialisasi adapter
-        dokumenInputAdapter = DokumenInputAdapter(listDataLiveData, object : DokumenInputAdapter.UploadButtonListener {
+        dokumenInputAdapter = DokumenInputAdapter(listDataLiveData, isUploaded, object : DokumenInputAdapter.UploadButtonListener {
             override fun onUploadButton(key: String) {
                 pickDocument(key)
             }

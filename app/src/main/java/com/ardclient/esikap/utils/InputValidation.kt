@@ -32,4 +32,23 @@ object InputValidation {
         val checkedRadioButton = binding.root.findViewById<RadioButton>(checkedRadioButtonId)
         return checkedRadioButton.text.toString()
     }
+
+    fun disabledAllInput(vararg inputs: TextInputLayout) {
+        inputs.forEach { input ->
+            input.editText?.isEnabled = false
+        }
+    }
+
+    fun disableRadioGroup(radioGroup: RadioGroup) {
+        for (i in 0 until radioGroup.childCount) {
+            val radioButton = radioGroup.getChildAt(i) as? RadioButton
+            radioButton?.isEnabled = false
+        }
+    }
+
+    fun disabledAllRadio(vararg radios: RadioGroup) {
+        radios.forEach { radio ->
+            disableRadioGroup(radio)
+        }
+    }
 }

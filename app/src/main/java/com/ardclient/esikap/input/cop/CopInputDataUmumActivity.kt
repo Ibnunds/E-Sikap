@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
@@ -20,6 +21,7 @@ class CopInputDataUmumActivity : AppCompatActivity() {
     private lateinit var copBasicData: COPModel
 
     private var isUpdate = false
+    private var isUploaded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCopInputDataUmumBinding.inflate(layoutInflater)
@@ -38,6 +40,30 @@ class CopInputDataUmumActivity : AppCompatActivity() {
             initExistingData()
         }else{
             copBasicData = COPModel()
+        }
+
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            InputValidation.disabledAllInput(
+                binding.etTujuan,
+                binding.etTiba,
+                binding.etLokasiSandar,
+                binding.etJmlABKAsing,
+                binding.etJmlSehatABKAsing,
+                binding.etJmlSakitABKAsing,
+                binding.etJmlABKWNI,
+                binding.etJmlSehatABKWNI,
+                binding.etJmlSakitABKWNI,
+                binding.etJmlPenumpangAsing,
+                binding.etJmlSehatPenumpangAsing,
+                binding.etJmlSakitPenumpangAsing,
+                binding.etJmlPenumpangWNI,
+                binding.etJmlSehatPenumpangWNI,
+                binding.etJmlSakitPenumpangWNI
+            )
+
+            binding.saveButton.visibility = View.GONE
         }
 
         // button

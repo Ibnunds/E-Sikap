@@ -44,6 +44,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
     private lateinit var copSignature: COPModel
     private var isUpdate = false
+    private var isUploaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +82,12 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             isUpdate = true
         }else{
             copSignature = COPModel()
+        }
+
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            onUploadedUI()
         }
 
         // Date picker
@@ -132,21 +139,25 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
         // === SIGNATURE
         binding.ivSignKapten.setOnClickListener{
-            val namaKapten = binding.tvKapten.text.toString()
+            if (!isUploaded){
+                val namaKapten = binding.tvKapten.text.toString()
 
-            val intent = Intent(this, SignatureActivity::class.java)
-            intent.putExtra("NAMA", namaKapten)
-            intent.putExtra("TYPE", "KAPTEN")
-            launcher!!.launch(intent)
+                val intent = Intent(this, SignatureActivity::class.java)
+                intent.putExtra("NAMA", namaKapten)
+                intent.putExtra("TYPE", "KAPTEN")
+                launcher!!.launch(intent)
+            }
         }
 
         binding.ivSignOfficer.setOnClickListener{
-            val namaOfficer = binding.tvPetugas.text.toString()
+            if (!isUploaded){
+                val namaOfficer = binding.tvPetugas.text.toString()
 
-            val intent = Intent(this, SignatureActivity::class.java)
-            intent.putExtra("NAMA", namaOfficer)
-            intent.putExtra("TYPE", "PETUGAS")
-            launcher!!.launch(intent)
+                val intent = Intent(this, SignatureActivity::class.java)
+                intent.putExtra("NAMA", namaOfficer)
+                intent.putExtra("TYPE", "PETUGAS")
+                launcher!!.launch(intent)
+            }
         }
 
         // SAVE BUTTON
@@ -199,6 +210,27 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
                     binding.layoutDoc.visibility = View.GONE
                 }
             }
+        }
+    }
+
+    private fun onUploadedUI() {
+        with(binding){
+            InputValidation.disabledAllRadio(
+                radioObatP3K,
+                radioKarantinaPinalti,
+                radioDokKes,
+                radioTipeDok
+            )
+
+            InputValidation.disabledAllInput(
+                etTanggal,
+                etJam
+            )
+
+            btnSelectDoc.visibility = View.GONE
+            tvSignHelpKapten.visibility = View.GONE
+            tvSignHelpPetugas.visibility = View.GONE
+            saveButton.visibility = View.GONE
         }
     }
 

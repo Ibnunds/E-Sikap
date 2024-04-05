@@ -16,6 +16,8 @@ data class PHQCModel(
     @ColumnInfo(name = "tujuan") var tujuan: String = "",
     @ColumnInfo(name = "dokumen_kapal") var dokumenKapal: String = "",
     @ColumnInfo(name = "lokasi_pemeriksaan") var lokasiPemeriksaan: String = "",
+    @ColumnInfo(name = "jenis_layanan") var jenisLayanan: String = "",
+    @ColumnInfo(name = "jenis_pelayaran") var jenisPelayaran: String = "",
     @ColumnInfo(name = "jumlah_abk") var jumlahABK: Int = 0,
     @ColumnInfo(name = "deteksi_demam") var deteksiDemam: Int = 0,
     @ColumnInfo(name = "jumlah_sehat") var jumlahSehat: Int = 0,

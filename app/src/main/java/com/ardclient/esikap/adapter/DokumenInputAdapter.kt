@@ -13,10 +13,11 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.reusable.DokumenKapalListModel
+import com.ardclient.esikap.utils.InputValidation
 import com.google.android.material.textfield.TextInputLayout
 import com.squareup.picasso.Picasso
 
-class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKapalListModel>>, private val listener: UploadButtonListener?) : RecyclerView.Adapter<DokumenInputAdapter.ViewHolder>() {
+class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKapalListModel>>, private val isUploaded: Boolean?, private val listener: UploadButtonListener?) : RecyclerView.Adapter<DokumenInputAdapter.ViewHolder>() {
 
     interface UploadButtonListener{
         fun onUploadButton(key: String)
@@ -43,9 +44,13 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemLiveData = listDataLiveData.value?.get(position)
 
+        if (isUploaded == true){
+            InputValidation.disableRadioGroup(holder.radio)
+            holder.inNote.editText?.isEnabled = false
+        }
+
         itemLiveData?.let { item ->
             holder.tvTitle.text = item.title
-
             // handle existing
             if (!item.checkedVal.isNullOrEmpty()) {
                 if (item.checkedVal == "Ada") {
@@ -77,9 +82,15 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
 
             // preview doc
             if (!item.docImage.isNullOrEmpty()) {
-                holder.prevDoc.visibility = View.VISIBLE
-                holder.selectButton.text = "Update Dokumen"
-                Picasso.get().load(item.docImage).fit().into(holder.prevDoc)
+                if (isUploaded == true){
+                    holder.prevDoc.visibility = View.VISIBLE
+                    holder.selectButton.visibility = View.GONE
+                    Picasso.get().load(item.docImage).fit().into(holder.prevDoc)
+                }else{
+                    holder.prevDoc.visibility = View.VISIBLE
+                    holder.selectButton.text = "Update Dokumen"
+                    Picasso.get().load(item.docImage).fit().into(holder.prevDoc)
+                }
             }
 
             // note

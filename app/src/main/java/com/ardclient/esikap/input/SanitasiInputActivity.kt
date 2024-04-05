@@ -29,6 +29,9 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
     private var hasMasalah: Boolean = false
     private var hasilDoc: String? = null
 
+    private var isUpdate = false
+    private var isUploaded = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySanitasiInputBinding.inflate(layoutInflater)
@@ -43,7 +46,14 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val existingData = intent.getParcelableExtra<SanitasiModel>("EXISTING_DATA")
         if (existingData != null){
             copSanitasi = existingData
+            isUpdate = true
             initExistingData()
+        }
+
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            onUploadedUI()
         }
 
         // handle sender string
@@ -69,6 +79,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 binding.etMasalahNote.visibility = View.VISIBLE
             }else{
                 hasMasalah = false
+                masalahDoc = null
                 binding.healthFileLayout.visibility = View.GONE
                 binding.etMasalahNote.visibility = View.GONE
             }
@@ -82,6 +93,46 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         binding.btnSelectHasil.setOnClickListener {
             selectedDocType = "HASIL"
             pickDocument()
+        }
+    }
+
+    private fun onUploadedUI() {
+        with(binding){
+            InputValidation.disabledAllRadio(
+                radioDapur,
+                radioDapurVec,
+                radioPantry,
+                radioPantryVec,
+                radioGudang,
+                radioGudangVec,
+                radioPalka,
+                radioPalkaVec,
+                radioRuangTidur,
+                radioRuangTidurVec,
+                radioABK,
+                radioABKVec,
+                radioPerwira,
+                radioPerwiraVec,
+                radioPenumpang,
+                radioPenumpangVec,
+                radioGeladak,
+                radioGeladakVec,
+                radioWater,
+                radioWaterVec,
+                radioLimbaCair,
+                radioLimbaCairVec,
+                radioGenangan,
+                radioEngine,
+                radioMedik,
+                radioOtherArea,
+                radioRekomendasi,
+                radioResiko,
+                radioHealth,
+            )
+
+            btnSelectHasil.visibility = View.GONE
+            btnSelectMasalah.visibility = View.GONE
+            saveButton.visibility = View.GONE
         }
     }
 
@@ -290,6 +341,9 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
         intent.putExtra("SANITASI", sanitasiData)
+        if (isUpdate){
+            intent.putExtra("HAS_UPDATE", true)
+        }
         setResult(RESULT_OK, intent)
         finish()
     }

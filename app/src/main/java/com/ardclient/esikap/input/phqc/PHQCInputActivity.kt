@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.ardclient.esikap.R
 import com.ardclient.esikap.input.SignatureActivity
 import com.ardclient.esikap.database.phqc.PHQCDao
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
@@ -44,6 +45,9 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
     // doc
     private var pemeriksaanDoc: String? = null
+
+    // Radio
+    private val radioMap = mutableMapOf<String, String?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,6 +141,22 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         binding.btnSelectHasil.setOnClickListener {
             pickDocument()
         }
+
+        binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
+            if (checkedId == R.id.radio_layanan_kedatangan){
+                radioMap["LAYANAN"] = "Kedatangan"
+            }else{
+                radioMap["LAYANAN"] = "Keberangkatan"
+            }
+        }
+
+        binding.radioJenisPelayaran.setOnCheckedChangeListener{ _, checkedId ->
+            if (checkedId == R.id.radio_pelayaran_domestik){
+                radioMap["PELAYARAN"] = "Domestik"
+            }else{
+                radioMap["PELAYARAN"] = "Internasional"
+            }
+        }
     }
 
     private fun pickDocument() {
@@ -189,6 +209,21 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
         binding.signLayout.visibility = View.VISIBLE
         binding.addSignButton.visibility = View.GONE
+
+        // radio
+        radioMap["LAYANAN"] = phqc.jenisLayanan
+        if (phqc.jenisLayanan == "Kedatangan"){
+            binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
+        }else{
+            binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
+        }
+
+        radioMap["PELAYARAN"] = phqc.jenisPelayaran
+        if (phqc.jenisPelayaran == "Domestik"){
+            binding.radioJenisPelayaran.check(R.id.radio_pelayaran_domestik)
+        }else{
+            binding.radioJenisPelayaran.check(R.id.radio_pelayaran_inter)
+        }
     }
 
     private fun onSaveButtonPressed() {
@@ -212,6 +247,12 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         val kesimpulan = binding.etKesimpulan.editText?.text.toString()
         val tanggal = binding.etTanggal.editText?.text.toString()
 
+        // cek radio
+        val isAllRadio = InputValidation.isAllRadioFilled(
+            binding.radioJenisLayanan,
+            binding.radioJenisPelayaran
+        )
+
         // Mengecek apakah semua input terisi
         val isAllFilled = InputValidation.isAllFieldComplete(
             binding.etTujuan,
@@ -234,7 +275,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             binding.etTanggal
         )
 
-        if (isAllFilled && pemeriksaanDoc != null && nmPetugas != null){
+        if (isAllFilled && pemeriksaanDoc != null && nmPetugas != null && isAllRadio){
             if (isUpdate){
                 onSaveData(PHQCModel(
                     id = phqc.id,
@@ -260,7 +301,9 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     petugasPelaksana = nmPetugas!!,
                     signature = base64Sign!!,
                     pemeriksaanFile = pemeriksaanDoc!!,
-                    tanggalDiperiksa = tanggal
+                    tanggalDiperiksa = tanggal,
+                    jenisLayanan = radioMap["LAYANAN"]!!,
+                    jenisPelayaran = radioMap["PELAYARAN"]!!
                 ))
             }else{
                 onSaveData(PHQCModel(
@@ -286,7 +329,9 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     petugasPelaksana = nmPetugas!!,
                     signature = base64Sign!!,
                     pemeriksaanFile = pemeriksaanDoc!!,
-                    tanggalDiperiksa = tanggal
+                    tanggalDiperiksa = tanggal,
+                    jenisLayanan = radioMap["LAYANAN"]!!,
+                    jenisPelayaran = radioMap["PELAYARAN"]!!
                 ))
             }
         }else{

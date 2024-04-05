@@ -33,11 +33,11 @@ object Base64Utils {
                 val byteArray = outputStream.toByteArray()
                 Base64.encodeToString(byteArray, Base64.DEFAULT)
             } else {
-                null
+                return ""
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            return null
+            return ""
         }
     }
 }

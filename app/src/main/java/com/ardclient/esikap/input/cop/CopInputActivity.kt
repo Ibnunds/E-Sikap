@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import com.ardclient.esikap.R
 import com.ardclient.esikap.input.SanitasiInputActivity
 import com.ardclient.esikap.database.cop.COPDao
 import com.ardclient.esikap.database.cop.COPRoomDatabase
@@ -17,14 +18,17 @@ import com.ardclient.esikap.databinding.ActivityCopInputBinding
 import com.ardclient.esikap.modal.SpinnerModal
 import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.COPModel
+import com.ardclient.esikap.model.COPUpdateStatusModel
 import com.ardclient.esikap.model.KapalModel
-import com.ardclient.esikap.model.UploadResponse
-import com.ardclient.esikap.model.api.UploadImageRequest
+import com.ardclient.esikap.model.api.FileModel
+import com.ardclient.esikap.model.api.UploadFileModel
+import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.model.reusable.DokumenKapalModel
 import com.ardclient.esikap.model.reusable.SanitasiModel
 import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
+import com.ardclient.esikap.utils.NetworkUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,6 +52,7 @@ class CopInputActivity : AppCompatActivity() {
 
     // modal
     private lateinit var spinner: SpinnerModal
+    private var isUploaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -104,6 +109,11 @@ class CopInputActivity : AppCompatActivity() {
         // existing kapal data
         kapal = intent.getParcelableExtra("KAPAL") ?: KapalModel()
 
+        if (copBasicData.isUpload){
+            isUploaded = true
+            updateUIonUploaded()
+        }
+
         // handle input result
         launcher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -140,7 +150,6 @@ class CopInputActivity : AppCompatActivity() {
                     copSanitasi = sanitasi
                     binding.chipCOPSanitasi.isChecked = true
                     binding.chipCOPSanitasi.text = "Lengkap"
-                    Log.d("SANITASI KAPAL", sanitasi.toString())
                 }
 
                 // == Signature Data
@@ -157,6 +166,7 @@ class CopInputActivity : AppCompatActivity() {
         // card button
         binding.cardCOPDataUmum.setOnClickListener {
             val intent = Intent(this, CopInputDataUmumActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipCOPDataUmum.isChecked){
                 intent.putExtra("EXISTING_DATA", copBasicData)
             }
@@ -165,6 +175,7 @@ class CopInputActivity : AppCompatActivity() {
 
         binding.cardCOPDokumenKapal.setOnClickListener {
             val intent = Intent(this, CopInputDokumenActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipCOPDokumenKapal.isChecked){
                 intent.putExtra("EXISTING_DATA", copDocData)
             }
@@ -174,6 +185,7 @@ class CopInputActivity : AppCompatActivity() {
         binding.cardCOPSanitasi.setOnClickListener {
             val intent = Intent(this, SanitasiInputActivity::class.java)
             intent.putExtra("SENDER", "COP")
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipCOPSanitasi.isChecked){
                 intent.putExtra("EXISTING_DATA", copSanitasi)
             }
@@ -182,6 +194,7 @@ class CopInputActivity : AppCompatActivity() {
 
         binding.cardCOPRekomendasi.setOnClickListener {
             val intent = Intent(this, CopInputSignatureActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipCOPRekomendasi.isChecked){
                 intent.putExtra("EXISTING_DATA", copSignature)
             }
@@ -205,47 +218,174 @@ class CopInputActivity : AppCompatActivity() {
         }
 
         binding.uploadButton.setOnClickListener {
-            //onUploadButton()
+            DialogUtils.showUploadDialog(this@CopInputActivity, object : DialogUtils.DialogListener{
+                override fun onConfirmed() {
+                    onPreUploadButton()
+                }
+            })
+        }
+    }
+
+    private fun onPreUploadButton() {
+        if (NetworkUtils.isNetworkAvailable(this)){
+            onUploadButton()
+        }else{
+            Toast.makeText(this, "Tidak ada koneksi internet.", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun onUploadButton() {
         spinner.show(supportFragmentManager, "LOADING")
-        val allDocs = convertAllDocumentsToBase64(copDocData)
+        // File
+        val fileMDH = Base64Utils.uriToBase64(this, copDocData.mdhDoc.toUri())
+        val fileSSCEC = Base64Utils.uriToBase64(this, copDocData.sscecDoc.toUri())
+        val fileP3K = Base64Utils.uriToBase64(this, copDocData.p3kDoc.toUri())
+        val fileBukuKesehatan = Base64Utils.uriToBase64(this, copDocData.bukuKesehatanDoc.toUri())
+        val fileBukuVaksin = Base64Utils.uriToBase64(this, copDocData.bukuVaksinDoc.toUri())
+        val fileDaftarABK = Base64Utils.uriToBase64(this, copDocData.daftarABKDoc.toUri())
+        val fileDaftarVaksin = Base64Utils.uriToBase64(this, copDocData.daftarVaksinasiDoc.toUri())
+        val fileDaftarObat = Base64Utils.uriToBase64(this, copDocData.daftarObatDoc.toUri())
+        val fileDaftarNarkotik = Base64Utils.uriToBase64(this, copDocData.daftarNarkotikDoc.toUri())
+        val fileLPOC = Base64Utils.uriToBase64(this, copDocData.lpocDoc.toUri())
+        val fileShipParticular = Base64Utils.uriToBase64(this, copDocData.shipParticularDoc.toUri())
+        val fileLPC = Base64Utils.uriToBase64(this, copDocData.lpcDoc.toUri())
+        val fileHasilPemeriksaan = Base64Utils.uriToBase64(this, copSanitasi.pemeriksanDoc.toUri())
+        val filePenerbitanDokumen = Base64Utils.uriToBase64(this, copSignature.docFile.toUri())
+        val fileMasalahKesehatan = Base64Utils.uriToBase64(this, copSanitasi.masalahKesehatanFile.toUri())
 
-        uploadAllDocuments(allDocs) {result ->
-            spinner.dismiss()
-            val uploadResult: UploadResponse = result
-            val uploadStatus = uploadResult.status
+        val fileList = listOf(
+            UploadFileModel("mdh", fileMDH!!, copBasicData.id),
+            UploadFileModel("sscec", fileSSCEC!!, copBasicData.id),
+            UploadFileModel("p3k", fileP3K!!, copBasicData.id),
+            UploadFileModel("bukukesehatan", fileBukuKesehatan!!, copBasicData.id),
+            UploadFileModel("bukuvaksin", fileBukuVaksin!!, copBasicData.id),
+            UploadFileModel("daftarabk", fileDaftarABK!!, copBasicData.id),
+            UploadFileModel("daftarvaksin", fileDaftarVaksin!!, copBasicData.id),
+            UploadFileModel("daftarobat", fileDaftarObat!!, copBasicData.id),
+            UploadFileModel("daftarnarkotik", fileDaftarNarkotik!!, copBasicData.id),
+            UploadFileModel("lpoc", fileLPOC!!, copBasicData.id),
+            UploadFileModel("shipparticular", fileShipParticular!!, copBasicData.id),
+            UploadFileModel("lpc", fileLPC!!, copBasicData.id),
+            UploadFileModel("hasilpemeriksaan", fileHasilPemeriksaan!!, copBasicData.id),
+            UploadFileModel("penerbitandokumen", filePenerbitanDokumen!!, copBasicData.id),
+            UploadFileModel("masalahkesehatan", fileMasalahKesehatan!!, copBasicData.id)
+        )
 
-            if (uploadStatus == "DONE"){
-                Toast.makeText(this@CopInputActivity, "Upload dokumen sukses!", Toast.LENGTH_SHORT).show()
+        // Handle result
+        val uploadedFilesList = mutableListOf<FileModel>()
+        var successCount = 0
+        var errorCount = 0
+
+
+        // Handle upload
+        for (file in fileList){
+            if (errorCount == 0){
+                if (file.image != null) {
+                    val call = ApiClient.apiService.uploadCOPSingle(file)
+
+                    call.enqueue(object: Callback<ApiResponse<FileModel>>{
+                        override fun onResponse(
+                            call: Call<ApiResponse<FileModel>>,
+                            response: Response<ApiResponse<FileModel>>
+                        ) {
+                            if (response.isSuccessful) {
+                                val fileModel = response.body()?.data
+                                if (fileModel != null) {
+                                    uploadedFilesList.add(fileModel)
+                                    successCount++
+                                }
+                            } else {
+                                errorCount++
+                            }
+
+                            // Cek apakah semua file sudah diunggah
+                            if (successCount + errorCount == fileList.size) {
+                                onUploadDokSuccess(uploadedFilesList)
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ApiResponse<FileModel>>, t: Throwable) {
+                            errorCount++
+                        }
+
+                    })
+                }else{
+                    continue
+                }
             }else{
-                Toast.makeText(this@CopInputActivity, "Upload dokumen gagal, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+                onClearUploadedDoc()
             }
-
-            Log.d("UPLOAD_RESPONSE", uploadResult.toString())
         }
     }
 
-    private fun convertAllDocumentsToBase64(copDocData: DokumenKapalModel): Map<String, String?> {
-        val documents = mutableMapOf<String, String?>()
+    private fun onUploadDokSuccess(uploadedFilesList: MutableList<FileModel>) {
+        val bodyRequest = UploadModel(copBasicData, uploadedFilesList)
+        val call = ApiClient.apiService.uploadCOP(bodyRequest)
 
-        // Memeriksa apakah URI tidak null sebelum mengonversinya ke base64
-        copDocData.mdh?.let { documents["docMDH"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.sscec?.let { documents["docSSCEC"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.daftarVaksinasi?.let { documents["docVaksinasi"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.daftarABK?.let { documents["docDaftarABK"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.bukuVaksin?.let { documents["docBukuVaksin"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.certP3K?.let { documents["docP3K"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.bukuKesehatan?.let { documents["docBukuKesehatan"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.lpoc?.let { documents["docLPOC"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.shipParticular?.let { documents["docShipParticular"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.lpc?.let { documents["docLPC"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.daftarNarkotik?.let { documents["docNarkotik"] = Base64Utils.uriToBase64(this, it.toUri()) }
-        copDocData.daftarObat?.let { documents["docObatObatan"] = Base64Utils.uriToBase64(this, it.toUri()) }
+        call.enqueue(object : Callback<ApiResponse<Any>>{
+            override fun onResponse(
+                call: Call<ApiResponse<Any>>,
+                response: Response<ApiResponse<Any>>
+            ) {
+                spinner.dismiss()
+                if (response.isSuccessful){
+                    spinner.dismiss()
+                    onUploadSuccess()
+                    //Toast.makeText(this@CopInputActivity, "SUKSES", Toast.LENGTH_SHORT).show()
+                }else{
+                    spinner.dismiss()
+                    Toast.makeText(this@CopInputActivity, response.message(), Toast.LENGTH_SHORT).show()
+                }
+            }
 
-        return documents
+            override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                spinner.dismiss()
+                Toast.makeText(this@CopInputActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun onClearUploadedDoc() {
+        val call = ApiClient.apiService.uploadCOPDelete(copBasicData.id.toString())
+
+        call.enqueue(object : Callback<ApiResponse<Any>>{
+            override fun onResponse(
+                call: Call<ApiResponse<Any>>,
+                response: Response<ApiResponse<Any>>
+            ) {
+                spinner.dismiss()
+                if (response.isSuccessful){
+                    Toast.makeText(this@CopInputActivity, "Berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this@CopInputActivity, "Gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                spinner.dismiss()
+                Toast.makeText(this@CopInputActivity, "Berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+
+    private fun onUploadSuccess() {
+        val updatedData = COPUpdateStatusModel(id = copBasicData.id, isUpload = true)
+        dao.updateCOPStatus(updatedData)
+        isUploaded = true
+        Toast.makeText(this@CopInputActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
+        updateUIonUploaded()
+    }
+
+    private fun updateUIonUploaded() {
+        binding.deleteButton.visibility = View.GONE
+        binding.updateButton.visibility = View.GONE
+        binding.uploadButton.text = "Sudah Diupload"
+        binding.uploadButton.setBackgroundColor(getColor(R.color.gray))
+        binding.uploadButton.setTextColor(getColor(R.color.black))
+        binding.uploadButton.isEnabled = false
     }
 
     private fun onSaveButton() {
@@ -319,8 +459,6 @@ class CopInputActivity : AppCompatActivity() {
                 )
             }
 
-            Log.d("SAVED_X3D", data.sanitasiKapal.toString())
-
             onSubmitData(data)
         }else{
             Toast.makeText(this@CopInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
@@ -348,56 +486,8 @@ class CopInputActivity : AppCompatActivity() {
         }
     }
 
-    fun uploadAllDocuments(documents: Map<String, String?>, callback: (UploadResponse) -> Unit) {
-        var successCount = 0
-        var errorCount = 0
-        val uploadResults = mutableMapOf<String, String>()
-
-        for ((docName, document) in documents) {
-            // Membuat body request untuk unggah dokumen
-            val bodyRequest = UploadImageRequest(document!!, "BATCH")
-
-            // Melakukan panggilan API untuk mengunggah dokumen
-            val call = ApiClient.apiService.uploadImage(bodyRequest)
-
-            call.enqueue(object : Callback<ApiResponse<Map<String, Any>>> {
-                override fun onResponse(
-                    call: Call<ApiResponse<Map<String, Any>>>,
-                    response: Response<ApiResponse<Map<String, Any>>>
-                ) {
-                    if (response.isSuccessful) {
-                        val uploadedUrl = response.body()?.data?.get("url") ?: ""
-                        uploadResults[docName] = uploadedUrl.toString()
-                        successCount++
-                    } else {
-                        errorCount++
-                    }
-
-                    // Jika semua dokumen telah diunggah, panggil callback dengan hasil
-                    if (successCount + errorCount == documents.size) {
-                        val result = if (errorCount == 0) {
-                            UploadResponse("DONE", successCount.toString(), errorCount.toString(),  uploadResults)
-                        } else {
-                            UploadResponse("ERROR", successCount.toString(), errorCount.toString(), emptyMap())
-                        }
-                        callback.invoke(result)
-                    }
-                }
-
-                override fun onFailure(call: Call<ApiResponse<Map<String, Any>>>, t: Throwable) {
-                    errorCount++
-
-                    // Jika semua dokumen telah diunggah, panggil callback dengan hasil
-                    if (successCount + errorCount == documents.size) {
-                        val result = if (errorCount == 0) {
-                            UploadResponse("DONE", successCount.toString(), errorCount.toString(), uploadResults)
-                        } else {
-                            UploadResponse("ERROR", successCount.toString(), errorCount.toString(), emptyMap())
-                        }
-                        callback.invoke(result)
-                    }
-                }
-            })
-        }
+    override fun onResume() {
+        super.onResume()
+        Log.d("DOK_KAPAL", copDocData.toString())
     }
 }
