@@ -43,6 +43,7 @@ class P3KInputActivity : AppCompatActivity() {
     private lateinit var P3KDataUmum: P3KModel
     private lateinit var P3KPemeriksaan: PemeriksaanKapalModel
     private lateinit var P3KRekomendasi: P3KModel
+    private lateinit var p3kData: P3KModel
 
     // DB
     private lateinit var db: P3KRoomDatabase
@@ -73,6 +74,7 @@ class P3KInputActivity : AppCompatActivity() {
             P3KDataUmum = existingData
             P3KRekomendasi = existingData
             P3KPemeriksaan = existingData.pemeriksaan
+            p3kData = existingData
 
             // button
             binding.bottomContainerEdit.visibility = View.VISIBLE
@@ -93,6 +95,7 @@ class P3KInputActivity : AppCompatActivity() {
             P3KDataUmum = P3KModel()
             P3KRekomendasi = P3KModel()
             P3KPemeriksaan = PemeriksaanKapalModel()
+            p3kData = P3KModel()
         }
 
 
@@ -103,6 +106,10 @@ class P3KInputActivity : AppCompatActivity() {
 
         // existing kapal data
         kapal = intent.getParcelableExtra("KAPAL") ?: KapalModel()
+        if (p3kData.isUpload){
+            isUploaded = true
+            updateUIonUploaded()
+        }
 
         // handle input result
         launcher = registerForActivityResult(
@@ -147,6 +154,7 @@ class P3KInputActivity : AppCompatActivity() {
 
         binding.cardDataUmum.setOnClickListener {
             val intent = Intent(this, P3KInputDataUmumActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipDataUmum.isChecked) {
                 intent.putExtra("EXISTING_DATA", P3KDataUmum)
             }
@@ -155,6 +163,7 @@ class P3KInputActivity : AppCompatActivity() {
 
         binding.cardSanitasi.setOnClickListener {
             val intent = Intent(this, P3KInputPemeriksaanActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipSanitasi.isChecked) {
                 intent.putExtra("EXISTING_DATA", P3KPemeriksaan)
             }
@@ -163,6 +172,7 @@ class P3KInputActivity : AppCompatActivity() {
 
         binding.cardDokumenKapal.setOnClickListener {
             val intent = Intent(this, P3KInputRekomendasiActivity::class.java)
+            intent.putExtra("IS_UPLOAD", isUploaded)
             if (binding.chipDokumenKapal.isChecked) {
                 intent.putExtra("EXISTING_DATA", P3KRekomendasi)
             }
@@ -205,41 +215,38 @@ class P3KInputActivity : AppCompatActivity() {
 
     private fun onUploadButton() {
         spinner.show(supportFragmentManager, "LOADING")
-        val fileMasalahKesehatan = Base64Utils.uriToBase64(this, P3KPemeriksaan.masalahFile.toUri())
+        val fileMasalahKesehatan = Base64Utils.uriToBase64(this, p3kData.pemeriksaan.masalahFile.toUri())
         val fileList = listOf(
             FileModel("masalahkesehatan", fileMasalahKesehatan!!))
 
+        val bodyRequest = UploadModel(p3kData, fileList)
+        val call = ApiClient.apiService.uploadP3K(bodyRequest)
 
-        if (fileMasalahKesehatan.isNotEmpty()){
-            val bodyRequest = UploadModel(P3KDataUmum, fileList)
-            val call = ApiClient.apiService.uploadP3K(bodyRequest)
-
-            call.enqueue(object: Callback<ApiResponse<Any>>{
-                override fun onResponse(
-                    call: Call<ApiResponse<Any>>,
-                    response: Response<ApiResponse<Any>>
-                ) {
-                    spinner.dismiss()
-                    if (response.isSuccessful){
-                        onUploadSuccess()
-                        //Toast.makeText(this@CopInputActivity, "SUKSES", Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(this@P3KInputActivity, response.message(), Toast.LENGTH_SHORT).show()
-                    }
+        call.enqueue(object: Callback<ApiResponse<Any>>{
+            override fun onResponse(
+                call: Call<ApiResponse<Any>>,
+                response: Response<ApiResponse<Any>>
+            ) {
+                spinner.dismiss()
+                if (response.isSuccessful){
+                    onUploadSuccess()
+                    //Toast.makeText(this@CopInputActivity, "SUKSES", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this@P3KInputActivity, response.message(), Toast.LENGTH_SHORT).show()
                 }
+            }
 
-                override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
-                    spinner.dismiss()
-                    Toast.makeText(this@P3KInputActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
-                }
+            override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                spinner.dismiss()
+                Toast.makeText(this@P3KInputActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+            }
 
-            })
-        }
+        })
 
     }
 
     private fun onUploadSuccess() {
-        val updatedData = P3KUpdateStatusModel(id = P3KDataUmum.id, isUpload = true)
+        val updatedData = P3KUpdateStatusModel(id = p3kData.id, isUpload = true)
         dao.updateP3KStatus(updatedData)
         isUploaded = true
         Toast.makeText(this@P3KInputActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
@@ -319,6 +326,7 @@ class P3KInputActivity : AppCompatActivity() {
             // reset has update
             binding.uploadButton.isEnabled = true
             binding.tvHasUpdate.visibility = View.GONE
+            p3kData = data
         }
     }
 

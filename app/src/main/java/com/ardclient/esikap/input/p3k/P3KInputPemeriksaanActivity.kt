@@ -22,6 +22,7 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
     private var needExtra: Boolean = false
 
     private var isUpdate = false
+    private var isUploaded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityP3kInputPemeriksaanBinding.inflate(layoutInflater)
@@ -40,6 +41,12 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
             isUpdate = true
         }else{
             pemeriksaanKapal = PemeriksaanKapalModel()
+        }
+
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            onUploadedUI()
         }
 
         // button
@@ -63,6 +70,28 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
         binding.btnSelectMasalah.setOnClickListener {
             pickDocument()
         }
+    }
+
+    private fun onUploadedUI() {
+        with(binding){
+            InputValidation.disabledAllRadio(
+                radioPeralatanP3K,
+                radioOxygen,
+                radioFasilitasMedis,
+                radioAnalgesik,
+                radioAntibiotik,
+                radioObatLainnya,
+                radioNarkotik,
+                radioResiko,
+                radioMasalah
+            )
+
+            btnSelectMasalah.visibility = View.GONE
+            etMasalahNote.editText?.isEnabled = false
+
+            saveButton.visibility = View.GONE
+        }
+
     }
 
     private fun initExistingData() {

@@ -46,6 +46,8 @@ class CopInputActivity : AppCompatActivity() {
     private lateinit var copSanitasi: SanitasiModel
     private lateinit var copSignature: COPModel
 
+    private lateinit var copData: COPModel
+
     // db
     private lateinit var db: COPRoomDatabase
     private lateinit var dao: COPDao
@@ -81,6 +83,7 @@ class CopInputActivity : AppCompatActivity() {
             copSanitasi = existingData.sanitasiKapal
             copDocData = existingData.dokumenKapal
             copSignature = existingData
+            copData = existingData
 
             // button
             binding.bottomContainerEdit.visibility = View.VISIBLE
@@ -104,6 +107,7 @@ class CopInputActivity : AppCompatActivity() {
             copDocData = DokumenKapalModel()
             copSanitasi = SanitasiModel()
             copSignature = COPModel()
+            copData = COPModel()
         }
 
         // existing kapal data
@@ -237,21 +241,21 @@ class CopInputActivity : AppCompatActivity() {
     private fun onUploadButton() {
         spinner.show(supportFragmentManager, "LOADING")
         // File
-        val fileMDH = Base64Utils.uriToBase64(this, copDocData.mdhDoc.toUri())
-        val fileSSCEC = Base64Utils.uriToBase64(this, copDocData.sscecDoc.toUri())
-        val fileP3K = Base64Utils.uriToBase64(this, copDocData.p3kDoc.toUri())
-        val fileBukuKesehatan = Base64Utils.uriToBase64(this, copDocData.bukuKesehatanDoc.toUri())
-        val fileBukuVaksin = Base64Utils.uriToBase64(this, copDocData.bukuVaksinDoc.toUri())
-        val fileDaftarABK = Base64Utils.uriToBase64(this, copDocData.daftarABKDoc.toUri())
-        val fileDaftarVaksin = Base64Utils.uriToBase64(this, copDocData.daftarVaksinasiDoc.toUri())
-        val fileDaftarObat = Base64Utils.uriToBase64(this, copDocData.daftarObatDoc.toUri())
-        val fileDaftarNarkotik = Base64Utils.uriToBase64(this, copDocData.daftarNarkotikDoc.toUri())
-        val fileLPOC = Base64Utils.uriToBase64(this, copDocData.lpocDoc.toUri())
-        val fileShipParticular = Base64Utils.uriToBase64(this, copDocData.shipParticularDoc.toUri())
-        val fileLPC = Base64Utils.uriToBase64(this, copDocData.lpcDoc.toUri())
-        val fileHasilPemeriksaan = Base64Utils.uriToBase64(this, copSanitasi.pemeriksanDoc.toUri())
-        val filePenerbitanDokumen = Base64Utils.uriToBase64(this, copSignature.docFile.toUri())
-        val fileMasalahKesehatan = Base64Utils.uriToBase64(this, copSanitasi.masalahKesehatanFile.toUri())
+        val fileMDH = Base64Utils.uriToBase64(this, copData.dokumenKapal.mdhDoc.toUri())
+        val fileSSCEC = Base64Utils.uriToBase64(this, copData.dokumenKapal.sscecDoc.toUri())
+        val fileP3K = Base64Utils.uriToBase64(this, copData.dokumenKapal.p3kDoc.toUri())
+        val fileBukuKesehatan = Base64Utils.uriToBase64(this, copData.dokumenKapal.bukuKesehatanDoc.toUri())
+        val fileBukuVaksin = Base64Utils.uriToBase64(this, copData.dokumenKapal.bukuVaksinDoc.toUri())
+        val fileDaftarABK = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarABKDoc.toUri())
+        val fileDaftarVaksin = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarVaksinasiDoc.toUri())
+        val fileDaftarObat = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarObatDoc.toUri())
+        val fileDaftarNarkotik = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarNarkotikDoc.toUri())
+        val fileLPOC = Base64Utils.uriToBase64(this, copData.dokumenKapal.lpocDoc.toUri())
+        val fileShipParticular = Base64Utils.uriToBase64(this, copData.dokumenKapal.shipParticularDoc.toUri())
+        val fileLPC = Base64Utils.uriToBase64(this, copData.dokumenKapal.lpcDoc.toUri())
+        val fileHasilPemeriksaan = Base64Utils.uriToBase64(this, copData.sanitasiKapal.pemeriksanDoc.toUri())
+        val filePenerbitanDokumen = Base64Utils.uriToBase64(this, copData.docFile.toUri())
+        val fileMasalahKesehatan = Base64Utils.uriToBase64(this, copData.sanitasiKapal.masalahKesehatanFile.toUri())
 
         val fileList = listOf(
             UploadFileModel("mdh", fileMDH!!, copBasicData.id),
@@ -319,7 +323,7 @@ class CopInputActivity : AppCompatActivity() {
     }
 
     private fun onUploadDokSuccess(uploadedFilesList: MutableList<FileModel>) {
-        val bodyRequest = UploadModel(copBasicData, uploadedFilesList)
+        val bodyRequest = UploadModel(copData, uploadedFilesList)
         val call = ApiClient.apiService.uploadCOP(bodyRequest)
 
         call.enqueue(object : Callback<ApiResponse<Any>>{
@@ -370,7 +374,7 @@ class CopInputActivity : AppCompatActivity() {
 
 
     private fun onUploadSuccess() {
-        val updatedData = COPUpdateStatusModel(id = copBasicData.id, isUpload = true)
+        val updatedData = COPUpdateStatusModel(id = copData.id, isUpload = true)
         dao.updateCOPStatus(updatedData)
         isUploaded = true
         Toast.makeText(this@CopInputActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
@@ -481,11 +485,7 @@ class CopInputActivity : AppCompatActivity() {
             // reset has update
             binding.uploadButton.isEnabled = true
             binding.tvHasUpdate.visibility = View.GONE
+            copData = data
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("DOK_KAPAL", copDocData.toString())
     }
 }

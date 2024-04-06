@@ -5,6 +5,7 @@ import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
@@ -23,6 +24,7 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
     // Radio
     private val radioMap = mutableMapOf<String, String?>()
     private var isUpdate = false
+    private var isUploaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,25 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
             isUpdate = true
         }else{
             P3KDataUmum = P3KModel()
+        }
+
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            InputValidation.disabledAllInput(
+                binding.etLokasiPemeriksaan,
+                binding.etTanggalDiperiksa,
+                binding.etJmlABK,
+                binding.etJmlSehat,
+                binding.etJmlSakit,
+            )
+
+            InputValidation.disabledAllRadio(
+                binding.radioJenisLayanan,
+                binding.radioJenisPelayaran
+            )
+
+            binding.saveButton.visibility = View.GONE
         }
 
         binding.saveButton.setOnClickListener {

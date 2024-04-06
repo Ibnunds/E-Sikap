@@ -37,6 +37,7 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
     private lateinit var basicData: P3KModel
 
     private var isUpdate = false
+    private var isUploaded = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityP3kInputRekomendasiBinding.inflate(layoutInflater)
@@ -74,6 +75,12 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
         // header
         binding.topAppBar.setNavigationOnClickListener {
             finish()
+        }
+
+        // check is upload
+        isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
+        if (isUploaded){
+            updateUIonUploaded()
         }
 
         // Button
@@ -166,6 +173,19 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
 
         binding.ivSignKapten.setImageBitmap(kaptenSign)
         binding.ivSignOfficer.setImageBitmap(officerSign)
+    }
+
+    private fun updateUIonUploaded() {
+        with(binding){
+            etDoc.editText?.isEnabled = false
+            etTanggal.editText?.isEnabled = false
+            etJam.editText?.isEnabled = false
+
+            tvSignHelpKapten.visibility = View.GONE
+            tvSignHelpPetugas.visibility = View.GONE
+
+            saveButton.visibility = View.GONE
+        }
     }
 
     private fun onSaveButtonPressed() {
