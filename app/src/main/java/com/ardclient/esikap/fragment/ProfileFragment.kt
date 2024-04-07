@@ -24,6 +24,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         userSession = SessionUtils.getUserSession(requireActivity())
 
         binding.tvName.text = userSession.name
+        binding.tvUsername.text = "( ${userSession.userName} )"
         binding.tvLevel.text = userSession.userLevel
 
         binding.logoutButton.setOnClickListener {
