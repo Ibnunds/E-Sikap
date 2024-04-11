@@ -1,12 +1,16 @@
 package com.ardclient.esikap.input.p3k
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivityP3kInputPemeriksaanBinding
 import com.ardclient.esikap.modal.ImageSelectorModal

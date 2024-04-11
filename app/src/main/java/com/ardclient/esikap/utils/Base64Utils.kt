@@ -1,11 +1,14 @@
 package com.ardclient.esikap.utils
 
 import android.content.Context
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.Base64
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
 
 object Base64Utils {
@@ -38,6 +41,23 @@ object Base64Utils {
         } catch (e: IOException) {
             e.printStackTrace()
             return ""
+        }
+    }
+
+    fun uriToFile(context: Context, uri: Uri): File? {
+        var cursor: Cursor? = null
+        return try {
+            val projection = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(uri, projection, null, null, null)
+            if (cursor != null && cursor.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                val filePath = cursor.getString(columnIndex)
+                File(filePath)
+            } else {
+                null
+            }
+        } finally {
+            cursor?.close()
         }
     }
 }

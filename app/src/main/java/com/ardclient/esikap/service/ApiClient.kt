@@ -11,7 +11,7 @@ val okHttpClient: OkHttpClient? = OkHttpClient.Builder()
     .connectTimeout(600, TimeUnit.SECONDS)
     .build()
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.2.2:3001/"
+    private const val BASE_URL = "https://esikapdev.my.id/" //"http://10.0.2.2:3001/" //"https://esikapdev.my.id/"
 
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()

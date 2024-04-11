@@ -1,29 +1,37 @@
 package com.ardclient.esikap
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ardclient.esikap.adapter.COPAdapter
 import com.ardclient.esikap.adapter.P3KAdapter
 import com.ardclient.esikap.adapter.PHQCAdapter
 import com.ardclient.esikap.adapter.SSCECAdapter
-import com.ardclient.esikap.input.cop.CopInputActivity
 import com.ardclient.esikap.database.cop.COPRoomDatabase
 import com.ardclient.esikap.database.p3k.P3KRoomDatabase
 import com.ardclient.esikap.database.phqc.PHQCRoomDatabase
 import com.ardclient.esikap.database.sscec.SSCECRoomDatabase
 import com.ardclient.esikap.databinding.ActivityDocumentListBinding
+import com.ardclient.esikap.input.cop.CopInputActivity
+import com.ardclient.esikap.input.p3k.P3KInputActivity
+import com.ardclient.esikap.input.phqc.PHQCDocumentDetailActivity
+import com.ardclient.esikap.input.phqc.PHQCInputActivity
+import com.ardclient.esikap.input.sscec.SSCECInputActivity
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
-import com.ardclient.esikap.input.p3k.P3KInputActivity
-import com.ardclient.esikap.input.phqc.PHQCDocumentDetailActivity
-import com.ardclient.esikap.input.phqc.PHQCInputActivity
-import com.ardclient.esikap.input.sscec.SSCECInputActivity
+
 
 class DocumentListActivity : AppCompatActivity() {
 
@@ -33,6 +41,8 @@ class DocumentListActivity : AppCompatActivity() {
     private var listType: String? = null
 
     private lateinit var binding: ActivityDocumentListBinding
+
+    private val PERMISSION_CODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,18 +70,71 @@ class DocumentListActivity : AppCompatActivity() {
             finish()
         }
 
+        // Permission
+        val requestPermissionLauncher =
+            registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted: Boolean ->
+                if (isGranted) {
+                    onAddDocument()
+                } else {
+                    Toast.makeText(this, "Izin akses media tidak diberikan!", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         // fab
         binding.fab.setOnClickListener {
-            val intent = when(listType) {
-                "BLUE" -> Intent(this, PHQCInputActivity::class.java)
-                "GREEN" -> Intent(this, CopInputActivity::class.java)
-                "ORANGE" -> Intent(this, SSCECInputActivity::class.java)
-                "AMBER" -> Intent(this, P3KInputActivity::class.java)
-                else -> null // Mungkin perlu penanganan lebih lanjut tergantung dari kasus Anda
-            }
-            intent?.putExtra("KAPAL", kapal)
-            intent?.let { startActivity(it) }
+//            when {
+//                ContextCompat.checkSelfPermission(
+//                    this,
+//                    Manifest.permission.READ_MEDIA_IMAGES
+//                ) == PackageManager.PERMISSION_GRANTED -> {
+//                    // You can use the API that requires the permission.
+//                    onAddDocument()
+//                }
+//                else -> {
+//                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+//                        requestPermissionLauncher.launch(
+//                            Manifest.permission.READ_MEDIA_IMAGES)
+//                    }else{
+//                        ActivityCompat.requestPermissions(
+//                            this, arrayOf(
+//                                Manifest.permission.READ_EXTERNAL_STORAGE
+//                            ),
+//                            PERMISSION_CODE
+//                        )
+//                    }
+//                }
+//            }
+            onAddDocument()
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode === PERMISSION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                onAddDocument()
+            }else{
+                Toast.makeText(this, "Izin akses media tidak diberikan!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun onAddDocument(){
+        val intent = when(listType) {
+            "BLUE" -> Intent(this, PHQCInputActivity::class.java)
+            "GREEN" -> Intent(this, CopInputActivity::class.java)
+            "ORANGE" -> Intent(this, SSCECInputActivity::class.java)
+            "AMBER" -> Intent(this, P3KInputActivity::class.java)
+            else -> null // Mungkin perlu penanganan lebih lanjut tergantung dari kasus Anda
+        }
+        intent?.putExtra("KAPAL", kapal)
+        intent?.let { startActivity(it) }
     }
 
     private fun initDBbyType() {

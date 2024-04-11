@@ -3,6 +3,7 @@ package com.ardclient.esikap.input.p3k
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -15,7 +16,6 @@ import com.ardclient.esikap.database.p3k.P3KRoomDatabase
 import com.ardclient.esikap.databinding.ActivityP3kInputBinding
 import com.ardclient.esikap.modal.SpinnerModal
 import com.ardclient.esikap.model.ApiResponse
-import com.ardclient.esikap.model.COPUpdateStatusModel
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.P3KUpdateStatusModel
@@ -30,6 +30,7 @@ import com.ardclient.esikap.utils.NetworkUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class P3KInputActivity : AppCompatActivity() {
     private lateinit var binding: ActivityP3kInputBinding
@@ -61,8 +62,18 @@ class P3KInputActivity : AppCompatActivity() {
 
         // header
         binding.topAppBar.setNavigationOnClickListener {
-            finish()
+            DialogUtils.showNotSavedDialog(this@P3KInputActivity, object: DialogUtils.DialogListener {
+                override fun onConfirmed() {
+                    finish()
+                }
+            })
         }
+
+        DialogUtils.showNotSavedDialog(this@P3KInputActivity, object: DialogUtils.DialogListener {
+            override fun onConfirmed() {
+                finish()
+            }
+        })
 
         spinner = SpinnerModal()
 
@@ -215,11 +226,69 @@ class P3KInputActivity : AppCompatActivity() {
 
     private fun onUploadButton() {
         spinner.show(supportFragmentManager, "LOADING")
-        val fileMasalahKesehatan = Base64Utils.uriToBase64(this, p3kData.pemeriksaan.masalahFile.toUri())
-        val fileList = listOf(
-            FileModel("masalahkesehatan", fileMasalahKesehatan!!))
 
-        val bodyRequest = UploadModel(p3kData, fileList)
+        val masalahKesehatanFile = Base64Utils.uriToBase64(this, p3kData.pemeriksaan.masalahFile.toUri())
+
+        val uploadedFilesList = mutableListOf<FileModel>()
+
+        val uploadDocData = UploadFileModel("masalahkesehatan",
+            masalahKesehatanFile, p3kData.id)
+
+        if (masalahKesehatanFile.isNullOrEmpty()){
+            val call = ApiClient.apiService.uploadP3KSingle(uploadDocData)
+
+            call.enqueue(object: Callback<ApiResponse<FileModel>>{
+                override fun onResponse(
+                    call: Call<ApiResponse<FileModel>>,
+                    response: Response<ApiResponse<FileModel>>
+                ) {
+                    if (response.isSuccessful) {
+                        val fileModel = response.body()?.data
+                        if (fileModel != null) {
+                            uploadedFilesList.add(fileModel)
+                        }
+                        onDocumentUploaded(uploadedFilesList)
+                    } else {
+                        onErrorUpload()
+                    }
+                }
+
+                override fun onFailure(call: Call<ApiResponse<FileModel>>, t: Throwable) {
+                    onErrorUpload()
+                }
+            })
+        }else{
+            onDocumentUploaded(uploadedFilesList)
+        }
+    }
+
+    private fun onErrorUpload() {
+        val call = ApiClient.apiService.uploadP3KDelete(p3kData.id.toString())
+
+        call.enqueue(object : Callback<ApiResponse<Any>>{
+            override fun onResponse(
+                call: Call<ApiResponse<Any>>,
+                response: Response<ApiResponse<Any>>
+            ) {
+                spinner.dismiss()
+                if (response.isSuccessful){
+                    Toast.makeText(this@P3KInputActivity, "Upload gagal dan berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this@P3KInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                spinner.dismiss()
+                Toast.makeText(this@P3KInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun onDocumentUploaded(uploadedFilesList: MutableList<FileModel>) {
+        Log.d("UPLOADED IMAGE", uploadedFilesList.toString())
+        val bodyRequest = UploadModel(p3kData, uploadedFilesList)
         val call = ApiClient.apiService.uploadP3K(bodyRequest)
 
         call.enqueue(object: Callback<ApiResponse<Any>>{
@@ -242,7 +311,6 @@ class P3KInputActivity : AppCompatActivity() {
             }
 
         })
-
     }
 
     private fun onUploadSuccess() {

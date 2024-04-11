@@ -11,6 +11,7 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ardclient.esikap.databinding.ActivityLoginBinding
 import com.ardclient.esikap.modal.SpinnerModal
@@ -33,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         // splash
         val splash = installSplashScreen()
         splash.setKeepOnScreenCondition{false}
@@ -105,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ApiResponse<UserLoginResponse>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@LoginActivity, "Ada yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "Ada yang tidak beres, mohon coba lagi! ${t.message}", Toast.LENGTH_SHORT).show()
             }
 
         })

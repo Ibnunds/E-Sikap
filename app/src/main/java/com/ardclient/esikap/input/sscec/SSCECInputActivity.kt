@@ -61,8 +61,18 @@ class SSCECInputActivity : AppCompatActivity() {
 
         // header
         binding.topAppBar.setNavigationOnClickListener {
-            finish()
+            DialogUtils.showNotSavedDialog(this@SSCECInputActivity, object: DialogUtils.DialogListener {
+                override fun onConfirmed() {
+                    finish()
+                }
+            })
         }
+
+        DialogUtils.showNotSavedDialog(this@SSCECInputActivity, object: DialogUtils.DialogListener {
+            override fun onConfirmed() {
+                finish()
+            }
+        })
 
         // modal
         spinner = SpinnerModal()
@@ -281,15 +291,15 @@ class SSCECInputActivity : AppCompatActivity() {
             ) {
                 spinner.dismiss()
                 if (response.isSuccessful){
-                    Toast.makeText(this@SSCECInputActivity, "Berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SSCECInputActivity, "Upload gagal dan berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@SSCECInputActivity, "Gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SSCECInputActivity, "Upload gagal dan Gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@SSCECInputActivity, "Berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SSCECInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
             }
         })
     }

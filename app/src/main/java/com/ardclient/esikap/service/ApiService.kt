@@ -27,10 +27,18 @@ interface ApiService {
     // Upload PHQC
     @POST("upload/phqc")
     fun uploadPHQC(@Body body: UploadModel<PHQCModel>) : Call<ApiResponse<Any>>
+    @POST("upload/phqc/single")
+    fun uploadPHQCSingle(@Body body: UploadFileModel) : Call<ApiResponse<FileModel>>
+    @POST("upload/phqc/delete/{id}")
+    fun uploadPHQCDelete(@Path("id") id: String): Call<ApiResponse<Any>>
 
-    // Upload PHQC
+    // Upload P3K
     @POST("upload/p3k")
     fun uploadP3K(@Body body: UploadModel<P3KModel>) : Call<ApiResponse<Any>>
+    @POST("upload/p3k/single")
+    fun uploadP3KSingle(@Body body: UploadFileModel) : Call<ApiResponse<FileModel>>
+    @POST("upload/p3k/delete/{id}")
+    fun uploadP3KDelete(@Path("id") id: String): Call<ApiResponse<Any>>
 
 
     // Upload COP

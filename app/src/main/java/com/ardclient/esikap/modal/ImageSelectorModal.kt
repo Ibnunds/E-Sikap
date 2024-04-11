@@ -1,6 +1,6 @@
 package com.ardclient.esikap.modal
 
-import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,6 +9,9 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import com.ardclient.esikap.R
@@ -19,15 +22,20 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+
 class ImageSelectorModal : DialogFragment() {
     private lateinit var galleryButton: MaterialButton
     private lateinit var cameraButton: MaterialButton
     private lateinit var cancelButton: MaterialButton
     private var currentPhotoPath: String? = null
 
-    companion object {
-        const val REQUEST_CODE_GALLERY = 1
-        const val REQUEST_CODE_CAMERA = 2
+    // companion object
+    // Gallery
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            (activity as? OnImageSelectedListener)?.onImageSelected(it)
+            dismiss()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,48 +62,55 @@ class ImageSelectorModal : DialogFragment() {
             dismiss()
         }
 
-        galleryButton.setOnClickListener {
-            val galleryIntent = Intent(MediaStore.ACTION_PICK_IMAGES)
-            startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY)
-        }
-
-        cameraButton.setOnClickListener {
-            dispatchTakePictureIntent()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                REQUEST_CODE_GALLERY -> {
-                    // Gambar dipilih dari galeri, kirim kembali hasilnya ke aktivitas
-                    val selectedImageUri = data?.data
-                    val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    val resolver = requireContext().contentResolver
-
-                    resolver.takePersistableUriPermission(selectedImageUri!!, flags)
-                    selectedImageUri?.let {
-                        (activity as? OnImageSelectedListener)?.onImageSelected(it)
-                    }
-                    dismiss()
-                }
-                REQUEST_CODE_CAMERA -> {
-                    // Gambar diambil dari kamera, kirim kembali hasilnya ke aktivitas
-                    currentPhotoPath?.let {
-                        val photoFile = File(it)
-                        val photoUri = FileProvider.getUriForFile(
-                            requireContext(),
-                            requireContext().packageName + ".provider",
-                            photoFile
-                        )
-                        (activity as? OnImageSelectedListener)?.onImageSelected(photoUri)
-                    }
+        // Camera
+        val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                // Gambar diambil dari kamera, kirim kembali hasilnya ke aktivitas
+                currentPhotoPath?.let {
+                    val photoFile = File(it)
+                    val photoUri = FileProvider.getUriForFile(
+                        requireContext(),
+                        requireContext().packageName + ".provider",
+                        photoFile
+                    )
+                    (activity as? OnImageSelectedListener)?.onImageSelected(photoUri)
                     dismiss()
                 }
             }
         }
+
+        galleryButton.setOnClickListener {
+            //getContent.launch("image/*")
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            pickerActivityResultLauncher.launch(Intent.createChooser(intent, "Select a photo"))
+        }
+
+        cameraButton.setOnClickListener {
+            dispatchTakePictureIntent(takePicture)
+        }
     }
+
+    private val pickerActivityResultLauncher = registerForActivityResult<Intent, ActivityResult>(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result: ActivityResult ->
+        if (result.resultCode == RESULT_OK) {
+            // This is the URI for the selected photo from the user.
+            val photoUri = result.data!!.data
+            // Set URI to the image view to display the image.
+            //imageView.setImageURI(photoUri)
+            val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            val resolver = requireContext().contentResolver
+
+            resolver.takePersistableUriPermission(photoUri!!, flags)
+            photoUri?.let { (activity as? OnImageSelectedListener)?.onImageSelected(it) }
+            dismiss()
+        }else{
+            dismiss()
+        }
+    }
+
 
     private fun createImageFile(): File? {
         // Membuat nama file gambar
@@ -112,7 +127,7 @@ class ImageSelectorModal : DialogFragment() {
         }
     }
 
-    private fun dispatchTakePictureIntent() {
+    private fun dispatchTakePictureIntent(takePicture: ActivityResultLauncher<Uri>) {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera app to handle the intent
             takePictureIntent.resolveActivity(requireContext().packageManager)?.also {
@@ -130,8 +145,7 @@ class ImageSelectorModal : DialogFragment() {
                         requireContext().packageName + ".provider",
                         it
                     )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, REQUEST_CODE_CAMERA)
+                    takePicture.launch(photoURI)
                 }
             }
         }

@@ -29,4 +29,13 @@ object DialogUtils {
             .setPositiveButton("Konfirmasi") { _, _ -> listener.onConfirmed() }
             .show()
     }
+
+    fun showNotSavedDialog(context: Context, listener: DialogListener) {
+        MaterialAlertDialogBuilder(context)
+            .setTitle("Konfirmasi")
+            .setMessage("Anda belum menyimpan data ini, apakah anda yakin ingin kembali?")
+            .setNegativeButton("Batalkan") { dialog, _ -> dialog.dismiss()}
+            .setPositiveButton("Konfirmasi") { _, _ -> listener.onConfirmed() }
+            .show()
+    }
 }

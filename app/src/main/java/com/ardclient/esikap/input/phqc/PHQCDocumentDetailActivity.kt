@@ -16,6 +16,7 @@ import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.PHQCStatusUpdateModel
 import com.ardclient.esikap.model.api.FileModel
+import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
@@ -107,11 +108,70 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         // Convert URI to base64
         val pemeriksaanKapalFile = Base64Utils.uriToBase64(this, phqc.pemeriksaanFile.toUri())
 
-        // Handle Request
-        val fileList = listOf(
-            FileModel("pemeriksaanKapal", pemeriksaanKapalFile!!)
-        )
-        val bodyRequest = UploadModel(phqc, fileList)
+        val uploadedFilesList = mutableListOf<FileModel>()
+
+        val uploadDocData = UploadFileModel("pemeriksaankapal",
+            pemeriksaanKapalFile, phqc.id)
+
+        //Log.d("PHQC UPLOAD", uploadDocData.toString())
+
+        if (pemeriksaanKapalFile != null){
+            val call = ApiClient.apiService.uploadPHQCSingle(uploadDocData)
+
+            call.enqueue(object: Callback<ApiResponse<FileModel>>{
+                override fun onResponse(
+                    call: Call<ApiResponse<FileModel>>,
+                    response: Response<ApiResponse<FileModel>>
+                ) {
+                    if (response.isSuccessful) {
+                        val fileModel = response.body()?.data
+                        if (fileModel != null) {
+                            uploadedFilesList.add(fileModel)
+                        }
+                        onDocumentUploaded(uploadedFilesList)
+                    } else {
+                        onErrorUpload()
+                    }
+                }
+
+                override fun onFailure(call: Call<ApiResponse<FileModel>>, t: Throwable) {
+                    onErrorUpload()
+                }
+            })
+        }else{
+            Log.d("PHQC UPLOAD", "NO PEMERIKSAAN FILE")
+            onDocumentUploaded(uploadedFilesList)
+        }
+
+    }
+
+    private fun onErrorUpload() {
+        val call = ApiClient.apiService.uploadPHQCDelete(phqc.id.toString())
+
+        call.enqueue(object : Callback<ApiResponse<Any>>{
+            override fun onResponse(
+                call: Call<ApiResponse<Any>>,
+                response: Response<ApiResponse<Any>>
+            ) {
+                spinner.dismiss()
+                if (response.isSuccessful){
+                    Toast.makeText(this@PHQCDocumentDetailActivity, "Upload gagal dan berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this@PHQCDocumentDetailActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
+                spinner.dismiss()
+                Toast.makeText(this@PHQCDocumentDetailActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+
+    private fun onDocumentUploaded(uploadedFilesList: MutableList<FileModel>) {
+        val bodyRequest = UploadModel(phqc, uploadedFilesList)
         val call = ApiClient.apiService.uploadPHQC(bodyRequest)
 
         call.enqueue(object : Callback<ApiResponse<Any>>{

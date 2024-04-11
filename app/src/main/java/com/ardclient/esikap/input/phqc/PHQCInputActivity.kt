@@ -10,6 +10,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,6 +26,7 @@ import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DateTimeUtils
+import com.ardclient.esikap.utils.DialogUtils
 import com.ardclient.esikap.utils.InputValidation
 import com.ardclient.esikap.utils.SessionUtils
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -54,6 +57,15 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         super.onCreate(savedInstanceState)
         binding = ActivityPhqcInputBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // on back
+        onBackPressedDispatcher.addCallback(this) {
+            DialogUtils.showNotSavedDialog(this@PHQCInputActivity, object: DialogUtils.DialogListener {
+                override fun onConfirmed() {
+                    finish()
+                }
+            })
+        }
 
         // init database
         database = PHQCRoomDatabase.getDatabase(this)

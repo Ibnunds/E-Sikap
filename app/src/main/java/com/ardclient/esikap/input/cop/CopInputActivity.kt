@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -63,7 +64,20 @@ class CopInputActivity : AppCompatActivity() {
 
         // header
         binding.topAppBar.setNavigationOnClickListener {
-            finish()
+            DialogUtils.showNotSavedDialog(this@CopInputActivity, object: DialogUtils.DialogListener {
+                override fun onConfirmed() {
+                    finish()
+                }
+            })
+        }
+
+        // on back
+        onBackPressedDispatcher.addCallback(this) {
+            DialogUtils.showNotSavedDialog(this@CopInputActivity, object: DialogUtils.DialogListener {
+                override fun onConfirmed() {
+                    finish()
+                }
+            })
         }
 
 
@@ -358,15 +372,15 @@ class CopInputActivity : AppCompatActivity() {
             ) {
                 spinner.dismiss()
                 if (response.isSuccessful){
-                    Toast.makeText(this@CopInputActivity, "Berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CopInputActivity, "Upload gagal dan berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@CopInputActivity, "Gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CopInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@CopInputActivity, "Berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CopInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
             }
 
         })
