@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit
 
 
 val okHttpClient: OkHttpClient? = OkHttpClient.Builder()
-    .readTimeout(600, TimeUnit.SECONDS)
-    .connectTimeout(600, TimeUnit.SECONDS)
+    .readTimeout(300, TimeUnit.SECONDS)
+    .connectTimeout(300, TimeUnit.SECONDS)
     .build()
 object RetrofitClient {
     private const val BASE_URL = "https://esikapdev.my.id/" //"http://10.0.2.2:3001/" //"https://esikapdev.my.id/"

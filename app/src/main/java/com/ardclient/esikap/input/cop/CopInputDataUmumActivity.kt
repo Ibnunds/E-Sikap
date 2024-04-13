@@ -10,6 +10,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivityCopInputDataUmumBinding
 import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.utils.DateTimeUtils
@@ -22,6 +23,9 @@ class CopInputDataUmumActivity : AppCompatActivity() {
 
     private var isUpdate = false
     private var isUploaded = false
+
+    // Radio
+    private val radioMap = mutableMapOf<String, String?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCopInputDataUmumBinding.inflate(layoutInflater)
@@ -45,22 +49,31 @@ class CopInputDataUmumActivity : AppCompatActivity() {
         // check is upload
         isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
         if (isUploaded){
+            InputValidation.disabledAllRadio(
+                binding.radioJenisLayanan,
+                binding.radioJenisPelayaran
+            )
             InputValidation.disabledAllInput(
                 binding.etTujuan,
                 binding.etTiba,
                 binding.etLokasiSandar,
+                binding.etLokasiPemeriksaan,
                 binding.etJmlABKAsing,
+                binding.etJmlABKAsingMeninggal,
                 binding.etJmlSehatABKAsing,
                 binding.etJmlSakitABKAsing,
                 binding.etJmlABKWNI,
+                binding.etJmlABKWNIMeninggal,
                 binding.etJmlSehatABKWNI,
                 binding.etJmlSakitABKWNI,
                 binding.etJmlPenumpangAsing,
+                binding.etJmlPenumpangAsingMeninggal,
                 binding.etJmlSehatPenumpangAsing,
                 binding.etJmlSakitPenumpangAsing,
                 binding.etJmlPenumpangWNI,
+                binding.etJmlPenumpangWNIMeninggal,
                 binding.etJmlSehatPenumpangWNI,
-                binding.etJmlSakitPenumpangWNI
+                binding.etJmlSakitPenumpangWNI,
             )
 
             binding.saveButton.visibility = View.GONE
@@ -85,63 +98,116 @@ class CopInputDataUmumActivity : AppCompatActivity() {
             val selectedDate = DateTimeUtils.formatDate(it)
             binding.etTiba.editText?.setText(selectedDate)
         }
+
+        // radio
+        binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
+            if (checkedId == R.id.radio_layanan_kedatangan){
+                radioMap["LAYANAN"] = "Kedatangan"
+            }else{
+                radioMap["LAYANAN"] = "Keberangkatan"
+            }
+        }
+
+        binding.radioJenisPelayaran.setOnCheckedChangeListener{ _, checkedId ->
+            if (checkedId == R.id.radio_pelayaran_domestik){
+                radioMap["PELAYARAN"] = "Domestik"
+            }else{
+                radioMap["PELAYARAN"] = "Internasional"
+            }
+        }
     }
 
     private fun initExistingData() {
         binding.etTujuan.editText?.setText(copBasicData.tujuan)
         binding.etTiba.editText?.setText(copBasicData.tglTiba)
         binding.etLokasiSandar.editText?.setText(copBasicData.lokasiSandar)
+        binding.etLokasiPemeriksaan.editText?.setText(copBasicData.lokasiPemeriksaan)
         binding.etJmlABKAsing.editText?.setText(copBasicData.jumlahABKAsing.toString())
+        binding.etJmlABKAsingMeninggal.editText?.setText(copBasicData.jumlahABKAsingMD.toString())
         binding.etJmlSehatABKAsing.editText?.setText(copBasicData.asingSehat.toString())
         binding.etJmlSakitABKAsing.editText?.setText(copBasicData.asingSakit.toString())
         binding.etJmlABKWNI.editText?.setText(copBasicData.jumlahABKWNI.toString())
+        binding.etJmlABKWNIMeninggal.editText?.setText(copBasicData.jumlahABKWNIMD.toString())
         binding.etJmlSehatABKWNI.editText?.setText(copBasicData.wniSehat.toString())
         binding.etJmlSakitABKWNI.editText?.setText(copBasicData.wniSakit.toString())
         binding.etJmlPenumpangAsing.editText?.setText(copBasicData.jumlahPenumpangAsing.toString())
+        binding.etJmlPenumpangAsingMeninggal.editText?.setText(copBasicData.jumlahPenumpangAsingMD.toString())
         binding.etJmlSehatPenumpangAsing.editText?.setText(copBasicData.penumpangAsingSehat.toString())
         binding.etJmlSakitPenumpangAsing.editText?.setText(copBasicData.penumpangAsingSakit.toString())
         binding.etJmlPenumpangWNI.editText?.setText(copBasicData.jumlahPenumpangWNI.toString())
+        binding.etJmlPenumpangWNIMeninggal.editText?.setText(copBasicData.jumlahPenumpangWNIMD.toString())
         binding.etJmlSehatPenumpangWNI.editText?.setText(copBasicData.penumpangSehat.toString())
         binding.etJmlSakitPenumpangWNI.editText?.setText(copBasicData.penumpangSakit.toString())
+
+        // radio
+        radioMap["LAYANAN"] = copBasicData.jenisLayanan
+        if (copBasicData.jenisLayanan == "Kedatangan"){
+            binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
+        }else{
+            binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
+        }
+
+        radioMap["PELAYARAN"] = copBasicData.jenisPelayaran
+        if (copBasicData.jenisPelayaran == "Domestik"){
+            binding.radioJenisPelayaran.check(R.id.radio_pelayaran_domestik)
+        }else{
+            binding.radioJenisPelayaran.check(R.id.radio_pelayaran_inter)
+        }
     }
 
     private fun onSaveData() {
         val etTujuan = binding.etTujuan.editText?.text.toString()
         val etTiba = binding.etTiba.editText?.text.toString()
         val etLokasiSandar = binding.etLokasiSandar.editText?.text.toString()
+        val etLokasiPemeriksaan = binding.etLokasiPemeriksaan.editText?.text.toString()
         val etJmlABKAsing = binding.etJmlABKAsing.editText?.text.toString()
+        val etJmlABKAsingMD = binding.etJmlABKAsingMeninggal.editText?.text.toString()
         val etJmlSehatABKAsing = binding.etJmlSehatABKAsing.editText?.text.toString()
         val etJmlSakitABKAsing = binding.etJmlSakitABKAsing.editText?.text.toString()
         val etJmlABKWNI = binding.etJmlABKWNI.editText?.text.toString()
+        val etJmlABKWNIMD = binding.etJmlABKWNIMeninggal.editText?.text.toString()
         val etJmlSehatABKWNI = binding.etJmlSehatABKWNI.editText?.text.toString()
         val etJmlSakitABKWNI = binding.etJmlSakitABKWNI.editText?.text.toString()
         val etJmlPenumpangAsing = binding.etJmlPenumpangAsing.editText?.text.toString()
+        val etJmlPenumpangAsingMD = binding.etJmlPenumpangAsingMeninggal.editText?.text.toString()
         val etJmlSehatPenumpangAsing = binding.etJmlSehatPenumpangAsing.editText?.text.toString()
         val etJmlSakitPenumpangAsing = binding.etJmlSakitPenumpangAsing.editText?.text.toString()
         val etJmlPenumpangWNI = binding.etJmlPenumpangWNI.editText?.text.toString()
+        val etJmlPenumpangWNIMD = binding.etJmlPenumpangWNIMeninggal.editText?.text.toString()
         val etJmlSehatPenumpangWNI = binding.etJmlSehatPenumpangWNI.editText?.text.toString()
         val etJmlSakitPenumpangWNI = binding.etJmlSakitPenumpangWNI.editText?.text.toString()
+
+        // cek radio
+        val isAllRadio = InputValidation.isAllRadioFilled(
+            binding.radioJenisLayanan,
+            binding.radioJenisPelayaran
+        )
 
         // check is all filled
         val isAllFilled = InputValidation.isAllFieldComplete(
             binding.etTujuan,
             binding.etTiba,
             binding.etLokasiSandar,
+            binding.etLokasiPemeriksaan,
             binding.etJmlABKAsing,
+            binding.etJmlABKAsingMeninggal,
             binding.etJmlSehatABKAsing,
             binding.etJmlSakitABKAsing,
             binding.etJmlABKWNI,
+            binding.etJmlABKWNIMeninggal,
             binding.etJmlSehatABKWNI,
             binding.etJmlSakitABKWNI,
             binding.etJmlPenumpangAsing,
+            binding.etJmlPenumpangAsingMeninggal,
             binding.etJmlSehatPenumpangAsing,
             binding.etJmlSakitPenumpangAsing,
             binding.etJmlPenumpangWNI,
+            binding.etJmlPenumpangWNIMeninggal,
             binding.etJmlSehatPenumpangWNI,
             binding.etJmlSakitPenumpangWNI
         )
 
-        if (isAllFilled){
+        if (isAllFilled && isAllRadio){
             val copBasicData = COPModel(
                 tujuan = etTujuan,
                 tglTiba = etTiba,
@@ -157,7 +223,14 @@ class CopInputDataUmumActivity : AppCompatActivity() {
                 penumpangAsingSakit = etJmlSakitPenumpangAsing.toInt(),
                 jumlahPenumpangWNI = etJmlPenumpangWNI.toInt(),
                 penumpangSehat = etJmlSehatPenumpangWNI.toInt(),
-                penumpangSakit = etJmlSakitPenumpangWNI.toInt()
+                penumpangSakit = etJmlSakitPenumpangWNI.toInt(),
+                jenisLayanan = radioMap["LAYANAN"]!!,
+                jenisPelayaran = radioMap["PELAYARAN"]!!,
+                lokasiPemeriksaan = etLokasiPemeriksaan,
+                jumlahABKAsingMD = etJmlABKAsingMD.toInt(),
+                jumlahABKWNIMD = etJmlABKWNIMD.toInt(),
+                jumlahPenumpangAsingMD = etJmlPenumpangAsingMD.toInt(),
+                jumlahPenumpangWNIMD = etJmlPenumpangWNIMD.toInt()
             )
 
             val intent = Intent(this, CopInputActivity::class.java)

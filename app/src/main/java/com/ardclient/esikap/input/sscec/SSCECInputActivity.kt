@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -54,6 +55,7 @@ class SSCECInputActivity : AppCompatActivity() {
     // modal
     private lateinit var spinner: SpinnerModal
     private var isUploaded = false
+    private var isHasUpdate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySscecInputBinding.inflate(layoutInflater)
@@ -61,18 +63,29 @@ class SSCECInputActivity : AppCompatActivity() {
 
         // header
         binding.topAppBar.setNavigationOnClickListener {
-            DialogUtils.showNotSavedDialog(this@SSCECInputActivity, object: DialogUtils.DialogListener {
-                override fun onConfirmed() {
-                    finish()
-                }
-            })
-        }
-
-        DialogUtils.showNotSavedDialog(this@SSCECInputActivity, object: DialogUtils.DialogListener {
-            override fun onConfirmed() {
+            if (!isUploaded && isHasUpdate || !isUploaded && !isUpdate){
+                DialogUtils.showNotSavedDialog(this@SSCECInputActivity, object: DialogUtils.DialogListener {
+                    override fun onConfirmed() {
+                        finish()
+                    }
+                })
+            }else{
                 finish()
             }
-        })
+        }
+
+        // on back
+        onBackPressedDispatcher.addCallback(this) {
+            if (!isUploaded && isHasUpdate || !isUploaded && !isUpdate){
+                DialogUtils.showNotSavedDialog(this@SSCECInputActivity, object: DialogUtils.DialogListener {
+                    override fun onConfirmed() {
+                        finish()
+                    }
+                })
+            }else{
+                finish()
+            }
+        }
 
         // modal
         spinner = SpinnerModal()
@@ -133,6 +146,7 @@ class SSCECInputActivity : AppCompatActivity() {
 
                 // Receive Data
                 val isUpdate = data?.getBooleanExtra("HAS_UPDATE", false)
+                isHasUpdate = isUpdate!!
                 if (isUpdate == true){
                     binding.uploadButton.isEnabled = false
                     binding.tvHasUpdate.visibility = View.VISIBLE
@@ -372,7 +386,11 @@ class SSCECInputActivity : AppCompatActivity() {
                     signNamaKapten = SSCECSignature.signNamaKapten,
                     signKapten = SSCECSignature.signKapten,
                     signPetugas = SSCECSignature.signPetugas,
-                    sanitasi = SSCECSanitasi
+                    sanitasi = SSCECSanitasi,
+                    jenisLayanan = SSCECDataUmum.jenisLayanan,
+                    jenisPelayaran = SSCECDataUmum.jenisPelayaran,
+                    sscecLama = SSCECDataUmum.sscecLama,
+                    tempatTerbit = SSCECDataUmum.tempatTerbit
                 )
             } else {
                 SSCECModel(
@@ -394,7 +412,11 @@ class SSCECInputActivity : AppCompatActivity() {
                     signNamaKapten = SSCECSignature.signNamaKapten,
                     signKapten = SSCECSignature.signKapten,
                     signPetugas = SSCECSignature.signPetugas,
-                    sanitasi = SSCECSanitasi
+                    sanitasi = SSCECSanitasi,
+                    jenisLayanan = SSCECDataUmum.jenisLayanan,
+                    jenisPelayaran = SSCECDataUmum.jenisPelayaran,
+                    sscecLama = SSCECDataUmum.sscecLama,
+                    tempatTerbit = SSCECDataUmum.tempatTerbit
                 )
             }
 
@@ -422,6 +444,7 @@ class SSCECInputActivity : AppCompatActivity() {
             sscecData = sscec
             Toast.makeText(this, "Dokumen berhasil diupdate!", Toast.LENGTH_SHORT).show()
             // reset has update
+            isHasUpdate = false
             binding.uploadButton.isEnabled = true
             binding.tvHasUpdate.visibility = View.GONE
         }

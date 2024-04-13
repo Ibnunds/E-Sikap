@@ -127,6 +127,11 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         radioMap["LPOC"] = copDocData.lpoc
         radioMap["SHIPPAR"] = copDocData.shipParticular
         radioMap["LPC"] = copDocData.lpc
+        radioMap["BUKUKUNING"] = copDocData.bukuKuning
+        radioMap["CATATANPERJALANAN"] = copDocData.catatanPerjalanan
+        radioMap["IZINBERLAYAR"] = copDocData.izinBerlayar
+        radioMap["DAFTARALKES"] = copDocData.daftarAlkes
+        radioMap["DAFTARSTORE"] = copDocData.daftarStore
 
         // doc
         docMap["MDH"] = copDocData.mdhDoc
@@ -141,6 +146,11 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         docMap["LPOC"] = copDocData.lpocDoc
         docMap["SHIPPAR"] = copDocData.shipParticularDoc
         docMap["LPC"] = copDocData.lpcDoc
+        radioMap["BUKUKUNING"] = copDocData.bukuKuningDoc
+        radioMap["CATATANPERJALANAN"] = copDocData.catatanPerjalananDoc
+        radioMap["IZINBERLAYAR"] = copDocData.izinBerlayarDoc
+        radioMap["DAFTARALKES"] = copDocData.daftarAlkesDoc
+        radioMap["DAFTARSTORE"] = copDocData.daftarStoreDoc
 
         // doc
         noteMap["MDH"] = copDocData.mdhNote
@@ -149,6 +159,11 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         noteMap["BUKUKES"] = copDocData.bukuKesehatanNote
         noteMap["BUKUVAKSIN"] = copDocData.bukuVaksinNote
         noteMap["LPC"] = copDocData.lpcNote
+        radioMap["BUKUKUNING"] = copDocData.bukuKuningNote
+        radioMap["CATATANPERJALANAN"] = copDocData.catatanPerjalananNote
+        radioMap["IZINBERLAYAR"] = copDocData.izinBerlayarNote
+        radioMap["DAFTARALKES"] = copDocData.daftarAlkesNote
+        radioMap["DAFTARSTORE"] = copDocData.daftarStoreNote
 
 
         // Prefix radio
@@ -156,6 +171,9 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         binding.radioActivity.check(if (copDocData.aktifitasKapal == "Ada") R.id.radio_activity_true else R.id.radio_activity_false)
         radioMap["KARANTINA"] = copDocData.isyaratKarantina
         radioMap["ACTIVITY"] = copDocData.aktifitasKapal
+
+        // input
+        binding.etRekomendasi.editText?.setText(copDocData.rekomendasi)
     }
 
     private fun initListAdapter(listDataLiveData: MutableLiveData<List<DokumenKapalListModel>>) {
@@ -183,7 +201,11 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
     }
 
     private fun onSaveButton() {
-        if (radioMap["KARANTINA"] != null && radioMap["ACTIVITY"] != null){
+        val isInputFilled = InputValidation.isAllFieldComplete(
+            binding.etRekomendasi
+        )
+
+        if (radioMap["KARANTINA"] != null && radioMap["ACTIVITY"] != null && isInputFilled){
             var isDataComplete = true // Variabel flag untuk menandai apakah semua data lengkap
 
             for (item in bindingListData) {
@@ -210,6 +232,8 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
     }
 
     private fun onDataCompleted() {
+        val rekomendasi = binding.etRekomendasi.editText?.text.toString()
+
         val copDokumen = DokumenKapalModel(
             isyaratKarantina = radioMap["KARANTINA"] ?: "",
             aktifitasKapal = radioMap["ACTIVITY"] ?: "",
@@ -243,6 +267,27 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             lpc = radioMap["LPC"] ?: "",
             lpcDoc = docMap["LPC"] ?: "",
             lpcNote = noteMap["LPC"] ?: "",
+
+            bukuKuning = radioMap["BUKUKUNING"] ?: "",
+            bukuKuningDoc = docMap["BUKUKUNING"] ?: "",
+            bukuKuningNote = noteMap["BUKUKUNING"] ?: "",
+
+            catatanPerjalanan = radioMap["CATATANPERJALANAN"] ?: "",
+            catatanPerjalananDoc = docMap["CATATANPERJALANAN"] ?: "",
+            catatanPerjalananNote = noteMap["CATATANPERJALANAN"] ?: "",
+
+            izinBerlayar = radioMap["IZINBERLAYAR"] ?: "",
+            izinBerlayarDoc = docMap["IZINBERLAYAR"] ?: "",
+            izinBerlayarNote = noteMap["IZINBERLAYAR"] ?: "",
+
+            daftarAlkes = radioMap["DAFTARALKES"] ?: "",
+            daftarAlkesDoc = docMap["DAFTARALKES"] ?: "",
+            daftarAlkesNote = noteMap["DAFTARALKES"] ?: "",
+
+            daftarStore = radioMap["DAFTARSTORE"] ?: "",
+            daftarStoreDoc = docMap["DAFTARSTORE"] ?: "",
+            daftarStoreNote = noteMap["DAFTARSTORE"] ?: "",
+            rekomendasi = rekomendasi
         )
 
          intent.putExtra("COP_DOC", copDokumen)

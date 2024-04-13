@@ -1,20 +1,25 @@
 package com.ardclient.esikap.modal
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import com.ardclient.esikap.R
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.button.MaterialButton
 import java.io.File
 import java.io.IOException
@@ -81,16 +86,62 @@ class ImageSelectorModal : DialogFragment() {
 
         galleryButton.setOnClickListener {
             //getContent.launch("image/*")
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            pickerActivityResultLauncher.launch(Intent.createChooser(intent, "Select a photo"))
+//            val intent = Intent()
+//            intent.type = "image/*"
+//            intent.action = Intent.ACTION_GET_CONTENT
+//            pickerActivityResultLauncher.launch(Intent.createChooser(intent, "Select a photo"))
+            ImagePicker.with(requireActivity())
+                .crop()
+                .galleryOnly()
+                .compress(1024)
+                .maxResultSize(1080,1080)
+                .galleryMimeTypes(  //Exclude gif images
+                    mimeTypes = arrayOf(
+                        "image/png",
+                        "image/jpg",
+                        "image/jpeg"
+                    )
+                )
+                .createIntent {
+                    startForImageResult.launch(it)
+                }
         }
 
         cameraButton.setOnClickListener {
-            dispatchTakePictureIntent(takePicture)
+            //dispatchTakePictureIntent(takePicture)
+            ImagePicker.with(requireActivity())
+                .crop()
+                .cameraOnly()
+                .compress(1024)
+                .maxResultSize(1080,1080)
+                .createIntent {
+                    startForImageResult.launch(it)
+                }
         }
     }
+
+    private val startForImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            when (resultCode) {
+                RESULT_OK -> {
+                    //Image Uri will not be null for RESULT_OK
+                    val fileUri = data?.data!!
+                    (activity as? OnImageSelectedListener)?.onImageSelected(fileUri)
+                    dismiss()
+                }
+                ImagePicker.RESULT_ERROR -> {
+                    Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+                else -> {
+                    Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+            }
+        }
 
     private val pickerActivityResultLauncher = registerForActivityResult<Intent, ActivityResult>(
         ActivityResultContracts.StartActivityForResult()
@@ -104,7 +155,14 @@ class ImageSelectorModal : DialogFragment() {
             val resolver = requireContext().contentResolver
 
             resolver.takePersistableUriPermission(photoUri!!, flags)
-            photoUri?.let { (activity as? OnImageSelectedListener)?.onImageSelected(it) }
+            photoUri?.let { uri ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    // For Android 10 and above, request persistent read permission
+                    val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    requireContext().contentResolver.takePersistableUriPermission(uri, flags)
+                }
+                (activity as? OnImageSelectedListener)?.onImageSelected(uri)
+            }
             dismiss()
         }else{
             dismiss()

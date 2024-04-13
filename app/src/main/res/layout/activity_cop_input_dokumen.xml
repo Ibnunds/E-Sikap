@@ -114,6 +114,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etRekomendasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="14dp"
+                android:hint="Rekomendasi">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_regular"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
             <Button
                 style="@style/Widget.Material3.Button.IconButton.Filled"
                 android:id="@+id/saveButton"

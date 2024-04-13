@@ -111,12 +111,17 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 radioLimbaCair,
                 radioLimbaCairVec,
                 radioGenangan,
+                radioAirTergenangVec,
                 radioEngine,
+                radioMesinVec,
                 radioMedik,
+                radioMedikVec,
                 radioOtherArea,
+                radioOtherAreaVec,
                 radioRekomendasi,
                 radioResiko,
                 radioHealth,
+                radioVektor
             )
 
             etMasalahNote.editText?.isEnabled = false
@@ -150,13 +155,24 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val waterVecValue = if (getCheckedIdByString(copSanitasi.vecAirMinum) == 1) R.id.radio_waterVec_true else R.id.radio_waterVec_false
         val limbaCairValue = if (getCheckedIdByString(copSanitasi.sanLimbaCair) == 1) R.id.radio_limba_true else R.id.radio_limba_false
         val limbaCairVecValue = if (getCheckedIdByString(copSanitasi.vecLimbaCair) == 1) R.id.radio_limbaVec_true else R.id.radio_limbaVec_false
+
         val genanganValue = if (getCheckedIdByString(copSanitasi.sanAirTergenang) == 1) R.id.radio_genangan_true else R.id.radio_genangan_false
+        val genanganVecValue = if (getCheckedIdByString(copSanitasi.vecAirTergenang) == 1) R.id.radio_airTergenangVec_true else R.id.radio_airTergenangVec_false
+
         val engineValue = if (getCheckedIdByString(copSanitasi.sanRuangMesin) == 1) R.id.radio_engine_true else R.id.radio_engine_false
+        val engineVecValue = if (getCheckedIdByString(copSanitasi.vecRuangMesin) == 1) R.id.radio_mesinVec_true else R.id.radio_mesinVec_false
+
         val medikValue = if (getCheckedIdByString(copSanitasi.sanFasilitasMedik) == 1) R.id.radio_medik_true else R.id.radio_medik_false
+        val medikVecValue = if (getCheckedIdByString(copSanitasi.vecFasilitasMedik) == 1) R.id.radio_medikVec_true else R.id.radio_medikVec_false
+
         val otherAreaValue = if (getCheckedIdByString(copSanitasi.sanAreaLainnya) == 1) R.id.radio_otherArea_true else R.id.radio_otherArea_false
+        val otherAreaVecValue = if (getCheckedIdByString(copSanitasi.vecAreaLainnya) == 1) R.id.radio_otherAreaVec_true else R.id.radio_otherAreaVec_false
+
         val rekomendasiValue = if (getCheckedIdByString(copSanitasi.rekomendasi) == 1) R.id.radio_disinseksi else if (getCheckedIdByString(copSanitasi.rekomendasi) == 2) R.id.radio_fumigasi else R.id.radio_no_problem
         val resikoValue = if (getCheckedIdByString(copSanitasi.resikoSanitasi) == 1) R.id.radio_resiko_tinggi else if (getCheckedIdByString(copSanitasi.resikoSanitasi) == 2) R.id.radio_resiko_rendah else R.id.radio_resiko_no
         val healthValue = if (getCheckedIdByString(copSanitasi.masalahKesehatan) == 1) R.id.radio_health_true else R.id.radio__health_false
+
+        val vektorValue = if (getCheckedIdByString(copSanitasi.tandatandaVektor) == 1) R.id.radio_vektor_true else R.id.radio_vektor_false
 
 
         // asigning
@@ -183,12 +199,17 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         binding.radioLimbaCair.check(limbaCairValue)
         binding.radioLimbaCairVec.check(limbaCairVecValue)
         binding.radioGenangan.check(genanganValue)
+        binding.radioAirTergenangVec.check(genanganVecValue)
         binding.radioEngine.check(engineValue)
+        binding.radioMesinVec.check(engineVecValue)
         binding.radioMedik.check(medikValue)
+        binding.radioMedikVec.check(medikVecValue)
         binding.radioOtherArea.check(otherAreaValue)
+        binding.radioOtherAreaVec.check(otherAreaVecValue)
         binding.radioRekomendasi.check(rekomendasiValue)
         binding.radioResiko.check(resikoValue)
         binding.radioHealth.check(healthValue)
+        binding.radioVektor.check(vektorValue)
 
         // Doc
         hasilDoc = copSanitasi.pemeriksanDoc
@@ -286,12 +307,17 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val limbaCairValue = getSelectedRadioGroupValue(binding.radioLimbaCair)
         val limbaCairVecValue = getSelectedRadioGroupValue(binding.radioLimbaCairVec)
         val genanganValue = getSelectedRadioGroupValue(binding.radioGenangan)
+        val genanganVecValue = getSelectedRadioGroupValue(binding.radioAirTergenangVec)
         val engineValue = getSelectedRadioGroupValue(binding.radioEngine)
+        val engineVecVal = getSelectedRadioGroupValue(binding.radioMesinVec)
         val medikValue = getSelectedRadioGroupValue(binding.radioMedik)
+        val medikVecVal = getSelectedRadioGroupValue(binding.radioMedikVec)
         val otherAreaValue = getSelectedRadioGroupValue(binding.radioOtherArea)
+        val otherAreaVecVal = getSelectedRadioGroupValue(binding.radioOtherAreaVec)
         val rekomendasiValue = getSelectedRadioGroupValue(binding.radioRekomendasi)
         val resikoValue = getSelectedRadioGroupValue(binding.radioResiko)
         val healthValue = getSelectedRadioGroupValue(binding.radioHealth)
+        val vektorValue = getSelectedRadioGroupValue(binding.radioVektor)
         val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
 
         val sanitasiData = SanitasiModel(
@@ -327,7 +353,12 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             masalahKesehatanFile = masalahDoc ?: "",
             masalahKesehatanCatatan = masalahCatatanVal,
             pemeriksanDoc = hasilDoc!!,
-            hasilFile = "TESTING"
+            hasilFile = "TESTING",
+            vecAirTergenang = genanganVecValue,
+            vecRuangMesin = engineVecVal,
+            vecFasilitasMedik = medikVecVal,
+            vecAreaLainnya = otherAreaVecVal,
+            tandatandaVektor = vektorValue
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
@@ -364,9 +395,14 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             binding.radioLimbaCair,
             binding.radioLimbaCairVec,
             binding.radioGenangan,
+            binding.radioAirTergenangVec,
             binding.radioEngine,
+            binding.radioMesinVec,
             binding.radioMedik,
+            binding.radioMedikVec,
             binding.radioOtherArea,
+            binding.radioOtherAreaVec,
+            binding.radioVektor
         )
 
         return radioGroups.all {

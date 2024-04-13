@@ -113,35 +113,30 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         val uploadDocData = UploadFileModel("pemeriksaankapal",
             pemeriksaanKapalFile, phqc.id)
 
-        //Log.d("PHQC UPLOAD", uploadDocData.toString())
+        val call = ApiClient.apiService.uploadPHQCSingle(uploadDocData)
 
-        if (pemeriksaanKapalFile != null){
-            val call = ApiClient.apiService.uploadPHQCSingle(uploadDocData)
-
-            call.enqueue(object: Callback<ApiResponse<FileModel>>{
-                override fun onResponse(
-                    call: Call<ApiResponse<FileModel>>,
-                    response: Response<ApiResponse<FileModel>>
-                ) {
-                    if (response.isSuccessful) {
-                        val fileModel = response.body()?.data
-                        if (fileModel != null) {
-                            uploadedFilesList.add(fileModel)
-                        }
-                        onDocumentUploaded(uploadedFilesList)
-                    } else {
-                        onErrorUpload()
+        call.enqueue(object: Callback<ApiResponse<FileModel>>{
+            override fun onResponse(
+                call: Call<ApiResponse<FileModel>>,
+                response: Response<ApiResponse<FileModel>>
+            ) {
+                if (response.isSuccessful) {
+                    val fileModel = response.body()?.data
+                    if (fileModel != null) {
+                        uploadedFilesList.add(fileModel)
                     }
-                }
-
-                override fun onFailure(call: Call<ApiResponse<FileModel>>, t: Throwable) {
+                    onDocumentUploaded(uploadedFilesList)
+                } else {
+                    Log.d("PHQC UPLOAD", response.toString())
                     onErrorUpload()
                 }
-            })
-        }else{
-            Log.d("PHQC UPLOAD", "NO PEMERIKSAAN FILE")
-            onDocumentUploaded(uploadedFilesList)
-        }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<FileModel>>, t: Throwable) {
+                Log.d("PHQC UPLOAD", t.toString())
+                onErrorUpload()
+            }
+        })
 
     }
 

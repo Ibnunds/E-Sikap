@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import com.ardclient.esikap.R
 import com.ardclient.esikap.database.p3k.P3KDao
 import com.ardclient.esikap.database.p3k.P3KRoomDatabase
@@ -54,6 +56,7 @@ class P3KInputActivity : AppCompatActivity() {
     private lateinit var spinner: SpinnerModal
 
     private var isUploaded = false
+    private var isHasUpdate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,18 +65,29 @@ class P3KInputActivity : AppCompatActivity() {
 
         // header
         binding.topAppBar.setNavigationOnClickListener {
-            DialogUtils.showNotSavedDialog(this@P3KInputActivity, object: DialogUtils.DialogListener {
-                override fun onConfirmed() {
-                    finish()
-                }
-            })
-        }
-
-        DialogUtils.showNotSavedDialog(this@P3KInputActivity, object: DialogUtils.DialogListener {
-            override fun onConfirmed() {
+            if (!isUploaded && isHasUpdate || !isUploaded && !isUpdate){
+                DialogUtils.showNotSavedDialog(this@P3KInputActivity, object: DialogUtils.DialogListener {
+                    override fun onConfirmed() {
+                        finish()
+                    }
+                })
+            }else{
                 finish()
             }
-        })
+        }
+
+        // on back
+        onBackPressedDispatcher.addCallback(this) {
+            if (!isUploaded && isHasUpdate || !isUploaded && !isUpdate){
+                DialogUtils.showNotSavedDialog(this@P3KInputActivity, object: DialogUtils.DialogListener {
+                    override fun onConfirmed() {
+                        finish()
+                    }
+                })
+            }else{
+                finish()
+            }
+        }
 
         spinner = SpinnerModal()
 
@@ -131,6 +145,7 @@ class P3KInputActivity : AppCompatActivity() {
 
                 // Receive Data
                 val isUpdate = data?.getBooleanExtra("HAS_UPDATE", false)
+                isHasUpdate = isUpdate!!
                 if (isUpdate == true){
                     binding.uploadButton.isEnabled = false
                     binding.tvHasUpdate.visibility = View.VISIBLE
@@ -158,6 +173,7 @@ class P3KInputActivity : AppCompatActivity() {
                     P3KPemeriksaan = pemeriksaan
                     binding.chipSanitasi.isChecked = true
                     binding.chipSanitasi.text = "Lengkap"
+                    Log.d("MASALAH DOC", pemeriksaan.masalahFile)
                 }
 
             }
@@ -234,7 +250,8 @@ class P3KInputActivity : AppCompatActivity() {
         val uploadDocData = UploadFileModel("masalahkesehatan",
             masalahKesehatanFile, p3kData.id)
 
-        if (masalahKesehatanFile.isNullOrEmpty()){
+        if (p3kData.pemeriksaan.masalah == "Ada"){
+            Log.d("P3KLOG-DATA", "MASALAH KESEHATAN ADA!")
             val call = ApiClient.apiService.uploadP3KSingle(uploadDocData)
 
             call.enqueue(object: Callback<ApiResponse<FileModel>>{
@@ -392,6 +409,7 @@ class P3KInputActivity : AppCompatActivity() {
             dao.updateP3K(data)
             Toast.makeText(this, "Dokumen berhasil diupdate!", Toast.LENGTH_SHORT).show()
             // reset has update
+            isHasUpdate = false
             binding.uploadButton.isEnabled = true
             binding.tvHasUpdate.visibility = View.GONE
             p3kData = data

@@ -93,7 +93,7 @@ class DocumentListActivity : AppCompatActivity() {
 //                    onAddDocument()
 //                }
 //                else -> {
-//                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R){
+//                    if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q){
 //                        requestPermissionLauncher.launch(
 //                            Manifest.permission.READ_MEDIA_IMAGES)
 //                    }else{

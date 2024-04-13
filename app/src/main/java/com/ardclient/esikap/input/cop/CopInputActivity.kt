@@ -56,6 +56,7 @@ class CopInputActivity : AppCompatActivity() {
     // modal
     private lateinit var spinner: SpinnerModal
     private var isUploaded = false
+    private var isHasUpdate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,20 +65,28 @@ class CopInputActivity : AppCompatActivity() {
 
         // header
         binding.topAppBar.setNavigationOnClickListener {
-            DialogUtils.showNotSavedDialog(this@CopInputActivity, object: DialogUtils.DialogListener {
-                override fun onConfirmed() {
-                    finish()
-                }
-            })
+            if (!isUploaded && isHasUpdate || !isUploaded && !isUpdate){
+                DialogUtils.showNotSavedDialog(this@CopInputActivity, object: DialogUtils.DialogListener {
+                    override fun onConfirmed() {
+                        finish()
+                    }
+                })
+            }else{
+                finish()
+            }
         }
 
         // on back
         onBackPressedDispatcher.addCallback(this) {
-            DialogUtils.showNotSavedDialog(this@CopInputActivity, object: DialogUtils.DialogListener {
-                override fun onConfirmed() {
-                    finish()
-                }
-            })
+            if (!isUploaded && isHasUpdate || !isUploaded && !isUpdate){
+                DialogUtils.showNotSavedDialog(this@CopInputActivity, object: DialogUtils.DialogListener {
+                    override fun onConfirmed() {
+                        finish()
+                    }
+                })
+            }else{
+                finish()
+            }
         }
 
 
@@ -141,6 +150,7 @@ class CopInputActivity : AppCompatActivity() {
 
                 // Receive Data
                 val isUpdate = data?.getBooleanExtra("HAS_UPDATE", false)
+                isHasUpdate = isUpdate!!
                 if (isUpdate == true){
                     binding.uploadButton.isEnabled = false
                     binding.tvHasUpdate.visibility = View.VISIBLE
@@ -270,6 +280,11 @@ class CopInputActivity : AppCompatActivity() {
         val fileHasilPemeriksaan = Base64Utils.uriToBase64(this, copData.sanitasiKapal.pemeriksanDoc.toUri())
         val filePenerbitanDokumen = Base64Utils.uriToBase64(this, copData.docFile.toUri())
         val fileMasalahKesehatan = Base64Utils.uriToBase64(this, copData.sanitasiKapal.masalahKesehatanFile.toUri())
+        val fileBukuKuning = Base64Utils.uriToBase64(this, copData.dokumenKapal.bukuKuningDoc.toUri())
+        val fileCatatanPerjalanan = Base64Utils.uriToBase64(this, copData.dokumenKapal.catatanPerjalananDoc.toUri())
+        val fileIzinBerlayar = Base64Utils.uriToBase64(this, copData.dokumenKapal.izinBerlayarDoc.toUri())
+        val fileDaftarAlkes = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarAlkesDoc.toUri())
+        val fileDaftarStore = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarStoreDoc.toUri())
 
         val fileList = listOf(
             UploadFileModel("mdh", fileMDH!!, copBasicData.id),
@@ -286,7 +301,12 @@ class CopInputActivity : AppCompatActivity() {
             UploadFileModel("lpc", fileLPC!!, copBasicData.id),
             UploadFileModel("hasilpemeriksaan", fileHasilPemeriksaan!!, copBasicData.id),
             UploadFileModel("penerbitandokumen", filePenerbitanDokumen!!, copBasicData.id),
-            UploadFileModel("masalahkesehatan", fileMasalahKesehatan!!, copBasicData.id)
+            UploadFileModel("masalahkesehatan", fileMasalahKesehatan!!, copBasicData.id),
+            UploadFileModel("bukukuning", fileBukuKuning!!, copBasicData.id),
+            UploadFileModel("catatanperjalanan", fileCatatanPerjalanan!!, copBasicData.id),
+            UploadFileModel("izinberlayar", fileIzinBerlayar!!, copBasicData.id),
+            UploadFileModel("daftaralkes", fileDaftarAlkes!!, copBasicData.id),
+            UploadFileModel("daftarstore", fileDaftarStore!!, copBasicData.id)
         )
 
         // Handle result
@@ -438,7 +458,14 @@ class CopInputActivity : AppCompatActivity() {
                     docFile = copSignature.docFile,
                     docJam = copSignature.docJam,
                     docTanggal = copSignature.docTanggal,
-                    docType = copSignature.docType
+                    docType = copSignature.docType,
+                    jenisPelayaran = copBasicData.jenisPelayaran,
+                    jenisLayanan = copBasicData.jenisLayanan,
+                    lokasiPemeriksaan = copBasicData.lokasiPemeriksaan,
+                    jumlahABKAsingMD = copBasicData.jumlahABKAsingMD,
+                    jumlahABKWNIMD = copBasicData.jumlahABKWNIMD,
+                    jumlahPenumpangWNIMD = copBasicData.jumlahPenumpangWNIMD,
+                    jumlahPenumpangAsingMD = copBasicData.jumlahPenumpangAsingMD
                 )
             } else {
                 COPModel(
@@ -471,7 +498,14 @@ class CopInputActivity : AppCompatActivity() {
                     docFile = copSignature.docFile,
                     docJam = copSignature.docJam,
                     docTanggal = copSignature.docTanggal,
-                    docType = copSignature.docType
+                    docType = copSignature.docType,
+                    jenisPelayaran = copBasicData.jenisPelayaran,
+                    jenisLayanan = copBasicData.jenisLayanan,
+                    jumlahABKAsingMD = copBasicData.jumlahABKAsingMD,
+                    jumlahABKWNIMD = copBasicData.jumlahABKWNIMD,
+                    jumlahPenumpangWNIMD = copBasicData.jumlahPenumpangWNIMD,
+                    jumlahPenumpangAsingMD = copBasicData.jumlahPenumpangAsingMD,
+                    lokasiPemeriksaan = copBasicData.lokasiPemeriksaan
                 )
             }
 
@@ -497,6 +531,7 @@ class CopInputActivity : AppCompatActivity() {
             dao.updateCOP(data)
             Toast.makeText(this, "Dokumen berhasil diupdate!", Toast.LENGTH_SHORT).show()
             // reset has update
+            isHasUpdate = false
             binding.uploadButton.isEnabled = true
             binding.tvHasUpdate.visibility = View.GONE
             copData = data

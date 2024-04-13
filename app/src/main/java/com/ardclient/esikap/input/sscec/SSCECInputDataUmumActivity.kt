@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivitySscecInputDataUmumBinding
 import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.utils.DateTimeUtils
@@ -21,6 +22,12 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
 
     private var isUpdate = false
     private var isUploaded = false
+
+    // Radio
+    private val radioMap = mutableMapOf<String, String?>()
+
+    // date picker
+    private lateinit var datePickerType: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySscecInputDataUmumBinding.inflate(layoutInflater)
@@ -44,6 +51,10 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
         // check is upload
         isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
         if (isUploaded){
+            InputValidation.disabledAllRadio(
+                binding.radioJenisLayanan,
+                binding.radioJenisPelayaran
+            )
             InputValidation.disabledAllInput(
                 binding.etTujuan,
                 binding.etTiba,
@@ -71,12 +82,39 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
                 .build()
 
         binding.etTiba.editText?.setOnClickListener {
+            datePickerType = "TIBA"
+            datePicker.show(supportFragmentManager, "DATEPICKER")
+        }
+
+        binding.etSSCEC.editText?.setOnClickListener {
+            datePickerType = "SSCEC"
             datePicker.show(supportFragmentManager, "DATEPICKER")
         }
 
         datePicker.addOnPositiveButtonClickListener {
             val selectedDate = DateTimeUtils.formatDate(it)
-            binding.etTiba.editText?.setText(selectedDate)
+            if (datePickerType == "TIBA"){
+                binding.etTiba.editText?.setText(selectedDate)
+            }else{
+                binding.etSSCEC.editText?.setText(selectedDate)
+            }
+        }
+
+        // radio
+        binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
+            if (checkedId == R.id.radio_layanan_kedatangan){
+                radioMap["LAYANAN"] = "Kedatangan"
+            }else{
+                radioMap["LAYANAN"] = "Keberangkatan"
+            }
+        }
+
+        binding.radioJenisPelayaran.setOnCheckedChangeListener{ _, checkedId ->
+            if (checkedId == R.id.radio_pelayaran_domestik){
+                radioMap["PELAYARAN"] = "Domestik"
+            }else{
+                radioMap["PELAYARAN"] = "Internasional"
+            }
         }
     }
 
@@ -90,11 +128,30 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
         binding.etJmlABKWNI.editText?.setText(basicData.jumlahABKWNI.toString())
         binding.etJmlSehatABKWNI.editText?.setText(basicData.wniSehat.toString())
         binding.etJmlSakitABKWNI.editText?.setText(basicData.wniSakit.toString())
+        binding.etSSCEC.editText?.setText(basicData.sscecLama)
+        binding.etTempatTerbit.editText?.setText(basicData.tempatTerbit)
+
+        // radio
+        radioMap["LAYANAN"] = basicData.jenisLayanan
+        if (basicData.jenisLayanan == "Kedatangan"){
+            binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
+        }else{
+            binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
+        }
+
+        radioMap["PELAYARAN"] = basicData.jenisPelayaran
+        if (basicData.jenisPelayaran == "Domestik"){
+            binding.radioJenisPelayaran.check(R.id.radio_pelayaran_domestik)
+        }else{
+            binding.radioJenisPelayaran.check(R.id.radio_pelayaran_inter)
+        }
     }
 
     private fun onSaveData() {
         val etTujuan = binding.etTujuan.editText?.text.toString()
         val etTiba = binding.etTiba.editText?.text.toString()
+        val etSSCEC = binding.etSSCEC.editText?.text.toString()
+        val etTerbit = binding.etSSCEC.editText?.text.toString()
         val etLokasiSandar = binding.etLokasiSandar.editText?.text.toString()
         val etJmlABKAsing = binding.etJmlABKAsing.editText?.text.toString()
         val etJmlSehatABKAsing = binding.etJmlSehatABKAsing.editText?.text.toString()
@@ -103,10 +160,18 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
         val etJmlSehatABKWNI = binding.etJmlSehatABKWNI.editText?.text.toString()
         val etJmlSakitABKWNI = binding.etJmlSakitABKWNI.editText?.text.toString()
 
+        // cek radio
+        val isAllRadio = InputValidation.isAllRadioFilled(
+            binding.radioJenisLayanan,
+            binding.radioJenisPelayaran
+        )
+
         // check is all filled
         val isAllFilled = InputValidation.isAllFieldComplete(
             binding.etTujuan,
             binding.etTiba,
+            binding.etSSCEC,
+            binding.etTempatTerbit,
             binding.etLokasiSandar,
             binding.etJmlABKAsing,
             binding.etJmlSehatABKAsing,
@@ -116,7 +181,7 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
             binding.etJmlSakitABKWNI
         )
 
-        if (isAllFilled){
+        if (isAllFilled && isAllRadio){
             val basicData = SSCECModel(
                 pelabuhanTujuan = etTujuan,
                 tglTiba = etTiba,
@@ -127,6 +192,10 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
                 jumlahABKWNI = etJmlABKWNI.toInt(),
                 wniSehat = etJmlSehatABKWNI.toInt(),
                 wniSakit = etJmlSakitABKWNI.toInt(),
+                jenisLayanan = radioMap["LAYANAN"]!!,
+                jenisPelayaran = radioMap["PELAYARAN"]!!,
+                sscecLama = etSSCEC,
+                tempatTerbit = etTerbit
             )
 
             val intent = Intent(this, SSCECInputActivity::class.java)
