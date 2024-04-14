@@ -29,6 +29,7 @@ import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
 import com.ardclient.esikap.utils.NetworkUtils
+import com.ardclient.esikap.utils.SessionUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,6 +58,9 @@ class P3KInputActivity : AppCompatActivity() {
 
     private var isUploaded = false
     private var isHasUpdate = false
+
+    // session
+    private var username = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +94,10 @@ class P3KInputActivity : AppCompatActivity() {
         }
 
         spinner = SpinnerModal()
+
+        // session
+        val session = SessionUtils.getUserSession(this)
+        username = session.userName!!
 
         // existing data
         val existingData = intent.getParcelableExtra<P3KModel>("P3K")
@@ -368,7 +376,8 @@ class P3KInputActivity : AppCompatActivity() {
                     signKapten = P3KRekomendasi.signKapten,
                     signPetugas = P3KRekomendasi.signPetugas,
                     signNamaKapten = P3KRekomendasi.signNamaKapten,
-                    signNamaPetugas = P3KRekomendasi.signNamaPetugas
+                    signNamaPetugas = P3KRekomendasi.signNamaPetugas,
+                    username = username
                 )
             } else {
                 P3KModel(
@@ -388,7 +397,8 @@ class P3KInputActivity : AppCompatActivity() {
                     signKapten = P3KRekomendasi.signKapten,
                     signPetugas = P3KRekomendasi.signPetugas,
                     signNamaKapten = P3KRekomendasi.signNamaKapten,
-                    signNamaPetugas = P3KRekomendasi.signNamaPetugas
+                    signNamaPetugas = P3KRekomendasi.signNamaPetugas,
+                    username = username
                 )
             }
 

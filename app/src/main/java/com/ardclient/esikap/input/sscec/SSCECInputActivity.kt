@@ -30,6 +30,7 @@ import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
 import com.ardclient.esikap.utils.NetworkUtils
+import com.ardclient.esikap.utils.SessionUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,6 +57,9 @@ class SSCECInputActivity : AppCompatActivity() {
     private lateinit var spinner: SpinnerModal
     private var isUploaded = false
     private var isHasUpdate = false
+
+    // sessiion
+    private var username = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySscecInputBinding.inflate(layoutInflater)
@@ -96,6 +100,10 @@ class SSCECInputActivity : AppCompatActivity() {
 
         // existing kapal data
         kapal = intent.getParcelableExtra("KAPAL") ?: KapalModel()
+
+        // session
+        val session = SessionUtils.getUserSession(this)
+        username = session.userName!!
 
         // existing data
         val existingData = intent.getParcelableExtra<SSCECModel>("SSCEC")
@@ -390,7 +398,8 @@ class SSCECInputActivity : AppCompatActivity() {
                     jenisLayanan = SSCECDataUmum.jenisLayanan,
                     jenisPelayaran = SSCECDataUmum.jenisPelayaran,
                     sscecLama = SSCECDataUmum.sscecLama,
-                    tempatTerbit = SSCECDataUmum.tempatTerbit
+                    tempatTerbit = SSCECDataUmum.tempatTerbit,
+                    username = username
                 )
             } else {
                 SSCECModel(
@@ -416,7 +425,8 @@ class SSCECInputActivity : AppCompatActivity() {
                     jenisLayanan = SSCECDataUmum.jenisLayanan,
                     jenisPelayaran = SSCECDataUmum.jenisPelayaran,
                     sscecLama = SSCECDataUmum.sscecLama,
-                    tempatTerbit = SSCECDataUmum.tempatTerbit
+                    tempatTerbit = SSCECDataUmum.tempatTerbit,
+                    username = username
                 )
             }
 

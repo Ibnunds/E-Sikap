@@ -415,6 +415,22 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etMasalahKesehatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="Masalah Kesehatan">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/etKesimpulan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -435,6 +451,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
                     android:hint="Tanggal Diperiksa">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="none"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etJam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:hint="Jam Diperiksa">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -523,6 +557,56 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Petugas"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:id="@+id/addSignKaptenButton"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="+ Tanda Tangan Kapten"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"
+                    />
+                <LinearLayout
+                    android:id="@+id/signKaptenLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_signature_pad"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:padding="14dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ketuk untuk ubah tanda tangan"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center"/>
+                    <ImageView
+                        android:clickable="true"
+                        android:id="@+id/ivSignKapten"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kapten Kapal"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvKapten"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kapten Kapal"
                         android:textSize="14sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_gravity="center"/>

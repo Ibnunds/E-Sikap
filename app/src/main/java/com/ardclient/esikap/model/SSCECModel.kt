@@ -35,6 +35,7 @@ data class SSCECModel(
     @ColumnInfo(name = "sign_nama_kapten") var signNamaKapten: String = "",
     @ColumnInfo(name = "sign_petugas") var signPetugas: String = "",
     @ColumnInfo(name = "sign_nama_petugas") var signNamaPetugas: String = "",
+    @ColumnInfo(name = "username") var username: String = "",
     @ColumnInfo(name = "timestamp") var timestamp: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "isUpload") var isUpload: Boolean = false,
 ):Parcelable

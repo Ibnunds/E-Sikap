@@ -151,7 +151,7 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
         val etTujuan = binding.etTujuan.editText?.text.toString()
         val etTiba = binding.etTiba.editText?.text.toString()
         val etSSCEC = binding.etSSCEC.editText?.text.toString()
-        val etTerbit = binding.etSSCEC.editText?.text.toString()
+        val etTerbit = binding.etTempatTerbit.editText?.text.toString()
         val etLokasiSandar = binding.etLokasiSandar.editText?.text.toString()
         val etJmlABKAsing = binding.etJmlABKAsing.editText?.text.toString()
         val etJmlSehatABKAsing = binding.etJmlSehatABKAsing.editText?.text.toString()

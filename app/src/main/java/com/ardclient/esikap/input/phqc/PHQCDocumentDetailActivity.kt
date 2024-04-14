@@ -240,12 +240,17 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.tvTanggal.text = phqc.tanggalDiperiksa
         binding.tvLayanan.text = phqc.jenisLayanan
         binding.tvPelayaran.text = phqc.jenisPelayaran
+        binding.tvJam.text = phqc.jamDiperiksa
+        binding.tvKapten.text = phqc.kapten
+        binding.tvMasalahKesehatan.text = phqc.masalahKesehatan
         Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
 
         // signature
         val bitmapSign = Base64Utils.convertBase64ToBitmap(phqc.signature)
+        val kaptenSign = Base64Utils.convertBase64ToBitmap(phqc.signatureKapten)
 
         binding.ivSignature.setImageBitmap(bitmapSign)
+        binding.ivSignatureKapten.setImageBitmap(kaptenSign)
     }
 
     override fun onResume() {

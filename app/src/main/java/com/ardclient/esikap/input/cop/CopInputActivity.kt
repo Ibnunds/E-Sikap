@@ -30,6 +30,7 @@ import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
 import com.ardclient.esikap.utils.NetworkUtils
+import com.ardclient.esikap.utils.SessionUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,6 +58,8 @@ class CopInputActivity : AppCompatActivity() {
     private lateinit var spinner: SpinnerModal
     private var isUploaded = false
     private var isHasUpdate = false
+
+    private var username = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +91,10 @@ class CopInputActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+        // session
+        val session = SessionUtils.getUserSession(this)
+        username = session.userName!!
 
 
         // modal
@@ -465,7 +472,8 @@ class CopInputActivity : AppCompatActivity() {
                     jumlahABKAsingMD = copBasicData.jumlahABKAsingMD,
                     jumlahABKWNIMD = copBasicData.jumlahABKWNIMD,
                     jumlahPenumpangWNIMD = copBasicData.jumlahPenumpangWNIMD,
-                    jumlahPenumpangAsingMD = copBasicData.jumlahPenumpangAsingMD
+                    jumlahPenumpangAsingMD = copBasicData.jumlahPenumpangAsingMD,
+                    username = username
                 )
             } else {
                 COPModel(
@@ -505,7 +513,8 @@ class CopInputActivity : AppCompatActivity() {
                     jumlahABKWNIMD = copBasicData.jumlahABKWNIMD,
                     jumlahPenumpangWNIMD = copBasicData.jumlahPenumpangWNIMD,
                     jumlahPenumpangAsingMD = copBasicData.jumlahPenumpangAsingMD,
-                    lokasiPemeriksaan = copBasicData.lokasiPemeriksaan
+                    lokasiPemeriksaan = copBasicData.lokasiPemeriksaan,
+                    username = username
                 )
             }
 

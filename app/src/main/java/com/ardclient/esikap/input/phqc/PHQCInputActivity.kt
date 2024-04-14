@@ -1,6 +1,7 @@
 package com.ardclient.esikap.input.phqc
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.net.Uri
@@ -30,6 +31,8 @@ import com.ardclient.esikap.utils.DialogUtils
 import com.ardclient.esikap.utils.InputValidation
 import com.ardclient.esikap.utils.SessionUtils
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.squareup.picasso.Picasso
 
 
@@ -38,8 +41,12 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
     private lateinit var phqc: PHQCModel
     private var isUpdate: Boolean = false
     private var launcher: ActivityResultLauncher<Intent>? = null
+
+    // sign
     private var nmPetugas: String? = null
     private var base64Sign: String? = null
+    private var nmKapten: String? = null
+    private var base64SignKapten: String? = null
 
     private lateinit var binding: ActivityPhqcInputBinding
 
@@ -52,6 +59,8 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
     // Radio
     private val radioMap = mutableMapOf<String, String?>()
+
+    private var username = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,20 +85,30 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
+//                val data = result.data
+//                val namaPetugas = data?.getStringExtra("NAMA")
+//                val decodedSign = data?.getByteArrayExtra("SIGNATURE")
+//
+//                val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
+//                base64Sign = Base64Utils.convertBitmapToBase64(encodedSign)
+//
+//                if (!namaPetugas.isNullOrEmpty()) {
+//                    binding.signLayout.visibility = View.VISIBLE
+//                    binding.addSignButton.visibility = View.GONE
+//                    nmPetugas = namaPetugas
+//                    binding.ivSign.setImageBitmap(encodedSign)
+//                    binding.tvPetugas.text = namaPetugas
+//                }
                 val data = result.data
-                val namaPetugas = data?.getStringExtra("NAMA")
+                val type = data?.getStringExtra("TYPE")
+
+                val nama = data?.getStringExtra("NAMA")
                 val decodedSign = data?.getByteArrayExtra("SIGNATURE")
 
                 val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
-                base64Sign = Base64Utils.convertBitmapToBase64(encodedSign)
+                val sign = Base64Utils.convertBitmapToBase64(encodedSign)
 
-                if (!namaPetugas.isNullOrEmpty()) {
-                    binding.signLayout.visibility = View.VISIBLE
-                    binding.addSignButton.visibility = View.GONE
-                    nmPetugas = namaPetugas
-                    binding.ivSign.setImageBitmap(encodedSign)
-                    binding.tvPetugas.text = namaPetugas
-                }
+                onSignedResult(type, nama, sign, encodedSign)
             }
         }
 
@@ -119,10 +138,19 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
         val session = SessionUtils.getUserSession(this)
 
+        username = session.userName!!
+
         binding.addSignButton.setOnClickListener {
             val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
             intent.putExtra("NAMA", session.name)
             intent.putExtra("TYPE", "PETUGAS")
+            launcher!!.launch(intent)
+        }
+
+        binding.addSignKaptenButton.setOnClickListener {
+            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
+            intent.putExtra("NAMA", kapal.kaptenKapal)
+            intent.putExtra("TYPE", "KAPTEN")
             launcher!!.launch(intent)
         }
 
@@ -136,6 +164,15 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             val intent = Intent(this, SignatureActivity::class.java)
             intent.putExtra("NAMA", namaOfficer)
             intent.putExtra("TYPE", "PETUGAS")
+            launcher!!.launch(intent)
+        }
+
+        binding.signKaptenLayout.setOnClickListener {
+            val kapten = binding.tvKapten.text.toString()
+
+            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
+            intent.putExtra("NAMA", kapten)
+            intent.putExtra("TYPE", "KAPTEN")
             launcher!!.launch(intent)
         }
 
@@ -173,6 +210,44 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                 radioMap["PELAYARAN"] = "Internasional"
             }
         }
+
+        // time picker
+        val timePicker =
+            MaterialTimePicker.Builder()
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setTitleText("Pilih jam")
+                .build()
+
+        binding.etJam.editText?.setOnClickListener {
+            timePicker.show(supportFragmentManager, "TIMEPICKER")
+        }
+
+        timePicker.addOnPositiveButtonClickListener {
+            val pickerHour = timePicker.hour
+            val pickerMinute = timePicker.minute
+            val formatted = DateTimeUtils.formatTime(pickerHour, pickerMinute)
+
+            binding.etJam.editText?.setText(formatted)
+        }
+    }
+
+    private fun onSignedResult(type: String?, nama: String?, sign: String, encodedSign: Bitmap?) {
+        if (type == "KAPTEN"){
+            binding.addSignKaptenButton.visibility = View.GONE
+            binding.signKaptenLayout.visibility = View.VISIBLE
+            binding.tvKapten.text = nama
+            binding.ivSignKapten.setImageBitmap(encodedSign)
+            nmKapten = nama
+            base64SignKapten = sign
+        }else{
+            binding.addSignButton.visibility = View.GONE
+            binding.signLayout.visibility = View.VISIBLE
+            binding.tvPetugas.text = nama
+            binding.ivSign.setImageBitmap(encodedSign)
+            nmPetugas = nama
+            base64Sign = sign
+        }
     }
 
     private fun pickDocument() {
@@ -208,13 +283,21 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         binding.etSanitasi.editText?.setText(phqc.statusSanitasi)
         binding.etKesimpulan.editText?.setText(phqc.kesimpulan)
         binding.etTanggal.editText?.setText(phqc.tanggalDiperiksa)
+        binding.etMasalahKesehatan.editText?.setText(phqc.masalahKesehatan)
+        binding.etJam.editText?.setText(phqc.jamDiperiksa)
         nmPetugas = phqc.petugasPelaksana
+        nmKapten = phqc.kapten
 
         // signature
         val bitmapSign = Base64Utils.convertBase64ToBitmap(phqc.signature)
         binding.ivSign.setImageBitmap(bitmapSign)
         binding.tvPetugas.text = phqc.petugasPelaksana
         base64Sign = phqc.signature
+
+        val kaptenSign = Base64Utils.convertBase64ToBitmap(phqc.signatureKapten)
+        binding.ivSignKapten.setImageBitmap(kaptenSign)
+        binding.tvKapten.text = phqc.kapten
+        base64SignKapten = phqc.signatureKapten
 
         // doc
         pemeriksaanDoc = phqc.pemeriksaanFile
@@ -225,6 +308,9 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
         binding.signLayout.visibility = View.VISIBLE
         binding.addSignButton.visibility = View.GONE
+
+        binding.signKaptenLayout.visibility = View.VISIBLE
+        binding.addSignKaptenButton.visibility = View.GONE
 
         // radio
         radioMap["LAYANAN"] = phqc.jenisLayanan
@@ -262,6 +348,8 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         val sanitasi = binding.etSanitasi.editText?.text.toString()
         val kesimpulan = binding.etKesimpulan.editText?.text.toString()
         val tanggal = binding.etTanggal.editText?.text.toString()
+        val masalahKesehatan = binding.etMasalahKesehatan.editText?.text.toString()
+        val jam = binding.etJam.editText?.text.toString()
 
         // cek radio
         val isAllRadio = InputValidation.isAllRadioFilled(
@@ -288,10 +376,12 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             binding.etCustJmlDirujuk,
             binding.etSanitasi,
             binding.etKesimpulan,
-            binding.etTanggal
+            binding.etTanggal,
+            binding.etMasalahKesehatan,
+            binding.etJam
         )
 
-        if (isAllFilled && pemeriksaanDoc != null && nmPetugas != null && isAllRadio){
+        if (isAllFilled && pemeriksaanDoc != null && nmPetugas != null && nmKapten != null && isAllRadio){
             if (isUpdate){
                 onSaveData(PHQCModel(
                     id = phqc.id,
@@ -319,7 +409,12 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     pemeriksaanFile = pemeriksaanDoc!!,
                     tanggalDiperiksa = tanggal,
                     jenisLayanan = radioMap["LAYANAN"]!!,
-                    jenisPelayaran = radioMap["PELAYARAN"]!!
+                    jenisPelayaran = radioMap["PELAYARAN"]!!,
+                    masalahKesehatan = masalahKesehatan,
+                    kapten = nmKapten!!,
+                    signatureKapten = base64SignKapten!!,
+                    jamDiperiksa = jam,
+                    username = username
                 ))
             }else{
                 onSaveData(PHQCModel(
@@ -347,7 +442,12 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     pemeriksaanFile = pemeriksaanDoc!!,
                     tanggalDiperiksa = tanggal,
                     jenisLayanan = radioMap["LAYANAN"]!!,
-                    jenisPelayaran = radioMap["PELAYARAN"]!!
+                    jenisPelayaran = radioMap["PELAYARAN"]!!,
+                    masalahKesehatan = masalahKesehatan,
+                    kapten = nmKapten!!,
+                    signatureKapten = base64SignKapten!!,
+                    jamDiperiksa = jam,
+                    username = username
                 ))
             }
         }else{
