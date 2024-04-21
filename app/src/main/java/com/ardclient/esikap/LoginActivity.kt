@@ -46,6 +46,7 @@ class LoginActivity : AppCompatActivity() {
             Log.d("USER SESSION ID",userSession.userId.toString())
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding = ActivityLoginBinding.inflate(layoutInflater)

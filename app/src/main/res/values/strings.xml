@@ -38,4 +38,6 @@
     <string name="petugas3">Petugas 3</string>
     <string name="delete_sign">Hapus Tanda Tangan</string>
     <string name="negara_asal">Negara Asal / Pelabuhan Asal</string>
+    <string name="cari_kapal">Cari kapal...</string>
+    <string name="clear">Clear</string>
 </resources>

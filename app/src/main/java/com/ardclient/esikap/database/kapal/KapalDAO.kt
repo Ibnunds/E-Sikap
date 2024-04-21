@@ -23,4 +23,7 @@ interface KapalDAO {
 
     @Query("SELECT * FROM kapal WHERE id = :id")
     fun getKapalById(id: Int): List<KapalModel>
+
+    @Query("SELECT * FROM kapal WHERE nama_kapal LIKE :nama")
+    fun searchKapalByName(nama: String): List<KapalModel>
 }
