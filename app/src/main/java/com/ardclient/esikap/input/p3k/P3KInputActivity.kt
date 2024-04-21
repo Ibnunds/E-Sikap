@@ -377,7 +377,13 @@ class P3KInputActivity : AppCompatActivity() {
                     signPetugas = P3KRekomendasi.signPetugas,
                     signNamaKapten = P3KRekomendasi.signNamaKapten,
                     signNamaPetugas = P3KRekomendasi.signNamaPetugas,
-                    username = username
+                    username = username,
+                    namaPetugas2 = P3KRekomendasi.namaPetugas2,
+                    namaPetugas3 = P3KRekomendasi.namaPetugas3,
+                    signPetugas2 = P3KRekomendasi.signPetugas2,
+                    signPetugas3 = P3KRekomendasi.signPetugas3,
+                    nipPetugas2 = P3KRekomendasi.nipPetugas2,
+                    nipPetugas3 = P3KRekomendasi.nipPetugas3
                 )
             } else {
                 P3KModel(
@@ -398,7 +404,13 @@ class P3KInputActivity : AppCompatActivity() {
                     signPetugas = P3KRekomendasi.signPetugas,
                     signNamaKapten = P3KRekomendasi.signNamaKapten,
                     signNamaPetugas = P3KRekomendasi.signNamaPetugas,
-                    username = username
+                    username = username,
+                    namaPetugas2 = P3KRekomendasi.namaPetugas2,
+                    namaPetugas3 = P3KRekomendasi.namaPetugas3,
+                    signPetugas2 = P3KRekomendasi.signPetugas2,
+                    signPetugas3 = P3KRekomendasi.signPetugas3,
+                    nipPetugas2 = P3KRekomendasi.nipPetugas2,
+                    nipPetugas3 = P3KRekomendasi.nipPetugas3
                 )
             }
 

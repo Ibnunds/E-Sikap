@@ -399,7 +399,13 @@ class SSCECInputActivity : AppCompatActivity() {
                     jenisPelayaran = SSCECDataUmum.jenisPelayaran,
                     sscecLama = SSCECDataUmum.sscecLama,
                     tempatTerbit = SSCECDataUmum.tempatTerbit,
-                    username = username
+                    username = username,
+                    namaPetugas2 = SSCECSignature.namaPetugas2,
+                    namaPetugas3 = SSCECSignature.namaPetugas3,
+                    signPetugas2 = SSCECSignature.signPetugas2,
+                    signPetugas3 = SSCECSignature.signPetugas3,
+                    nipPetugas2 = SSCECSignature.nipPetugas2,
+                    nipPetugas3 = SSCECSignature.nipPetugas3
                 )
             } else {
                 SSCECModel(
@@ -426,7 +432,13 @@ class SSCECInputActivity : AppCompatActivity() {
                     jenisPelayaran = SSCECDataUmum.jenisPelayaran,
                     sscecLama = SSCECDataUmum.sscecLama,
                     tempatTerbit = SSCECDataUmum.tempatTerbit,
-                    username = username
+                    username = username,
+                    namaPetugas2 = SSCECSignature.namaPetugas2,
+                    namaPetugas3 = SSCECSignature.namaPetugas3,
+                    signPetugas2 = SSCECSignature.signPetugas2,
+                    signPetugas3 = SSCECSignature.signPetugas3,
+                    nipPetugas2 = SSCECSignature.nipPetugas2,
+                    nipPetugas3 = SSCECSignature.nipPetugas3
                 )
             }
 

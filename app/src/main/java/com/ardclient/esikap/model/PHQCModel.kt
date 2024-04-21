@@ -44,6 +44,12 @@ data class PHQCModel(
     @ColumnInfo(name = "signature_kapten") var signatureKapten: String = "",
     @ColumnInfo(name = "timestamp") var timestamp: Long = System.currentTimeMillis(),
     @ColumnInfo(name = "isUpload") var isUpload: Boolean = false,
+    @ColumnInfo(name = "nama_pt2") var namaPetugas2: String = "",
+    @ColumnInfo(name = "sign_pt2") var signPetugas2: String = "",
+    @ColumnInfo(name = "nip_pt2") var nipPetugas2: String = "",
+    @ColumnInfo(name = "nama_pt3") var namaPetugas3: String = "",
+    @ColumnInfo(name = "sign_pt3") var signPetugas3: String = "",
+    @ColumnInfo(name = "nip_pt3") var nipPetugas3: String = "",
 ) : Parcelable
 
 @Entity

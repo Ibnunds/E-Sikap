@@ -31,4 +31,11 @@
     <string name="quarantine_use">Pasang</string>
     <string name="quarantine_not_use">Tidak pasang</string>
     <string name="has_update">* Ada data yang berubah silahkan simpan terlebih dahulu.</string>
+    <string name="add_sign_pt2">+ Tanda Tangan Petugas 2 ( Ops )</string>
+    <string name="add_sign_pt3">+ Tanda Tangan Petugas 3 ( Ops )</string>
+    <string name="nip">NIP</string>
+    <string name="petugas2">Petugas 2</string>
+    <string name="petugas3">Petugas 3</string>
+    <string name="delete_sign">Hapus Tanda Tangan</string>
+    <string name="negara_asal">Negara Asal / Pelabuhan Asal</string>
 </resources>

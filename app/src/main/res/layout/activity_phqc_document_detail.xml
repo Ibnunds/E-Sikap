@@ -120,7 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Negara Asal" />
+                        android:text="@string/negara_asal" />
                     <TextView
                         android:id="@+id/tvAsal"
                         android:layout_width="match_parent"
@@ -603,6 +603,84 @@
                         android:text="Kapten"
                         android:textSize="14sp"
                         android:fontFamily="@font/poppins_semibold"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/signLayoutPt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_signature_pad"
+                    android:layout_marginVertical="24dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:padding="14dp"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:clickable="true"
+                        android:id="@+id/ivSignaturePT2"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/petugas2"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Petugas 2"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas2NIP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NIP Petugas 2"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/signLayoutPt3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_signature_pad"
+                    android:layout_marginVertical="24dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:padding="14dp"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:clickable="true"
+                        android:id="@+id/ivSignaturePT3"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/petugas3"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Petugas 3"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas3NIP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NIP Petugas 3"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_regular"
                         android:layout_gravity="center"/>
                 </LinearLayout>
 

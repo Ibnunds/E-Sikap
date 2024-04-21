@@ -31,7 +31,7 @@ class DokumenViewModel : ViewModel() {
             DokumenKapalListModel("Dokumen Last Port Off Call", "LPOC", copDocData.lpoc, copDocData.lpocDoc, "", false),
             DokumenKapalListModel("Dokumen Ship Particular", "SHIPPAR", copDocData.shipParticular, copDocData.shipParticularDoc, "", false),
             DokumenKapalListModel("Dokumen Last Port Clearance", "LPC", copDocData.lpc, copDocData.lpcDoc, copDocData.lpcNote, true),
-            DokumenKapalListModel("Dokumen Buku Kuning", "BUKUKUNING", copDocData.bukuKuning, copDocData.bukuKuningDoc, copDocData.bukuKuningNote, true),
+            DokumenKapalListModel("Dokumen ICV / Yellow Fever", "BUKUKUNING", copDocData.bukuKuning, copDocData.bukuKuningDoc, copDocData.bukuKuningNote, true),
             DokumenKapalListModel("Dokumen Catatan Perjalanan", "CATATANPERJALANAN", copDocData.catatanPerjalanan, copDocData.catatanPerjalananDoc, copDocData.catatanPerjalananNote, true),
             DokumenKapalListModel("Dokumen Izin Berlayar", "IZINBERLAYAR", copDocData.izinBerlayar, copDocData.izinBerlayarDoc, copDocData.izinBerlayarNote, true),
             DokumenKapalListModel("Dokumen Daftar Alkes", "DAFTARALKES", copDocData.daftarAlkes, copDocData.daftarAlkesDoc, copDocData.daftarAlkesNote, true),

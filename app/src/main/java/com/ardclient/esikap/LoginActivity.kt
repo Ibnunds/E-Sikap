@@ -120,15 +120,17 @@ class LoginActivity : AppCompatActivity() {
         val userId = userData?.id
         val name = userData?.nama
         val username = userData?.username
-        val wilayah = userData?.wilayah
         val level = userData?.level
+        val password = userData?.password
+        val aktif = userData?.aktif
 
         // save session
         editor.putInt(Constants.USERID_KEY, userId!!)
         editor.putString(Constants.NAME_KEY, name)
         editor.putString(Constants.USERNAME_KEY, username)
-        editor.putString(Constants.WILAYAH_KEY, wilayah)
         editor.putString(Constants.USER_LEVEL, level)
+        editor.putString(Constants.USERPASSWORD_KEY, password)
+        editor.putInt(Constants.USER_AKTIF, aktif!!)
 
         editor.apply()
 

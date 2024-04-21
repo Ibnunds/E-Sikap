@@ -47,6 +47,23 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etNIP"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:hint="@string/nip">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_regular"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

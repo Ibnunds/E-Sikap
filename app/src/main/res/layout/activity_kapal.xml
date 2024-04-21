@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Negara Asal">
+                android:hint="@string/negara_asal">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

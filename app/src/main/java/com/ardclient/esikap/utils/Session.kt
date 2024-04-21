@@ -19,10 +19,18 @@ object SessionUtils {
         val userId = sharedPreferences.getInt(Constants.USERID_KEY, 0)
         val userName = sharedPreferences.getString(Constants.USERNAME_KEY, "")
         val name = sharedPreferences.getString(Constants.NAME_KEY, "")
-        val userWilayah = sharedPreferences.getString(Constants.WILAYAH_KEY, "")
         val userLevel = sharedPreferences.getString(Constants.USER_LEVEL, "")
+        val userPassword = sharedPreferences.getString(Constants.USERPASSWORD_KEY, "")
+        val userAktif = sharedPreferences.getInt(Constants.USER_AKTIF, 0)
 
-        return UserSessionModel(userId, userName, name, userWilayah, userLevel)
+        return UserSessionModel(
+            userId = userId,
+            userName = userName,
+            name = name,
+            userLevel = userLevel,
+            userPassword = userPassword,
+            userAktif = userAktif
+        )
     }
 
     fun clearUserSession(activity: Activity, listener: OnSessionClear?){

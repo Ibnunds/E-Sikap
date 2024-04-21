@@ -15,6 +15,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("dev/upload")
@@ -23,6 +24,8 @@ interface ApiService {
     // User
     @POST("user/login")
     fun userLogin(@Body body: UserLoginRequest) : Call<ApiResponse<UserLoginResponse>>
+    @POST("user/status")
+    fun userStatus(@Query("username") username: String): Call<ApiResponse<UserLoginResponse>>
 
     // Upload PHQC
     @POST("upload/phqc")

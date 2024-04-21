@@ -473,7 +473,13 @@ class CopInputActivity : AppCompatActivity() {
                     jumlahABKWNIMD = copBasicData.jumlahABKWNIMD,
                     jumlahPenumpangWNIMD = copBasicData.jumlahPenumpangWNIMD,
                     jumlahPenumpangAsingMD = copBasicData.jumlahPenumpangAsingMD,
-                    username = username
+                    username = username,
+                    namaPetugas2 = copSignature.namaPetugas2,
+                    namaPetugas3 = copSignature.namaPetugas3,
+                    signPetugas2 = copSignature.signPetugas2,
+                    signPetugas3 = copSignature.signPetugas3,
+                    nipPetugas2 = copSignature.nipPetugas2,
+                    nipPetugas3 = copSignature.nipPetugas3
                 )
             } else {
                 COPModel(
@@ -514,7 +520,13 @@ class CopInputActivity : AppCompatActivity() {
                     jumlahPenumpangWNIMD = copBasicData.jumlahPenumpangWNIMD,
                     jumlahPenumpangAsingMD = copBasicData.jumlahPenumpangAsingMD,
                     lokasiPemeriksaan = copBasicData.lokasiPemeriksaan,
-                    username = username
+                    username = username,
+                    namaPetugas2 = copSignature.namaPetugas2,
+                    namaPetugas3 = copSignature.namaPetugas3,
+                    signPetugas2 = copSignature.signPetugas2,
+                    signPetugas3 = copSignature.signPetugas3,
+                    nipPetugas2 = copSignature.nipPetugas2,
+                    nipPetugas3 = copSignature.nipPetugas3
                 )
             }
 

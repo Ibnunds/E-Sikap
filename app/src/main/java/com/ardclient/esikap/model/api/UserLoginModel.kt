@@ -20,6 +20,6 @@ data class UserLoginResponse(
     val nama: String,
     @SerializedName("level")
     val level: String,
-    @SerializedName("wilayah")
-    val wilayah: String,
+    @SerializedName("aktif")
+    val aktif: Int,
 )

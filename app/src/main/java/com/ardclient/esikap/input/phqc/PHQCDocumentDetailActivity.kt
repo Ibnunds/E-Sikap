@@ -251,6 +251,26 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
 
         binding.ivSignature.setImageBitmap(bitmapSign)
         binding.ivSignatureKapten.setImageBitmap(kaptenSign)
+
+        if (phqc.nipPetugas2.isNotEmpty()){
+            val sign = Base64Utils.convertBase64ToBitmap(phqc.signPetugas2)
+            binding.signLayoutPt2.visibility = View.VISIBLE
+            binding.ivSignaturePT2.setImageBitmap((sign))
+            binding.tvPetugas2.text = phqc.namaPetugas2
+            binding.tvPetugas2NIP.text = phqc.nipPetugas2
+        }else{
+            binding.signLayoutPt2.visibility = View.GONE
+        }
+
+        if (phqc.nipPetugas3.isNotEmpty()){
+            val sign = Base64Utils.convertBase64ToBitmap(phqc.signPetugas3)
+            binding.signLayoutPt3.visibility = View.VISIBLE
+            binding.ivSignaturePT3.setImageBitmap((sign))
+            binding.tvPetugas3.text = phqc.namaPetugas3
+            binding.tvPetugas3NIP.text = phqc.nipPetugas3
+        }else{
+            binding.signLayoutPt3.visibility = View.GONE
+        }
     }
 
     override fun onResume() {

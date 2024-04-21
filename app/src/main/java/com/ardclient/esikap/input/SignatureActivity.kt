@@ -56,7 +56,19 @@ class SignatureActivity : AppCompatActivity() {
 
         sendType = intent.getStringExtra("TYPE") ?: ""
 
-        namaPetugas.editText?.isEnabled = false
+        if (sendType == "PETUGAS_2" || sendType == "PETUGAS_3"){
+            binding.etNamaPetugas.isEnabled = true
+            binding.etNIP.visibility = View.VISIBLE
+
+            val existingNIP = intent.getStringExtra("NIP")
+            if (existingNIP!!.isNotEmpty()){
+                binding.etNIP.editText?.setText(existingNIP)
+            }
+        }else{
+            namaPetugas.editText?.isEnabled = false
+        }
+
+
 
         binding.clearButton.setOnClickListener {
             if (isSigned) {
@@ -95,6 +107,14 @@ class SignatureActivity : AppCompatActivity() {
 
         binding.sendButton.setOnClickListener {
             val txNamaPetugas = namaPetugas.editText?.text.toString()
+            val txNIP = binding.etNIP.editText?.text.toString()
+
+            if (sendType == "PETUGAS_2" || sendType == "PETUGAS_3"){
+                if (txNIP.isNullOrEmpty()){
+                    Toast.makeText(this, "Form belum lengkap!", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+            }
 
             if (isSignedComplete && txNamaPetugas.isNotEmpty()) {
                 val decodedSignature = decodeSignature()
@@ -102,6 +122,9 @@ class SignatureActivity : AppCompatActivity() {
                 val intent = Intent(this, PHQCInputActivity::class.java)
                 intent.putExtra("NAMA", txNamaPetugas)
                 intent.putExtra("SIGNATURE", decodedSignature)
+                if (sendType == "PETUGAS_2" || sendType == "PETUGAS_3"){
+                    intent.putExtra("NIP", txNIP)
+                }
                 intent.putExtra("TYPE", sendType)
                 setResult(RESULT_OK, intent)
                 finish()

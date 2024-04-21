@@ -11,7 +11,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.addCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -47,6 +46,12 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
     private var base64Sign: String? = null
     private var nmKapten: String? = null
     private var base64SignKapten: String? = null
+    private var nmPetugas2: String = ""
+    private var base64SignPetugas2: String = ""
+    private var nipPetugas2: String = ""
+    private var nmPetugas3: String = ""
+    private var base64SignPetugas3: String = ""
+    private var nipPetugas3: String = ""
 
     private lateinit var binding: ActivityPhqcInputBinding
 
@@ -85,30 +90,17 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
-//                val data = result.data
-//                val namaPetugas = data?.getStringExtra("NAMA")
-//                val decodedSign = data?.getByteArrayExtra("SIGNATURE")
-//
-//                val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
-//                base64Sign = Base64Utils.convertBitmapToBase64(encodedSign)
-//
-//                if (!namaPetugas.isNullOrEmpty()) {
-//                    binding.signLayout.visibility = View.VISIBLE
-//                    binding.addSignButton.visibility = View.GONE
-//                    nmPetugas = namaPetugas
-//                    binding.ivSign.setImageBitmap(encodedSign)
-//                    binding.tvPetugas.text = namaPetugas
-//                }
                 val data = result.data
                 val type = data?.getStringExtra("TYPE")
 
                 val nama = data?.getStringExtra("NAMA")
+                val nip = data?.getStringExtra("NIP")
                 val decodedSign = data?.getByteArrayExtra("SIGNATURE")
 
                 val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
                 val sign = Base64Utils.convertBitmapToBase64(encodedSign)
 
-                onSignedResult(type, nama, sign, encodedSign)
+                onSignedResult(type, nama, sign, encodedSign, nip)
             }
         }
 
@@ -140,6 +132,8 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
         username = session.userName!!
 
+
+        // Add Sign Petugas
         binding.addSignButton.setOnClickListener {
             val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
             intent.putExtra("NAMA", session.name)
@@ -147,6 +141,8 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             launcher!!.launch(intent)
         }
 
+
+        // Add Sign Kapten
         binding.addSignKaptenButton.setOnClickListener {
             val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
             intent.putExtra("NAMA", kapal.kaptenKapal)
@@ -154,10 +150,27 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             launcher!!.launch(intent)
         }
 
-        binding.saveButton.setOnClickListener {
-            onSaveButtonPressed()
+
+        // Add Sign Petugas 2
+        binding.addSignPT2Button.setOnClickListener {
+            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
+            intent.putExtra("NAMA", "")
+            intent.putExtra("NIP", "")
+            intent.putExtra("TYPE", "PETUGAS_2")
+            launcher!!.launch(intent)
         }
 
+        // Add Sign Petugas 3
+        binding.addSignPT3Button.setOnClickListener {
+            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
+            intent.putExtra("NAMA", "")
+            intent.putExtra("NIP", "")
+            intent.putExtra("TYPE", "PETUGAS_3")
+            launcher!!.launch(intent)
+        }
+
+
+        // Layout Petugas
         binding.signLayout.setOnClickListener {
             val namaOfficer = binding.tvPetugas.text.toString()
 
@@ -167,6 +180,8 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             launcher!!.launch(intent)
         }
 
+
+        // Layout Kapten
         binding.signKaptenLayout.setOnClickListener {
             val kapten = binding.tvKapten.text.toString()
 
@@ -174,6 +189,48 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             intent.putExtra("NAMA", kapten)
             intent.putExtra("TYPE", "KAPTEN")
             launcher!!.launch(intent)
+        }
+
+        // Layout Petugas 2
+        binding.signPT2Layout.setOnClickListener {
+            val nama = binding.tvPetugas2.text.toString()
+
+            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
+            intent.putExtra("NAMA", nama)
+            intent.putExtra("NIP", nipPetugas2)
+            intent.putExtra("TYPE", "PETUGAS_2")
+            launcher!!.launch(intent)
+        }
+
+        // Layout Petugas 3
+        binding.signPT3Layout.setOnClickListener {
+            val nama = binding.tvPetugas3.text.toString()
+
+            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
+            intent.putExtra("NAMA", nama)
+            intent.putExtra("NIP", nipPetugas3)
+            intent.putExtra("TYPE", "PETUGAS_3")
+            launcher!!.launch(intent)
+        }
+
+        // Delete sign 2
+        binding.btnDeleteSign2.setOnClickListener {
+            nmPetugas2 = ""
+            base64SignPetugas2 = ""
+            nipPetugas2 = ""
+
+            binding.addSignPT2Button.visibility = View.VISIBLE
+            binding.signPT2Layout.visibility = View.GONE
+        }
+
+        // Delete sign 3
+        binding.btnDeleteSign3.setOnClickListener {
+            nmPetugas3 = ""
+            base64SignPetugas3 = ""
+            nipPetugas3 = ""
+
+            binding.addSignPT3Button.visibility = View.VISIBLE
+            binding.signPT3Layout.visibility = View.GONE
         }
 
         // Date picker
@@ -230,24 +287,75 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
             binding.etJam.editText?.setText(formatted)
         }
+
+        binding.saveButton.setOnClickListener {
+            onSaveButtonPressed()
+        }
     }
 
-    private fun onSignedResult(type: String?, nama: String?, sign: String, encodedSign: Bitmap?) {
-        if (type == "KAPTEN"){
-            binding.addSignKaptenButton.visibility = View.GONE
-            binding.signKaptenLayout.visibility = View.VISIBLE
-            binding.tvKapten.text = nama
-            binding.ivSignKapten.setImageBitmap(encodedSign)
-            nmKapten = nama
-            base64SignKapten = sign
-        }else{
-            binding.addSignButton.visibility = View.GONE
-            binding.signLayout.visibility = View.VISIBLE
-            binding.tvPetugas.text = nama
-            binding.ivSign.setImageBitmap(encodedSign)
-            nmPetugas = nama
-            base64Sign = sign
+    private fun onSignedResult(
+        type: String?,
+        nama: String?,
+        sign: String,
+        encodedSign: Bitmap?,
+        nip: String?
+    ) {
+        when(type){
+            "KAPTEN" -> {
+                binding.addSignKaptenButton.visibility = View.GONE
+                binding.signKaptenLayout.visibility = View.VISIBLE
+                binding.tvKapten.text = nama
+                binding.ivSignKapten.setImageBitmap(encodedSign)
+                nmKapten = nama
+                base64SignKapten = sign
+            }
+
+            "PETUGAS" -> {
+                binding.addSignButton.visibility = View.GONE
+                binding.signLayout.visibility = View.VISIBLE
+                binding.tvPetugas.text = nama
+                binding.ivSign.setImageBitmap(encodedSign)
+                nmPetugas = nama
+                base64Sign = sign
+            }
+
+            "PETUGAS_2" -> {
+                binding.addSignPT2Button.visibility = View.GONE
+                binding.signPT2Layout.visibility = View.VISIBLE
+                binding.tvPetugas2.text = nama
+                binding.ivSignPT2.setImageBitmap(encodedSign)
+                binding.tvPetugas2NIP.text = nip
+                nmPetugas2 = nama!!
+                base64SignPetugas2 = sign
+                nipPetugas2 = nip!!
+            }
+
+            "PETUGAS_3" -> {
+                binding.addSignPT3Button.visibility = View.GONE
+                binding.signPT3Layout.visibility = View.VISIBLE
+                binding.tvPetugas3.text = nama
+                binding.ivSignPT3.setImageBitmap(encodedSign)
+                binding.tvPetugas3NIP.text = nip
+                nmPetugas3 = nama!!
+                base64SignPetugas3 = sign
+                nipPetugas3 = nip!!
+            }
         }
+//        if (type == "KAPTEN"){
+//            binding.addSignKaptenButton.visibility = View.GONE
+//            binding.signKaptenLayout.visibility = View.VISIBLE
+//            binding.tvKapten.text = nama
+//            binding.ivSignKapten.setImageBitmap(encodedSign)
+//            nmKapten = nama
+//            base64SignKapten = sign
+//        }else{
+//            binding.addSignButton.visibility = View.GONE
+//            binding.signLayout.visibility = View.VISIBLE
+//            binding.tvPetugas.text = nama
+//            binding.ivSign.setImageBitmap(encodedSign)
+//            nmPetugas = nama
+//            base64Sign = sign
+//        }
     }
 
     private fun pickDocument() {
@@ -298,6 +406,28 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         binding.ivSignKapten.setImageBitmap(kaptenSign)
         binding.tvKapten.text = phqc.kapten
         base64SignKapten = phqc.signatureKapten
+
+        if (phqc.nipPetugas2.isNotEmpty()){
+            val sign = Base64Utils.convertBase64ToBitmap(phqc.signPetugas2)
+            binding.ivSignPT2.setImageBitmap(sign)
+            binding.tvPetugas2.text = phqc.namaPetugas2
+            base64SignPetugas2 = phqc.signPetugas2
+            nipPetugas2 = phqc.nipPetugas2
+            nmPetugas2 = phqc.namaPetugas2
+            binding.signPT2Layout.visibility = View.VISIBLE
+            binding.addSignPT2Button.visibility = View.GONE
+        }
+
+        if (phqc.nipPetugas3.isNotEmpty()){
+            val sign = Base64Utils.convertBase64ToBitmap(phqc.signPetugas3)
+            binding.ivSignPT3.setImageBitmap(sign)
+            binding.tvPetugas3.text = phqc.namaPetugas3
+            base64SignPetugas3 = phqc.signPetugas3
+            nipPetugas3 = phqc.nipPetugas3
+            nmPetugas3 = phqc.namaPetugas3
+            binding.signPT3Layout.visibility = View.VISIBLE
+            binding.addSignPT3Button.visibility = View.GONE
+        }
 
         // doc
         pemeriksaanDoc = phqc.pemeriksaanFile
@@ -414,7 +544,13 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     kapten = nmKapten!!,
                     signatureKapten = base64SignKapten!!,
                     jamDiperiksa = jam,
-                    username = username
+                    username = username,
+                    namaPetugas2 = nmPetugas2,
+                    namaPetugas3 = nmPetugas3,
+                    signPetugas2 = base64SignPetugas2,
+                    signPetugas3 = base64SignPetugas3,
+                    nipPetugas2 = nipPetugas2,
+                    nipPetugas3 = nipPetugas3
                 ))
             }else{
                 onSaveData(PHQCModel(
@@ -447,7 +583,13 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     kapten = nmKapten!!,
                     signatureKapten = base64SignKapten!!,
                     jamDiperiksa = jam,
-                    username = username
+                    username = username,
+                    namaPetugas2 = nmPetugas2,
+                    namaPetugas3 = nmPetugas3,
+                    signPetugas2 = base64SignPetugas2,
+                    signPetugas3 = base64SignPetugas3,
+                    nipPetugas2 = nipPetugas2,
+                    nipPetugas3 = nipPetugas3
                 ))
             }
         }else{

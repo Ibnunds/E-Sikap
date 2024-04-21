@@ -7,10 +7,12 @@ data class UserSessionModel(
     val userId: Int?,
     @SerializedName("userName")
     val userName: String?,
+    @SerializedName("userPassword")
+    val userPassword: String?,
     @SerializedName("name")
     val name: String?,
-    @SerializedName("userWilayah")
-    val userWilayah: String?,
     @SerializedName("userLevel")
     val userLevel: String?,
+    @SerializedName("userAktif")
+    val userAktif: Int?,
 )

@@ -36,6 +36,12 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
     private var signKaptenData: String? = null
     private var signPetugasData: String? = null
+    private var nmPetugas2: String = ""
+    private var base64SignPetugas2: String = ""
+    private var nipPetugas2: String = ""
+    private var nmPetugas3: String = ""
+    private var base64SignPetugas3: String = ""
+    private var nipPetugas3: String = ""
 
     // dok
     private var selectedDoc: String? = null
@@ -66,12 +72,13 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
                 val type = data?.getStringExtra("TYPE")
 
                 val nama = data?.getStringExtra("NAMA")
+                val nip = data?.getStringExtra("NIP")
                 val decodedSign = data?.getByteArrayExtra("SIGNATURE")
 
                 val encodedSign = BitmapFactory.decodeByteArray(decodedSign, 0, decodedSign!!.size)
                 val sign = Base64Utils.convertBitmapToBase64(encodedSign)
 
-                onSignedResult(type, nama, sign, encodedSign)
+                onSignedResult(type, nama, sign, encodedSign, nip)
             }
         }
 
@@ -159,6 +166,80 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
                 intent.putExtra("TYPE", "PETUGAS")
                 launcher!!.launch(intent)
             }
+        }
+
+        // Add Sign Petugas 2
+        binding.addSignPT2Button.setOnClickListener {
+            val intent = Intent(this@CopInputSignatureActivity, SignatureActivity::class.java)
+            intent.putExtra("NAMA", "")
+            intent.putExtra("NIP", "")
+            intent.putExtra("TYPE", "PETUGAS_2")
+            launcher!!.launch(intent)
+        }
+
+        // Add Sign Petugas 3
+        binding.addSignPT3Button.setOnClickListener {
+            val intent = Intent(this@CopInputSignatureActivity, SignatureActivity::class.java)
+            intent.putExtra("NAMA", "")
+            intent.putExtra("NIP", "")
+            intent.putExtra("TYPE", "PETUGAS_3")
+            launcher!!.launch(intent)
+        }
+
+        // Layout Petugas 2
+        binding.signPT2Layout.setOnClickListener {
+            if (!isUploaded){
+                val nama = binding.tvPetugas2.text.toString()
+
+                val intent = Intent(this@CopInputSignatureActivity, SignatureActivity::class.java)
+                intent.putExtra("NAMA", nama)
+                intent.putExtra("NIP", nipPetugas2)
+                intent.putExtra("TYPE", "PETUGAS_2")
+                launcher!!.launch(intent)
+            }
+
+        }
+
+        // Layout Petugas 3
+        binding.signPT3Layout.setOnClickListener {
+            if (!isUploaded){
+                val nama = binding.tvPetugas3.text.toString()
+
+                val intent = Intent(this@CopInputSignatureActivity, SignatureActivity::class.java)
+                intent.putExtra("NAMA", nama)
+                intent.putExtra("NIP", nipPetugas3)
+                intent.putExtra("TYPE", "PETUGAS_3")
+                launcher!!.launch(intent)
+            }
+        }
+
+        // Delete sign 2
+        binding.btnDeleteSign2.setOnClickListener {
+            nmPetugas2 = ""
+            base64SignPetugas2 = ""
+            nipPetugas2 = ""
+
+            binding.addSignPT2Button.visibility = View.VISIBLE
+            binding.signPT2Layout.visibility = View.GONE
+        }
+
+        // Delete sign 3
+        binding.btnDeleteSign3.setOnClickListener {
+            nmPetugas3 = ""
+            base64SignPetugas3 = ""
+            nipPetugas3 = ""
+
+            binding.addSignPT3Button.visibility = View.VISIBLE
+            binding.signPT3Layout.visibility = View.GONE
+        }
+
+
+        // Remove button on uploaded
+        if (isUploaded){
+            binding.btnDeleteSign2.visibility = View.GONE
+            binding.btnDeleteSign3.visibility = View.GONE
+            binding.addSignPT2Button.visibility = View.GONE
+            binding.addSignPT3Button.visibility = View.GONE
         }
 
         // SAVE BUTTON
@@ -294,6 +375,28 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
             binding.ivSignKapten.setImageBitmap(kaptenSign)
             binding.ivSignOfficer.setImageBitmap(officerSign)
+
+            if (copSignature.nipPetugas2.isNotEmpty()){
+                val sign = Base64Utils.convertBase64ToBitmap(copSignature.signPetugas2)
+                binding.ivSignPT2.setImageBitmap(sign)
+                binding.tvPetugas2.text = copSignature.namaPetugas2
+                base64SignPetugas2 = copSignature.signPetugas2
+                nipPetugas2 = copSignature.nipPetugas2
+                nmPetugas2 = copSignature.namaPetugas2
+                binding.signPT2Layout.visibility = View.VISIBLE
+                binding.addSignPT2Button.visibility = View.GONE
+            }
+
+            if (copSignature.nipPetugas3.isNotEmpty()){
+                val sign = Base64Utils.convertBase64ToBitmap(copSignature.signPetugas3)
+                binding.ivSignPT3.setImageBitmap(sign)
+                binding.tvPetugas3.text = copSignature.namaPetugas3
+                base64SignPetugas3 = copSignature.signPetugas3
+                nipPetugas3 = copSignature.nipPetugas3
+                nmPetugas3 = copSignature.namaPetugas3
+                binding.signPT3Layout.visibility = View.VISIBLE
+                binding.addSignPT3Button.visibility = View.GONE
+            }
         }
     }
 
@@ -343,7 +446,13 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
                     docFile = selectedDoc!!,
                     docJam = jam,
                     docTanggal = tanggal,
-                    docType = dokType
+                    docType = dokType,
+                    namaPetugas2 = nmPetugas2,
+                    namaPetugas3 = nmPetugas3,
+                    signPetugas2 = base64SignPetugas2,
+                    signPetugas3 = base64SignPetugas3,
+                    nipPetugas2 = nipPetugas2,
+                    nipPetugas3 = nipPetugas3
                 )
 
                 val intent = Intent(this@CopInputSignatureActivity, CopInputActivity::class.java)
@@ -360,20 +469,65 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         }
     }
 
-    private fun onSignedResult(type: String?, nama: String?, sign: String?, signBitmap: Bitmap?) {
-        if (type == "KAPTEN"){
-            binding.signKaptenButton.visibility = View.GONE
-            binding.signedKapten.visibility = View.VISIBLE
-            binding.tvKapten.text = nama
-            binding.ivSignKapten.setImageBitmap(signBitmap)
-            signKaptenData = sign
-        }else{
-            binding.signOfficerButton.visibility = View.GONE
-            binding.signedOfficer.visibility = View.VISIBLE
-            binding.tvPetugas.text = nama
-            binding.ivSignOfficer.setImageBitmap(signBitmap)
-            signPetugasData = sign
+    private fun onSignedResult(
+        type: String?,
+        nama: String?,
+        sign: String?,
+        signBitmap: Bitmap?,
+        nip: String?
+    ) {
+        when(type){
+            "KAPTEN" -> {
+                binding.signKaptenButton.visibility = View.GONE
+                binding.signedKapten.visibility = View.VISIBLE
+                binding.tvKapten.text = nama
+                binding.ivSignKapten.setImageBitmap(signBitmap)
+                signKaptenData = sign
+            }
+
+            "PETUGAS" -> {
+                binding.signOfficerButton.visibility = View.GONE
+                binding.signedOfficer.visibility = View.VISIBLE
+                binding.tvPetugas.text = nama
+                binding.ivSignOfficer.setImageBitmap(signBitmap)
+                signPetugasData = sign
+            }
+
+            "PETUGAS_2" -> {
+                binding.addSignPT2Button.visibility = View.GONE
+                binding.signPT2Layout.visibility = View.VISIBLE
+                binding.tvPetugas2.text = nama
+                binding.ivSignPT2.setImageBitmap(signBitmap)
+                binding.tvPetugas2NIP.text = nip
+                nmPetugas2 = nama!!
+                base64SignPetugas2 = sign!!
+                nipPetugas2 = nip!!
+            }
+
+            "PETUGAS_3" -> {
+                binding.addSignPT3Button.visibility = View.GONE
+                binding.signPT3Layout.visibility = View.VISIBLE
+                binding.tvPetugas3.text = nama
+                binding.ivSignPT3.setImageBitmap(signBitmap)
+                binding.tvPetugas3NIP.text = nip
+                nmPetugas3 = nama!!
+                base64SignPetugas3 = sign!!
+                nipPetugas3 = nip!!
+            }
         }
+//        if (type == "KAPTEN"){
+//            binding.signKaptenButton.visibility = View.GONE
+//            binding.signedKapten.visibility = View.VISIBLE
+//            binding.tvKapten.text = nama
+//            binding.ivSignKapten.setImageBitmap(signBitmap)
+//            signKaptenData = sign
+//        }else{
+//            binding.signOfficerButton.visibility = View.GONE
+//            binding.signedOfficer.visibility = View.VISIBLE
+//            binding.tvPetugas.text = nama
+//            binding.ivSignOfficer.setImageBitmap(signBitmap)
+//            signPetugasData = sign
+//        }
     }
 
     private fun onUnsignButtonPress(type: String) {

@@ -613,6 +613,138 @@
                 </LinearLayout>
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:id="@+id/addSignPT2Button"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_sign_pt2"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"
+                    />
+                <LinearLayout
+                    android:id="@+id/signPT2Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_signature_pad"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:padding="14dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ketuk untuk ubah tanda tangan"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center"/>
+                    <ImageView
+                        android:clickable="true"
+                        android:id="@+id/ivSignPT2"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Petugas 2"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Petugas 2"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas2NIP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NIP Petugas 2"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_gravity="center"/>
+                    <Button
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:id="@+id/btnDeleteSign2"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete_sign"
+                        android:textColor="@color/red"/>
+                </LinearLayout>
+
+                <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:id="@+id/addSignPT3Button"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_sign_pt3"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"
+                    />
+                <LinearLayout
+                    android:id="@+id/signPT3Layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_signature_pad"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:padding="14dp"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ketuk untuk ubah tanda tangan"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_gravity="center"/>
+                    <ImageView
+                        android:clickable="true"
+                        android:id="@+id/ivSignPT3"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginBottom="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Petugas 3"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Petugas 3"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvPetugas3NIP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NIP Petugas 3"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_gravity="center"/>
+                    <Button
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:id="@+id/btnDeleteSign3"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/delete_sign"
+                        android:textColor="@color/red"/>
+                </LinearLayout>
+
+                <Button
                     style="@style/Widget.Material3.Button.IconButton.Filled"
                     android:id="@+id/saveButton"
                     android:layout_marginTop="32dp"
