@@ -72,7 +72,7 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
         // Date picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Pilih tanggal")
+                .setTitleText(getString(R.string.select_date))
                 .build()
 
         binding.etTanggalDiperiksa.editText?.setOnClickListener {
@@ -168,7 +168,7 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
-                Toast.makeText(this@P3KInputDataUmumActivity, "Mohon lengkapi semua input", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@P3KInputDataUmumActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
             }
         }
     }

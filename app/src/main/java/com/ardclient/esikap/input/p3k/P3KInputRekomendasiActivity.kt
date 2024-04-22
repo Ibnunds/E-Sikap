@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.ardclient.esikap.R
 import com.ardclient.esikap.input.SignatureActivity
 import com.ardclient.esikap.databinding.ActivityP3kInputRekomendasiBinding
 import com.ardclient.esikap.model.P3KModel
@@ -124,7 +125,7 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
         // Date picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Pilih tanggal")
+                .setTitleText(getString(R.string.select_date))
                 .build()
 
         binding.etTanggal.editText?.setOnClickListener {
@@ -142,7 +143,7 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
             MaterialTimePicker.Builder()
                 .setInputMode(INPUT_MODE_CLOCK)
                 .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setTitleText("Pilih jam")
+                .setTitleText(getString(R.string.select_time))
                 .build()
 
         binding.etJam.editText?.setOnClickListener {
@@ -330,7 +331,7 @@ class P3KInputRekomendasiActivity : AppCompatActivity() {
             setResult(RESULT_OK, intent)
             finish()
         }else{
-            Toast.makeText(this, "Mohon lengkapi semua input", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
         }
     }
 

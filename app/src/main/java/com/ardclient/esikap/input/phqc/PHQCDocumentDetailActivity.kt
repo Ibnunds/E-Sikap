@@ -99,7 +99,7 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         if (NetworkUtils.isNetworkAvailable(this)){
             onUploadButton()
         }else{
-            Toast.makeText(this, "Tidak ada koneksi internet.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -150,15 +150,15 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
             ) {
                 spinner.dismiss()
                 if (response.isSuccessful){
-                    Toast.makeText(this@PHQCDocumentDetailActivity, "Upload gagal dan berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PHQCDocumentDetailActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@PHQCDocumentDetailActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PHQCDocumentDetailActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@PHQCDocumentDetailActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PHQCDocumentDetailActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -184,7 +184,7 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@PHQCDocumentDetailActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PHQCDocumentDetailActivity, getString(R.string.error_something), Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -194,14 +194,14 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         val updatedData = PHQCStatusUpdateModel(id = phqc.id, isUpload = true)
         dao.updateStatusPHQC(updatedData)
         isUploaded = true
-        Toast.makeText(this@PHQCDocumentDetailActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@PHQCDocumentDetailActivity, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
         updateUIonUploaded()
     }
 
     private fun updateUIonUploaded() {
         binding.deleteButton.visibility = View.GONE
         binding.updateButton.visibility = View.GONE
-        binding.uploadButton.text = "Sudah Diupload"
+        binding.uploadButton.text = getString(R.string.uploaded)
         binding.uploadButton.setBackgroundColor(getColor(R.color.gray))
         binding.uploadButton.setTextColor(getColor(R.color.black))
         binding.uploadButton.isEnabled = false
@@ -209,7 +209,7 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
 
     private fun deleteDokumen() {
         dao.deletePHQC(phqc)
-        Toast.makeText(this, "Data berhasil dihapus!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.document_deleted), Toast.LENGTH_SHORT).show()
         finish()
     }
 

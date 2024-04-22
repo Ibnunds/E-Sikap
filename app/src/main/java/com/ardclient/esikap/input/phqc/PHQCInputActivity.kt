@@ -236,7 +236,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         // Date picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Pilih tanggal")
+                .setTitleText(getString(R.string.select_date))
                 .build()
 
         binding.etTanggal.editText?.setOnClickListener {
@@ -273,7 +273,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             MaterialTimePicker.Builder()
                 .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
                 .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setTitleText("Pilih jam")
+                .setTitleText(getString(R.string.select_time))
                 .build()
 
         binding.etJam.editText?.setOnClickListener {
@@ -367,7 +367,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
         pemeriksaanDoc = uriString
-        binding.btnSelectHasil.text = "Update Dokumen"
+        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
         binding.prevHasil.visibility = View.VISIBLE
         Picasso.get().load(uriString).fit().into(binding.prevHasil)
     }
@@ -431,7 +431,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
         // doc
         pemeriksaanDoc = phqc.pemeriksaanFile
-        binding.btnSelectHasil.text = "Update Dokumen"
+        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
         binding.prevHasil.visibility = View.VISIBLE
         Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
 
@@ -593,7 +593,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                 ))
             }
         }else{
-            Toast.makeText(this@PHQCInputActivity, "Mohon lengkapi semua input", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@PHQCInputActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -605,7 +605,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         }
 
 
-        Toast.makeText(this@PHQCInputActivity, "Dokumen berhasil dibuat!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@PHQCInputActivity, getString(R.string.document_created), Toast.LENGTH_SHORT).show()
         finish()
     }
 

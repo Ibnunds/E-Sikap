@@ -120,7 +120,7 @@ class SSCECInputActivity : AppCompatActivity() {
             binding.bottomContainerSave.visibility = View.GONE
 
             // header
-            binding.topAppBar.title = "Dokumen SSCEC"
+            binding.topAppBar.title = getString(R.string.doc_sscec_title)
 
             // chip
             binding.chipSanitasi.isChecked = true
@@ -245,7 +245,7 @@ class SSCECInputActivity : AppCompatActivity() {
         if (NetworkUtils.isNetworkAvailable(this)){
             onUploadButton()
         }else{
-            Toast.makeText(this, "Tidak ada koneksi internet.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -313,15 +313,15 @@ class SSCECInputActivity : AppCompatActivity() {
             ) {
                 spinner.dismiss()
                 if (response.isSuccessful){
-                    Toast.makeText(this@SSCECInputActivity, "Upload gagal dan berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SSCECInputActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@SSCECInputActivity, "Upload gagal dan Gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SSCECInputActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@SSCECInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SSCECInputActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -348,7 +348,7 @@ class SSCECInputActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@SSCECInputActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SSCECInputActivity, getString(R.string.error_something), Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -358,14 +358,14 @@ class SSCECInputActivity : AppCompatActivity() {
         val updatedData = SSCECUpdateStatusModel(id = sscecData.id, isUpload = true)
         dao.updateSSCECStatus(updatedData)
         isUploaded = true
-        Toast.makeText(this@SSCECInputActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@SSCECInputActivity, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
         updateUIonUploaded()
     }
 
     private fun updateUIonUploaded() {
         binding.deleteButton.visibility = View.GONE
         binding.updateButton.visibility = View.GONE
-        binding.uploadButton.text = "Sudah Diupload"
+        binding.uploadButton.text = getString(R.string.uploaded)
         binding.uploadButton.setBackgroundColor(getColor(R.color.gray))
         binding.uploadButton.setTextColor(getColor(R.color.black))
         binding.uploadButton.isEnabled = false
@@ -444,14 +444,14 @@ class SSCECInputActivity : AppCompatActivity() {
 
             onSubmitData(sscecUpdate)
         } else {
-            Toast.makeText(this@SSCECInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
+            Toast.makeText(this@SSCECInputActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT)
                 .show()
         }
     }
 
     private fun onDeleteData() {
         dao.deleteSSCEC(SSCECDataUmum)
-        Toast.makeText(this, "Dokumen berhasil dihapus!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.document_deleted), Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -459,12 +459,12 @@ class SSCECInputActivity : AppCompatActivity() {
         Log.d("SAVED DATA SSCEC", sscec.sanitasi.toString())
         if (dao.getSSCECById(sscec.id).isEmpty()){
             dao.createSSCEC(sscec)
-            Toast.makeText(this, "Dokumen berhasil dibuat!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.document_created), Toast.LENGTH_SHORT).show()
             finish()
         }else{
             dao.updateSSCEC(sscec)
             sscecData = sscec
-            Toast.makeText(this, "Dokumen berhasil diupdate!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.document_updated), Toast.LENGTH_SHORT).show()
             // reset has update
             isHasUpdate = false
             binding.uploadButton.isEnabled = true

@@ -102,17 +102,17 @@ class CopInputDataUmumActivity : AppCompatActivity() {
         // radio
         binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
             if (checkedId == R.id.radio_layanan_kedatangan){
-                radioMap["LAYANAN"] = getString(R.string.kedatangan_subtitle)
+                radioMap["LAYANAN"] = "Kedatangan"
             }else{
-                radioMap["LAYANAN"] = getString(R.string.keberangkatan_subtitle)
+                radioMap["LAYANAN"] = "Keberangkatan"
             }
         }
 
         binding.radioJenisPelayaran.setOnCheckedChangeListener{ _, checkedId ->
             if (checkedId == R.id.radio_pelayaran_domestik){
-                radioMap["PELAYARAN"] = getString(R.string.radio_domestik)
+                radioMap["PELAYARAN"] = "Domestik"
             }else{
-                radioMap["PELAYARAN"] = getString(R.string.radio_internasional)
+                radioMap["PELAYARAN"] = "Internasional"
             }
         }
     }
@@ -141,14 +141,14 @@ class CopInputDataUmumActivity : AppCompatActivity() {
 
         // radio
         radioMap["LAYANAN"] = copBasicData.jenisLayanan
-        if (copBasicData.jenisLayanan == getString(R.string.kedatangan_subtitle)){
+        if (copBasicData.jenisLayanan == "Kedatangan"){
             binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
         }else{
             binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
         }
 
         radioMap["PELAYARAN"] = copBasicData.jenisPelayaran
-        if (copBasicData.jenisPelayaran == getString(R.string.radio_domestik)){
+        if (copBasicData.jenisPelayaran == "Domestik"){
             binding.radioJenisPelayaran.check(R.id.radio_pelayaran_domestik)
         }else{
             binding.radioJenisPelayaran.check(R.id.radio_pelayaran_inter)

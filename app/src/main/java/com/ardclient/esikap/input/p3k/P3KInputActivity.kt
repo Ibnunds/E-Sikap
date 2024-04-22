@@ -114,15 +114,15 @@ class P3KInputActivity : AppCompatActivity() {
             binding.bottomContainerSave.visibility = View.GONE
 
             // header
-            binding.topAppBar.title = "Dokumen P3K"
+            binding.topAppBar.title = getString(R.string.doc_p3k_title)
 
             // chip
             binding.chipSanitasi.isChecked = true
-            binding.chipSanitasi.text = "Lengkap"
+            binding.chipSanitasi.text = getString(R.string.completed)
             binding.chipDataUmum.isChecked = true
-            binding.chipDataUmum.text = "Lengkap"
+            binding.chipDataUmum.text = getString(R.string.completed)
             binding.chipDokumenKapal.isChecked = true
-            binding.chipDokumenKapal.text = "Lengkap"
+            binding.chipDokumenKapal.text = getString(R.string.completed)
         }else{
             // init mode
             P3KDataUmum = P3KModel()
@@ -164,7 +164,7 @@ class P3KInputActivity : AppCompatActivity() {
                 if (basicData != null) {
                     P3KDataUmum = basicData
                     binding.chipDataUmum.isChecked = true
-                    binding.chipDataUmum.text = "Lengkap"
+                    binding.chipDataUmum.text = getString(R.string.completed)
                 }
 
                 // == Doc Data
@@ -172,7 +172,7 @@ class P3KInputActivity : AppCompatActivity() {
                 if (signData != null) {
                     P3KRekomendasi = signData
                     binding.chipDokumenKapal.isChecked = true
-                    binding.chipDokumenKapal.text = "Lengkap"
+                    binding.chipDokumenKapal.text = getString(R.string.completed)
                 }
 
                 // == Sanitasi Data
@@ -180,7 +180,7 @@ class P3KInputActivity : AppCompatActivity() {
                 if (pemeriksaan != null) {
                     P3KPemeriksaan = pemeriksaan
                     binding.chipSanitasi.isChecked = true
-                    binding.chipSanitasi.text = "Lengkap"
+                    binding.chipSanitasi.text = getString(R.string.completed)
                     Log.d("MASALAH DOC", pemeriksaan.masalahFile)
                 }
 
@@ -244,7 +244,7 @@ class P3KInputActivity : AppCompatActivity() {
         if (NetworkUtils.isNetworkAvailable(this)){
             onUploadButton()
         }else{
-            Toast.makeText(this, "Tidak ada koneksi internet.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -258,7 +258,7 @@ class P3KInputActivity : AppCompatActivity() {
         val uploadDocData = UploadFileModel("masalahkesehatan",
             masalahKesehatanFile, p3kData.id)
 
-        if (p3kData.pemeriksaan.masalah == "Ada"){
+        if (p3kData.pemeriksaan.masalah == getString(R.string.radio_istrue)){
             Log.d("P3KLOG-DATA", "MASALAH KESEHATAN ADA!")
             val call = ApiClient.apiService.uploadP3KSingle(uploadDocData)
 
@@ -297,15 +297,15 @@ class P3KInputActivity : AppCompatActivity() {
             ) {
                 spinner.dismiss()
                 if (response.isSuccessful){
-                    Toast.makeText(this@P3KInputActivity, "Upload gagal dan berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@P3KInputActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@P3KInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@P3KInputActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@P3KInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@P3KInputActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -332,7 +332,7 @@ class P3KInputActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@P3KInputActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@P3KInputActivity, getString(R.string.error_something), Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -342,14 +342,14 @@ class P3KInputActivity : AppCompatActivity() {
         val updatedData = P3KUpdateStatusModel(id = p3kData.id, isUpload = true)
         dao.updateP3KStatus(updatedData)
         isUploaded = true
-        Toast.makeText(this@P3KInputActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@P3KInputActivity, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
         updateUIonUploaded()
     }
 
     private fun updateUIonUploaded() {
         binding.deleteButton.visibility = View.GONE
         binding.updateButton.visibility = View.GONE
-        binding.uploadButton.text = "Sudah Diupload"
+        binding.uploadButton.text = getString(R.string.uploaded)
         binding.uploadButton.setBackgroundColor(getColor(R.color.gray))
         binding.uploadButton.setTextColor(getColor(R.color.black))
         binding.uploadButton.isEnabled = false
@@ -416,7 +416,7 @@ class P3KInputActivity : AppCompatActivity() {
 
             onSubmitData(data)
         }else{
-            Toast.makeText(this@P3KInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
+            Toast.makeText(this@P3KInputActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT)
                 .show()
         }
     }
@@ -425,11 +425,11 @@ class P3KInputActivity : AppCompatActivity() {
     private fun onSubmitData(data: P3KModel) {
         if (dao.getP3KById(data.id).isEmpty()){
             dao.createP3K(data)
-            Toast.makeText(this, "Dokumen berhasil dibuat!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.document_created), Toast.LENGTH_SHORT).show()
             finish()
         }else{
             dao.updateP3K(data)
-            Toast.makeText(this, "Dokumen berhasil diupdate!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.document_updated), Toast.LENGTH_SHORT).show()
             // reset has update
             isHasUpdate = false
             binding.uploadButton.isEnabled = true
@@ -440,7 +440,7 @@ class P3KInputActivity : AppCompatActivity() {
 
     private fun onDeleteData() {
         dao.deleteP3K(P3KDataUmum)
-        Toast.makeText(this, "Dokumen berhasil dihapus!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.document_deleted), Toast.LENGTH_SHORT).show()
         finish()
     }
 }

@@ -78,7 +78,7 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
         // Date picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Pilih tanggal")
+                .setTitleText(getString(R.string.select_date))
                 .build()
 
         binding.etTiba.editText?.setOnClickListener {
@@ -206,7 +206,7 @@ class SSCECInputDataUmumActivity : AppCompatActivity() {
             setResult(RESULT_OK, intent)
             finish()
         }else{
-            Toast.makeText(this, "Mohon lengkapi semua input", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
         }
     }
 

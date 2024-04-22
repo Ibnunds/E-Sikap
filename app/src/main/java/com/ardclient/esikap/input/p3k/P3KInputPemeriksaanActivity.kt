@@ -177,7 +177,7 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
         if (getCheckedIntByString(pemeriksaanKapal.masalah) == 1){
             binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
 
-            binding.btnSelectMasalah.text = "Update Dokumen"
+            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
             binding.prevMasalah.visibility  =View.VISIBLE
             Picasso.get().load(pemeriksaanKapal.masalahFile).fit().into(binding.prevMasalah)
 
@@ -222,13 +222,13 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
                     if (isInputFilled && !masalahDoc.isNullOrBlank()){
                         onValidInput()
                     }else{
-                        Toast.makeText(this@P3KInputPemeriksaanActivity, "Semua form belum teriisi!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@P3KInputPemeriksaanActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
                     }
                 }else{
                     onValidInput()
                 }
             }else{
-                Toast.makeText(this@P3KInputPemeriksaanActivity, "Semua form belum teriisi!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@P3KInputPemeriksaanActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -279,7 +279,7 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
         masalahDoc = uriString
-        binding.btnSelectMasalah.text = "Update Dokumen"
+        binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
         binding.prevMasalah.visibility  =View.VISIBLE
         Picasso.get().load(uriString).fit().into(binding.prevMasalah)
     }
