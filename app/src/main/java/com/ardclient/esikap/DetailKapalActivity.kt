@@ -31,8 +31,8 @@ class DetailKapalActivity : AppCompatActivity() {
 
         // Handle videpager
         val listOfTitles = arrayListOf<String>()
-        listOfTitles.add("Informasi Kapal")
-        listOfTitles.add("Dokumen Kapal")
+        listOfTitles.add(getString(R.string.informasi_kapal_title))
+        listOfTitles.add(getString(R.string.document_kapal_title))
 
 
         val pagerAdapter = DetailKapalViewPagerAdapter(this, listOfTitles, existingData!!)

@@ -1,41 +1,43 @@
 package com.ardclient.esikap.view
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ardclient.esikap.R
 import com.ardclient.esikap.model.reusable.DokumenKapalListModel
 import com.ardclient.esikap.model.reusable.DokumenKapalModel
 
 class DokumenViewModel : ViewModel() {
     private var listDataLiveData: MutableLiveData<List<DokumenKapalListModel>>? = null
 
-    fun getInitList(copDocData: DokumenKapalModel): MutableLiveData<List<DokumenKapalListModel>> {
+    fun getInitList(copDocData: DokumenKapalModel, context: Context): MutableLiveData<List<DokumenKapalListModel>> {
         if (listDataLiveData == null){
             listDataLiveData = MutableLiveData()
-            loadData(copDocData)
+            loadData(copDocData, context)
         }
 
         return listDataLiveData as MutableLiveData<List<DokumenKapalListModel>>
     }
 
-    private fun loadData(copDocData: DokumenKapalModel) {
+    private fun loadData(copDocData: DokumenKapalModel, context: Context) {
         val listData = arrayListOf(
-            DokumenKapalListModel("Dokumen MDH", "MDH", copDocData.mdh, copDocData.mdhDoc, copDocData.mdhNote, true),
-            DokumenKapalListModel("Dokumen SSCEC", "SSCEC", copDocData.sscec, copDocData.sscecDoc, copDocData.sscecNote, true),
-            DokumenKapalListModel("Dokumen P3K", "P3K", copDocData.certP3K, copDocData.p3kDoc, copDocData.p3kNote, true),
-            DokumenKapalListModel("Dokumen Buku Kesehatan", "BUKUKES", copDocData.bukuKesehatan, copDocData.bukuKesehatanDoc, copDocData.bukuKesehatanNote, true),
-            DokumenKapalListModel("Dokumen Buku Vaksin", "BUKUVAKSIN", copDocData.bukuVaksin, copDocData.bukuVaksinDoc, copDocData.bukuVaksinNote, true),
-            DokumenKapalListModel("Dokumen Daftar ABK", "DAFTARABK", copDocData.daftarABK, copDocData.daftarABKDoc, "", false),
-            DokumenKapalListModel("Dokumen Daftar Vaksin", "DAFTARVAKSIN", copDocData.daftarVaksinasi, copDocData.daftarVaksinasiDoc, "", false),
-            DokumenKapalListModel("Dokumen Daftar Obat", "DAFTAROBAT", copDocData.daftarObat, copDocData.daftarObatDoc, "", false),
-            DokumenKapalListModel("Dokumen Daftar Narkotik", "DAFTARNARKOTIK", copDocData.daftarNarkotik, copDocData.daftarNarkotikDoc, "", false),
-            DokumenKapalListModel("Dokumen Last Port Off Call", "LPOC", copDocData.lpoc, copDocData.lpocDoc, "", false),
-            DokumenKapalListModel("Dokumen Ship Particular", "SHIPPAR", copDocData.shipParticular, copDocData.shipParticularDoc, "", false),
-            DokumenKapalListModel("Dokumen Last Port Clearance", "LPC", copDocData.lpc, copDocData.lpcDoc, copDocData.lpcNote, true),
-            DokumenKapalListModel("Dokumen ICV / Yellow Fever", "BUKUKUNING", copDocData.bukuKuning, copDocData.bukuKuningDoc, copDocData.bukuKuningNote, true),
-            DokumenKapalListModel("Dokumen Catatan Perjalanan", "CATATANPERJALANAN", copDocData.catatanPerjalanan, copDocData.catatanPerjalananDoc, copDocData.catatanPerjalananNote, true),
-            DokumenKapalListModel("Dokumen Izin Berlayar", "IZINBERLAYAR", copDocData.izinBerlayar, copDocData.izinBerlayarDoc, copDocData.izinBerlayarNote, true),
-            DokumenKapalListModel("Dokumen Daftar Alkes", "DAFTARALKES", copDocData.daftarAlkes, copDocData.daftarAlkesDoc, copDocData.daftarAlkesNote, true),
-            DokumenKapalListModel("Dokumen Daftar Store", "DAFTARSTORE", copDocData.daftarStore, copDocData.daftarStoreDoc, copDocData.daftarStoreNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_mdh_title), "MDH", copDocData.mdh, copDocData.mdhDoc, copDocData.mdhNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_sscec_title), "SSCEC", copDocData.sscec, copDocData.sscecDoc, copDocData.sscecNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_p3k_title), "P3K", copDocData.certP3K, copDocData.p3kDoc, copDocData.p3kNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_bukukes_title), "BUKUKES", copDocData.bukuKesehatan, copDocData.bukuKesehatanDoc, copDocData.bukuKesehatanNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_bukuvaksin_title), "BUKUVAKSIN", copDocData.bukuVaksin, copDocData.bukuVaksinDoc, copDocData.bukuVaksinNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_daftarabk_title), "DAFTARABK", copDocData.daftarABK, copDocData.daftarABKDoc, "", false),
+            DokumenKapalListModel(context.getString(R.string.doc_daftarvaksin_title), "DAFTARVAKSIN", copDocData.daftarVaksinasi, copDocData.daftarVaksinasiDoc, "", false),
+            DokumenKapalListModel(context.getString(R.string.doc_daftarobat_title), "DAFTAROBAT", copDocData.daftarObat, copDocData.daftarObatDoc, "", false),
+            DokumenKapalListModel(context.getString(R.string.doc_daftarnarkotik_title), "DAFTARNARKOTIK", copDocData.daftarNarkotik, copDocData.daftarNarkotikDoc, "", false),
+            DokumenKapalListModel(context.getString(R.string.doc_lpoc_title), "LPOC", copDocData.lpoc, copDocData.lpocDoc, "", false),
+            DokumenKapalListModel(context.getString(R.string.doc_shippar_title), "SHIPPAR", copDocData.shipParticular, copDocData.shipParticularDoc, "", false),
+            DokumenKapalListModel(context.getString(R.string.doc_lpc_title), "LPC", copDocData.lpc, copDocData.lpcDoc, copDocData.lpcNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_icv_title), "BUKUKUNING", copDocData.bukuKuning, copDocData.bukuKuningDoc, copDocData.bukuKuningNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_noteperjalanan_title), "CATATANPERJALANAN", copDocData.catatanPerjalanan, copDocData.catatanPerjalananDoc, copDocData.catatanPerjalananNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_izinberlayar_title), "IZINBERLAYAR", copDocData.izinBerlayar, copDocData.izinBerlayarDoc, copDocData.izinBerlayarNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_alkes_title), "DAFTARALKES", copDocData.daftarAlkes, copDocData.daftarAlkesDoc, copDocData.daftarAlkesNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_daftarstore_title), "DAFTARSTORE", copDocData.daftarStore, copDocData.daftarStoreDoc, copDocData.daftarStoreNote, true),
         )
 
         listDataLiveData!!.postValue(listData)
@@ -54,12 +56,12 @@ class DokumenViewModel : ViewModel() {
         listDataLiveData?.postValue(updatedList)
     }
 
-    fun updateRadioValue(documentKey: String, checkedString: String) {
+    fun updateRadioValue(documentKey: String, checkedString: String, context: Context) {
         val currentList = listDataLiveData?.value ?: return
         val updatedList = currentList.map { item ->
             if (item.key == documentKey) {
                 val updatedItem = item.copy(checkedVal = checkedString)
-                if (checkedString == "Tidak ada") {
+                if (checkedString == context.getString(R.string.radio_isfalse)) {
                     updatedItem.copy(docImage = "")
                 } else {
                     updatedItem

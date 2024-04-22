@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ApiResponse<UserLoginResponse>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@LoginActivity, "Ada yang tidak beres, mohon coba lagi! ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, getString(R.string.error_something), Toast.LENGTH_SHORT).show()
             }
 
         })

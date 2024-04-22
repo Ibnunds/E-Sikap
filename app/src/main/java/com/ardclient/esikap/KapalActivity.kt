@@ -106,7 +106,7 @@ class KapalActivity : AppCompatActivity() {
                     ))
                 }
             }else{
-                Toast.makeText(this@KapalActivity, "Data belum lengkap!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@KapalActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -118,7 +118,7 @@ class KapalActivity : AppCompatActivity() {
             dao.updateKapal(kapal)
         }
 
-        Toast.makeText(this, "Data kapal berhasil disimpan!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.kapal_saved_title), Toast.LENGTH_SHORT).show()
         finish()
     }
 

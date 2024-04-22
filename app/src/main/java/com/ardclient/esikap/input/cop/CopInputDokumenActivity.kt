@@ -4,7 +4,6 @@ import android.graphics.Rect
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -81,7 +80,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         // VM
         viewModel = ViewModelProvider(this)[DokumenViewModel::class.java]
 
-        viewModel.getInitList(copDocData).observe(this, Observer { listData ->
+        viewModel.getInitList(copDocData, applicationContext).observe(this, Observer { listData ->
             listDataLiveData.value = listData
             bindingListData = listData
             initListAdapter(listDataLiveData)
@@ -188,7 +187,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
                 if (radioVal == getString(R.string.radio_isfalse)){
                     docMap[key] = null
                 }
-                viewModel.updateRadioValue(key, radioVal)
+                viewModel.updateRadioValue(key, radioVal, applicationContext)
             }
 
             override fun onNoteChanged(key: String, inputText: String?) {

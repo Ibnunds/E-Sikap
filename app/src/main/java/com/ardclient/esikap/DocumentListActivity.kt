@@ -120,7 +120,7 @@ class DocumentListActivity : AppCompatActivity() {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 onAddDocument()
             }else{
-                Toast.makeText(this, "Izin akses media tidak diberikan!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_media_permission), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -140,19 +140,19 @@ class DocumentListActivity : AppCompatActivity() {
     private fun initDBbyType() {
         when(listType) {
             "BLUE" -> {
-                binding.topAppBar.title = "Dokumen PHQC"
+                binding.topAppBar.title = getString(R.string.doc_phqc_title)
                 getPHQCDatabase()
             }
             "GREEN" -> {
-                binding.topAppBar.title = "Dokumen COP"
+                binding.topAppBar.title = getString(R.string.doc_cop_title)
                 getCOPDatabase()
             }
             "ORANGE" -> {
-                binding.topAppBar.title = "Dokumen SSCEC"
+                binding.topAppBar.title = getString(R.string.doc_sscec_title)
                 getSSCECDatabase()
             }
             "AMBER" -> {
-                binding.topAppBar.title = "Dokumen P3K"
+                binding.topAppBar.title = getString(R.string.doc_p3k_title)
                 getP3KDatabase()
             }
         }
