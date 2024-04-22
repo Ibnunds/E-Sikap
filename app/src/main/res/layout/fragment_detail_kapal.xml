@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Nama Kapal" />
+            android:text="@string/kapal_name_title" />
         <TextView
             android:id="@+id/tvDetailNamaKapal"
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Gross Tone" />
+            android:text="@string/kapal_gross_tone" />
         <TextView
             android:id="@+id/tvDetailGrossTone"
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Bendera" />
+            android:text="@string/kapal_bendera" />
         <TextView
             android:id="@+id/tvDetailBendera"
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="IMO" />
+            android:text="@string/kapal_imo_title" />
         <TextView
             android:id="@+id/tvDetailIMO"
             android:layout_width="match_parent"
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Nama Keagenan" />
+            android:text="@string/kapal_agen_title" />
         <TextView
             android:id="@+id/tvDetailAgen"
             android:layout_width="match_parent"
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Kapten Kapal" />
+            android:text="@string/kapten_kapal_title" />
         <TextView
             android:id="@+id/tvDetailKapten"
             android:layout_width="match_parent"
@@ -142,7 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Tipe Kapal" />
+            android:text="@string/kapal_tipe_title" />
         <TextView
             android:id="@+id/tvDetailTipe"
             android:layout_width="match_parent"
@@ -164,14 +164,14 @@
                 android:id="@+id/updateDataButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Update Data" />
+                android:text="@string/update_title" />
             <Button
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:id="@+id/deleteDataButton"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hapus Data" />
+                android:text="@string/delete_title" />
         </LinearLayout>
 
     </RelativeLayout>

@@ -101,7 +101,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         // Date picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Pilih tanggal")
+                .setTitleText(getString(R.string.select_date))
                 .build()
 
         // time picker
@@ -109,7 +109,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             MaterialTimePicker.Builder()
                 .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
                 .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setTitleText("Pilih jam")
+                .setTitleText(getString(R.string.select_time))
                 .build()
 
         binding.etTanggal.editText?.setOnClickListener {
@@ -256,25 +256,25 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         // RADIO
         binding.radioObatP3K.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.radio_obatp3k_true){
-                radioMap["OBATP3K"] = "Lengkap"
+                radioMap["OBATP3K"] = getString(R.string.completed)
             }else{
-                radioMap["OBATP3K"] = "Tidak lengkap"
+                radioMap["OBATP3K"] = getString(R.string.no_completed)
             }
         }
 
         binding.radioKarantinaPinalti.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.radio_karantinapinalti_true){
-                radioMap["KARANTINA"] = "Ada"
+                radioMap["KARANTINA"] = getString(R.string.radio_istrue)
             }else{
-                radioMap["KARANTINA"] = "Tidak ada"
+                radioMap["KARANTINA"] = getString(R.string.radio_isfalse)
             }
         }
 
         binding.radioDokKes.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
-                R.id.radio_dokkes_lengkapberlaku -> radioMap["DOKKES"] = "Lengkap berlaku"
-                R.id.radio_dokkes_lengkaptidakberlaku -> radioMap["DOKKES"] = "Lengkap tidak berlaku"
-                else -> radioMap["DOKKES"] = "Tidak lengkap tidak berlaku"
+                R.id.radio_dokkes_lengkapberlaku -> radioMap["DOKKES"] = getString(R.string.radio_lengkap_berlaku)
+                R.id.radio_dokkes_lengkaptidakberlaku -> radioMap["DOKKES"] = getString(R.string.radio_lengkap_tidak_berlaku)
+                else -> radioMap["DOKKES"] = getString(R.string.radio_lengkap_tidak_berlaku)
             }
         }
 
@@ -320,7 +320,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         with(binding){
             // Radio P3K
             radioMap["OBATP3K"] = copSignature.obatP3K
-            if (copSignature.obatP3K == "Lengkap"){
+            if (copSignature.obatP3K == getString(R.string.completed)){
                 radioObatP3K.check(R.id.radio_obatp3k_true)
             }else{
                 radioObatP3K.check(R.id.radio_obatp3k_false)
@@ -328,7 +328,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
             // Radio Karantina
             radioMap["KARANTINA"] = copSignature.pelanggaranKarantina
-            if (copSignature.pelanggaranKarantina == "Ada"){
+            if (copSignature.pelanggaranKarantina == getString(R.string.radio_istrue)){
                 radioKarantinaPinalti.check(R.id.radio_karantinapinalti_true)
             }else{
                 radioKarantinaPinalti.check(R.id.radio_karantinapinalti_false)
@@ -337,8 +337,8 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             // Radio dokkes
             radioMap["DOKKES"] = copSignature.dokumenKesehatanKapal
             when(copSignature.dokumenKesehatanKapal){
-                "Lengkap berlaku" -> radioDokKes.check(R.id.radio_dokkes_lengkapberlaku)
-                "Lengkap tidak berlaku" -> radioDokKes.check(R.id.radio_dokkes_lengkaptidakberlaku)
+                getString(R.string.radio_lengkap_berlaku) -> radioDokKes.check(R.id.radio_dokkes_lengkapberlaku)
+                getString(R.string.radio_lengkap_tidak_berlaku) -> radioDokKes.check(R.id.radio_dokkes_lengkaptidakberlaku)
                 else -> radioDokKes.check(R.id.radio_dokkes_tidaklengkaptidakberlaku)
             }
 
@@ -354,7 +354,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             etJam.editText?.setText(copSignature.docJam)
 
             selectedDoc = copSignature.docFile
-            binding.btnSelectDoc.text = "Update Dokumen"
+            binding.btnSelectDoc.text = getString(R.string.update_dokumen_title)
             binding.prevDoc.visibility = View.VISIBLE
             Picasso.get().load(selectedDoc).fit().into(binding.prevDoc)
 
@@ -463,7 +463,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
                 setResult(RESULT_OK, intent)
                 finish()
             }else{
-                Toast.makeText(this@CopInputSignatureActivity, "Data belum lengkap!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CopInputSignatureActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -561,7 +561,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
         selectedDoc = uriString
-        binding.btnSelectDoc.text = "Update Dokumen"
+        binding.btnSelectDoc.text = getString(R.string.update_dokumen_title)
         binding.prevDoc.visibility = View.VISIBLE
         Picasso.get().load(uriString).fit().into(binding.prevDoc)
     }

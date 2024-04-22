@@ -34,7 +34,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginTop="14dp"
-                android:paddingVertical="14dp"
+                android:paddingVertical="4dp"
                 android:layout_centerInParent="true">
                 <ImageView
                     android:layout_width="64dp"
@@ -58,28 +58,72 @@
                     android:layout_marginBottom="8dp"
                     android:textColor="@color/white"
                     android:text="Yanto"/>
-                <TextView
-                    android:id="@+id/tvLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="10sp"
-                    android:textColor="@color/white"
-                    android:text="Yanto"/>
             </LinearLayout>
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:padding="24dp"
+            android:padding="14dp"
             android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/menu_language"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                style="?attr/materialCardViewFilledStyle"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                android:layout_margin="4dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="14dp">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/ship_icon"
+                        style="?attr/materialCardViewFilledStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4dp"
+                        app:cardBackgroundColor="@color/colorCyan"
+                        app:cardCornerRadius="8dp">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="4dp"
+                            app:srcCompat="@drawable/ic_lang" />
+                    </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:id="@+id/card_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_language"
+                        android:textSize="14sp"
+                        android:layout_marginHorizontal="8dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textAppearance="?attr/textAppearanceTitleMedium"
+                        android:layout_toRightOf="@id/ship_icon"
+                        android:layout_centerVertical="true"
+                        />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/ic_right"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"/>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <Button
                 style="@style/Widget.Material3.Button.IconButton.Filled"
                 android:id="@+id/logoutButton"
+                android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Keluar"
+                android:text="@string/signout_button"
                 />
         </LinearLayout>
     </LinearLayout>

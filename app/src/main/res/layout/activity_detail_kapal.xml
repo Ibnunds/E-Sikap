@@ -37,13 +37,13 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Informasi Kapal"
+                android:text="@string/informasi_kapal_title"
                 />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dokumen Kapal"
+                android:text="@string/document_kapal_title"
                 />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>

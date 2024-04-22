@@ -90,17 +90,17 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         // Prefix radio
         binding.radioKarantina.setOnCheckedChangeListener {_, checkedId ->
             if (checkedId == R.id.radio_karantina_true){
-                radioMap["KARANTINA"] = "Pasang"
+                radioMap["KARANTINA"] = getString(R.string.quarantine_use)
             }else{
-                radioMap["KARANTINA"] = "Tidak pasang"
+                radioMap["KARANTINA"] = getString(R.string.quarantine_not_use)
             }
         }
 
         binding.radioActivity.setOnCheckedChangeListener {_, checkedId ->
             if (checkedId == R.id.radio_activity_true){
-                radioMap["ACTIVITY"] = "Ada"
+                radioMap["ACTIVITY"] = getString(R.string.radio_istrue)
             }else{
-                radioMap["ACTIVITY"] = "Tidak ada"
+                radioMap["ACTIVITY"] = getString(R.string.radio_isfalse)
             }
         }
     }
@@ -167,8 +167,8 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
 
 
         // Prefix radio
-        binding.radioKarantina.check(if (copDocData.isyaratKarantina == "Pasang") R.id.radio_karantina_true else R.id.radio_karantina_false)
-        binding.radioActivity.check(if (copDocData.aktifitasKapal == "Ada") R.id.radio_activity_true else R.id.radio_activity_false)
+        binding.radioKarantina.check(if (copDocData.isyaratKarantina == getString(R.string.quarantine_use)) R.id.radio_karantina_true else R.id.radio_karantina_false)
+        binding.radioActivity.check(if (copDocData.aktifitasKapal == getString(R.string.radio_istrue)) R.id.radio_activity_true else R.id.radio_activity_false)
         radioMap["KARANTINA"] = copDocData.isyaratKarantina
         radioMap["ACTIVITY"] = copDocData.aktifitasKapal
 
@@ -185,7 +185,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
 
             override fun onRadioChangedListener(key: String, radioVal: String) {
                 radioMap[key] = radioVal
-                if (radioVal == "Tidak ada"){
+                if (radioVal == getString(R.string.radio_isfalse)){
                     docMap[key] = null
                 }
                 viewModel.updateRadioValue(key, radioVal)
@@ -214,19 +214,19 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
                 val noteVal = noteMap[key]
                 val docVal = docMap[key]
 
-                if (valueInRadioMap.isNullOrBlank() || (valueInRadioMap == "Ada" && docVal.isNullOrEmpty()) || (item.needNote && noteVal.isNullOrEmpty())) {
+                if (valueInRadioMap.isNullOrBlank() || (valueInRadioMap == getString(R.string.radio_istrue) && docVal.isNullOrEmpty()) || (item.needNote && noteVal.isNullOrEmpty())) {
                     isDataComplete = false // Setel flag menjadi false jika ada data yang null
                     break // Hentikan loop jika data tidak lengkap
                 }
             }
 
             if (!isDataComplete) {
-                Toast.makeText(this@CopInputDokumenActivity, "Data belum lengkap!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CopInputDokumenActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
             } else {
                 onDataCompleted()
             }
         }else{
-            Toast.makeText(this@CopInputDokumenActivity, "Data belum lengkap!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@CopInputDokumenActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
         }
 
     }

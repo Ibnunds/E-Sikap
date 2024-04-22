@@ -18,7 +18,7 @@
             android:id="@+id/galleryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Pilih dari galeri"
+            android:text="@string/modal_select_gallery"
             android:layout_marginBottom="8dp"/>
 
         <Button
@@ -26,7 +26,7 @@
             android:id="@+id/cameraButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ambil dari kamera"
+            android:text="@string/modal_select_camera"
             android:layout_marginBottom="8dp"/>
 
         <Button
@@ -34,6 +34,6 @@
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Batalkan"/>
+            android:text="@string/cancel_button"/>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

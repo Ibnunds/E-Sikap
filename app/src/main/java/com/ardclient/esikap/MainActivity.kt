@@ -19,13 +19,14 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var userSession: UserSessionModel
+    private lateinit var bottomNav: BottomNavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav = findViewById(R.id.bottom_navigation)
 
         // -- Handle bottom navigation
         userSession = SessionUtils.getUserSession(this)
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         val profileFragment = ProfileFragment()
 
         setCurrentFragment(dashboardFragment)
+
+        bottomNav.selectedItemId = R.id.imHome
 
         // handle bottom nav
         bottomNav.setOnItemSelectedListener{
@@ -112,6 +115,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // define fragment
+        val dashboardFragment = DashboardFragment()
+        val profileFragment = ProfileFragment()
+
+        when(bottomNav.selectedItemId){
+            R.id.imHome -> {
+                setCurrentFragment(dashboardFragment)
+                true
+            }
+            R.id.imProfile -> {
+                setCurrentFragment(profileFragment)
+                true
+            }
+        }
+
         onCekStatus()
     }
 }

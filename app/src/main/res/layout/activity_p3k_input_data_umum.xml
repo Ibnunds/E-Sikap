@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:title="Data Umum Kapal"
+            app:title="@string/general_info_kapal"
             app:titleTextColor="@color/white"
             app:navigationIcon="@drawable/ic_back"
             app:navigationIconTint="@color/white"
@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Umum"
+                    android:text="@string/general_info_subtitle"
                     android:textSize="16sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginBottom="8dp"/>
@@ -58,7 +58,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jenis Layanan"
+                        android:text="@string/jenis_layanan_subtitle"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -72,13 +72,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Keberangkatan"/>
+                            android:text="@string/keberangkatan_subtitle"/>
                         <RadioButton
                             android:id="@+id/radio_layanan_kedatangan"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Kedatangan"/>
+                            android:text="@string/kedatangan_subtitle"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -90,7 +90,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jenis Pelayaran"
+                        android:text="@string/jenis_pelayaran_subtitle"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -104,13 +104,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Domestik"/>
+                            android:text="@string/radio_domestik"/>
                         <RadioButton
                             android:id="@+id/radio_pelayaran_inter"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Internasional"/>
+                            android:text="@string/radio_internasional"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -119,7 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Lokasi Pemeriksaan">
+                    android:hint="@string/lokasi_pemeriksaan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Tanggal Diperiksa">
+                    android:hint="@string/tanggal_diperiksa_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -151,7 +151,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data ABK"
+                    android:text="@string/data_abk_title"
                     android:textSize="16sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginBottom="8dp"/>
@@ -161,7 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Jumlah ABK">
+                    android:hint="@string/jumlah_abk">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -186,7 +186,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
-                        android:hint="Jumlah Sehat">
+                        android:hint="@string/jumlah_sehat">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
-                        android:hint="Jumlah Sakit">
+                        android:hint="@string/jumlah_sakit">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -224,7 +224,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Simpan" />
+                    android:text="@string/save_title" />
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

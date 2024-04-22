@@ -70,17 +70,17 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
         // handle on delete button
         binding.deleteDataButton.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Hapus Data")
-                .setMessage("Apakah anda yakin ingin menghapus data ini?")
-                .setNegativeButton("Batalkan") {dialog, which -> dialog.dismiss()}
-                .setPositiveButton("Konfirmasi") {dialog, which -> deletDataKapal() }
+                .setTitle(getString(R.string.delete_data_title))
+                .setMessage(getString(R.string.delete_data_desc))
+                .setNegativeButton(getString(R.string.cancel_button)) {dialog, which -> dialog.dismiss()}
+                .setPositiveButton(getString(R.string.confirm_button)) {dialog, which -> deletDataKapal() }
                 .show()
         }
     }
 
     private fun deletDataKapal() {
         dao.deleteKapal(kapal)
-        Toast.makeText(context, "Data berhasil dihapus!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, getString(R.string.data_deleted_desc), Toast.LENGTH_SHORT).show()
         activity?.finish()
     }
 

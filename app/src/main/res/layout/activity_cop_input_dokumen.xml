@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:title="Dokumen Kapal"
+            app:title="@string/document_kapal_title"
             app:titleTextColor="@color/white"
             app:navigationIcon="@drawable/ic_back"
             app:navigationIconTint="@color/white"
@@ -35,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pelanggaran Karantina"
+                android:text="@string/pelanggaran_karantina_title"
                 android:textSize="16sp"
                 android:fontFamily="@font/poppins_semibold"
                 android:layout_marginBottom="8dp"/>
@@ -47,7 +47,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Isyarat Karantina"
+                    android:text="@string/radio_title_isyarat_karantina"
                     android:textSize="12sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginVertical="8dp"/>
@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kegiatan sebelum petugas datang"
+                    android:text="@string/radio_title_kegiatan_sebelum_petugas"
                     android:textSize="12sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginVertical="8dp"/>
@@ -105,7 +105,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dokumen Kesehatan Kapal"
+                android:text="@string/document_kesehatan_title"
                 android:textSize="16sp"
                 android:fontFamily="@font/poppins_semibold"
                 android:layout_marginVertical="8dp"/>
@@ -119,7 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="14dp"
-                android:hint="Rekomendasi">
+                android:hint="@string/recommendation">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Simpan"
+                android:text="@string/save_title"
                 />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

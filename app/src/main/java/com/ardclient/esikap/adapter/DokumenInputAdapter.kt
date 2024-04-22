@@ -49,11 +49,13 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
             holder.inNote.editText?.isEnabled = false
         }
 
+        val context = holder.itemView.context
+
         itemLiveData?.let { item ->
             holder.tvTitle.text = item.title
             // handle existing
             if (!item.checkedVal.isNullOrEmpty()) {
-                if (item.checkedVal == "Ada") {
+                if (item.checkedVal == context.getString(R.string.radio_istrue)) {
                     holder.radio.check(R.id.radio_true)
                     holder.selectButton.visibility = View.VISIBLE
                 } else {
@@ -66,7 +68,7 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
 
             // radio and doc
             holder.radio.setOnCheckedChangeListener { _, checkedId ->
-                val radioLabel = if (checkedId == R.id.radio_true) "Ada" else "Tidak ada"
+                val radioLabel = if (checkedId == R.id.radio_true) context.getString(R.string.radio_istrue) else context.getString(R.string.radio_isfalse)
                 listener?.onRadioChangedListener(item.key, radioLabel)
                 if (checkedId == R.id.radio_true) {
                     holder.selectButton.visibility = View.VISIBLE
@@ -88,7 +90,7 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
                     Picasso.get().load(item.docImage).fit().into(holder.prevDoc)
                 }else{
                     holder.prevDoc.visibility = View.VISIBLE
-                    holder.selectButton.text = "Update Dokumen"
+                    holder.selectButton.text = context.getString(R.string.update_dokumen_title)
                     Picasso.get().load(item.docImage).fit().into(holder.prevDoc)
                 }
             }

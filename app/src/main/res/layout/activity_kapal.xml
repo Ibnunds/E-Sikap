@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Nama Kapal">
+                android:hint="@string/kapal_name_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="IMO / No. Registrasi">
+                android:hint="@string/kapal_imo_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Nama Keagenan">
+                android:hint="@string/kapal_agen_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Kapten Kapal">
+                android:hint="@string/kapten_kapal_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Gross Tone">
+                android:hint="@string/kapal_gross_tone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Bendera">
+                android:hint="@string/kapal_bendera">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -144,7 +144,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tipe Kapal"
+                    android:text="@string/kapal_tipe_title"
                     android:textSize="12sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginVertical="8dp"/>
@@ -158,13 +158,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="12sp"
-                        android:text="Ferry"/>
+                        android:text="@string/radio_ferry"/>
                     <RadioButton
                         android:id="@+id/radio_type_false"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="12sp"
-                        android:text="Non Ferry"/>
+                        android:text="@string/radio_non_ferry"/>
                 </RadioGroup>
             </LinearLayout>
             <Button
@@ -173,7 +173,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Simpan"
+                android:text="@string/save_title"
                 />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:title="Pemeriksaan Kapal"
+            app:title="@string/pemeriksaan_kapal_title"
             app:titleTextColor="@color/white"
             app:navigationIcon="@drawable/ic_back"
             app:navigationIconTint="@color/white"
@@ -50,7 +50,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Peralatan P3K"
+                        android:text="@string/peralatan_p3k_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -88,7 +88,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Oksigen Darurat"
+                        android:text="@string/oxygen_emergency_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -126,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fasilitas Medik"
+                        android:text="@string/fasilitas_medik_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -164,7 +164,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Obat - obatan Antibiotik"
+                        android:text="@string/antibiotik_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -202,7 +202,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Obat - obatan Analgesik"
+                        android:text="@string/analgesik_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -240,7 +240,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Obat - obatan Lainnya"
+                        android:text="@string/obat_lainnya_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -278,7 +278,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Obat - obatan Narkotik"
+                        android:text="@string/narkotik_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -316,7 +316,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Resiko"
+                        android:text="@string/resiko_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -354,7 +354,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Masalah"
+                        android:text="@string/masalah_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -388,7 +388,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Bukti Masalah"
+                        android:text="@string/bukti_masalah_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -405,7 +405,7 @@
                         style="@style/Widget.Material3.Button.IconButton.Filled"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Unggah Dokumen"
+                        android:text="@string/upload_dokumen_title"
                         app:icon="@drawable/ic_doc"
                         app:iconPadding="8dp"/>
                 </LinearLayout>
@@ -416,7 +416,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="14dp"
                     android:visibility="gone"
-                    android:hint="Catatan Permasalahan">
+                    android:hint="@string/catatan_permasalahan_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -432,7 +432,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Simpan" />
+                    android:text="@string/save_title" />
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

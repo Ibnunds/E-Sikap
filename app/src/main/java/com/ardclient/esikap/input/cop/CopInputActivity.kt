@@ -120,17 +120,17 @@ class CopInputActivity : AppCompatActivity() {
             binding.bottomContainerSave.visibility = View.GONE
 
             // header
-            binding.topAppBar.title = "Dokumen COP"
+            binding.topAppBar.title = getString(R.string.cop_doc_title)
 
             // chip
             binding.chipCOPSanitasi.isChecked = true
-            binding.chipCOPSanitasi.text = "Lengkap"
+            binding.chipCOPSanitasi.text = getString(R.string.completed)
             binding.chipCOPDataUmum.isChecked = true
-            binding.chipCOPDataUmum.text = "Lengkap"
+            binding.chipCOPDataUmum.text = getString(R.string.completed)
             binding.chipCOPDokumenKapal.isChecked = true
-            binding.chipCOPDokumenKapal.text = "Lengkap"
+            binding.chipCOPDokumenKapal.text = getString(R.string.completed)
             binding.chipCOPRekomendasi.isChecked = true
-            binding.chipCOPRekomendasi.text = "Lengkap"
+            binding.chipCOPRekomendasi.text = getString(R.string.completed)
         }else{
             // init value
             copBasicData = COPModel()
@@ -265,7 +265,7 @@ class CopInputActivity : AppCompatActivity() {
         if (NetworkUtils.isNetworkAvailable(this)){
             onUploadButton()
         }else{
-            Toast.makeText(this, "Tidak ada koneksi internet.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -383,7 +383,7 @@ class CopInputActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@CopInputActivity, "Ada sesuatu yang tidak beres, mohon coba lagi!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CopInputActivity, getString(R.string.error_something), Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -399,15 +399,15 @@ class CopInputActivity : AppCompatActivity() {
             ) {
                 spinner.dismiss()
                 if (response.isSuccessful){
-                    Toast.makeText(this@CopInputActivity, "Upload gagal dan berhasil membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CopInputActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(this@CopInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CopInputActivity, getString(R.string.upload_failed), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ApiResponse<Any>>, t: Throwable) {
                 spinner.dismiss()
-                Toast.makeText(this@CopInputActivity, "Upload gagal dan gagal membersihkan cache!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CopInputActivity, getString(R.string.error_something), Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -418,14 +418,14 @@ class CopInputActivity : AppCompatActivity() {
         val updatedData = COPUpdateStatusModel(id = copData.id, isUpload = true)
         dao.updateCOPStatus(updatedData)
         isUploaded = true
-        Toast.makeText(this@CopInputActivity, "Berhasil Upload", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@CopInputActivity, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
         updateUIonUploaded()
     }
 
     private fun updateUIonUploaded() {
         binding.deleteButton.visibility = View.GONE
         binding.updateButton.visibility = View.GONE
-        binding.uploadButton.text = "Sudah Diupload"
+        binding.uploadButton.text = getString(R.string.uploaded)
         binding.uploadButton.setBackgroundColor(getColor(R.color.gray))
         binding.uploadButton.setTextColor(getColor(R.color.black))
         binding.uploadButton.isEnabled = false
@@ -532,25 +532,25 @@ class CopInputActivity : AppCompatActivity() {
 
             onSubmitData(data)
         }else{
-            Toast.makeText(this@CopInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT)
+            Toast.makeText(this@CopInputActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT)
                 .show()
         }
     }
 
     private fun onDeleteData() {
         dao.deleteCOP(copBasicData)
-        Toast.makeText(this, "Dokumen berhasil dihapus!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.document_deleted), Toast.LENGTH_SHORT).show()
         finish()
     }
 
     private fun onSubmitData(data: COPModel) {
         if (dao.getCOPById(data.id).isEmpty()){
             dao.createCOP(data)
-            Toast.makeText(this, "Dokumen berhasil dibuat!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.document_created), Toast.LENGTH_SHORT).show()
             finish()
         }else{
             dao.updateCOP(data)
-            Toast.makeText(this, "Dokumen berhasil diupdate!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.document_updated), Toast.LENGTH_SHORT).show()
             // reset has update
             isHasUpdate = false
             binding.uploadButton.isEnabled = true

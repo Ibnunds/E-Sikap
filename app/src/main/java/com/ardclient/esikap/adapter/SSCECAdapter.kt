@@ -34,11 +34,13 @@ class SSCECAdapter(private val listItems: ArrayList<SSCECModel>, private val lis
             listener.onItemClicked(item)
         }
 
+        val context = holder.itemView.context
+
         if (item.isUpload){
-            holder.chipStatus.text = "Sudah Diupload"
+            holder.chipStatus.text = context.getString(R.string.uploaded)
             holder.chipStatus.isChecked = true
         }else{
-            holder.chipStatus.text = "Belum Diupload"
+            holder.chipStatus.text = context.getString(R.string.not_uploaded)
             holder.chipStatus.isChecked = false
         }
     }

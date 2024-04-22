@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="P3K">
+                    android:hint="@string/p3k_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Tanggal">
+                    android:hint="@string/tanggal_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Jam">
+                    android:hint="@string/jam_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="14dp"
-                    android:text="+ Tanda Tangan Kapten"
+                    android:text="@string/add_sign_kapten_button"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_semibold"
                     />
@@ -123,7 +123,7 @@
                         android:id="@+id/tvSignHelpKapten"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ketuk untuk ubah tanda tangan"
+                        android:text="@string/press_to_update_sign"
                         android:textSize="12sp"
                         android:layout_marginBottom="8dp"
                         android:layout_gravity="center"/>
@@ -136,14 +136,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kapten Kapal"
+                        android:text="@string/kapten_kapal_title"
                         android:textSize="14sp"
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/tvKapten"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kapten"
+                        android:text="@string/kapten_title"
                         android:textSize="14sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_gravity="center"/>
@@ -154,7 +154,7 @@
                     android:id="@+id/signOfficerButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="+ Tanda Tangan Petugas"
+                    android:text="@string/add_sign_petugas_button"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins_semibold"
                     />
@@ -174,7 +174,7 @@
                         android:id="@+id/tvSignHelpPetugas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ketuk untuk ubah tanda tangan"
+                        android:text="@string/press_to_update_sign"
                         android:textSize="12sp"
                         android:layout_marginBottom="8dp"
                         android:layout_gravity="center"/>
@@ -187,14 +187,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Quarantine Officer"
+                        android:text="@string/quarantine_officer_title"
                         android:textSize="14sp"
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/tvPetugas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Petugas"
+                        android:text="@string/petugas_title"
                         android:textSize="14sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_gravity="center"/>
@@ -224,7 +224,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ketuk untuk ubah tanda tangan"
+                        android:text="@string/press_to_update_sign"
                         android:textSize="12sp"
                         android:layout_marginBottom="8dp"
                         android:layout_gravity="center"/>
@@ -237,14 +237,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Petugas 2"
+                        android:text="@string/petugas2_title"
                         android:textSize="14sp"
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/tvPetugas2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Petugas 2"
+                        android:text="@string/petugas2"
                         android:textSize="14sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_gravity="center"/>
@@ -252,7 +252,7 @@
                         android:id="@+id/tvPetugas2NIP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NIP Petugas 2"
+                        android:text="@string/nip_petugas2_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_regular"
                         android:layout_gravity="center"/>
@@ -290,7 +290,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ketuk untuk ubah tanda tangan"
+                        android:text="@string/press_to_update_sign"
                         android:textSize="12sp"
                         android:layout_marginBottom="8dp"
                         android:layout_gravity="center"/>
@@ -303,14 +303,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Petugas 3"
+                        android:text="@string/petugas3_title"
                         android:textSize="14sp"
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/tvPetugas3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Petugas 3"
+                        android:text="@string/petugas3"
                         android:textSize="14sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_gravity="center"/>
@@ -318,7 +318,7 @@
                         android:id="@+id/tvPetugas3NIP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NIP Petugas 3"
+                        android:text="@string/nip_petugas3_title"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_regular"
                         android:layout_gravity="center"/>
@@ -338,7 +338,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Simpan" />
+                    android:text="@string/save_title" />
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.ardclient.esikap.LanguageActivity
 import com.ardclient.esikap.LoginActivity
 import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.FragmentProfileBinding
@@ -24,8 +25,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         userSession = SessionUtils.getUserSession(requireActivity())
 
         binding.tvName.text = userSession.name
-        binding.tvUsername.text = "( ${userSession.userName} )"
-        binding.tvLevel.text = userSession.userLevel
+        binding.tvUsername.text = "( ${userSession.userName} - ${userSession.userLevel} )"
 
         binding.logoutButton.setOnClickListener {
             SessionUtils.clearUserSession(requireActivity(), object: SessionUtils.OnSessionClear{
@@ -36,6 +36,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     requireActivity().finish()
                 }
             })
+        }
+
+
+        // Select Language
+        binding.menuLanguage.setOnClickListener {
+            val intent = Intent(requireContext(), LanguageActivity::class.java)
+            startActivity(intent)
         }
     }
 }

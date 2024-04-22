@@ -78,7 +78,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val getData = dao.getAllP3K(kapal.id)
 
         if (getData != null){
-            binding.bodyAmber.text = "${getData.size} Dokumen"
+            binding.bodyAmber.text = "${getData.size} ${getString(R.string.document_title)}"
         }
     }
 
@@ -89,7 +89,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val getData = dao.getAllPHQC(kapal.id)
 
         if (getData != null){
-            binding.bodyBlue.text = "${getData.size} Dokumen"
+            binding.bodyBlue.text = "${getData.size} ${getString(R.string.document_title)}"
         }
     }
 
@@ -100,7 +100,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val getData = dao.getAllCOP(kapal.id)
 
         if (getData != null){
-            binding.bodyGreen.text = "${getData.size} Dokumen"
+            binding.bodyGreen.text = "${getData.size} ${getString(R.string.document_title)}"
         }
     }
 
@@ -111,7 +111,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val getData = dao.getAllSSCEC(kapal.id)
 
         if (getData != null){
-            binding.bodyOrange.text = "${getData.size} Dokumen"
+            binding.bodyOrange.text = "${getData.size} ${getString(R.string.document_title)}"
         }
     }
 

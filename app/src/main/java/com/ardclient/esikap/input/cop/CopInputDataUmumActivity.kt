@@ -87,7 +87,7 @@ class CopInputDataUmumActivity : AppCompatActivity() {
         // Date picker
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Pilih tanggal")
+                .setTitleText(getString(R.string.select_date))
                 .build()
 
         binding.etTiba.editText?.setOnClickListener {
@@ -102,17 +102,17 @@ class CopInputDataUmumActivity : AppCompatActivity() {
         // radio
         binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
             if (checkedId == R.id.radio_layanan_kedatangan){
-                radioMap["LAYANAN"] = "Kedatangan"
+                radioMap["LAYANAN"] = getString(R.string.kedatangan_subtitle)
             }else{
-                radioMap["LAYANAN"] = "Keberangkatan"
+                radioMap["LAYANAN"] = getString(R.string.keberangkatan_subtitle)
             }
         }
 
         binding.radioJenisPelayaran.setOnCheckedChangeListener{ _, checkedId ->
             if (checkedId == R.id.radio_pelayaran_domestik){
-                radioMap["PELAYARAN"] = "Domestik"
+                radioMap["PELAYARAN"] = getString(R.string.radio_domestik)
             }else{
-                radioMap["PELAYARAN"] = "Internasional"
+                radioMap["PELAYARAN"] = getString(R.string.radio_internasional)
             }
         }
     }
@@ -141,14 +141,14 @@ class CopInputDataUmumActivity : AppCompatActivity() {
 
         // radio
         radioMap["LAYANAN"] = copBasicData.jenisLayanan
-        if (copBasicData.jenisLayanan == "Kedatangan"){
+        if (copBasicData.jenisLayanan == getString(R.string.kedatangan_subtitle)){
             binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
         }else{
             binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
         }
 
         radioMap["PELAYARAN"] = copBasicData.jenisPelayaran
-        if (copBasicData.jenisPelayaran == "Domestik"){
+        if (copBasicData.jenisPelayaran == getString(R.string.radio_domestik)){
             binding.radioJenisPelayaran.check(R.id.radio_pelayaran_domestik)
         }else{
             binding.radioJenisPelayaran.check(R.id.radio_pelayaran_inter)
@@ -241,7 +241,7 @@ class CopInputDataUmumActivity : AppCompatActivity() {
             setResult(RESULT_OK, intent)
             finish()
         }else{
-            Toast.makeText(this, "Mohon lengkapi semua input", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
         }
     }
 

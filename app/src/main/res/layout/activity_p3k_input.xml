@@ -78,7 +78,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Data Umum Kapal"
+                        android:text="@string/general_info_kapal"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textSize="14sp"
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Widget.Material3.Chip.Suggestion"
-                    android:text="Belum Lengkap"
+                    android:text="@string/not_completed"
                     app:checkedIconEnabled="false"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -141,7 +141,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pemeriksaan Kapal"
+                        android:text="@string/pemeriksaan_kapal_title"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textSize="14sp"
@@ -157,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Widget.Material3.Chip.Suggestion"
-                    android:text="Belum Lengkap"
+                    android:text="@string/not_completed"
                     app:checkedIconEnabled="false"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -204,7 +204,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rekomendasi"
+                        android:text="@string/recommendation"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textSize="14sp"
@@ -220,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Widget.Material3.Chip.Suggestion"
-                    android:text="Belum Lengkap"
+                    android:text="@string/not_completed"
                     app:checkedIconEnabled="false"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -241,7 +241,7 @@
                     android:id="@+id/submitButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Simpan Dokumen"
+                    android:text="@string/save_document_title"
                     />
             </LinearLayout>
             <LinearLayout
@@ -272,7 +272,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginHorizontal="4dp"
-                        android:text="Hapus" />
+                        android:text="@string/delete_title" />
                     <Button
                         style="@style/Widget.Material3.Button.IconButton.Filled"
                         android:id="@+id/updateButton"
@@ -280,7 +280,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Simpan" />
+                        android:text="@string/save_title" />
                 </LinearLayout>
                 <Button
                     style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -288,7 +288,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Upload Data" />
+                    android:text="@string/upload_data_title" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

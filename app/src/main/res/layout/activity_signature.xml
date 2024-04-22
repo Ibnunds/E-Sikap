@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
-            android:hint="Nama">
+            android:hint="@string/name_label">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tanda Tangan"
+            android:text="@string/signature_title"
             android:layout_marginTop="14dp"
             android:textSize="16sp"
             android:textColor="@color/black"
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Tanda tangan telah disimpan"
+                android:text="@string/signature_saved"
                 android:textColor="@color/colorSecondary"/>
             <Button
                 style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -109,7 +109,7 @@
                 android:layout_marginHorizontal="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ganti Tanda Tangan" />
+                android:text="@string/signature_change_title" />
         </LinearLayout>
 
         <LinearLayout
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginHorizontal="4dp"
-                android:text="Ulang" />
+                android:text="@string/signature_reset_button" />
             <Button
                 style="@style/Widget.Material3.Button.IconButton.Filled"
                 android:id="@+id/saveButton"
@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Simpan" />
+                android:text="@string/save_title" />
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -146,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="Simpan" />
+                android:text="@string/save_title" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

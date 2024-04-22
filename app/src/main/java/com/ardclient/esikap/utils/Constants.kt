@@ -9,4 +9,5 @@ object Constants {
     val WILAYAH_KEY = "WILAYAH"
     val USER_LEVEL = "USER_LEVEL"
     val USER_AKTIF = "USER_AKTIF"
+    val USER_LANGUAGE_PREFS_KEY = "LANGUAGE"
 }

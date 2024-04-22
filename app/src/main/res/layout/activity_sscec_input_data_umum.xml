@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Umum"
+                    android:text="@string/general_info_subtitle"
                     android:textSize="16sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginBottom="8dp"/>
@@ -58,7 +58,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jenis Layanan"
+                        android:text="@string/jenis_layanan_subtitle"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -72,13 +72,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Keberangkatan"/>
+                            android:text="@string/keberangkatan_subtitle"/>
                         <RadioButton
                             android:id="@+id/radio_layanan_kedatangan"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Kedatangan"/>
+                            android:text="@string/kedatangan_subtitle"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -90,7 +90,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jenis Pelayaran"
+                        android:text="@string/jenis_pelayaran_subtitle"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
@@ -104,13 +104,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Domestik"/>
+                            android:text="@string/radio_domestik"/>
                         <RadioButton
                             android:id="@+id/radio_pelayaran_inter"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="12sp"
-                            android:text="Internasional"/>
+                            android:text="@string/radio_internasional"/>
                     </RadioGroup>
                 </LinearLayout>
 
@@ -119,7 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Pelabuhan Tujuan">
+                    android:hint="@string/pelabuhan_tujuan">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Tanggal Tiba">
+                    android:hint="@string/tanggal_tiba">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -154,7 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Tanggal SSCEC / SSCEC lama">
+                    android:hint="@string/past_sscec_doc_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -173,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Tempat Terbit">
+                    android:hint="@string/tempat_terbit">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Lokasi Sandar">
+                    android:hint="@string/lokasi_sandar">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -203,7 +203,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data ABK Asing"
+                    android:text="@string/data_abk_asing_title"
                     android:textSize="16sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginBottom="8dp"/>
@@ -213,7 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Jumlah ABK Asing">
+                    android:hint="@string/jumlah_abk_asing_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -238,7 +238,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
-                        android:hint="Jumlah Sehat">
+                        android:hint="@string/jumlah_sehat">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -257,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
-                        android:hint="Jumlah Sakit">
+                        android:hint="@string/jumlah_sakit">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -274,7 +274,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data ABK WNI"
+                    android:text="@string/data_abk_wni_title"
                     android:textSize="16sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:layout_marginBottom="8dp"/>
@@ -284,7 +284,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="Jumlah ABK WNI">
+                    android:hint="@string/jumlah_abk_wni_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -309,7 +309,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
-                        android:hint="Jumlah Sehat">
+                        android:hint="@string/jumlah_sehat">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -328,7 +328,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="14dp"
-                        android:hint="Jumlah Sakit">
+                        android:hint="@string/jumlah_sakit">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -347,7 +347,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Simpan" />
+                    android:text="@string/save_title" />
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
