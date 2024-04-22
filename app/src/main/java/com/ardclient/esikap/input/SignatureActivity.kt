@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivitySignatureBinding
 import com.ardclient.esikap.input.phqc.PHQCInputActivity
 import com.ardclient.esikap.utils.SessionUtils
@@ -74,7 +75,7 @@ class SignatureActivity : AppCompatActivity() {
             if (isSigned) {
                 signPad.clear()
             } else {
-                Toast.makeText(this, "Belum ada tanda tangan!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_signature), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -100,7 +101,7 @@ class SignatureActivity : AppCompatActivity() {
 
                 isSignedComplete = true
             } else {
-                Toast.makeText(this, "Belum ada tanda tangan!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.no_signature), Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -111,7 +112,7 @@ class SignatureActivity : AppCompatActivity() {
 
             if (sendType == "PETUGAS_2" || sendType == "PETUGAS_3"){
                 if (txNIP.isNullOrEmpty()){
-                    Toast.makeText(this, "Form belum lengkap!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
             }
@@ -129,7 +130,7 @@ class SignatureActivity : AppCompatActivity() {
                 setResult(RESULT_OK, intent)
                 finish()
             } else {
-                Toast.makeText(this, "Form belum lengkap!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
             }
         }
 

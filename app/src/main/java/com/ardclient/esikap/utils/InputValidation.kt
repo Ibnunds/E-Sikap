@@ -4,13 +4,14 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.viewbinding.ViewBinding
+import com.ardclient.esikap.R
 import com.google.android.material.textfield.TextInputLayout
 
 object InputValidation {
     fun isAllFieldComplete(vararg fields: TextInputLayout): Boolean{
         for (field in fields) {
             if (field.editText?.text!!.isEmpty()) {
-                field.error = "${field.hint.toString()} tidak boleh kosong."
+                field.error = "${field.hint.toString()} ${R.string.cannot_be_empty}"
                 return false
             }else{
                 field.isErrorEnabled = false

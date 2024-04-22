@@ -225,4 +225,9 @@
     <string name="lang_id">Indonesia</string>
     <string name="lang_en">Inggris</string>
     <string name="language_changed">Bahasa telah diubah</string>
+    <string name="no_signature">Belum ada tanda tangan!</string>
+    <string name="dialog_delete_message">Apakah anda yakin ingin menghapus data ini?</string>
+    <string name="dialog_upload_message">Apakah anda yakin ingin mengupload data ini?</string>
+    <string name="dialog_back_confirm_message">Anda belum menyimpan data ini, apakah anda yakin ingin kembali?</string>
+    <string name="cannot_be_empty">tidak boleh kosong.</string>
 </resources>

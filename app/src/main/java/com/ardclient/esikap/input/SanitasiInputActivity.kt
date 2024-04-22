@@ -213,7 +213,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
         // Doc
         hasilDoc = copSanitasi.pemeriksanDoc
-        binding.btnSelectHasil.text = "Update Dokumen"
+        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
         binding.prevHasil.visibility = View.VISIBLE
         if (hasilDoc != null){
             Picasso.get().load(copSanitasi.pemeriksanDoc).fit().into(binding.prevHasil)
@@ -228,7 +228,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             binding.etMasalahNote.visibility = View.VISIBLE
 
             masalahDoc = copSanitasi.masalahKesehatanFile
-            binding.btnSelectMasalah.text = "Update Dokumen"
+            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
             binding.prevMasalah.visibility = View.VISIBLE
             Picasso.get().load(masalahDoc).fit().into(binding.prevMasalah)
 
@@ -242,12 +242,29 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
 
     private fun getCheckedIdByString(selected: String): Int {
-        return if (selected.lowercase() == "memenuhi syarat" || selected.lowercase() == "ada vektor dan tanda - tandanya" || selected.lowercase() == "disinseksi" || selected.lowercase() == "resiko tinggi" || selected.lowercase() == "ada"){
-            1
-        }else if (selected.lowercase() == "tidak memenuhi syarat" || selected.lowercase() == "tidak ada vektor" || selected.lowercase() == "fumigasi" || selected.lowercase() == "resiko rendah" || selected.lowercase() == "tidak ada"){
-            2
-        }else{
-            3
+        // Buat set untuk nilai yang memberikan ID 1
+        val group1 = setOf(
+            getString(R.string.radio_memenuhi_syarat).lowercase(),
+            getString(R.string.sanitasi_vector_true).lowercase(),
+            getString(R.string.sanitasi_disinseksi).lowercase(),
+            getString(R.string.radio_risk_high).lowercase(),
+            getString(R.string.radio_istrue).lowercase()
+        )
+
+        // Buat set untuk nilai yang memberikan ID 2
+        val group2 = setOf(
+            getString(R.string.radio_tidak_memenuhi_syarat).lowercase(),
+            getString(R.string.sanitasi_vector_false).lowercase(),
+            getString(R.string.sanitasi_fumigasi).lowercase(),
+            getString(R.string.radio_risk_low).lowercase(),
+            getString(R.string.radio_isfalse).lowercase()
+        )
+
+        // Uji apakah 'selected' ada dalam set
+        return when (selected.lowercase()) {
+            in group1 -> 1
+            in group2 -> 2
+            else -> 3
         }
     }
 
@@ -268,8 +285,8 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             val requireMasalahCatatan = hasMasalah && masalahCatatanVal.isEmpty()
 
             val errorMessage = when {
-                binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireMasalahCatatan -> "Data belum lengkap!"
-                binding.radioRekomendasi.checkedRadioButtonId == -1 -> "Data belum lengkap!"
+                binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireMasalahCatatan -> getString(R.string.data_not_completed)
+                binding.radioRekomendasi.checkedRadioButtonId == -1 -> getString(R.string.data_not_completed)
                 else -> null
             }
 
@@ -279,7 +296,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 onAllChecked()
             }
         } else {
-            Toast.makeText(this@SanitasiInputActivity, "Data belum lengkap!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@SanitasiInputActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -427,13 +444,13 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         when(selectedDocType){
             "MASALAH" -> {
                 masalahDoc = uriString
-                binding.btnSelectMasalah.text = "Update Dokumen"
+                binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
                 binding.prevMasalah.visibility = View.VISIBLE
                 Picasso.get().load(uriString).fit().into(binding.prevMasalah)
             }
             "HASIL" -> {
                 hasilDoc = uriString
-                binding.btnSelectHasil.text = "Update Dokumen"
+                binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
                 binding.prevHasil.visibility = View.VISIBLE
                 Picasso.get().load(hasilDoc).fit().into(binding.prevHasil)
             }

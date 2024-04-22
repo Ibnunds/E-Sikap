@@ -1,6 +1,7 @@
 package com.ardclient.esikap.utils
 
 import android.content.Context
+import com.ardclient.esikap.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 object DialogUtils {
@@ -14,28 +15,28 @@ object DialogUtils {
     }
     fun showDeleteDialog(context: Context, listener: OnDeleteConfirmListener) {
         MaterialAlertDialogBuilder(context)
-            .setTitle("Hapus Data")
-            .setMessage("Apakah anda yakin ingin menghapus data ini?")
-            .setNegativeButton("Batalkan") { dialog, _ -> dialog.dismiss()}
-            .setPositiveButton("Konfirmasi") { _, _ -> listener.onDeleteConfirmed() }
+            .setTitle(context.getString(R.string.delete_data_title))
+            .setMessage(context.getString(R.string.dialog_delete_message))
+            .setNegativeButton(context.getString(R.string.cancel_button)) { dialog, _ -> dialog.dismiss()}
+            .setPositiveButton(context.getString(R.string.confirm_button)) { _, _ -> listener.onDeleteConfirmed() }
             .show()
     }
 
     fun showUploadDialog(context: Context, listener: DialogListener) {
         MaterialAlertDialogBuilder(context)
-            .setTitle("Upload Data")
-            .setMessage("Apakah anda yakin ingin mengupload data ini?")
-            .setNegativeButton("Batalkan") { dialog, _ -> dialog.dismiss()}
-            .setPositiveButton("Konfirmasi") { _, _ -> listener.onConfirmed() }
+            .setTitle(context.getString(R.string.upload_data_title))
+            .setMessage(context.getString(R.string.dialog_upload_message))
+            .setNegativeButton(context.getString(R.string.cancel_button)) { dialog, _ -> dialog.dismiss()}
+            .setPositiveButton(context.getString(R.string.confirm_button)) { _, _ -> listener.onConfirmed() }
             .show()
     }
 
     fun showNotSavedDialog(context: Context, listener: DialogListener) {
         MaterialAlertDialogBuilder(context)
-            .setTitle("Konfirmasi")
-            .setMessage("Anda belum menyimpan data ini, apakah anda yakin ingin kembali?")
-            .setNegativeButton("Batalkan") { dialog, _ -> dialog.dismiss()}
-            .setPositiveButton("Konfirmasi") { _, _ -> listener.onConfirmed() }
+            .setTitle(context.getString(R.string.confirm_button))
+            .setMessage(context.getString(R.string.dialog_back_confirm_message))
+            .setNegativeButton(context.getString(R.string.cancel_button)) { dialog, _ -> dialog.dismiss()}
+            .setPositiveButton(context.getString(R.string.confirm_button)) { _, _ -> listener.onConfirmed() }
             .show()
     }
 }
