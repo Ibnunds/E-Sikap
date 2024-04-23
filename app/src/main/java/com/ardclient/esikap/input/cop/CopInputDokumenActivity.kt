@@ -1,5 +1,6 @@
 package com.ardclient.esikap.input.cop
 
+import android.content.Context
 import android.graphics.Rect
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.DokumenKapalListModel
 import com.ardclient.esikap.model.reusable.DokumenKapalModel
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.view.DokumenViewModel
 
 class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
@@ -329,5 +331,10 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

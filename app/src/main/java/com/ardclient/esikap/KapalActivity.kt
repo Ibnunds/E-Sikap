@@ -1,5 +1,6 @@
 package com.ardclient.esikap
 
+import android.content.Context
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.ardclient.esikap.database.kapal.KapalRoomDatabase
 import com.ardclient.esikap.databinding.ActivityKapalBinding
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.LocaleHelper
 
 class KapalActivity : AppCompatActivity() {
     private lateinit var kapal: KapalModel
@@ -142,5 +144,10 @@ class KapalActivity : AppCompatActivity() {
         val checkedRadioButtonId = radioGroup.checkedRadioButtonId
         val checkedRadioButton = findViewById<RadioButton>(checkedRadioButtonId)
         return checkedRadioButton.text.toString()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

@@ -1,6 +1,7 @@
 package com.ardclient.esikap
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -31,6 +32,7 @@ import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
+import com.ardclient.esikap.utils.LocaleHelper
 
 
 class DocumentListActivity : AppCompatActivity() {
@@ -267,5 +269,10 @@ class DocumentListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         initDBbyType()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

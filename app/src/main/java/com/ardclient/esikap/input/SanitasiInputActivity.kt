@@ -1,5 +1,6 @@
 package com.ardclient.esikap.input
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.SanitasiModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.LocaleHelper
 import com.squareup.picasso.Picasso
 
 class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
@@ -455,5 +457,10 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 Picasso.get().load(hasilDoc).fit().into(binding.prevHasil)
             }
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

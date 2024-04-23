@@ -1,5 +1,6 @@
 package com.ardclient.esikap.input.p3k
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,6 +29,7 @@ import com.ardclient.esikap.model.reusable.PemeriksaanKapalModel
 import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
+import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.utils.NetworkUtils
 import com.ardclient.esikap.utils.SessionUtils
 import retrofit2.Call
@@ -442,5 +444,10 @@ class P3KInputActivity : AppCompatActivity() {
         dao.deleteP3K(P3KDataUmum)
         Toast.makeText(this, getString(R.string.document_deleted), Toast.LENGTH_SHORT).show()
         finish()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

@@ -1,5 +1,6 @@
 package com.ardclient.esikap.input.p3k
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.input.sscec.SSCECInputActivity
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.LocaleHelper
 import com.google.android.material.datepicker.MaterialDatePicker
 
 class P3KInputDataUmumActivity : AppCompatActivity() {
@@ -187,5 +189,10 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

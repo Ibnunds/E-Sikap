@@ -1,5 +1,6 @@
 package com.ardclient.esikap
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ardclient.esikap.adapter.DetailKapalViewPagerAdapter
 import com.ardclient.esikap.fragment.DetailKapalFragment
 import com.ardclient.esikap.model.KapalModel
+import com.ardclient.esikap.utils.LocaleHelper
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -42,5 +44,10 @@ class DetailKapalActivity : AppCompatActivity() {
         TabLayoutMediator(tabHeader, viewPager) {
             tab: TabLayout.Tab, position: Int -> tab.text = listOfTitles[position]
         }.attach()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

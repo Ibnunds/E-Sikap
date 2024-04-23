@@ -1,5 +1,6 @@
 package com.ardclient.esikap
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.UserSessionModel
 import com.ardclient.esikap.model.api.UserLoginResponse
 import com.ardclient.esikap.service.ApiClient
+import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.utils.SessionUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
@@ -131,5 +133,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         onCekStatus()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

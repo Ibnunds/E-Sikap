@@ -21,6 +21,7 @@ import com.ardclient.esikap.model.api.UserLoginResponse
 import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Constants
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.utils.SessionUtils
 import retrofit2.Call
 import retrofit2.Callback
@@ -157,5 +158,10 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

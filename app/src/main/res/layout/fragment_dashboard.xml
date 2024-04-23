@@ -53,7 +53,7 @@
         android:layout_gravity="center"
         android:fontFamily="@font/poppins_medium"
         android:visibility="gone"
-        android:text="Belum ada data!"/>
+        android:text="@string/no_data"/>
     <ProgressBar
         android:id="@+id/loading_view"
         android:layout_width="wrap_content"

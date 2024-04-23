@@ -1,5 +1,6 @@
 package com.ardclient.esikap.input.sscec
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -21,6 +22,7 @@ import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.utils.SessionUtils
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -411,5 +413,10 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

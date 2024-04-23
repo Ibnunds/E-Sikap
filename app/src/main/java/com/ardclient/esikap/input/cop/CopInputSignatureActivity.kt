@@ -1,5 +1,6 @@
 package com.ardclient.esikap.input.cop
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -23,6 +24,7 @@ import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DateTimeUtils
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.utils.SessionUtils
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -564,5 +566,10 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         binding.btnSelectDoc.text = getString(R.string.update_dokumen_title)
         binding.prevDoc.visibility = View.VISIBLE
         Picasso.get().load(uriString).fit().into(binding.prevDoc)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

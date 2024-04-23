@@ -1,5 +1,6 @@
 package com.ardclient.esikap
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Toast
 import com.ardclient.esikap.database.sample.SampleDAO
 import com.ardclient.esikap.database.sample.SampleRoomDatabase
 import com.ardclient.esikap.model.Sample
+import com.ardclient.esikap.utils.LocaleHelper
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.textfield.TextInputLayout
 
@@ -98,5 +100,10 @@ class InputDataActivity : AppCompatActivity() {
     private fun deleteSample(sample: Sample){
         dao.deleteSample(sample)
         Toast.makeText(applicationContext, "Sample removed", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

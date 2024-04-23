@@ -1,5 +1,6 @@
 package com.ardclient.esikap.input.phqc
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +22,7 @@ import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.service.ApiClient
 import com.ardclient.esikap.utils.Base64Utils
 import com.ardclient.esikap.utils.DialogUtils
+import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.utils.NetworkUtils
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -282,5 +284,10 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         val updatedData = dao.getPHQCById(phqc.id)
         phqc = updatedData[0]
         initDetail()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

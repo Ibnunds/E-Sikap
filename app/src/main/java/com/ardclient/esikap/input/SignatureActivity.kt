@@ -1,5 +1,6 @@
 package com.ardclient.esikap.input
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Rect
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivitySignatureBinding
 import com.ardclient.esikap.input.phqc.PHQCInputActivity
+import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.utils.SessionUtils
 import com.github.gcacace.signaturepad.views.SignaturePad
 import java.io.ByteArrayOutputStream
@@ -173,5 +175,10 @@ class SignatureActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }

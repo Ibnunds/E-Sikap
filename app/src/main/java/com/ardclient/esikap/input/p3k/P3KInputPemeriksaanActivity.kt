@@ -1,6 +1,7 @@
 package com.ardclient.esikap.input.p3k
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -16,6 +17,7 @@ import com.ardclient.esikap.databinding.ActivityP3kInputPemeriksaanBinding
 import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.PemeriksaanKapalModel
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.LocaleHelper
 import com.squareup.picasso.Picasso
 
 class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
@@ -282,5 +284,10 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
         binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
         binding.prevMasalah.visibility  =View.VISIBLE
         Picasso.get().load(uriString).fit().into(binding.prevMasalah)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        LocaleHelper().setLocale(base!!, LocaleHelper().getLanguage(base))
+        super.attachBaseContext(LocaleHelper().onAttach(base))
     }
 }
