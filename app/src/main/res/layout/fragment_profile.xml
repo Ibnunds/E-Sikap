@@ -136,10 +136,11 @@
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginVertical="14dp">
             <ImageView
                 android:layout_width="160dp"
-                android:layout_height="100dp"
+                android:layout_height="65dp"
                 android:src="@drawable/app_logo"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"/>
