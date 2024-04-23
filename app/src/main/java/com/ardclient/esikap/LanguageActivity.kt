@@ -28,7 +28,7 @@ class LanguageActivity : AppCompatActivity() {
         // session
         sharedPreferences = getSharedPreferences(Constants.USER_LANGUAGE_PREFS_KEY, Context.MODE_PRIVATE)
 
-        val currentLang = StorageUtils.getLang(this)
+        val currentLang = LocaleHelper().getLanguage(this)
 
         with(binding){
             topAppBar.setNavigationOnClickListener {
