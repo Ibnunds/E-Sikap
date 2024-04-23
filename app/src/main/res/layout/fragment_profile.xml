@@ -125,6 +125,24 @@
                 android:layout_height="wrap_content"
                 android:text="@string/signout_button"
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Versi v0.2.0-alpha"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="12sp"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:src="@drawable/app_logo"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
     </LinearLayout>
 </FrameLayout>
