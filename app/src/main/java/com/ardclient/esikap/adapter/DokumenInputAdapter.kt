@@ -55,7 +55,7 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
             holder.tvTitle.text = item.title
             // handle existing
             if (!item.checkedVal.isNullOrEmpty()) {
-                if (item.checkedVal == context.getString(R.string.radio_istrue)) {
+                if (item.checkedVal == "Ada") {
                     holder.radio.check(R.id.radio_true)
                     holder.selectButton.visibility = View.VISIBLE
                 } else {
@@ -68,7 +68,7 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
 
             // radio and doc
             holder.radio.setOnCheckedChangeListener { _, checkedId ->
-                val radioLabel = if (checkedId == R.id.radio_true) context.getString(R.string.radio_istrue) else context.getString(R.string.radio_isfalse)
+                val radioLabel = if (checkedId == R.id.radio_true) "Ada" else "Tidak ada"
                 listener?.onRadioChangedListener(item.key, radioLabel)
                 if (checkedId == R.id.radio_true) {
                     holder.selectButton.visibility = View.VISIBLE
@@ -78,9 +78,14 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
                 }
             }
 
-            holder.selectButton.setOnClickListener {
-                listener?.onUploadButton(item.key)
+            if (item.needDoc){
+                holder.selectButton.setOnClickListener {
+                    listener?.onUploadButton(item.key)
+                }
+            }else{
+                holder.selectButton.visibility = View.GONE
             }
+
 
             // preview doc
             if (!item.docImage.isNullOrEmpty()) {

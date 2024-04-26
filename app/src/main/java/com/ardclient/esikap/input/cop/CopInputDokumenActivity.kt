@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -91,17 +92,17 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         // Prefix radio
         binding.radioKarantina.setOnCheckedChangeListener {_, checkedId ->
             if (checkedId == R.id.radio_karantina_true){
-                radioMap["KARANTINA"] = getString(R.string.quarantine_use)
+                radioMap["KARANTINA"] = "Pasang"
             }else{
-                radioMap["KARANTINA"] = getString(R.string.quarantine_not_use)
+                radioMap["KARANTINA"] = "Tidak pasang"
             }
         }
 
         binding.radioActivity.setOnCheckedChangeListener {_, checkedId ->
             if (checkedId == R.id.radio_activity_true){
-                radioMap["ACTIVITY"] = getString(R.string.radio_istrue)
+                radioMap["ACTIVITY"] = "Ada"
             }else{
-                radioMap["ACTIVITY"] = getString(R.string.radio_isfalse)
+                radioMap["ACTIVITY"] = "Tidak ada"
             }
         }
     }
@@ -147,29 +148,29 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         docMap["LPOC"] = copDocData.lpocDoc
         docMap["SHIPPAR"] = copDocData.shipParticularDoc
         docMap["LPC"] = copDocData.lpcDoc
-        radioMap["BUKUKUNING"] = copDocData.bukuKuningDoc
-        radioMap["CATATANPERJALANAN"] = copDocData.catatanPerjalananDoc
-        radioMap["IZINBERLAYAR"] = copDocData.izinBerlayarDoc
-        radioMap["DAFTARALKES"] = copDocData.daftarAlkesDoc
-        radioMap["DAFTARSTORE"] = copDocData.daftarStoreDoc
+        docMap["BUKUKUNING"] = copDocData.bukuKuningDoc
+        docMap["CATATANPERJALANAN"] = copDocData.catatanPerjalananDoc
+        docMap["IZINBERLAYAR"] = copDocData.izinBerlayarDoc
+        docMap["DAFTARALKES"] = copDocData.daftarAlkesDoc
+        docMap["DAFTARSTORE"] = copDocData.daftarStoreDoc
 
-        // doc
+        // note
         noteMap["MDH"] = copDocData.mdhNote
         noteMap["SSCEC"] = copDocData.sscecNote
         noteMap["P3K"] = copDocData.p3kNote
         noteMap["BUKUKES"] = copDocData.bukuKesehatanNote
         noteMap["BUKUVAKSIN"] = copDocData.bukuVaksinNote
         noteMap["LPC"] = copDocData.lpcNote
-        radioMap["BUKUKUNING"] = copDocData.bukuKuningNote
-        radioMap["CATATANPERJALANAN"] = copDocData.catatanPerjalananNote
-        radioMap["IZINBERLAYAR"] = copDocData.izinBerlayarNote
-        radioMap["DAFTARALKES"] = copDocData.daftarAlkesNote
-        radioMap["DAFTARSTORE"] = copDocData.daftarStoreNote
+        noteMap["BUKUKUNING"] = copDocData.bukuKuningNote
+        noteMap["CATATANPERJALANAN"] = copDocData.catatanPerjalananNote
+        noteMap["IZINBERLAYAR"] = copDocData.izinBerlayarNote
+        noteMap["DAFTARALKES"] = copDocData.daftarAlkesNote
+        noteMap["DAFTARSTORE"] = copDocData.daftarStoreNote
 
 
         // Prefix radio
-        binding.radioKarantina.check(if (copDocData.isyaratKarantina == getString(R.string.quarantine_use)) R.id.radio_karantina_true else R.id.radio_karantina_false)
-        binding.radioActivity.check(if (copDocData.aktifitasKapal == getString(R.string.radio_istrue)) R.id.radio_activity_true else R.id.radio_activity_false)
+        binding.radioKarantina.check(if (copDocData.isyaratKarantina == "Pasang") R.id.radio_karantina_true else R.id.radio_karantina_false)
+        binding.radioActivity.check(if (copDocData.aktifitasKapal == "Ada") R.id.radio_activity_true else R.id.radio_activity_false)
         radioMap["KARANTINA"] = copDocData.isyaratKarantina
         radioMap["ACTIVITY"] = copDocData.aktifitasKapal
 
@@ -186,7 +187,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
 
             override fun onRadioChangedListener(key: String, radioVal: String) {
                 radioMap[key] = radioVal
-                if (radioVal == getString(R.string.radio_isfalse)){
+                if (radioVal == "Tidak ada"){
                     docMap[key] = null
                 }
                 viewModel.updateRadioValue(key, radioVal, applicationContext)
@@ -215,9 +216,19 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
                 val noteVal = noteMap[key]
                 val docVal = docMap[key]
 
-                if (valueInRadioMap.isNullOrBlank() || (valueInRadioMap == getString(R.string.radio_istrue) && docVal.isNullOrEmpty()) || (item.needNote && noteVal.isNullOrEmpty())) {
-                    isDataComplete = false // Setel flag menjadi false jika ada data yang null
-                    break // Hentikan loop jika data tidak lengkap
+                if (valueInRadioMap.isNullOrBlank()){
+                    isDataComplete = false
+                    break
+                }
+
+                if ((valueInRadioMap == "Ada" && docVal.isNullOrEmpty() && item.needDoc)){
+                    isDataComplete = false
+                    break
+                }
+
+                if ((item.needNote && noteVal.isNullOrEmpty())){
+                    isDataComplete = false
+                    break
                 }
             }
 

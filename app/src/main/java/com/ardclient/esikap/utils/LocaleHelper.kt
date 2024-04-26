@@ -2,6 +2,7 @@ package com.ardclient.esikap.utils
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.res.Resources
 import android.os.Build
 import android.preference.PreferenceManager
 import java.util.Locale
@@ -75,4 +76,40 @@ class LocaleHelper {
 
         return context
     }
+
+    @Suppress("DEPRECATION")
+    fun getLocalizedString(context: Context, resourceId: Int): String {
+        val lang = getLanguage(context)
+
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+
+        val resources = context.resources
+
+        val configuration = resources.configuration
+        configuration.locale = locale
+        configuration.setLayoutDirection(locale)
+
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+
+        // Return the localized string
+        return resources.getString(resourceId)
+    }
+
+    @Suppress("DEPRECATION")
+    fun applyLocale(context: Context){
+        val lang = getLanguage(context)
+
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+
+        val resources = context.resources
+
+        val configuration = resources.configuration
+        configuration.locale = locale
+        configuration.setLayoutDirection(locale)
+
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+    }
+
 }

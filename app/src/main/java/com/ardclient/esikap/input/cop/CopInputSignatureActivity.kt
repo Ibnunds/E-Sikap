@@ -258,25 +258,25 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         // RADIO
         binding.radioObatP3K.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.radio_obatp3k_true){
-                radioMap["OBATP3K"] = getString(R.string.completed)
+                radioMap["OBATP3K"] = "Lengkap"
             }else{
-                radioMap["OBATP3K"] = getString(R.string.no_completed)
+                radioMap["OBATP3K"] = "Tidak lengkap"
             }
         }
 
         binding.radioKarantinaPinalti.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.radio_karantinapinalti_true){
-                radioMap["KARANTINA"] = getString(R.string.radio_istrue)
+                radioMap["KARANTINA"] = "Ada"
             }else{
-                radioMap["KARANTINA"] = getString(R.string.radio_isfalse)
+                radioMap["KARANTINA"] = "Tidak ada"
             }
         }
 
         binding.radioDokKes.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
-                R.id.radio_dokkes_lengkapberlaku -> radioMap["DOKKES"] = getString(R.string.radio_lengkap_berlaku)
-                R.id.radio_dokkes_lengkaptidakberlaku -> radioMap["DOKKES"] = getString(R.string.radio_lengkap_tidak_berlaku)
-                else -> radioMap["DOKKES"] = getString(R.string.radio_lengkap_tidak_berlaku)
+                R.id.radio_dokkes_lengkapberlaku -> radioMap["DOKKES"] = "Lengkap berlaku"
+                R.id.radio_dokkes_lengkaptidakberlaku -> radioMap["DOKKES"] = "Lengkap tidak berlaku"
+                else -> radioMap["DOKKES"] = "Tidak lengkap tidak berlaku"
             }
         }
 
@@ -322,7 +322,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         with(binding){
             // Radio P3K
             radioMap["OBATP3K"] = copSignature.obatP3K
-            if (copSignature.obatP3K == getString(R.string.completed)){
+            if (copSignature.obatP3K == "Lengkap"){
                 radioObatP3K.check(R.id.radio_obatp3k_true)
             }else{
                 radioObatP3K.check(R.id.radio_obatp3k_false)
@@ -330,7 +330,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
             // Radio Karantina
             radioMap["KARANTINA"] = copSignature.pelanggaranKarantina
-            if (copSignature.pelanggaranKarantina == getString(R.string.radio_istrue)){
+            if (copSignature.pelanggaranKarantina == "Ada"){
                 radioKarantinaPinalti.check(R.id.radio_karantinapinalti_true)
             }else{
                 radioKarantinaPinalti.check(R.id.radio_karantinapinalti_false)
@@ -339,8 +339,8 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             // Radio dokkes
             radioMap["DOKKES"] = copSignature.dokumenKesehatanKapal
             when(copSignature.dokumenKesehatanKapal){
-                getString(R.string.radio_lengkap_berlaku) -> radioDokKes.check(R.id.radio_dokkes_lengkapberlaku)
-                getString(R.string.radio_lengkap_tidak_berlaku) -> radioDokKes.check(R.id.radio_dokkes_lengkaptidakberlaku)
+                "Lengkap berlaku" -> radioDokKes.check(R.id.radio_dokkes_lengkapberlaku)
+                "Lengkap tidak berlaku" -> radioDokKes.check(R.id.radio_dokkes_lengkaptidakberlaku)
                 else -> radioDokKes.check(R.id.radio_dokkes_tidaklengkaptidakberlaku)
             }
 

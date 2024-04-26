@@ -6,5 +6,6 @@ data class DokumenKapalListModel(
     var checkedVal: String?,
     var docImage: String?,
     var note: String?,
-    var needNote: Boolean = false
+    var needNote: Boolean = false,
+    var needDoc: Boolean = true
 )

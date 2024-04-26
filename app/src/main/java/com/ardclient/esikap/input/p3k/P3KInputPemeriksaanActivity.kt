@@ -1,17 +1,13 @@
 package com.ardclient.esikap.input.p3k
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import com.ardclient.esikap.R
 import com.ardclient.esikap.databinding.ActivityP3kInputPemeriksaanBinding
 import com.ardclient.esikap.modal.ImageSelectorModal
@@ -189,10 +185,10 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
 
     private fun getCheckedIntByString(title: String): Int {
         return when (title) {
-            getString(R.string.radio_lengkap), getString(R.string.radio_risk_high), getString(R.string.radio_istrue) -> {
+            "Lengkap", "Resiko tinggi", "Ada" -> {
                 1
             }
-            getString(R.string.radio_tidak_lengkap), getString(R.string.radio_risk_low), getString(R.string.radio_isfalse) -> {
+            "Tidak lengkap", "Resiko rendah", "Tidak ada" -> {
                 2
             }
             else -> {
@@ -248,16 +244,18 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
            val masalahVal = InputValidation.getSelectedRadioGroupValue(this, radioMasalah)
            val masalahNote = if (needExtra) etMasalahNote.editText?.text.toString() else "-"
 
+           // trans
+
            val pemeriksaanData = PemeriksaanKapalModel(
-               peralatanP3K = peralatanP3KValue,
-               oxygenEmergency = oksigenVal,
-               fasilitasMedis = faskesVal,
-               obatAntibiotik = antibiotikVal,
-               obatAnalgesik = analgesikVal,
-               obatNarkotik = narkotikVal,
-               obatLainnya = obatLainnyaVal,
-               resiko = resikoVal,
-               masalah = masalahVal,
+               peralatanP3K = transValue(peralatanP3KValue),
+               oxygenEmergency = transValue(oksigenVal),
+               fasilitasMedis = transValue(faskesVal),
+               obatAntibiotik = transValue(antibiotikVal),
+               obatAnalgesik = transValue(analgesikVal),
+               obatNarkotik = transValue(narkotikVal),
+               obatLainnya = transValue(obatLainnyaVal),
+               resiko = transValue(resikoVal),
+               masalah = transValue(masalahVal, true),
                masalahCatatan = masalahNote,
                masalahFile = masalahDoc
            )
@@ -270,6 +268,19 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
            setResult(RESULT_OK, intent)
            finish()
        }
+    }
+
+    private fun transValue(selected: String, masalah: Boolean? = false): String {
+        return when(selected) {
+            "Complete" -> "Lengkap"
+            "Incomplete" -> "Tidak lengkap"
+            "Not available" -> if (masalah == true) "Tidak ada" else "Tidak tersedia"
+            "High risk" -> "Resiko tinggi"
+            "Low risk" -> "Resiko rendah"
+            "No risk" -> "Tidak ada resiko"
+            "Available" -> "Ada"
+            else -> selected
+        }
     }
 
     private fun pickDocument() {

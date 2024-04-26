@@ -93,7 +93,7 @@ class ImageSelectorModal : DialogFragment() {
             ImagePicker.with(requireActivity())
                 .crop()
                 .galleryOnly()
-                .compress(1024)
+                .compress(1536)
                 .maxResultSize(1080,1080)
                 .galleryMimeTypes(  //Exclude gif images
                     mimeTypes = arrayOf(
@@ -112,7 +112,7 @@ class ImageSelectorModal : DialogFragment() {
             ImagePicker.with(requireActivity())
                 .crop()
                 .cameraOnly()
-                .compress(1024)
+                .compress(1536)
                 .maxResultSize(1080,1080)
                 .createIntent {
                     startForImageResult.launch(it)

@@ -246,20 +246,20 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
     private fun getCheckedIdByString(selected: String): Int {
         // Buat set untuk nilai yang memberikan ID 1
         val group1 = setOf(
-            getString(R.string.radio_memenuhi_syarat).lowercase(),
-            getString(R.string.sanitasi_vector_true).lowercase(),
-            getString(R.string.sanitasi_disinseksi).lowercase(),
-            getString(R.string.radio_risk_high).lowercase(),
-            getString(R.string.radio_istrue).lowercase()
+            "memenuhi syarat",
+            "ada vektor dan tanda - tandanya",
+            "disinseksi",
+            "resiko tinggi",
+            "ada"
         )
 
         // Buat set untuk nilai yang memberikan ID 2
         val group2 = setOf(
-            getString(R.string.radio_tidak_memenuhi_syarat).lowercase(),
-            getString(R.string.sanitasi_vector_false).lowercase(),
-            getString(R.string.sanitasi_fumigasi).lowercase(),
-            getString(R.string.radio_risk_low).lowercase(),
-            getString(R.string.radio_isfalse).lowercase()
+            "tidak memenuhi syarat",
+            "Tidak ada vektor",
+            "fumigasi",
+            "resiko rendah",
+            "tidak ada"
         )
 
         // Uji apakah 'selected' ada dalam set
@@ -432,6 +432,54 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
     fun getSelectedRadioGroupValue(radioGroup: RadioGroup): String {
         val checkedRadioButtonId = radioGroup.checkedRadioButtonId
         val checkedRadioButton = findViewById<RadioButton>(checkedRadioButtonId)
+
+
+        // sanitasi en
+        if (checkedRadioButton.text == "Meets Requirements"){
+            return "Memenuhi Syarat"
+        }
+
+        if (checkedRadioButton.text == "Does Not Meet Requirements"){
+            return "Tidak Memenuhi Syarat"
+        }
+
+        // vector en
+        if (checkedRadioButton.text == "Vectors and signs are present"){
+            return "Ada vektor dan tanda - tandanya"
+        }
+
+        if (checkedRadioButton.text == "No Vectors"){
+            return "Tidak ada vektor"
+        }
+
+        // extras en
+        if (checkedRadioButton.text == "Disinsection"){
+            return "Disinseksi"
+        }
+
+        if (checkedRadioButton.text == "Fumigation"){
+            return "Fumigasi"
+        }
+
+        // risk
+        if (checkedRadioButton.text == "High risk"){
+            return "Resiko tinggi"
+        }
+
+        if (checkedRadioButton.text == "Low risk"){
+            return "Resiko rendah"
+        }
+
+        // avail
+        if (checkedRadioButton.text == "Available"){
+            return "ada"
+        }
+
+        if (checkedRadioButton.text == "Not available"){
+            return "tidak ada"
+        }
+
+
         return checkedRadioButton.text.toString()
     }
 
