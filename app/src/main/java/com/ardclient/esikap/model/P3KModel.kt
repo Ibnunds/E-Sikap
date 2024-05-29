@@ -39,6 +39,7 @@ data class P3KModel(
     @ColumnInfo(name = "nama_pt3") var namaPetugas3: String = "",
     @ColumnInfo(name = "sign_pt3") var signPetugas3: String = "",
     @ColumnInfo(name = "nip_pt3") var nipPetugas3: String = "",
+    @ColumnInfo(name = "flag") var flag: String = kapal.flag,
 ):Parcelable
 
 @Entity

@@ -93,7 +93,8 @@ class KapalActivity : AppCompatActivity() {
                         namaAgen = getAgen,
                         negaraAsal = getAsal,
                         kaptenKapal = getKapten,
-                        tipeKapal = radioTypeVal
+                        tipeKapal = radioTypeVal,
+                        flag = "LOCAL"
                     ))
                 }else{
                     onSaveData(KapalModel(
@@ -104,7 +105,8 @@ class KapalActivity : AppCompatActivity() {
                         namaAgen = getAgen,
                         negaraAsal = getAsal,
                         kaptenKapal = getKapten,
-                        tipeKapal = radioTypeVal
+                        tipeKapal = radioTypeVal,
+                        flag = "LOCAL"
                     ))
                 }
             }else{
