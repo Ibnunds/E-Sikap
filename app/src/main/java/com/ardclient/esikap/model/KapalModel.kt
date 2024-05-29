@@ -17,5 +17,7 @@ data class KapalModel(
     @ColumnInfo(name = "bendera") var bendera: String = "",
     @ColumnInfo(name = "imo") var imo: String = "",
     @ColumnInfo(name = "negara_asal") var negaraAsal: String = "",
-    @ColumnInfo(name = "tipe_kapal") var tipeKapal: String = ""
+    @ColumnInfo(name = "tipe_kapal") var tipeKapal: String = "",
+    @ColumnInfo(name = "flag") var flag: String = "",
+    @ColumnInfo(name = "tipe_dokumen") var tipeDokumen: String = ""
 ) : Parcelable

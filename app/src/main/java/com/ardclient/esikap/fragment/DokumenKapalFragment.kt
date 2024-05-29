@@ -43,7 +43,11 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val kapalData = arguments?.getParcelable<KapalModel>(ARG_DATA)
 
         if (kapalData != null){
-            getKapalData(kapalData.id)
+            if (kapalData.flag != "AGEN"){
+                getKapalData(kapalData.id)
+            }else{
+                kapal = kapalData
+            }
         }
 
         // Document Count

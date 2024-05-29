@@ -46,8 +46,13 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
         val data = arguments?.getParcelable<KapalModel>(ARG_DATA)
 
         if (data != null){
-            getKapalData(data.id)
+            if (data.flag != "AGEN"){
+                getKapalData(data.id)
+            }else{
+                kapal = data
+            }
         }
+
 
         // show detail
         binding.tvDetailNamaKapal.text = kapal.namaKapal
@@ -103,6 +108,15 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
 
     override fun onResume() {
         super.onResume()
-        getKapalData(kapal.id)
+        // Ambil data dari arguments
+        val data = arguments?.getParcelable<KapalModel>(ARG_DATA)
+
+        if (data != null){
+            if (data.flag != "AGEN"){
+                getKapalData(data.id)
+            }else{
+                kapal = data
+            }
+        }
     }
 }

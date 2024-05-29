@@ -21,56 +21,31 @@
             app:titleTextColor="@color/white"
             app:titleTextAppearance="@style/TopBarTextStyle"
             />
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
-            android:contentDescription="searchbar"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/cari_kapal"/>
+            app:tabBackground="@color/colorPrimary"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/bottomBarInactive"
+            app:tabIndicatorColor="@color/colorSecondary"
+            app:tabMode="fixed">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/informasi_kapal_title"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/document_kapal_title"
+                />
+        </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
-    <com.google.android.material.search.SearchView
-        android:id="@+id/search_view"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="@string/cari_kapal"
-        app:layout_anchor="@id/search_bar">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="14dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-    </com.google.android.material.search.SearchView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="14dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-    <TextView
-        android:id="@+id/no_data_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/poppins_medium"
-        android:visibility="gone"
-        android:text="@string/no_data"/>
-    <ProgressBar
-        android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintRight_toRightOf="@id/bottom_navigation"
-        android:contentDescription="@string/floatingactionbutton"
-        app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/fab_add"
-        app:tint="@color/white"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

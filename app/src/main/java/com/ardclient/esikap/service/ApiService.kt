@@ -6,6 +6,7 @@ import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.model.api.FileModel
+import com.ardclient.esikap.model.api.KapalListResponse
 import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadImageRequest
 import com.ardclient.esikap.model.api.UploadModel
@@ -13,6 +14,7 @@ import com.ardclient.esikap.model.api.UserLoginRequest
 import com.ardclient.esikap.model.api.UserLoginResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -63,4 +65,8 @@ interface ApiService {
     // Dev
     @POST("/dev")
     fun uploadDevCOP(@Body body: UploadModel<COPModel>) : Call<ApiResponse<Any>>
+
+    // Kapal
+    @GET("/kapal")
+    fun getKapalAgen() : Call<ApiResponse<ArrayList<KapalListResponse>>>
 }
