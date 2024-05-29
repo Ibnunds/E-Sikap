@@ -14,8 +14,8 @@ interface SSCECDao {
     @Insert
     fun createSSCEC(sscec: SSCECModel)
 
-    @Query("SELECT * FROM sscec WHERE kapalId = :kapalId ORDER BY id DESC")
-    fun getAllSSCEC(kapalId: Int): List<SSCECModel>
+    @Query("SELECT * FROM sscec WHERE kapalId = :kapalId AND flag = :flag ORDER BY id DESC")
+    fun getAllSSCEC(kapalId: Int, flag: String): List<SSCECModel>
 
     @Delete
     fun deleteSSCEC(id: SSCECModel)

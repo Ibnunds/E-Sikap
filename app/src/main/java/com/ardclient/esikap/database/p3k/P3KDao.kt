@@ -13,8 +13,8 @@ interface P3KDao {
     @Insert
     fun createP3K(p3k: P3KModel)
 
-    @Query("SELECT * FROM p3k WHERE kapalId = :kapalId ORDER BY id DESC")
-    fun getAllP3K(kapalId: Int): List<P3KModel>
+    @Query("SELECT * FROM p3k WHERE kapalId = :kapalId AND flag = :flag ORDER BY id DESC")
+    fun getAllP3K(kapalId: Int, flag: String): List<P3KModel>
 
     @Delete
     fun deleteP3K(id: P3KModel)

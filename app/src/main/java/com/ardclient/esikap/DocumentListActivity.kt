@@ -165,7 +165,7 @@ class DocumentListActivity : AppCompatActivity() {
         val dao = database.getP3KDAO()
         val listData = arrayListOf<P3KModel>()
 
-        listData.addAll(dao.getAllP3K(kapal.id))
+        listData.addAll(dao.getAllP3K(kapal.id, kapal.flag))
 
         binding.loadingView.visibility = View.GONE
 
@@ -191,7 +191,7 @@ class DocumentListActivity : AppCompatActivity() {
         val dao = database.getSSCECDao()
         val listData = arrayListOf<SSCECModel>()
 
-        listData.addAll(dao.getAllSSCEC(kapal.id))
+        listData.addAll(dao.getAllSSCEC(kapal.id, kapal.flag))
 
         binding.loadingView.visibility = View.GONE
 
@@ -217,7 +217,7 @@ class DocumentListActivity : AppCompatActivity() {
         val dao = database.getPHQCDao()
         val listData = arrayListOf<PHQCModel>()
 
-        listData.addAll(dao.getAllPHQC(kapal.id))
+        listData.addAll(dao.getAllPHQC(kapal.id, kapal.flag))
 
         binding.loadingView.visibility = View.GONE
 
@@ -244,7 +244,7 @@ class DocumentListActivity : AppCompatActivity() {
         val dao = database.getCOPDao()
         val listData = arrayListOf<COPModel>()
 
-        listData.addAll(dao.getAllCOP(kapal.id))
+        listData.addAll(dao.getAllCOP(kapal.id, kapal.flag))
 
         binding.loadingView.visibility = View.GONE
 

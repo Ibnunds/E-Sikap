@@ -14,8 +14,8 @@ interface COPDao {
     @Insert
     fun createCOP(cop: COPModel)
 
-    @Query("SELECT * FROM cop WHERE kapalId = :kapalId ORDER BY id DESC")
-    fun getAllCOP(kapalId: Int): List<COPModel>
+    @Query("SELECT * FROM cop WHERE kapalId = :kapalId AND flag = :flag ORDER BY id DESC")
+    fun getAllCOP(kapalId: Int, flag: String): List<COPModel>
 
     @Delete
     fun deleteCOP(id: COPModel)

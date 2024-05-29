@@ -79,7 +79,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val db = P3KRoomDatabase.getDatabase(requireContext())
         val dao = db.getP3KDAO()
 
-        val getData = dao.getAllP3K(kapal.id)
+        val getData = dao.getAllP3K(kapal.id, kapal.flag)
 
         if (getData != null){
             binding.bodyAmber.text = "${getData.size} ${getString(R.string.document_title)}"
@@ -90,7 +90,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val db = PHQCRoomDatabase.getDatabase(requireContext())
         val dao = db.getPHQCDao()
 
-        val getData = dao.getAllPHQC(kapal.id)
+        val getData = dao.getAllPHQC(kapal.id, kapal.flag)
 
         if (getData != null){
             binding.bodyBlue.text = "${getData.size} ${getString(R.string.document_title)}"
@@ -101,7 +101,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val db = COPRoomDatabase.getDatabase(requireContext())
         val dao = db.getCOPDao()
 
-        val getData = dao.getAllCOP(kapal.id)
+        val getData = dao.getAllCOP(kapal.id, kapal.flag)
 
         if (getData != null){
             binding.bodyGreen.text = "${getData.size} ${getString(R.string.document_title)}"
@@ -112,7 +112,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
         val db = SSCECRoomDatabase.getDatabase(requireContext())
         val dao = db.getSSCECDao()
 
-        val getData = dao.getAllSSCEC(kapal.id)
+        val getData = dao.getAllSSCEC(kapal.id, kapal.flag)
 
         if (getData != null){
             binding.bodyOrange.text = "${getData.size} ${getString(R.string.document_title)}"
