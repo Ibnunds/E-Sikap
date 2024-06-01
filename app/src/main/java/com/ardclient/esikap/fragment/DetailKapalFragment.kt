@@ -50,6 +50,8 @@ class DetailKapalFragment : Fragment(R.layout.fragment_detail_kapal) {
                 getKapalData(data.id)
             }else{
                 kapal = data
+                binding.deleteDataButton.visibility  = View.GONE
+                binding.updateDataButton.visibility = View.GONE
             }
         }
 

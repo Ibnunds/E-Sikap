@@ -23,6 +23,7 @@ import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.P3KUpdateStatusModel
 import com.ardclient.esikap.model.api.FileModel
+import com.ardclient.esikap.model.api.KapalStatusResponse
 import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.model.reusable.PemeriksaanKapalModel
@@ -314,8 +315,13 @@ class P3KInputActivity : AppCompatActivity() {
     }
 
     private fun onDocumentUploaded(uploadedFilesList: MutableList<FileModel>) {
-        Log.d("UPLOADED IMAGE", uploadedFilesList.toString())
-        val bodyRequest = UploadModel(p3kData, uploadedFilesList)
+        val kapalId: Int = if (p3kData.flag.lowercase() == "agen") {
+            p3kData.kapalId
+        } else {
+            999123
+        }
+
+        val bodyRequest = UploadModel(p3kData, uploadedFilesList, kapalId)
         val call = ApiClient.apiService.uploadP3K(bodyRequest)
 
         call.enqueue(object: Callback<ApiResponse<Any>>{

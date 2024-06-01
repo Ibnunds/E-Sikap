@@ -23,6 +23,7 @@ import com.ardclient.esikap.model.COPModel
 import com.ardclient.esikap.model.COPUpdateStatusModel
 import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.api.FileModel
+import com.ardclient.esikap.model.api.KapalStatusResponse
 import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.model.reusable.DokumenKapalModel
@@ -366,7 +367,13 @@ class CopInputActivity : AppCompatActivity() {
     }
 
     private fun onUploadDokSuccess(uploadedFilesList: MutableList<FileModel>) {
-        val bodyRequest = UploadModel(copData, uploadedFilesList)
+        val kapalId: Int = if (copData.flag.lowercase() == "agen") {
+            copData.kapalId
+        } else {
+            999123
+        }
+
+        val bodyRequest = UploadModel(copData, uploadedFilesList, kapalId)
         val call = ApiClient.apiService.uploadCOP(bodyRequest)
 
         call.enqueue(object : Callback<ApiResponse<Any>>{
@@ -390,6 +397,7 @@ class CopInputActivity : AppCompatActivity() {
 
         })
     }
+
 
     private fun onClearUploadedDoc() {
         val call = ApiClient.apiService.uploadCOPDelete(copBasicData.id.toString())

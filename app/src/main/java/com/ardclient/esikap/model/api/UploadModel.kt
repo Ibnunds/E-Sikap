@@ -6,7 +6,9 @@ data class UploadModel<T>(
     @SerializedName("data")
     val data: T?,
     @SerializedName("file")
-    val file: List<FileModel>?
+    val file: List<FileModel>?,
+    @SerializedName("kapalid")
+    val kapalid: Int
 )
 
 data class UploadFileModel(

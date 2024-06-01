@@ -247,6 +247,7 @@
     <string name="doc_daftarstore_title">Dokumen Daftar Store</string>
     <string name="no_media_permission">Izin akses media tidak diberikan!</string>
     <string name="kapal_saved_title">Data kapal berhasil disimpan!</string>
-    <string name="from_local_title">Dari Lokal</string>
-    <string name="from_agen_title">Dari Agen</string>
+    <string name="from_local_title">Lokal</string>
+    <string name="from_agen_title">Agen</string>
+    <string name="agent_done">Selesai (Agen)</string>
 </resources>

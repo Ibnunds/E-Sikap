@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class KapalListResponse(
-    @SerializedName("id") var id: Int? = null,
+    @SerializedName("id") var id: Int,
     @SerializedName("nama_kapal") var namaKapal: String? = null,
     @SerializedName("nama_agen") var namaAgen : String? = null,
     @SerializedName("kapten_kapal") var kaptenKapal: String? = null,
@@ -16,8 +16,14 @@ data class KapalListResponse(
     @SerializedName("negara_asal") var negaraAsal : String? = null,
     @SerializedName("tipe_kapal") var tipeKapal : String? = null,
     @SerializedName("tanggal_permintaan") var tanggalPermintaan : String? = null,
-    @SerializedName("tanggal_diperiksa") var tanggalDiperiksa : String? = null,
-    @SerializedName("tanggal_disetujui") var tanggalDisetujui : String? = null,
     @SerializedName("status") var status : Int? = null,
-    @SerializedName("tipe_dokumen") var tipeDokumen : String? = null
+    @SerializedName("tipe_dokumen") var tipeDokumen : String? = null,
+    @SerializedName("tgl_diperiksa_phqc") var tglDiperiksaPHQC : String? = null,
+    @SerializedName("tgl_diperiksa_sscec") var tglDiperiksaSSCEC : String? = null,
+    @SerializedName("tgl_diperiksa_cop") var tglDiperiksaCOP : String? = null,
+    @SerializedName("tgl_diperiksa_p3k") var tglDiperiksaP3K : String? = null,
+    @SerializedName("dok_id_phqc") var dokIdPHQC : String? = null,
+    @SerializedName("dok_id_sscec") var dokIdSSCEC : String? = null,
+    @SerializedName("dok_id_cop") var dokIdCOP : String? = null,
+    @SerializedName("dok_id_p3k") var dokIdP3K : String? = null,
 ) : Parcelable

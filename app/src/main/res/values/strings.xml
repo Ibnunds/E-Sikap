@@ -246,8 +246,7 @@
     <string name="doc_daftarstore_title">Store List Document</string>
     <string name="no_media_permission">Media access permission not granted!</string>
     <string name="kapal_saved_title">Ship data successfully saved!</string>
-    <string name="from_local_title">From Local</string>
-    <string name="from_agen_title">From Agen</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="from_local_title">Local</string>
+    <string name="from_agen_title">Agent</string>
+    <string name="agent_done">Done (Agent)</string>
 </resources>

@@ -24,11 +24,12 @@ import retrofit2.Response
 
 class KapalAgenFragment : Fragment(R.layout.fragment_kapal_agen) {
     private lateinit var binding: FragmentKapalAgenBinding
+    var isInflated = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentKapalAgenBinding.bind(view)
 
-        getKapalAgen()
+        getKapalAgen("")
 
         with(binding){
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -36,7 +37,7 @@ class KapalAgenFragment : Fragment(R.layout.fragment_kapal_agen) {
             searchView.editText
                 .setOnEditorActionListener { _, _, _ ->
                     searchBar.text = searchView.text
-                    //handleOnSearch()
+                    handleOnSearch()
                     searchView.hide()
                     false
                 }
@@ -47,7 +48,7 @@ class KapalAgenFragment : Fragment(R.layout.fragment_kapal_agen) {
                 when (menuItem.itemId) {
                     R.id.menu_clear -> {
                         searchBar.text = ""
-                        //handleOnSearch()
+                        handleOnSearch()
                         true  // Returning true to indicate the click was handled
                     }
                     else -> false  // Return false for other items
@@ -56,8 +57,28 @@ class KapalAgenFragment : Fragment(R.layout.fragment_kapal_agen) {
         }
     }
 
-    private fun getKapalAgen() {
-        val call = ApiClient.apiService.getKapalAgen()
+    private fun handleOnSearch() {
+        with(binding){
+            val keyword = searchBar.text.toString()
+
+            if (keyword.isNotEmpty()){
+                if (!isInflated) {
+                    searchBar.inflateMenu(R.menu.search_menu)
+                    isInflated = true
+                }
+            }else{
+                if (isInflated) {
+                    searchBar.menu.clear()
+                    isInflated = false
+                }
+            }
+
+            getKapalAgen(keyword)
+        }
+    }
+
+    private fun getKapalAgen(keyword: String) {
+        val call = ApiClient.apiService.getKapalAgen("WAITING", keyword)
 
         call.enqueue(object: Callback<ApiResponse<ArrayList<KapalListResponse>>>{
             override fun onResponse(
@@ -68,14 +89,17 @@ class KapalAgenFragment : Fragment(R.layout.fragment_kapal_agen) {
                 if (response.isSuccessful){
                     val data = response.body()?.data
                     if (!data.isNullOrEmpty()){
+                        binding.recyclerView.visibility = View.VISIBLE
                         binding.searchBar.visibility = View.VISIBLE
                         binding.noDataText.visibility = View.GONE
                         setupRecyclerView(data)
                     }else{
                         binding.noDataText.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
                     }
                 }else{
                     binding.noDataText.visibility = View.VISIBLE
+                    binding.recyclerView.visibility = View.GONE
                     Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
                 }
             }
@@ -86,6 +110,7 @@ class KapalAgenFragment : Fragment(R.layout.fragment_kapal_agen) {
             ) {
                 binding.loadingView.visibility = View.GONE
                 binding.noDataText.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
                 Toast.makeText(requireContext(), t.message.toString(), Toast.LENGTH_SHORT).show()
             }
         })
@@ -119,6 +144,6 @@ class KapalAgenFragment : Fragment(R.layout.fragment_kapal_agen) {
 
     override fun onResume() {
         super.onResume()
-        getKapalAgen()
+        getKapalAgen("")
     }
 }

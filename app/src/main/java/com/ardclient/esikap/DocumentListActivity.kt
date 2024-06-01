@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,6 +34,7 @@ import com.ardclient.esikap.model.P3KModel
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.utils.LocaleHelper
+import java.util.Locale
 
 
 class DocumentListActivity : AppCompatActivity() {
@@ -173,6 +175,7 @@ class DocumentListActivity : AppCompatActivity() {
             binding.noDataText.visibility = View.VISIBLE
         }else{
             binding.noDataText.visibility = View.GONE
+            cekIsKapalAgen()
         }
 
         // setupRecyclerView("PHQC", listData)
@@ -180,7 +183,7 @@ class DocumentListActivity : AppCompatActivity() {
             override fun onItemClicked(p3k: P3KModel) {
                 val intent = Intent(this@DocumentListActivity, P3KInputActivity::class.java)
                 intent.putExtra("P3K", p3k)
-                intent?.putExtra("KAPAL", kapal)
+                intent.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
         })
@@ -199,6 +202,7 @@ class DocumentListActivity : AppCompatActivity() {
             binding.noDataText.visibility = View.VISIBLE
         }else{
             binding.noDataText.visibility = View.GONE
+            cekIsKapalAgen()
         }
 
         // setupRecyclerView("PHQC", listData)
@@ -206,7 +210,7 @@ class DocumentListActivity : AppCompatActivity() {
             override fun onItemClicked(sscec: SSCECModel) {
                 val intent = Intent(this@DocumentListActivity, SSCECInputActivity::class.java)
                 intent.putExtra("SSCEC", sscec)
-                intent?.putExtra("KAPAL", kapal)
+                intent.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
         })
@@ -225,6 +229,7 @@ class DocumentListActivity : AppCompatActivity() {
             binding.noDataText.visibility = View.VISIBLE
         }else{
             binding.noDataText.visibility = View.GONE
+            cekIsKapalAgen()
         }
 
         // setupRecyclerView("PHQC", listData)
@@ -232,7 +237,7 @@ class DocumentListActivity : AppCompatActivity() {
             override fun onItemClicked(phqc: PHQCModel) {
                 val intent = Intent(this@DocumentListActivity, PHQCDocumentDetailActivity::class.java)
                 intent.putExtra("PHQC", phqc)
-                intent?.putExtra("KAPAL", kapal)
+                intent.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
         })
@@ -252,6 +257,7 @@ class DocumentListActivity : AppCompatActivity() {
             binding.noDataText.visibility = View.VISIBLE
         }else{
             binding.noDataText.visibility = View.GONE
+            cekIsKapalAgen()
         }
 
         // setupRecyclerView("COP", listData)
@@ -259,7 +265,7 @@ class DocumentListActivity : AppCompatActivity() {
             override fun onItemClicked(cop: COPModel) {
                 val intent = Intent(this@DocumentListActivity, CopInputActivity::class.java)
                 intent.putExtra("COP", cop)
-                intent?.putExtra("KAPAL", kapal)
+                intent.putExtra("KAPAL", kapal)
                 startActivity(intent)
             }
 
@@ -269,6 +275,12 @@ class DocumentListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         initDBbyType()
+    }
+
+    private fun cekIsKapalAgen() {
+        if (kapal.flag.lowercase() == "agen"){
+           binding.fab.visibility = View.GONE
+        }
     }
 
     override fun attachBaseContext(base: Context?) {

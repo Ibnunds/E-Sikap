@@ -7,6 +7,7 @@ import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.model.api.FileModel
 import com.ardclient.esikap.model.api.KapalListResponse
+import com.ardclient.esikap.model.api.KapalStatusResponse
 import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadImageRequest
 import com.ardclient.esikap.model.api.UploadModel
@@ -67,6 +68,10 @@ interface ApiService {
     fun uploadDevCOP(@Body body: UploadModel<COPModel>) : Call<ApiResponse<Any>>
 
     // Kapal
-    @GET("/kapal")
-    fun getKapalAgen() : Call<ApiResponse<ArrayList<KapalListResponse>>>
+    @GET("/kapal/{type}")
+    fun getKapalAgen(@Path("type") type: String = "", @Query("cari") cari:String = "") : Call<ApiResponse<ArrayList<KapalListResponse>>>
+
+    @POST("/kapal/update-status/{id}")
+    fun updateKapalStatus(@Path("id") id: Int) : Call<ApiResponse<KapalStatusResponse>>
+
 }

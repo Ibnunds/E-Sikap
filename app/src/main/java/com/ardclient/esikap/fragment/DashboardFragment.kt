@@ -35,6 +35,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard){
         val listOfTitles = arrayListOf<String>()
         listOfTitles.add(getString(R.string.from_local_title))
         listOfTitles.add(getString(R.string.from_agen_title))
+        listOfTitles.add(getString(R.string.agent_done))
 
         val pagerAdapter = KapalViewPagerAdapter(requireActivity(), listOfTitles)
 

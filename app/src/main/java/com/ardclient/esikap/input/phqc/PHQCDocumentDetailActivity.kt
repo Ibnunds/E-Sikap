@@ -17,6 +17,7 @@ import com.ardclient.esikap.model.ApiResponse
 import com.ardclient.esikap.model.PHQCModel
 import com.ardclient.esikap.model.PHQCStatusUpdateModel
 import com.ardclient.esikap.model.api.FileModel
+import com.ardclient.esikap.model.api.KapalStatusResponse
 import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.service.ApiClient
@@ -168,7 +169,13 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
 
 
     private fun onDocumentUploaded(uploadedFilesList: MutableList<FileModel>) {
-        val bodyRequest = UploadModel(phqc, uploadedFilesList)
+        val kapalId: Int = if (phqc.flag.lowercase() == "agen") {
+            phqc.kapalId
+        } else {
+            999123
+        }
+
+        val bodyRequest = UploadModel(phqc, uploadedFilesList, kapalId)
         val call = ApiClient.apiService.uploadPHQC(bodyRequest)
 
         call.enqueue(object : Callback<ApiResponse<Any>>{

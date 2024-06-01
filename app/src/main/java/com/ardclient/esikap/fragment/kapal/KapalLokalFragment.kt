@@ -18,6 +18,7 @@ import com.ardclient.esikap.model.KapalModel
 
 class KapalLokalFragment : Fragment(R.layout.fragment_kapal_lokal) {
     private lateinit var binding: FragmentKapalLokalBinding
+    var isInflated = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentKapalLokalBinding.bind(view)
@@ -61,9 +62,16 @@ class KapalLokalFragment : Fragment(R.layout.fragment_kapal_lokal) {
             val keyword = searchBar.text.toString()
 
             if (keyword.isNotEmpty()){
-                searchBar.inflateMenu(R.menu.search_menu)
+                if (!isInflated){
+                    searchBar.inflateMenu(R.menu.search_menu)
+                    isInflated = true
+                }
             }else{
-                searchBar.menu.clear()
+                if (isInflated){
+                    searchBar.menu.clear()
+                    isInflated = false
+                }
+
             }
 
             val database = KapalRoomDatabase.getDatabase(requireContext())
@@ -106,8 +114,10 @@ class KapalLokalFragment : Fragment(R.layout.fragment_kapal_lokal) {
             loadingView.visibility = View.GONE
 
             if (listItems.size < 1){
+                searchBar.visibility = View.GONE
                 noDataText.visibility = View.VISIBLE
             }else{
+                searchBar.visibility = View.VISIBLE
                 noDataText.visibility = View.GONE
             }
 

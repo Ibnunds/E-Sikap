@@ -11,7 +11,7 @@ object InputValidation {
     fun isAllFieldComplete(vararg fields: TextInputLayout): Boolean{
         for (field in fields) {
             if (field.editText?.text!!.isEmpty()) {
-                field.error = "${field.hint.toString()} ${R.string.cannot_be_empty}"
+                field.error = "${field.hint.toString()} error."
                 return false
             }else{
                 field.isErrorEnabled = false

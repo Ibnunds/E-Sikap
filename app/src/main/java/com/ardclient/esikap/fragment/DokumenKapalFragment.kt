@@ -47,6 +47,7 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
                 getKapalData(kapalData.id)
             }else{
                 kapal = kapalData
+                handleNeededCard(kapal.tipeDokumen)
             }
         }
 
@@ -75,15 +76,33 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
 
     }
 
+    private fun handleNeededCard(dokList: String) {
+        val keySplit = dokList.split(",")
+        val keyList = listOf<String>("PHQC", "COP", "SSCEC", "P3K")
+
+        for (key in keyList) {
+            if (key in keySplit) {
+                // do nothing
+            } else {
+                when(key) {
+                    "PHQC" -> binding.frameBlue.visibility = View.GONE
+                    "COP" -> binding.frameGreen.visibility = View.GONE
+                    "SSCEC" -> binding.frameOrange.visibility = View.GONE
+                    "P3K" -> binding.frameAmber.visibility = View.GONE
+                }
+            }
+        }
+    }
+
     private fun initP3KDocumentCount() {
         val db = P3KRoomDatabase.getDatabase(requireContext())
         val dao = db.getP3KDAO()
 
         val getData = dao.getAllP3K(kapal.id, kapal.flag)
 
-        if (getData != null){
-            binding.bodyAmber.text = "${getData.size} ${getString(R.string.document_title)}"
-        }
+        val title = "${getData.size} ${getString(R.string.document_title)}"
+
+        binding.bodyAmber.text = title
     }
 
     private fun initPHQCDocumentCount() {
@@ -92,9 +111,9 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
 
         val getData = dao.getAllPHQC(kapal.id, kapal.flag)
 
-        if (getData != null){
-            binding.bodyBlue.text = "${getData.size} ${getString(R.string.document_title)}"
-        }
+        val title = "${getData.size} ${getString(R.string.document_title)}"
+
+        binding.bodyBlue.text = title
     }
 
     private fun initCOPDocumentCount() {
@@ -103,9 +122,9 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
 
         val getData = dao.getAllCOP(kapal.id, kapal.flag)
 
-        if (getData != null){
-            binding.bodyGreen.text = "${getData.size} ${getString(R.string.document_title)}"
-        }
+        val title = "${getData.size} ${getString(R.string.document_title)}"
+
+        binding.bodyGreen.text = title
     }
 
     private fun initSSCECDocumentCount() {
@@ -114,9 +133,9 @@ class DokumenKapalFragment : Fragment(R.layout.fragment_dokumen_kapal) {
 
         val getData = dao.getAllSSCEC(kapal.id, kapal.flag)
 
-        if (getData != null){
-            binding.bodyOrange.text = "${getData.size} ${getString(R.string.document_title)}"
-        }
+        val title = "${getData.size} ${getString(R.string.document_title)}"
+
+        binding.bodyOrange.text = title
     }
 
     private fun getKapalData(id: Int) {

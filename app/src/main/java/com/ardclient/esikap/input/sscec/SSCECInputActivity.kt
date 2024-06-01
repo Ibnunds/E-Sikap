@@ -24,6 +24,7 @@ import com.ardclient.esikap.model.KapalModel
 import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.model.SSCECUpdateStatusModel
 import com.ardclient.esikap.model.api.FileModel
+import com.ardclient.esikap.model.api.KapalStatusResponse
 import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadModel
 import com.ardclient.esikap.model.reusable.SanitasiModel
@@ -329,7 +330,13 @@ class SSCECInputActivity : AppCompatActivity() {
     }
 
     private fun onUploadDokSuccess(uploadedFilesList: MutableList<FileModel>) {
-        val bodyRequest = UploadModel(sscecData, uploadedFilesList)
+        val kapalId: Int = if (sscecData.flag.lowercase() == "agen") {
+            sscecData.kapalId
+        } else {
+            999123
+        }
+
+        val bodyRequest = UploadModel(sscecData, uploadedFilesList, kapalId)
         val call = ApiClient.apiService.uploadSSCEC(bodyRequest)
 
         call.enqueue(object : Callback<ApiResponse<Any>>{
@@ -339,7 +346,6 @@ class SSCECInputActivity : AppCompatActivity() {
             ) {
                 spinner.dismiss()
                 if (response.isSuccessful){
-                    spinner.dismiss()
                     onUploadSuccess()
                     //Toast.makeText(this@SSCECInputActivity, "SUKES", Toast.LENGTH_SHORT).show()
                 }else{
@@ -355,6 +361,7 @@ class SSCECInputActivity : AppCompatActivity() {
 
         })
     }
+
 
     private fun onUploadSuccess() {
         val updatedData = SSCECUpdateStatusModel(id = sscecData.id, isUpload = true)
