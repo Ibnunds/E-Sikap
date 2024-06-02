@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">E-Sikap</string>
+    <string name="app_name">E-Clearance</string>
     <string name="home">Dashboard</string>
     <string name="profile">Profile</string>
     <string name="floatingactionbutton">Tambah Data</string>

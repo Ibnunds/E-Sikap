@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.api.KapalListResponse
+import com.ardclient.esikap.utils.DateTimeUtils
 
 class KapalAgenAdapter(private val listItems: ArrayList<KapalListResponse>, private val listener: OnKapalAgenListener) : RecyclerView.Adapter<KapalAgenAdapter.ViewHolder>() {
     interface OnKapalAgenListener {
@@ -16,6 +17,7 @@ class KapalAgenAdapter(private val listItems: ArrayList<KapalListResponse>, priv
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var tvTitle: TextView = itemView.findViewById(R.id.card_title)
         var tvBody: TextView = itemView.findViewById(R.id.card_body)
+        var tvDate:TextView = itemView.findViewById(R.id.card_date)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,5 +36,9 @@ class KapalAgenAdapter(private val listItems: ArrayList<KapalListResponse>, priv
         holder.itemView.setOnClickListener {
             listener.onKapalClick(item)
         }
+
+        val date = DateTimeUtils.formatDateTime(item.tanggalPermintaan!!)
+
+        holder.tvDate.text = date
     }
 }

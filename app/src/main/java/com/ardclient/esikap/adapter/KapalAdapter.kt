@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardclient.esikap.R
 import com.ardclient.esikap.model.KapalModel
+import com.ardclient.esikap.utils.DateTimeUtils
 
 class KapalAdapter(
     private val listItems: ArrayList<KapalModel>,
@@ -15,6 +16,7 @@ class KapalAdapter(
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         var tvTitle: TextView = itemView.findViewById(R.id.card_title)
         var tvBody: TextView = itemView.findViewById(R.id.card_body)
+        var tvDate:TextView = itemView.findViewById(R.id.card_date)
     }
 
     interface KapalListener {
@@ -33,6 +35,7 @@ class KapalAdapter(
         holder.itemView.setOnClickListener{
             listener.onItemClicked(item)
         }
+        holder.tvDate.visibility = View.GONE
     }
 
     override fun getItemCount(): Int {
