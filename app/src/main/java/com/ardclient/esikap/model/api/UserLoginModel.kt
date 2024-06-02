@@ -22,4 +22,6 @@ data class UserLoginResponse(
     val level: String,
     @SerializedName("aktif")
     val aktif: Int,
+    @SerializedName("avatar")
+    val avatar: String,
 )

@@ -125,6 +125,7 @@ class LoginActivity : AppCompatActivity() {
         val level = userData?.level
         val password = userData?.password
         val aktif = userData?.aktif
+        val avatar = userData?.avatar
 
         // save session
         editor.putInt(Constants.USERID_KEY, userId!!)
@@ -133,6 +134,7 @@ class LoginActivity : AppCompatActivity() {
         editor.putString(Constants.USER_LEVEL, level)
         editor.putString(Constants.USERPASSWORD_KEY, password)
         editor.putInt(Constants.USER_AKTIF, aktif!!)
+        editor.putString(Constants.AVATAR_KEY, avatar!!)
 
         editor.apply()
 

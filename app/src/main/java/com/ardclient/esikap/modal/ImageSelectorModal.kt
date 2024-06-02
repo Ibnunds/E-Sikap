@@ -28,7 +28,7 @@ import java.util.Date
 import java.util.Locale
 
 
-class ImageSelectorModal : DialogFragment() {
+class ImageSelectorModal(private val listener: OnImageSelectedListener? = null) : DialogFragment() {
     private lateinit var galleryButton: MaterialButton
     private lateinit var cameraButton: MaterialButton
     private lateinit var cancelButton: MaterialButton
@@ -130,6 +130,7 @@ class ImageSelectorModal : DialogFragment() {
                     //Image Uri will not be null for RESULT_OK
                     val fileUri = data?.data!!
                     (activity as? OnImageSelectedListener)?.onImageSelected(fileUri)
+                    listener?.onImageSelected(fileUri)
                     dismiss()
                 }
                 ImagePicker.RESULT_ERROR -> {

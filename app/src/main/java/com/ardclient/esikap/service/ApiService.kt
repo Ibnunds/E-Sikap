@@ -8,6 +8,7 @@ import com.ardclient.esikap.model.SSCECModel
 import com.ardclient.esikap.model.api.FileModel
 import com.ardclient.esikap.model.api.KapalListResponse
 import com.ardclient.esikap.model.api.KapalStatusResponse
+import com.ardclient.esikap.model.api.UploadAvatarBody
 import com.ardclient.esikap.model.api.UploadFileModel
 import com.ardclient.esikap.model.api.UploadImageRequest
 import com.ardclient.esikap.model.api.UploadModel
@@ -29,6 +30,8 @@ interface ApiService {
     fun userLogin(@Body body: UserLoginRequest) : Call<ApiResponse<UserLoginResponse>>
     @POST("user/status")
     fun userStatus(@Query("username") username: String): Call<ApiResponse<UserLoginResponse>>
+    @POST("user/avatar/{id}")
+    fun uploadAvatar(@Path("id") id: Int, @Body body:UploadAvatarBody): Call<ApiResponse<String>>
 
     // Upload PHQC
     @POST("upload/phqc")

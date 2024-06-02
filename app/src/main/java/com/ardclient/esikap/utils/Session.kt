@@ -22,6 +22,7 @@ object SessionUtils {
         val userLevel = sharedPreferences.getString(Constants.USER_LEVEL, "")
         val userPassword = sharedPreferences.getString(Constants.USERPASSWORD_KEY, "")
         val userAktif = sharedPreferences.getInt(Constants.USER_AKTIF, 0)
+        val userAvatar = sharedPreferences.getString(Constants.AVATAR_KEY, "")
 
         return UserSessionModel(
             userId = userId,
@@ -29,7 +30,8 @@ object SessionUtils {
             name = name,
             userLevel = userLevel,
             userPassword = userPassword,
-            userAktif = userAktif
+            userAktif = userAktif,
+            userAvatar = userAvatar
         )
     }
 

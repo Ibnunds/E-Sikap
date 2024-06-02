@@ -63,4 +63,9 @@
     <style name="SplashActivity" parent="Base.Theme.ESikap">
         <item name="android:windowSplashScreenAnimationDuration" tools:targetApi="32">2000</item>
     </style>
+
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

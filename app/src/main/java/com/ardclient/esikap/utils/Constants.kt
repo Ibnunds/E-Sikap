@@ -10,4 +10,5 @@ object Constants {
     val USER_LEVEL = "USER_LEVEL"
     val USER_AKTIF = "USER_AKTIF"
     val USER_LANGUAGE_PREFS_KEY = "LANGUAGE"
+    val AVATAR_KEY = "USER_AVATAR"
 }

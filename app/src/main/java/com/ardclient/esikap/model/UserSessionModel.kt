@@ -15,4 +15,6 @@ data class UserSessionModel(
     val userLevel: String?,
     @SerializedName("userAktif")
     val userAktif: Int?,
+    @SerializedName("userAvatar")
+    var userAvatar: String?,
 )
