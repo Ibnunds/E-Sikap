@@ -246,9 +246,9 @@
     <string name="doc_daftarstore_title">Store List Document</string>
     <string name="no_media_permission">Media access permission not granted!</string>
     <string name="kapal_saved_title">Ship data successfully saved!</string>
-    <string name="from_local_title">Local</string>
-    <string name="from_agen_title">Agent</string>
-    <string name="agent_done">Done (Agent)</string>
+    <string name="from_local_title">Officer Submission</string>
+    <string name="from_agen_title">Agent Submission</string>
+    <string name="agent_done">Submission Done (Agent)</string>
     <string name="upload_button">Upload</string>
     <string name="tap_to_change">Tap to change avatar</string>
 </resources>

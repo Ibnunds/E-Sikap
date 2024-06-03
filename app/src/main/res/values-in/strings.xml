@@ -247,9 +247,9 @@
     <string name="doc_daftarstore_title">Dokumen Daftar Store</string>
     <string name="no_media_permission">Izin akses media tidak diberikan!</string>
     <string name="kapal_saved_title">Data kapal berhasil disimpan!</string>
-    <string name="from_local_title">Lokal</string>
-    <string name="from_agen_title">Agen</string>
-    <string name="agent_done">Selesai (Agen)</string>
+    <string name="from_local_title">Pengajuan (Petugas)</string>
+    <string name="from_agen_title">Pengajuan (Agen)</string>
+    <string name="agent_done">Pengajuan Selesai (Agen)</string>
     <string name="upload_button">Upload</string>
     <string name="tap_to_change">Tekan untuk mengganti avatar</string>
 </resources>
