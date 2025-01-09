@@ -192,24 +192,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="@string/document_kapal_title" />
-                    <TextView
-                        android:id="@+id/tvDokumen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="-" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
                         android:text="@string/lokasi_pemeriksaan" />
                     <TextView
                         android:id="@+id/tvPemeriksaan"
@@ -525,26 +507,26 @@
                         android:text="-" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="14dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
-                        android:text="@string/hasil_pemeriksaan_kapal" />
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="14dp"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/poppins_bold"-->
+<!--                        android:text="@string/hasil_pemeriksaan_kapal" />-->
 
-                    <ImageView
-                        android:id="@+id/prevHasil"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginBottom="12dp"/>
-                </LinearLayout>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/prevHasil"-->
+<!--                        android:layout_width="154dp"-->
+<!--                        android:layout_height="210dp"-->
+<!--                        android:background="@drawable/bg_signature_pad"-->
+<!--                        android:layout_marginTop="14dp"-->
+<!--                        android:layout_marginBottom="12dp"/>-->
+<!--                </LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"

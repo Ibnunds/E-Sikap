@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lokasi_list">
+        <item>Pel. Tarakan</item>
+        <item>Bunyu</item>
+        <item>Nunukan</item>
+        <item>Tg. Selor</item>
+        <item>Sebatik</item>
+        <item>Berau</item>
+        <item>Malina</item>
+    </string-array>
+    <string-array name="risk_list">
+        <item>Resiko Rendah</item>
+        <item>Resiko Tinggi</item>
+    </string-array>
+    <string-array name="note_list">
+        <item>Valid</item>
+        <item>Tidak Valid</item>
+    </string-array>
+</resources>

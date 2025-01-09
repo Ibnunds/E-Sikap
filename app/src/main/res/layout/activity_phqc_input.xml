@@ -55,6 +55,7 @@
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/serviceTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/jenis_layanan_subtitle"
@@ -62,23 +63,23 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
 
-                    <RadioGroup
-                        android:id="@+id/radioJenisLayanan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <RadioButton
-                            android:id="@+id/radio_layanan_keberangkatan"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/keberangkatan_subtitle"/>
-                        <RadioButton
-                            android:id="@+id/radio_layanan_kedatangan"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/kedatangan_subtitle"/>
-                    </RadioGroup>
+<!--                    <RadioGroup-->
+<!--                        android:id="@+id/radioJenisLayanan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/radio_layanan_keberangkatan"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:text="@string/keberangkatan_subtitle"/>-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/radio_layanan_kedatangan"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:text="@string/kedatangan_subtitle"/>-->
+<!--                    </RadioGroup>-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,35 +129,36 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etDokumen"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="14dp"
-                    android:hint="@string/document_kapal_title">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/etDokumen"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="14dp"-->
+<!--                    android:hint="@string/document_kapal_title">-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:singleLine="true"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:fontFamily="@font/poppins_regular"-->
+<!--                        />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/etPemeriksaan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="@string/lokasi_pemeriksaan">
+                    android:hint="@string/lokasi_pemeriksaan"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdownLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="none"
+                        app:simpleItems="@array/lokasi_list"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -403,14 +405,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="@string/status_sanitasi_title">
+                    android:hint="@string/status_sanitasi_title"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdownSanitation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="none"
+                        app:simpleItems="@array/risk_list"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -481,37 +484,37 @@
                         android:focusable="false"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="14dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pemeriksaan_kapal_title"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="14dp"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/pemeriksaan_kapal_title"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:fontFamily="@font/poppins_semibold"-->
+<!--                        android:layout_marginVertical="8dp"/>-->
 
-                    <ImageView
-                        android:id="@+id/prevHasil"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
-                    <Button
-                        android:id="@+id/btnSelectHasil"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/upload_dokumen_title"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
-                </LinearLayout>
+<!--                    <ImageView-->
+<!--                        android:id="@+id/prevHasil"-->
+<!--                        android:layout_width="154dp"-->
+<!--                        android:layout_height="210dp"-->
+<!--                        android:background="@drawable/bg_signature_pad"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:layout_marginBottom="12dp"/>-->
+<!--                    <Button-->
+<!--                        android:id="@+id/btnSelectHasil"-->
+<!--                        style="@style/Widget.Material3.Button.IconButton.Filled"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/upload_dokumen_title"-->
+<!--                        app:icon="@drawable/ic_doc"-->
+<!--                        app:iconPadding="8dp"/>-->
+<!--                </LinearLayout>-->
                 <Button
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:id="@+id/addSignButton"
@@ -612,16 +615,16 @@
                         android:layout_gravity="center"/>
                 </LinearLayout>
 
-                <Button
-                    style="@style/Widget.Material3.Button.TonalButton"
-                    android:id="@+id/addSignPT2Button"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_sign_pt2"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_semibold"
-                    />
+<!--                <Button-->
+<!--                    style="@style/Widget.Material3.Button.TonalButton"-->
+<!--                    android:id="@+id/addSignPT2Button"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/add_sign_pt2"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:fontFamily="@font/poppins_semibold"-->
+<!--                    />-->
                 <LinearLayout
                     android:id="@+id/signPT2Layout"
                     android:layout_width="match_parent"
@@ -678,16 +681,16 @@
                         android:textColor="@color/red"/>
                 </LinearLayout>
 
-                <Button
-                    style="@style/Widget.Material3.Button.TonalButton"
-                    android:id="@+id/addSignPT3Button"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_sign_pt3"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_semibold"
-                    />
+<!--                <Button-->
+<!--                    style="@style/Widget.Material3.Button.TonalButton"-->
+<!--                    android:id="@+id/addSignPT3Button"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/add_sign_pt3"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:fontFamily="@font/poppins_semibold"-->
+<!--                    />-->
                 <LinearLayout
                     android:id="@+id/signPT3Layout"
                     android:layout_width="match_parent"

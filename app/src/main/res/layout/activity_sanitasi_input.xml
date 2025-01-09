@@ -34,51 +34,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headerBar">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="14dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="14dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pemeriksaan_sanitasi_title"
-                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:layout_marginBottom="8dp"/>
+                    android:text="@string/pemeriksaan_sanitasi_title"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_dapur"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_dapur"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioDapur"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_dapur_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_dapur_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_dapur_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -87,30 +100,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_rakit"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_rakit"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioPantry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_pantry_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_pantry_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_pantry_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -119,30 +142,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_gudang"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_gudang"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioGudang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_gudang_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_gudang_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_gudang_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -151,30 +184,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_palka"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_palka"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioPalka"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_palka_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_palka_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_palka_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -183,30 +226,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_tidur"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_tidur"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioRuangTidur"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_quarter_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_quarter_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_quarter_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -215,30 +268,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_abk"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_abk"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioABK"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_abk_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_abk_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_abk_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -247,30 +310,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_perwira"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_perwira"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioPerwira"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_perwira_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_perwira_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_perwira_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -279,30 +352,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_penumpang"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_penumpang"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioPenumpang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_penumpang_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_penumpang_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_penumpang_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -311,30 +394,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_geladak"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_geladak"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioGeladak"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_deck_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_deck_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_deck_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -343,30 +436,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_air_minum"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_air_minum"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioWater"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_water_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_water_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_water_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -375,30 +478,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_limba_cair"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_limba_cair"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioLimbaCair"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_limba_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_limba_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_limba_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -407,30 +520,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_air_tergenang"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_air_tergenang"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioGenangan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_genangan_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_genangan_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_genangan_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -439,30 +562,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_mesin"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_mesin"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioEngine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_engine_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_engine_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_engine_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -471,30 +604,40 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_fasilitas_medis"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_fasilitas_medis"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioMedik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_medik_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_medik_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_medik_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -503,72 +646,84 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_area_lainnya"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_area_lainnya"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioOtherArea"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_otherArea_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_memenuhi_syarat"/>
+                            android:text="@string/radio_memenuhi_syarat"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_otherArea_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_tidak_memenuhi_syarat"/>
+                            android:text="@string/radio_tidak_memenuhi_syarat"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_otherArea_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
-
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pemeriksaan_vektor_kapal_title"
-                    android:textSize="16sp"
+                    android:layout_marginVertical="8dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:layout_marginVertical="8dp"/>
+                    android:text="@string/pemeriksaan_vektor_kapal_title"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_dapur"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_dapur"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioDapurVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_dapurVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_dapurVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -577,30 +732,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_rakit"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_rakit"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioPantryVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_pantryVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_pantryVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -609,30 +767,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_gudang"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_gudang"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioGudangVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_gudangVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_gudangVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -641,30 +802,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_palka"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_palka"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioPalkaVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_palkaVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_palkaVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -673,30 +837,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_tidur"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_tidur"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioRuangTidurVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_quarterVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_quarterVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -705,30 +872,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_abk"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_abk"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioABKVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_abkVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_abkVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -737,30 +907,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_perwira"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_perwira"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioPerwiraVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_perwiraVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_perwiraVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -769,30 +942,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_penumpang"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_penumpang"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioPenumpangVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_penumpangVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_penumpangVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -801,30 +977,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_geladak"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_geladak"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioGeladakVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_deckVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_deckVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -833,30 +1012,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_air_minum"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_air_minum"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioWaterVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_waterVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_waterVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -865,30 +1047,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_limba_cair"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_limba_cair"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioLimbaCairVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_limbaVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_limbaVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -897,30 +1082,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_air_tergenang"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_air_tergenang"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioAirTergenangVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_airTergenangVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_airTergenangVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -929,30 +1117,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_ruang_mesin"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_ruang_mesin"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioMesinVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_mesinVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_mesinVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -961,30 +1152,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_fasilitas_medis"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_fasilitas_medis"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioMedikVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_medikVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_medikVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -993,40 +1187,43 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sanitasi_area_lainnya"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/sanitasi_area_lainnya"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioOtherAreaVec"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_otherAreaVec_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_true"/>
+                            android:text="@string/sanitasi_vector_true"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_otherAreaVec_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_vector_false"/>
+                            android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/recommendation"
-                    android:textSize="16sp"
+                    android:layout_marginVertical="8dp"
                     android:fontFamily="@font/poppins_semibold"
-                    android:layout_marginVertical="8dp"/>
+                    android:text="@string/recommendation"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:id="@+id/radio_rekomendasi_layout"
@@ -1034,163 +1231,184 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/recommendation"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/recommendation"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioRekomendasi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_disinseksi"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_disinseksi"/>
+                            android:text="@string/sanitasi_disinseksi"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_fumigasi"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_fumigasi"/>
+                            android:text="@string/sanitasi_fumigasi"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_no_problem"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/sanitasi_no_problem"/>
+                            android:text="@string/sanitasi_no_problem"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/radio_resiko_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/resiko_sanitasi_title"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/resiko_sanitasi_title"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioResiko"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_resiko_tinggi"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_risk_high"/>
+                            android:text="@string/radio_risk_high"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_resiko_rendah"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_risk_low"/>
+                            android:text="@string/radio_risk_low"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_resiko_no"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_risk_safe"/>
+                            android:text="@string/radio_risk_safe"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/radio_vektor_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tanda_vector_title"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/tanda_vector_title"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioVektor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_vektor_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_istrue"/>
+                            android:text="@string/radio_istrue"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio_vektor_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_isfalse"/>
+                            android:text="@string/radio_isfalse"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/radio_health_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/masalah_kesehatan_title"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/masalah_kesehatan_title"
+                        android:textSize="12sp" />
 
                     <RadioGroup
                         android:id="@+id/radioHealth"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RadioButton
                             android:id="@+id/radio_health_true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_istrue"/>
+                            android:text="@string/radio_istrue"
+                            android:textSize="12sp" />
+
                         <RadioButton
                             android:id="@+id/radio__health_false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/radio_isfalse"/>
+                            android:text="@string/radio_isfalse"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/health_file_layout"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="14dp"
                     android:orientation="vertical"
                     android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/bukti_masalah_kesehatan_title"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/bukti_masalah_kesehatan_title"
+                        android:textSize="12sp" />
+
                     <ImageView
                         android:id="@+id/prevMasalah"
                         android:layout_width="154dp"
                         android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone" />
+
                     <Button
                         android:id="@+id/btnSelectMasalah"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -1198,24 +1416,26 @@
                         android:layout_height="wrap_content"
                         android:text="@string/upload_dokumen_title"
                         app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
+                        app:iconPadding="8dp" />
 
                 </LinearLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/etMasalahNote"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="14dp"
+                    android:hint="@string/catatan_permasalahan_title"
                     android:visibility="visible"
-                    android:hint="@string/catatan_permasalahan_title">
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdownNote"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="none"
+                        app:simpleItems="@array/risk_list"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -1225,22 +1445,24 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="14dp"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/hasil_pemeriksaan_sanitasi_title"
-                        android:textSize="12sp"
+                        android:layout_marginVertical="8dp"
                         android:fontFamily="@font/poppins_semibold"
-                        android:layout_marginVertical="8dp"/>
+                        android:text="@string/hasil_pemeriksaan_sanitasi_title"
+                        android:textSize="12sp" />
 
                     <ImageView
                         android:id="@+id/prevHasil"
                         android:layout_width="154dp"
                         android:layout_height="210dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone"
                         android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"/>
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_signature_pad"
+                        android:visibility="gone" />
+
                     <Button
                         android:id="@+id/btnSelectHasil"
                         style="@style/Widget.Material3.Button.IconButton.Filled"
@@ -1248,17 +1470,16 @@
                         android:layout_height="wrap_content"
                         android:text="@string/upload_dokumen_title"
                         app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp"/>
+                        app:iconPadding="8dp" />
                 </LinearLayout>
 
 
-
                 <Button
-                    style="@style/Widget.Material3.Button.IconButton.Filled"
                     android:id="@+id/saveButton"
-                    android:layout_marginTop="32dp"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
                     android:text="@string/save_title" />
             </LinearLayout>
         </ScrollView>

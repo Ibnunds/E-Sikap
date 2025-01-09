@@ -227,8 +227,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
                 }
 
                 if ((item.needNote && noteVal.isNullOrEmpty())){
-                    isDataComplete = false
-                    break
+                    noteMap[key] = ""
                 }
             }
 

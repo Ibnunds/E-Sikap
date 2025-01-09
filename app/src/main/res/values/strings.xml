@@ -161,7 +161,7 @@
     <string name="sanitasi_gudang">Store Room</string>
     <string name="sanitasi_palka">Cargo Room</string>
     <string name="sanitasi_ruang_tidur">Quarter Room</string>
-    <string name="sanitasi_abk">Creq Room</string>
+    <string name="sanitasi_abk">Crew Room</string>
     <string name="sanitasi_ruang_perwira">Officer Room</string>
     <string name="sanitasi_ruang_penumpang">Passenger Room</string>
     <string name="sanitasi_ruang_geladak">Deck Room</string>
@@ -251,4 +251,7 @@
     <string name="agent_done">Submission Done (Agent)</string>
     <string name="upload_button">Upload</string>
     <string name="tap_to_change">Tap to change avatar</string>
+    <string name="valid">Valid</string>
+    <string name="not_valid">Not Valid</string>
+    <string name="no_room_checked">No Room / Not Checked</string>
 </resources>

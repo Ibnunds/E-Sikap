@@ -4,8 +4,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
@@ -39,6 +41,7 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
         val radio: RadioGroup = itemView.findViewById(R.id.radio)
         val selectButton: Button = itemView.findViewById(R.id.btnSelectDoc)
         val prevDoc : ImageView = itemView.findViewById(R.id.prevDoc)
+        val dropdownInput: AutoCompleteTextView = itemView.findViewById(R.id.dropdown_input)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -66,7 +69,6 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
             // note layout
             if (item.needNote) holder.inNote.visibility = View.VISIBLE else holder.inNote.visibility = View.GONE
 
-            // radio and doc
             holder.radio.setOnCheckedChangeListener { _, checkedId ->
                 val radioLabel = if (checkedId == R.id.radio_true) "Ada" else "Tidak ada"
                 listener?.onRadioChangedListener(item.key, radioLabel)
@@ -109,7 +111,8 @@ class DokumenInputAdapter(private val listDataLiveData: LiveData<List<DokumenKap
             }
 
             if (!item.note.isNullOrBlank()) {
-                holder.inNote.editText?.setText(item.note)
+                //holder.inNote.editText?.setText(item.note)
+                holder.dropdownInput.setText(item.note, false)
             }
         }
     }

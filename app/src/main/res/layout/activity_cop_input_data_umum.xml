@@ -56,6 +56,7 @@
                     android:layout_marginBottom="8dp"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/serviceTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/jenis_layanan_subtitle"
@@ -63,23 +64,23 @@
                         android:fontFamily="@font/poppins_semibold"
                         android:layout_marginVertical="8dp"/>
 
-                    <RadioGroup
-                        android:id="@+id/radioJenisLayanan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <RadioButton
-                            android:id="@+id/radio_layanan_keberangkatan"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/keberangkatan_subtitle"/>
-                        <RadioButton
-                            android:id="@+id/radio_layanan_kedatangan"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textSize="12sp"
-                            android:text="@string/kedatangan_subtitle"/>
-                    </RadioGroup>
+<!--                    <RadioGroup-->
+<!--                        android:id="@+id/radioJenisLayanan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/radio_layanan_keberangkatan"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:text="@string/keberangkatan_subtitle"/>-->
+<!--                        <RadioButton-->
+<!--                            android:id="@+id/radio_layanan_kedatangan"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:text="@string/kedatangan_subtitle"/>-->
+<!--                    </RadioGroup>-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -119,14 +120,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="@string/pelabuhan_tujuan">
+                    android:hint="@string/pelabuhan_tujuan"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdownTujuan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="none"
+                        app:simpleItems="@array/lokasi_list"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 

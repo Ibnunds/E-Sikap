@@ -52,7 +52,6 @@ class CopInputDataUmumActivity : AppCompatActivity() {
         isUploaded = intent.getBooleanExtra("IS_UPLOAD", false)
         if (isUploaded){
             InputValidation.disabledAllRadio(
-                binding.radioJenisLayanan,
                 binding.radioJenisPelayaran
             )
             InputValidation.disabledAllInput(
@@ -81,6 +80,9 @@ class CopInputDataUmumActivity : AppCompatActivity() {
             binding.saveButton.visibility = View.GONE
         }
 
+        // title
+        binding.serviceTitle.text = "${binding.serviceTitle.text} : ${getString(R.string.kedatangan_subtitle)}"
+
         // button
         binding.saveButton.setOnClickListener {
             onSaveData()
@@ -102,13 +104,15 @@ class CopInputDataUmumActivity : AppCompatActivity() {
         }
 
         // radio
-        binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
-            if (checkedId == R.id.radio_layanan_kedatangan){
-                radioMap["LAYANAN"] = "Kedatangan"
-            }else{
-                radioMap["LAYANAN"] = "Keberangkatan"
-            }
-        }
+//        binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
+//            if (checkedId == R.id.radio_layanan_kedatangan){
+//                radioMap["LAYANAN"] = "Kedatangan"
+//            }else{
+//                radioMap["LAYANAN"] = "Keberangkatan"
+//            }
+//        }
+        // set default to kedatangan only
+        radioMap["LAYANAN"] = "Kedatangan"
 
         binding.radioJenisPelayaran.setOnCheckedChangeListener{ _, checkedId ->
             if (checkedId == R.id.radio_pelayaran_domestik){
@@ -120,7 +124,8 @@ class CopInputDataUmumActivity : AppCompatActivity() {
     }
 
     private fun initExistingData() {
-        binding.etTujuan.editText?.setText(copBasicData.tujuan)
+        //binding.etTujuan.editText?.setText(copBasicData.tujuan)
+        binding.dropdownTujuan.setText(copBasicData.tujuan, false)
         binding.etTiba.editText?.setText(copBasicData.tglTiba)
         binding.etLokasiSandar.editText?.setText(copBasicData.lokasiSandar)
         binding.etLokasiPemeriksaan.editText?.setText(copBasicData.lokasiPemeriksaan)
@@ -143,11 +148,12 @@ class CopInputDataUmumActivity : AppCompatActivity() {
 
         // radio
         radioMap["LAYANAN"] = copBasicData.jenisLayanan
-        if (copBasicData.jenisLayanan == "Kedatangan"){
-            binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
-        }else{
-            binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
-        }
+//        if (copBasicData.jenisLayanan == "Kedatangan"){
+//            binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
+//        }else{
+//            binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
+//        }
+        radioMap["LAYANAN"] = "Kedatangan"
 
         radioMap["PELAYARAN"] = copBasicData.jenisPelayaran
         if (copBasicData.jenisPelayaran == "Domestik"){
@@ -181,7 +187,6 @@ class CopInputDataUmumActivity : AppCompatActivity() {
 
         // cek radio
         val isAllRadio = InputValidation.isAllRadioFilled(
-            binding.radioJenisLayanan,
             binding.radioJenisPelayaran
         )
 
