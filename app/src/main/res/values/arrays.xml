@@ -17,4 +17,8 @@
         <item>Valid</item>
         <item>Not Valid</item>
     </string-array>
+    <string-array name="sscec_list">
+        <item>Low risk sanitation is issued SSCEC certification</item>
+        <item>High sanitation requires quarantine measures (Disinsection / Fumigation)</item>
+    </string-array>
 </resources>

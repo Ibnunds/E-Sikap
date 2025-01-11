@@ -129,7 +129,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         radioMap["LPOC"] = copDocData.lpoc
         radioMap["SHIPPAR"] = copDocData.shipParticular
         radioMap["LPC"] = copDocData.lpc
-        radioMap["BUKUKUNING"] = copDocData.bukuKuning
+        //radioMap["BUKUKUNING"] = copDocData.bukuKuning
         radioMap["CATATANPERJALANAN"] = copDocData.catatanPerjalanan
         radioMap["IZINBERLAYAR"] = copDocData.izinBerlayar
         radioMap["DAFTARALKES"] = copDocData.daftarAlkes
@@ -148,7 +148,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         docMap["LPOC"] = copDocData.lpocDoc
         docMap["SHIPPAR"] = copDocData.shipParticularDoc
         docMap["LPC"] = copDocData.lpcDoc
-        docMap["BUKUKUNING"] = copDocData.bukuKuningDoc
+        //docMap["BUKUKUNING"] = copDocData.bukuKuningDoc
         docMap["CATATANPERJALANAN"] = copDocData.catatanPerjalananDoc
         docMap["IZINBERLAYAR"] = copDocData.izinBerlayarDoc
         docMap["DAFTARALKES"] = copDocData.daftarAlkesDoc
@@ -161,7 +161,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         noteMap["BUKUKES"] = copDocData.bukuKesehatanNote
         noteMap["BUKUVAKSIN"] = copDocData.bukuVaksinNote
         noteMap["LPC"] = copDocData.lpcNote
-        noteMap["BUKUKUNING"] = copDocData.bukuKuningNote
+        //noteMap["BUKUKUNING"] = copDocData.bukuKuningNote
         noteMap["CATATANPERJALANAN"] = copDocData.catatanPerjalananNote
         noteMap["IZINBERLAYAR"] = copDocData.izinBerlayarNote
         noteMap["DAFTARALKES"] = copDocData.daftarAlkesNote

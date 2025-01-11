@@ -47,14 +47,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="14dp"
-                            android:hint="@string/sscec_title">
+                            android:hint="@string/sscec_title"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                            <com.google.android.material.textfield.TextInputEditText
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdownSSCEC"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:singleLine="true"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/poppins_regular"
+                                android:inputType="none"
+                                app:simpleItems="@array/sscec_list"
                                 />
                         </com.google.android.material.textfield.TextInputLayout>
 

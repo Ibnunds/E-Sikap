@@ -238,7 +238,8 @@ class SSCECInputRekomendasiActivity : AppCompatActivity() {
     }
 
     private fun initExistingData() {
-        binding.etSSCEC.editText?.setText(basicData.recSSCEC)
+        //binding.etSSCEC.editText?.setText(basicData.recSSCEC)
+        binding.dropdownSSCEC.setText(basicData.recSSCEC, false)
         binding.etTanggal.editText?.setText(basicData.recTanggal)
         binding.etJam.editText?.setText(basicData.recJam)
 

@@ -17,4 +17,8 @@
         <item>Valid</item>
         <item>Tidak Valid</item>
     </string-array>
+    <string-array name="sscec_list">
+        <item>Sanitasi resiko rendah diterbitkan sertifikasi SSCEC</item>
+        <item>Sanitasi tinggi wajib dilakukan tindakan karantina ( Disinseksi / Fumigasi )</item>
+    </string-array>
 </resources>

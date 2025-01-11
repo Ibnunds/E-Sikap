@@ -233,7 +233,7 @@
     <string name="doc_bukukes_title">Health Book Document</string>
     <string name="doc_bukuvaksin_title">Vaccination Book Document</string>
     <string name="doc_daftarabk_title">Crew List Document</string>
-    <string name="doc_daftarvaksin_title">Vaccination List Document</string>
+    <string name="doc_daftarvaksin_title">Vaccination/ICV/Yellow Fever/Cholera List Document</string>
     <string name="doc_daftarobat_title">Medicine List Document</string>
     <string name="doc_daftarnarkotik_title">Narcotic List Document</string>
     <string name="doc_lpoc_title">Last Port Off Call Document</string>
