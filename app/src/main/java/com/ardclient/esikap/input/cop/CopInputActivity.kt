@@ -295,6 +295,7 @@ class CopInputActivity : AppCompatActivity() {
         val fileIzinBerlayar = Base64Utils.uriToBase64(this, copData.dokumenKapal.izinBerlayarDoc.toUri())
         val fileDaftarAlkes = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarAlkesDoc.toUri())
         val fileDaftarStore = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarStoreDoc.toUri())
+        val fileRekomendasi = Base64Utils.uriToBase64(this, copData.dokumenKapal.rekomendasiDoc.toUri())
 
         val fileList = listOf(
             UploadFileModel("mdh", fileMDH!!, copBasicData.id),
@@ -316,7 +317,8 @@ class CopInputActivity : AppCompatActivity() {
             UploadFileModel("catatanperjalanan", fileCatatanPerjalanan!!, copBasicData.id),
             UploadFileModel("izinberlayar", fileIzinBerlayar!!, copBasicData.id),
             UploadFileModel("daftaralkes", fileDaftarAlkes!!, copBasicData.id),
-            UploadFileModel("daftarstore", fileDaftarStore!!, copBasicData.id)
+            UploadFileModel("daftarstore", fileDaftarStore!!, copBasicData.id),
+            UploadFileModel("rekomendasi", fileRekomendasi!!, copBasicData.id)
         )
 
         // Handle result
@@ -489,7 +491,7 @@ class CopInputActivity : AppCompatActivity() {
                     signPetugas2 = copSignature.signPetugas2,
                     signPetugas3 = copSignature.signPetugas3,
                     nipPetugas2 = copSignature.nipPetugas2,
-                    nipPetugas3 = copSignature.nipPetugas3
+                    nipPetugas3 = copSignature.nipPetugas3,
                 )
             } else {
                 COPModel(

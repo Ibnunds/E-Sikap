@@ -146,67 +146,67 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
         // Dapur
         val dapurVal = getRadioButtonId(getCheckedIdByString(copSanitasi.sanDapur), R.id.radio_dapur_true, R.id.radio_dapur_false, R.id.radio_dapur_neutral)
-        val dapurVecValue = if (getCheckedIdByString(copSanitasi.vecDapur) == 1) R.id.radio_dapurVec_true else R.id.radio_dapurVec_false
+        val dapurVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecDapur), R.id.radio_dapurVec_true, R.id.radio_dapurVec_false, R.id.radio_dapurVec_neutral)
 
         // Pantry
         val pantryValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanRuangRakit), R.id.radio_pantry_true, R.id.radio_pantry_false, R.id.radio_pantry_neutral)
-        val pantryVecValue = if (getCheckedIdByString(copSanitasi.vecRuangRakit) == 1) R.id.radio_pantryVec_true else R.id.radio_pantryVec_false
+        val pantryVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecRuangRakit), R.id.radio_pantryVec_true, R.id.radio_pantryVec_false, R.id.radio_pantryVec_neutral)
 
         // Gudang
         val gudangValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanGudang), R.id.radio_gudang_true, R.id.radio_gudang_false, R.id.radio_gudang_neutral)
-        val gudangVecValue = if (getCheckedIdByString(copSanitasi.vecGudang) == 1) R.id.radio_gudangVec_true else R.id.radio_gudangVec_false
+        val gudangVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecGudang), R.id.radio_gudangVec_true, R.id.radio_gudangVec_false, R.id.radio_gudangVec_neutral)
 
         // Palka
         val palkaValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanPalka), R.id.radio_palka_true, R.id.radio_palka_false, R.id.radio_palka_neutral)
-        val palkaVecValue = if (getCheckedIdByString(copSanitasi.vecPalka) == 1) R.id.radio_palkaVec_true else R.id.radio_palkaVec_false
+        val palkaVecValue =  getRadioButtonId(getCheckedIdByString(copSanitasi.vecPalka), R.id.radio_palkaVec_true, R.id.radio_palkaVec_false, R.id.radio_palkaVec_neutral)
 
         // Ruang tidur
         val ruangTidurValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanRuangTidur), R.id.radio_quarter_true, R.id.radio_quarter_false, R.id.radio_quarter_neutral)
-        val ruangTidurVecValue = if (getCheckedIdByString(copSanitasi.vecRuangTidur) == 1) R.id.radio_quarterVec_true else R.id.radio_quarterVec_false
+        val ruangTidurVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecRuangTidur), R.id.radio_quarterVec_true, R.id.radio_quarterVec_false, R.id.radio_quarterVec_neutral)
 
         // Abk
         val abkValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanABKReq), R.id.radio_abk_true, R.id.radio_abk_false, R.id.radio_abk_neutral)
-        val abkVecValue = if (getCheckedIdByString(copSanitasi.vecABKReq) == 1) R.id.radio_abkVec_true else R.id.radio_abkVec_false
+        val abkVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecABKReq), R.id.radio_abkVec_true, R.id.radio_abkVec_false, R.id.radio_abkVec_neutral)
 
         // Perwira
         val perwiraValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanPerwira), R.id.radio_perwira_true, R.id.radio_perwira_false, R.id.radio_perwira_neutral)
-        val perwiraVecValue = if (getCheckedIdByString(copSanitasi.vecPerwira) == 1) R.id.radio_perwiraVec_true else R.id.radio_perwiraVec_false
+        val perwiraVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecPerwira), R.id.radio_perwiraVec_true, R.id.radio_perwiraVec_false, R.id.radio_perwiraVec_neutral)
 
         // Penumpang
         val penumpangValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanPenumpang), R.id.radio_penumpang_true, R.id.radio_penumpang_false, R.id.radio_penumpang_neutral)
-        val penumpangVecValue = if (getCheckedIdByString(copSanitasi.vecPenumpang) == 1) R.id.radio_penumpangVec_true else R.id.radio_penumpangVec_false
+        val penumpangVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecPenumpang), R.id.radio_penumpangVec_true, R.id.radio_penumpangVec_false, R.id.radio_penumpangVec_neutral)
 
         // Geladak
         val geladakValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanGeladak), R.id.radio_deck_true, R.id.radio_deck_false, R.id.radio_deck_neutral)
-        val geladakVecValue = if (getCheckedIdByString(copSanitasi.vecGeladak) == 1) R.id.radio_deckVec_true else R.id.radio_deckVec_false
+        val geladakVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecGeladak), R.id.radio_deckVec_true, R.id.radio_deckVec_false, R.id.radio_deckVec_neutral)
 
         // Water
         val waterValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanAirMinum), R.id.radio_water_true, R.id.radio_water_false, R.id.radio_water_neutral)
-        val waterVecValue = if (getCheckedIdByString(copSanitasi.vecAirMinum) == 1) R.id.radio_waterVec_true else R.id.radio_waterVec_false
+        val waterVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecAirMinum), R.id.radio_waterVec_true, R.id.radio_waterVec_false, R.id.radio_waterVec_neutral)
 
         // Limba
         val limbaCairValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanLimbaCair), R.id.radio_limba_true, R.id.radio_limba_false, R.id.radio_limba_neutral)
-        val limbaCairVecValue = if (getCheckedIdByString(copSanitasi.vecLimbaCair) == 1) R.id.radio_limbaVec_true else R.id.radio_limbaVec_false
+        val limbaCairVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecLimbaCair), R.id.radio_limbaVec_true, R.id.radio_limbaVec_false, R.id.radio_limbaVec_neutral)
 
 
         // Genangan
         val genanganValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanAirTergenang), R.id.radio_genangan_true, R.id.radio_genangan_false, R.id.radio_genangan_neutral)
-        val genanganVecValue = if (getCheckedIdByString(copSanitasi.vecAirTergenang) == 1) R.id.radio_airTergenangVec_true else R.id.radio_airTergenangVec_false
+        val genanganVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecAirTergenang), R.id.radio_airTergenangVec_true, R.id.radio_airTergenangVec_false, R.id.radio_airTergenangVec_neutral)
 
 
         // Engine
         val engineValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanRuangMesin), R.id.radio_engine_true, R.id.radio_engine_false, R.id.radio_engine_neutral)
-        val engineVecValue = if (getCheckedIdByString(copSanitasi.vecRuangMesin) == 1) R.id.radio_mesinVec_true else R.id.radio_mesinVec_false
+        val engineVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecRuangMesin), R.id.radio_mesinVec_true, R.id.radio_mesinVec_false, R.id.radio_mesinVec_neutral)
 
 
          // Medik
         val medikValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanFasilitasMedik), R.id.radio_medik_true, R.id.radio_medik_false, R.id.radio_medik_neutral)
-        val medikVecValue = if (getCheckedIdByString(copSanitasi.vecFasilitasMedik) == 1) R.id.radio_medikVec_true else R.id.radio_medikVec_false
+        val medikVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecFasilitasMedik), R.id.radio_medikVec_true, R.id.radio_medikVec_false, R.id.radio_medikVec_neutral)
 
 
         // Other
         val otherAreaValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanAreaLainnya), R.id.radio_otherArea_true, R.id.radio_otherArea_false, R.id.radio_otherArea_neutral)
-        val otherAreaVecValue = if (getCheckedIdByString(copSanitasi.vecAreaLainnya) == 1) R.id.radio_otherAreaVec_true else R.id.radio_otherAreaVec_false
+        val otherAreaVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecAreaLainnya), R.id.radio_otherAreaVec_true, R.id.radio_otherAreaVec_false, R.id.radio_otherVec_neutral)
 
         val rekomendasiValue = if (getCheckedIdByString(copSanitasi.rekomendasi) == 1) R.id.radio_disinseksi else if (getCheckedIdByString(copSanitasi.rekomendasi) == 2) R.id.radio_fumigasi else R.id.radio_no_problem
         val resikoValue = if (getCheckedIdByString(copSanitasi.resikoSanitasi) == 1) R.id.radio_resiko_tinggi else if (getCheckedIdByString(copSanitasi.resikoSanitasi) == 2) R.id.radio_resiko_rendah else R.id.radio_resiko_no

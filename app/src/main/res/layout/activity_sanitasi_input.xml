@@ -724,6 +724,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
                             android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_dapurVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -758,6 +765,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_pantryVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
                             android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
@@ -794,6 +808,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
                             android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_gudangVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -828,6 +849,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_palkaVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
                             android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
@@ -864,6 +892,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
                             android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_quarterVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -898,6 +933,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_abkVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
                             android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
@@ -934,6 +976,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
                             android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_perwiraVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -968,6 +1017,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_penumpangVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
                             android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
@@ -1004,6 +1060,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
                             android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_deckVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1038,6 +1101,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_waterVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
                             android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
@@ -1074,6 +1144,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
                             android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_limbaVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1108,6 +1185,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_airTergenangVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
                             android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
@@ -1144,6 +1228,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
                             android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_mesinVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1179,6 +1270,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
                             android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_medikVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
+                            android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -1213,6 +1311,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/sanitasi_vector_false"
+                            android:textSize="12sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_otherVec_neutral"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_room_checked"
                             android:textSize="12sp" />
                     </RadioGroup>
                 </LinearLayout>

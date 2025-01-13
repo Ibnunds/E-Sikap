@@ -7,7 +7,7 @@
         <item>Tg. Selor</item>
         <item>Sebatik</item>
         <item>Berau</item>
-        <item>Malina</item>
+        <item>Malinau</item>
     </string-array>
     <string-array name="risk_list">
         <item>Resiko Rendah</item>
@@ -20,5 +20,9 @@
     <string-array name="sscec_list">
         <item>Sanitasi resiko rendah diterbitkan sertifikasi SSCEC</item>
         <item>Sanitasi tinggi wajib dilakukan tindakan karantina ( Disinseksi / Fumigasi )</item>
+    </string-array>
+    <string-array name="recomendation_list">
+        <item>Tidak ada masalah kesehatan</item>
+        <item>Ada masalah kesehatan dilakukan tindakan karantina ( disinseksi/fumigasi/dekontaminasi/disinfeksi )</item>
     </string-array>
 </resources>

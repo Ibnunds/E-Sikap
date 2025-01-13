@@ -24,6 +24,7 @@ import com.ardclient.esikap.model.reusable.DokumenKapalModel
 import com.ardclient.esikap.utils.InputValidation
 import com.ardclient.esikap.utils.LocaleHelper
 import com.ardclient.esikap.view.DokumenViewModel
+import com.squareup.picasso.Picasso
 
 class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelectedListener {
     private lateinit var binding: ActivityCopInputDokumenBinding
@@ -43,6 +44,9 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
 
     private var isUpdate = false
     private var isUploaded = false
+
+    private var masalahDoc: String? = null
+    private var hasMasalah: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +109,22 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
                 radioMap["ACTIVITY"] = "Tidak ada"
             }
         }
+
+        binding.dropdownRekomendasi.setOnItemClickListener { _, _, position, _ ->
+            if (position == 1){
+                hasMasalah = true
+                binding.healthFileLayout.visibility = View.VISIBLE
+            }else{
+                hasMasalah = false
+                masalahDoc = null
+                binding.healthFileLayout.visibility = View.GONE
+            }
+        }
+
+        binding.btnSelectMasalah.setOnClickListener {
+            //selectedDocType = "MASALAH"
+            pickDocument("MASALAH_KESEHATAN")
+        }
     }
 
     private fun onUploadedUI() {
@@ -112,6 +132,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             InputValidation.disableRadioGroup(radioKarantina)
             InputValidation.disableRadioGroup(radioActivity)
             saveButton.visibility = View.GONE
+            btnSelectMasalah.visibility = View.GONE
         }
     }
 
@@ -175,7 +196,16 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         radioMap["ACTIVITY"] = copDocData.aktifitasKapal
 
         // input
-        binding.etRekomendasi.editText?.setText(copDocData.rekomendasi)
+        //binding.etRekomendasi.editText?.setText(copDocData.rekomendasi)
+        binding.dropdownRekomendasi.setText(copDocData.rekomendasi, false)
+        if (!copDocData.rekomendasiDoc.isNullOrEmpty()){
+            binding.healthFileLayout.visibility = View.VISIBLE
+
+            masalahDoc = copDocData.rekomendasiDoc
+            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
+            binding.prevMasalah.visibility = View.VISIBLE
+            Picasso.get().load(masalahDoc).fit().into(binding.prevMasalah)
+        }
     }
 
     private fun initListAdapter(listDataLiveData: MutableLiveData<List<DokumenKapalListModel>>) {
@@ -227,8 +257,13 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
                 }
 
                 if ((item.needNote && noteVal.isNullOrEmpty())){
-                    noteMap[key] = ""
+                    isDataComplete = false
+                    break
                 }
+            }
+
+            if (hasMasalah && masalahDoc.isNullOrEmpty()){
+                isDataComplete = false
             }
 
             if (!isDataComplete) {
@@ -298,7 +333,9 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             daftarStore = radioMap["DAFTARSTORE"] ?: "",
             daftarStoreDoc = docMap["DAFTARSTORE"] ?: "",
             daftarStoreNote = noteMap["DAFTARSTORE"] ?: "",
-            rekomendasi = rekomendasi
+            rekomendasi = rekomendasi,
+            rekomendasiDoc = if (hasMasalah) masalahDoc!! else ""
+
         )
 
          intent.putExtra("COP_DOC", copDokumen)
@@ -322,9 +359,16 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         //val imageBase64 = Base64Utils.uriToBase64(this, imageUri)
 
         // apply to recycler view
-        val uriString = imageUri.toString()
-        docMap[pickedDoc] = uriString
-        viewModel.updateDocumentData(pickedDoc, uriString)
+        if (pickedDoc == "MASALAH_KESEHATAN"){
+            masalahDoc = imageUri.toString()
+            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
+            binding.prevMasalah.visibility = View.VISIBLE
+            Picasso.get().load(imageUri).fit().into(binding.prevMasalah)
+        }else{
+            val uriString = imageUri.toString()
+            docMap[pickedDoc] = uriString
+            viewModel.updateDocumentData(pickedDoc, uriString)
+        }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {

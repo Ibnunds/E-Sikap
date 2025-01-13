@@ -7,7 +7,7 @@
         <item>Tg. Selor</item>
         <item>Sebatik</item>
         <item>Berau</item>
-        <item>Malina</item>
+        <item>Malinau</item>
     </string-array>
     <string-array name="risk_list">
         <item>Low Risk</item>
@@ -20,5 +20,9 @@
     <string-array name="sscec_list">
         <item>Low risk sanitation is issued SSCEC certification</item>
         <item>High sanitation requires quarantine measures (Disinsection / Fumigation)</item>
+    </string-array>
+    <string-array name="recomendation_list">
+        <item>No health problems</item>
+        <item>There is a health problem, quarantine measures are taken (disinsection/fumigation/decontamination/disinfection)</item>
     </string-array>
 </resources>
