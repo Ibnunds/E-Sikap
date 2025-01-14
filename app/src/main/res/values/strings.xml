@@ -254,4 +254,5 @@
     <string name="valid">Valid</string>
     <string name="not_valid">Not Valid</string>
     <string name="no_room_checked">No Room / Not Checked</string>
+    <string name="masalah_karantina_file">Quarantine Violations Document</string>
 </resources>

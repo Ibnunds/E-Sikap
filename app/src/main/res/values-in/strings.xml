@@ -255,4 +255,5 @@
     <string name="valid">Valid</string>
     <string name="not_valid">Tidak Valid</string>
     <string name="no_room_checked">Tidak ada ruang / Tidak Diperiksa</string>
+    <string name="masalah_karantina_file">Dokumen Masalah Karantina</string>
 </resources>

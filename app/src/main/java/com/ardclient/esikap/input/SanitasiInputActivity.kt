@@ -68,11 +68,14 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 hasMasalah = true
                 binding.healthFileLayout.visibility = View.VISIBLE
                 binding.etMasalahNote.visibility = View.VISIBLE
+                binding.etCatatanKesehatan.visibility = View.GONE
             }else{
                 hasMasalah = false
                 masalahDoc = null
                 binding.healthFileLayout.visibility = View.GONE
                 binding.etMasalahNote.visibility = View.GONE
+                binding.etCatatanKesehatan.visibility = View.VISIBLE
+
             }
         }
 
@@ -127,6 +130,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             )
 
             etMasalahNote.editText?.isEnabled = false
+            etCatatanKesehatan.editText?.isEnabled = false
 
             btnSelectHasil.visibility = View.GONE
             btnSelectMasalah.visibility = View.GONE
@@ -274,10 +278,13 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
             //binding.etMasalahNote.editText?.setText(copSanitasi.masalahKesehatanCatatan)
             binding.dropdownNote.setText(copSanitasi.masalahKesehatanCatatan, false)
+            binding.etCatatanKesehatan.visibility = View.GONE
         }else{
             hasMasalah = false
             binding.healthFileLayout.visibility = View.GONE
             binding.etMasalahNote.visibility = View.GONE
+            binding.etCatatanKesehatan.visibility = View.VISIBLE
+            binding.etCatatanKesehatan.editText?.setText(copSanitasi.catatanKesehatan)
         }
     }
 
@@ -317,16 +324,18 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
             // SSCEC Masalah
             val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
+            val catatanKesehatanVal = binding.etCatatanKesehatan.editText?.text.toString()
 
             InputValidation.isAllFieldComplete(
                 binding.etMasalahNote
             )
 
+            val requireCatatanKesehatan = !hasMasalah && catatanKesehatanVal.isEmpty()
             val requireMasalahDoc = hasMasalah && masalahDoc.isNullOrEmpty()
             val requireMasalahCatatan = hasMasalah && masalahCatatanVal.isEmpty()
 
             val errorMessage = when {
-                binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireMasalahCatatan -> getString(R.string.data_not_completed)
+                binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireCatatanKesehatan || requireMasalahCatatan -> getString(R.string.data_not_completed)
                 binding.radioRekomendasi.checkedRadioButtonId == -1 -> getString(R.string.data_not_completed)
                 else -> null
             }
@@ -377,6 +386,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val healthValue = getSelectedRadioGroupValue(binding.radioHealth)
         val vektorValue = getSelectedRadioGroupValue(binding.radioVektor)
         val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
+        val catatanKesehatan = binding.etCatatanKesehatan.editText?.text.toString()
 
         val sanitasiData = SanitasiModel(
             sanDapur = dapurValue,
@@ -416,7 +426,8 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             vecRuangMesin = engineVecVal,
             vecFasilitasMedik = medikVecVal,
             vecAreaLainnya = otherAreaVecVal,
-            tandatandaVektor = vektorValue
+            tandatandaVektor = vektorValue,
+            catatanKesehatan = catatanKesehatan
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)

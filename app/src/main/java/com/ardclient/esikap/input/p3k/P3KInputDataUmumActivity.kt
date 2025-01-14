@@ -105,7 +105,8 @@ class P3KInputDataUmumActivity : AppCompatActivity() {
 
     private fun initExistingData() {
         with(binding) {
-            etLokasiPemeriksaan.editText?.setText(P3KDataUmum.lokasiPemeriksaan)
+            //etLokasiPemeriksaan.editText?.setText(P3KDataUmum.lokasiPemeriksaan)
+            dropdownLocation.setText(P3KDataUmum.lokasiPemeriksaan, false)
             etTanggalDiperiksa.editText?.setText(P3KDataUmum.tglDiperiksa)
             etJmlABK.editText?.setText(P3KDataUmum.jmlABK.toString())
             etJmlSehat.editText?.setText(P3KDataUmum.abkSehat.toString())

@@ -296,6 +296,7 @@ class CopInputActivity : AppCompatActivity() {
         val fileDaftarAlkes = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarAlkesDoc.toUri())
         val fileDaftarStore = Base64Utils.uriToBase64(this, copData.dokumenKapal.daftarStoreDoc.toUri())
         val fileRekomendasi = Base64Utils.uriToBase64(this, copData.dokumenKapal.rekomendasiDoc.toUri())
+        val fileKarantina = Base64Utils.uriToBase64(this, copData.dokumenKarantina.toUri())
 
         val fileList = listOf(
             UploadFileModel("mdh", fileMDH!!, copBasicData.id),
@@ -318,7 +319,8 @@ class CopInputActivity : AppCompatActivity() {
             UploadFileModel("izinberlayar", fileIzinBerlayar!!, copBasicData.id),
             UploadFileModel("daftaralkes", fileDaftarAlkes!!, copBasicData.id),
             UploadFileModel("daftarstore", fileDaftarStore!!, copBasicData.id),
-            UploadFileModel("rekomendasi", fileRekomendasi!!, copBasicData.id)
+            UploadFileModel("rekomendasi", fileRekomendasi!!, copBasicData.id),
+            UploadFileModel("karantina", fileKarantina!!, copBasicData.id)
         )
 
         // Handle result
@@ -492,6 +494,8 @@ class CopInputActivity : AppCompatActivity() {
                     signPetugas3 = copSignature.signPetugas3,
                     nipPetugas2 = copSignature.nipPetugas2,
                     nipPetugas3 = copSignature.nipPetugas3,
+                    dokumenKarantina = copSignature.dokumenKarantina,
+                    catatanKarantina = copSignature.catatanKarantina
                 )
             } else {
                 COPModel(
@@ -538,7 +542,9 @@ class CopInputActivity : AppCompatActivity() {
                     signPetugas2 = copSignature.signPetugas2,
                     signPetugas3 = copSignature.signPetugas3,
                     nipPetugas2 = copSignature.nipPetugas2,
-                    nipPetugas3 = copSignature.nipPetugas3
+                    nipPetugas3 = copSignature.nipPetugas3,
+                    dokumenKarantina = copSignature.dokumenKarantina,
+                    catatanKarantina = copSignature.catatanKarantina
                 )
             }
 

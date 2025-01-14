@@ -47,9 +47,14 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
     // dok
     private var selectedDoc: String? = null
+    private var karantinaDoc: String? = null
+    private var hasKarantina: Boolean = false
+    private var selectedDocType: String? = null
 
     // radio
     private val radioMap = mutableMapOf<String, String?>()
+
+
 
     private lateinit var copSignature: COPModel
     private var isUpdate = false
@@ -242,6 +247,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             binding.btnDeleteSign3.visibility = View.GONE
             binding.addSignPT2Button.visibility = View.GONE
             binding.addSignPT3Button.visibility = View.GONE
+            binding.btnSelectHasil.visibility = View.GONE
         }
 
         // SAVE BUTTON
@@ -252,6 +258,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         // PICK DOC
         binding.btnSelectDoc.setOnClickListener {
             selectedDoc = "FP"
+            selectedDocType = "izindoc"
             pickDocument()
         }
 
@@ -267,8 +274,15 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
         binding.radioKarantinaPinalti.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.radio_karantinapinalti_true){
                 radioMap["KARANTINA"] = "Ada"
+                binding.etKarantinaNote.visibility = View.GONE
+                binding.karantinaFileLayout.visibility = View.VISIBLE
+                hasKarantina = true
             }else{
                 radioMap["KARANTINA"] = "Tidak ada"
+                binding.etKarantinaNote.visibility = View.VISIBLE
+                binding.karantinaFileLayout.visibility = View.GONE
+                hasKarantina = false
+                karantinaDoc = null
             }
         }
 
@@ -295,6 +309,11 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
                 }
             }
         }
+
+        binding.btnSelectHasil.setOnClickListener {
+            selectedDocType = "karantina"
+            pickDocument()
+        }
     }
 
     private fun onUploadedUI() {
@@ -315,6 +334,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             tvSignHelpKapten.visibility = View.GONE
             tvSignHelpPetugas.visibility = View.GONE
             saveButton.visibility = View.GONE
+            btnSelectHasil.visibility = View.GONE
         }
     }
 
@@ -332,8 +352,20 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             radioMap["KARANTINA"] = copSignature.pelanggaranKarantina
             if (copSignature.pelanggaranKarantina == "Ada"){
                 radioKarantinaPinalti.check(R.id.radio_karantinapinalti_true)
+                binding.etKarantinaNote.visibility = View.GONE
+                binding.karantinaFileLayout.visibility = View.VISIBLE
+                hasKarantina = true
+                karantinaDoc = copSignature.dokumenKarantina
+                binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
+                binding.prevHasil.visibility = View.VISIBLE
+                Picasso.get().load(copSignature.dokumenKarantina).fit().into(binding.prevHasil)
+
             }else{
                 radioKarantinaPinalti.check(R.id.radio_karantinapinalti_false)
+                binding.etKarantinaNote.visibility = View.VISIBLE
+                binding.karantinaFileLayout.visibility = View.GONE
+                hasKarantina = false
+                karantinaDoc = null
             }
 
             // Radio dokkes
@@ -413,6 +445,7 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
             // FP
             val tanggal = etTanggal.editText?.text.toString()
             val jam = etJam.editText?.text.toString()
+            val catatanKarantina = etKarantinaNote.editText?.text.toString()
 
             //sign
             val namaKapten = binding.tvKapten.text.toString()
@@ -436,7 +469,10 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
             val dokType = radioMap["TIPEDOK"]
 
-            if (isFormComplete && isRadioComplete && selectedDoc != null && dokType != null && signPetugasData != null && signKaptenData != null){
+            val isDocRelated = if (hasKarantina) karantinaDoc != null else !catatanKarantina.isNullOrEmpty()
+
+
+            if (isFormComplete && isDocRelated && isRadioComplete && selectedDoc != null && dokType != null && signPetugasData != null && signKaptenData != null){
                 val signatureData = COPModel(
                     obatP3K = pemeriksaanP3K!!,
                     pelanggaranKarantina = pelanggaranKarantina!!,
@@ -454,7 +490,9 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
                     signPetugas2 = base64SignPetugas2,
                     signPetugas3 = base64SignPetugas3,
                     nipPetugas2 = nipPetugas2,
-                    nipPetugas3 = nipPetugas3
+                    nipPetugas3 = nipPetugas3,
+                    dokumenKarantina = karantinaDoc!!,
+                    catatanKarantina = catatanKarantina
                 )
 
                 val intent = Intent(this@CopInputSignatureActivity, CopInputActivity::class.java)
@@ -562,10 +600,17 @@ class CopInputSignatureActivity : AppCompatActivity(), ImageSelectorModal.OnImag
 
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
-        selectedDoc = uriString
-        binding.btnSelectDoc.text = getString(R.string.update_dokumen_title)
-        binding.prevDoc.visibility = View.VISIBLE
-        Picasso.get().load(uriString).fit().into(binding.prevDoc)
+        if (selectedDocType == "karantina"){
+            karantinaDoc = uriString
+            binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
+            binding.prevHasil.visibility = View.VISIBLE
+            Picasso.get().load(uriString).fit().into(binding.prevHasil)
+        }else{
+            selectedDoc = uriString
+            binding.btnSelectDoc.text = getString(R.string.update_dokumen_title)
+            binding.prevDoc.visibility = View.VISIBLE
+            Picasso.get().load(uriString).fit().into(binding.prevDoc)
+        }
     }
 
     override fun attachBaseContext(base: Context?) {
