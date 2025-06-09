@@ -234,7 +234,7 @@
     <string name="doc_bukukes_title">Dokumen Buku Kesehatan</string>
     <string name="doc_bukuvaksin_title">Dokumen Buku Vaksin</string>
     <string name="doc_daftarabk_title">Dokumen Daftar ABK</string>
-    <string name="doc_daftarvaksin_title">Dokumen Daftar Vaksin</string>
+    <string name="doc_daftarvaksin_title">Dokumen Daftar Vaksinasi/ICV/Yellow Fever/Cholera</string>
     <string name="doc_daftarobat_title">Dokumen Daftar Obat</string>
     <string name="doc_daftarnarkotik_title">Dokumen Daftar Narkotik</string>
     <string name="doc_lpoc_title">Dokumen Last Port Off Call</string>
@@ -252,4 +252,8 @@
     <string name="agent_done">Pengajuan Selesai (Agen)</string>
     <string name="upload_button">Upload</string>
     <string name="tap_to_change">Tekan untuk mengganti avatar</string>
+    <string name="valid">Valid</string>
+    <string name="not_valid">Tidak Valid</string>
+    <string name="no_room_checked">Tidak ada ruang / Tidak Diperiksa</string>
+    <string name="masalah_karantina_file">Dokumen Masalah Karantina</string>
 </resources>

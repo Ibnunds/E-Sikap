@@ -27,20 +27,20 @@ class DokumenViewModel : ViewModel() {
         val listData = arrayListOf(
             DokumenKapalListModel(context.getString(R.string.doc_mdh_title), "MDH", copDocData.mdh, copDocData.mdhDoc, copDocData.mdhNote,
                 needNote = true,
-                needDoc = true
+                needDoc = true,
             ),
             DokumenKapalListModel(context.getString(R.string.doc_sscec_title), "SSCEC", copDocData.sscec, copDocData.sscecDoc, copDocData.sscecNote,
                 needNote = true,
-                needDoc = true
+                needDoc = true,
             ),
             DokumenKapalListModel(context.getString(R.string.doc_p3k_title), "P3K", copDocData.certP3K, copDocData.p3kDoc, copDocData.p3kNote,
                 needNote = true,
-                needDoc = true
+                needDoc = true,
             ),
-            DokumenKapalListModel(context.getString(R.string.doc_bukukes_title), "BUKUKES", copDocData.bukuKesehatan, copDocData.bukuKesehatanDoc, copDocData.bukuKesehatanNote, true),
+            DokumenKapalListModel(context.getString(R.string.doc_bukukes_title), "BUKUKES", copDocData.bukuKesehatan, copDocData.bukuKesehatanDoc, copDocData.bukuKesehatanNote, true, needDoc = true),
             DokumenKapalListModel(context.getString(R.string.doc_bukuvaksin_title), "BUKUVAKSIN", copDocData.bukuVaksin, copDocData.bukuVaksinDoc, copDocData.bukuVaksinNote,
                 needNote = true,
-                needDoc = false
+                needDoc = true,
             ),
             DokumenKapalListModel(context.getString(R.string.doc_daftarabk_title), "DAFTARABK", copDocData.daftarABK, copDocData.daftarABKDoc, "",
                 needNote = false,
@@ -68,12 +68,12 @@ class DokumenViewModel : ViewModel() {
             ),
             DokumenKapalListModel(context.getString(R.string.doc_lpc_title), "LPC", copDocData.lpc, copDocData.lpcDoc, copDocData.lpcNote,
                 needNote = true,
-                needDoc = true
+                needDoc = true,
             ),
-            DokumenKapalListModel(context.getString(R.string.doc_icv_title), "BUKUKUNING", copDocData.bukuKuning, copDocData.bukuKuningDoc, copDocData.bukuKuningNote,
-                needNote = true,
-                needDoc = true
-            ),
+//            DokumenKapalListModel(context.getString(R.string.doc_icv_title), "BUKUKUNING", copDocData.bukuKuning, copDocData.bukuKuningDoc, copDocData.bukuKuningNote,
+//                needNote = true,
+//                needDoc = true,
+//            ),
             DokumenKapalListModel(context.getString(R.string.doc_noteperjalanan_title), "CATATANPERJALANAN", copDocData.catatanPerjalanan, copDocData.catatanPerjalananDoc, copDocData.catatanPerjalananNote,
                 needNote = true,
                 needDoc = true

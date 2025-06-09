@@ -119,16 +119,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="14dp"
-                android:hint="@string/recommendation">
+                android:hint="@string/recommendation"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
+                    android:id="@+id/dropdownRekomendasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_regular"
+                    android:inputType="none"
+                    app:simpleItems="@array/recomendation_list"
                     />
             </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:id="@+id/health_file_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="14dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/bukti_masalah_kesehatan_title"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/prevMasalah"
+                    android:layout_width="154dp"
+                    android:layout_height="210dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_signature_pad"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnSelectMasalah"
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upload_dokumen_title"
+                    app:icon="@drawable/ic_doc"
+                    app:iconPadding="8dp" />
+
+            </LinearLayout>
             <Button
                 style="@style/Widget.Material3.Button.IconButton.Filled"
                 android:id="@+id/saveButton"

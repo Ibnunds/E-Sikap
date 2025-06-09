@@ -229,7 +229,7 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.tvAgen.text = phqc.kapal.namaAgen
         binding.tvAsal.text = phqc.kapal.negaraAsal
         binding.tvTujuan.text = phqc.tujuan
-        binding.tvDokumen.text = phqc.dokumenKapal
+        //binding.tvDokumen.text = phqc.dokumenKapal
         binding.tvPemeriksaan.text = phqc.lokasiPemeriksaan
         binding.tvJmlABK.text = phqc.jumlahABK.toString()
         binding.tvDemam.text = phqc.deteksiDemam.toString()
@@ -252,7 +252,7 @@ class PHQCDocumentDetailActivity : AppCompatActivity() {
         binding.tvJam.text = phqc.jamDiperiksa
         binding.tvKapten.text = phqc.kapten
         binding.tvMasalahKesehatan.text = phqc.masalahKesehatan
-        Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
+        //Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
 
         // signature
         val bitmapSign = Base64Utils.convertBase64ToBitmap(phqc.signature)

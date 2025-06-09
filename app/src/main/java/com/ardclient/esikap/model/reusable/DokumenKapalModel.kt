@@ -54,4 +54,5 @@ data class DokumenKapalModel(
     @ColumnInfo(name = "daftar_store_doc") var daftarStoreDoc: String = "",
     @ColumnInfo(name = "daftar_store_note") var daftarStoreNote: String = "",
     @ColumnInfo(name = "rekomendasi") var rekomendasi: String = "",
+    @ColumnInfo(name = "rekomendasiDoc") var rekomendasiDoc: String = "",
 ) : Parcelable

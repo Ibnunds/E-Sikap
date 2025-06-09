@@ -414,7 +414,7 @@ class SSCECInputActivity : AppCompatActivity() {
                     signPetugas2 = SSCECSignature.signPetugas2,
                     signPetugas3 = SSCECSignature.signPetugas3,
                     nipPetugas2 = SSCECSignature.nipPetugas2,
-                    nipPetugas3 = SSCECSignature.nipPetugas3
+                    nipPetugas3 = SSCECSignature.nipPetugas3,
                 )
             } else {
                 SSCECModel(

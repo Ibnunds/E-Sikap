@@ -61,11 +61,11 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
             if (checkedId == R.id.radio_masalah_true){
                 needExtra = true
                 binding.masalahFileLayout.visibility = View.VISIBLE
-                binding.etMasalahNote.visibility = View.VISIBLE
+                binding.etMasalahNote.visibility = View.GONE
             }else{
                 needExtra = false
                 binding.masalahFileLayout.visibility = View.GONE
-                binding.etMasalahNote.visibility = View.GONE
+                binding.etMasalahNote.visibility = View.VISIBLE
             }
         }
 
@@ -164,6 +164,8 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
             if (getCheckedIntByString(pemeriksaanKapal.masalah) == 1){
                 needExtra = true
                 binding.masalahFileLayout.visibility = View.VISIBLE
+                binding.etMasalahNote.visibility = View.GONE
+            }else{
                 binding.etMasalahNote.visibility = View.VISIBLE
                 binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
             }
@@ -173,13 +175,14 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
 
         // document
         if (getCheckedIntByString(pemeriksaanKapal.masalah) == 1){
-            binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
-
+            binding.etMasalahNote.visibility = View.GONE
             binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
             binding.prevMasalah.visibility  =View.VISIBLE
             Picasso.get().load(pemeriksaanKapal.masalahFile).fit().into(binding.prevMasalah)
 
             masalahDoc = pemeriksaanKapal.masalahFile
+        }else{
+            binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
         }
     }
 
@@ -215,17 +218,14 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
                 etMasalahNote
             )
 
-            if (isAllFilled){
-                if (needExtra){
-                    if (isInputFilled && !masalahDoc.isNullOrBlank()){
-                        onValidInput()
-                    }else{
-                        Toast.makeText(this@P3KInputPemeriksaanActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
-                    }
-                }else{
+            if (isAllFilled) {
+                val isValid = if (needExtra) !masalahDoc.isNullOrBlank() else isInputFilled
+                if (isValid) {
                     onValidInput()
+                } else {
+                    Toast.makeText(this@P3KInputPemeriksaanActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
                 }
-            }else{
+            } else {
                 Toast.makeText(this@P3KInputPemeriksaanActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
             }
         }

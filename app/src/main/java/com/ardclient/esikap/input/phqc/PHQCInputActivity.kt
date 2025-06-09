@@ -152,24 +152,27 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             launcher!!.launch(intent)
         }
 
+        // departure only
+        binding.serviceTitle.text = "${binding.serviceTitle.text} : ${getString(R.string.keberangkatan_subtitle)}"
+
 
         // Add Sign Petugas 2
-        binding.addSignPT2Button.setOnClickListener {
-            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
-            intent.putExtra("NAMA", "")
-            intent.putExtra("NIP", "")
-            intent.putExtra("TYPE", "PETUGAS_2")
-            launcher!!.launch(intent)
-        }
+//        binding.addSignPT2Button.setOnClickListener {
+//            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
+//            intent.putExtra("NAMA", "")
+//            intent.putExtra("NIP", "")
+//            intent.putExtra("TYPE", "PETUGAS_2")
+//            launcher!!.launch(intent)
+//        }
 
         // Add Sign Petugas 3
-        binding.addSignPT3Button.setOnClickListener {
-            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
-            intent.putExtra("NAMA", "")
-            intent.putExtra("NIP", "")
-            intent.putExtra("TYPE", "PETUGAS_3")
-            launcher!!.launch(intent)
-        }
+//        binding.addSignPT3Button.setOnClickListener {
+//            val intent = Intent(this@PHQCInputActivity, SignatureActivity::class.java)
+//            intent.putExtra("NAMA", "")
+//            intent.putExtra("NIP", "")
+//            intent.putExtra("TYPE", "PETUGAS_3")
+//            launcher!!.launch(intent)
+//        }
 
 
         // Layout Petugas
@@ -221,7 +224,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             base64SignPetugas2 = ""
             nipPetugas2 = ""
 
-            binding.addSignPT2Button.visibility = View.VISIBLE
+            //binding.addSignPT2Button.visibility = View.VISIBLE
             binding.signPT2Layout.visibility = View.GONE
         }
 
@@ -231,7 +234,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             base64SignPetugas3 = ""
             nipPetugas3 = ""
 
-            binding.addSignPT3Button.visibility = View.VISIBLE
+            //binding.addSignPT3Button.visibility = View.VISIBLE
             binding.signPT3Layout.visibility = View.GONE
         }
 
@@ -250,17 +253,19 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             binding.etTanggal.editText?.setText(selectedDate)
         }
 
-        binding.btnSelectHasil.setOnClickListener {
-            pickDocument()
-        }
+//        binding.btnSelectHasil.setOnClickListener {
+//            pickDocument()
+//        }
 
-        binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
-            if (checkedId == R.id.radio_layanan_kedatangan){
-                radioMap["LAYANAN"] = "Kedatangan"
-            }else{
-                radioMap["LAYANAN"] = "Keberangkatan"
-            }
-        }
+//        binding.radioJenisLayanan.setOnCheckedChangeListener{ _, checkedId ->
+//            if (checkedId == R.id.radio_layanan_kedatangan){
+//                radioMap["LAYANAN"] = "Kedatangan"
+//            }else{
+//                radioMap["LAYANAN"] = "Keberangkatan"
+//            }
+//        }
+        // set default only to keberangkatan
+        radioMap["LAYANAN"] = "Keberangkatan"
 
         binding.radioJenisPelayaran.setOnCheckedChangeListener{ _, checkedId ->
             if (checkedId == R.id.radio_pelayaran_domestik){
@@ -322,7 +327,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             }
 
             "PETUGAS_2" -> {
-                binding.addSignPT2Button.visibility = View.GONE
+               // binding.addSignPT2Button.visibility = View.GONE
                 binding.signPT2Layout.visibility = View.VISIBLE
                 binding.tvPetugas2.text = nama
                 binding.ivSignPT2.setImageBitmap(encodedSign)
@@ -333,7 +338,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             }
 
             "PETUGAS_3" -> {
-                binding.addSignPT3Button.visibility = View.GONE
+                //binding.addSignPT3Button.visibility = View.GONE
                 binding.signPT3Layout.visibility = View.VISIBLE
                 binding.tvPetugas3.text = nama
                 binding.ivSignPT3.setImageBitmap(encodedSign)
@@ -369,15 +374,16 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
         pemeriksaanDoc = uriString
-        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
-        binding.prevHasil.visibility = View.VISIBLE
-        Picasso.get().load(uriString).fit().into(binding.prevHasil)
+//        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
+//        binding.prevHasil.visibility = View.VISIBLE
+//        Picasso.get().load(uriString).fit().into(binding.prevHasil)
     }
 
     private fun initExistingData() {
         binding.etTujuan.editText?.setText(phqc.tujuan)
-        binding.etDokumen.editText?.setText(phqc.dokumenKapal)
-        binding.etPemeriksaan.editText?.setText(phqc.lokasiPemeriksaan)
+        //binding.etDokumen.editText?.setText(phqc.dokumenKapal)
+       // binding.etPemeriksaan.editText?.setText(phqc.lokasiPemeriksaan)
+        binding.dropdownLocation.setText(phqc.lokasiPemeriksaan, false)
         binding.etJmlABK.editText?.setText(phqc.jumlahABK.toString())
         binding.etDemam.editText?.setText(phqc.deteksiDemam.toString())
         binding.etJmlSakit.editText?.setText(phqc.jumlahSakit.toString())
@@ -390,7 +396,8 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         binding.etCustJmlSehat.editText?.setText(phqc.custJumlahSehat.toString())
         binding.etCustJmlMeninggal.editText?.setText(phqc.custJumlahMeninggal.toString())
         binding.etCustJmlDirujuk.editText?.setText(phqc.custJumlahDirujuk.toString())
-        binding.etSanitasi.editText?.setText(phqc.statusSanitasi)
+        //binding.etSanitasi.editText?.setText(phqc.statusSanitasi)
+        binding.dropdownSanitation.setText(phqc.statusSanitasi, false)
         binding.etKesimpulan.editText?.setText(phqc.kesimpulan)
         binding.etTanggal.editText?.setText(phqc.tanggalDiperiksa)
         binding.etMasalahKesehatan.editText?.setText(phqc.masalahKesehatan)
@@ -417,7 +424,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             nipPetugas2 = phqc.nipPetugas2
             nmPetugas2 = phqc.namaPetugas2
             binding.signPT2Layout.visibility = View.VISIBLE
-            binding.addSignPT2Button.visibility = View.GONE
+            //binding.addSignPT2Button.visibility = View.GONE
         }
 
         if (phqc.nipPetugas3.isNotEmpty()){
@@ -428,14 +435,14 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             nipPetugas3 = phqc.nipPetugas3
             nmPetugas3 = phqc.namaPetugas3
             binding.signPT3Layout.visibility = View.VISIBLE
-            binding.addSignPT3Button.visibility = View.GONE
+            //binding.addSignPT3Button.visibility = View.GONE
         }
 
         // doc
         pemeriksaanDoc = phqc.pemeriksaanFile
-        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
-        binding.prevHasil.visibility = View.VISIBLE
-        Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
+//        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
+//        binding.prevHasil.visibility = View.VISIBLE
+//        Picasso.get().load(phqc.pemeriksaanFile).fit().into(binding.prevHasil)
 
 
         binding.signLayout.visibility = View.VISIBLE
@@ -445,12 +452,12 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
         binding.addSignKaptenButton.visibility = View.GONE
 
         // radio
-        radioMap["LAYANAN"] = phqc.jenisLayanan
-        if (phqc.jenisLayanan == "Kedatangan"){
-            binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
-        }else{
-            binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
-        }
+//        radioMap["LAYANAN"] = phqc.jenisLayanan
+//        if (phqc.jenisLayanan == "Kedatangan"){
+//            binding.radioJenisLayanan.check(R.id.radio_layanan_kedatangan)
+//        }else{
+//            binding.radioJenisLayanan.check(R.id.radio_layanan_keberangkatan)
+//        }
 
         radioMap["PELAYARAN"] = phqc.jenisPelayaran
         if (phqc.jenisPelayaran == "Domestik"){
@@ -463,7 +470,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
     private fun onSaveButtonPressed() {
         // Mengakses input menggunakan binding
         val tujuan = binding.etTujuan.editText?.text.toString()
-        val dokumen = binding.etDokumen.editText?.text.toString()
+        //val dokumen = binding.etDokumen.editText?.text.toString()
         val pemeriksaan = binding.etPemeriksaan.editText?.text.toString()
         val jmlABK = binding.etJmlABK.editText?.text.toString()
         val demam = binding.etDemam.editText?.text.toString()
@@ -485,14 +492,14 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
 
         // cek radio
         val isAllRadio = InputValidation.isAllRadioFilled(
-            binding.radioJenisLayanan,
+//            binding.radioJenisLayanan,
             binding.radioJenisPelayaran
         )
 
         // Mengecek apakah semua input terisi
         val isAllFilled = InputValidation.isAllFieldComplete(
             binding.etTujuan,
-            binding.etDokumen,
+            //binding.etDokumen,
             binding.etPemeriksaan,
             binding.etJmlABK,
             binding.etDemam,
@@ -513,14 +520,14 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
             binding.etJam
         )
 
-        if (isAllFilled && pemeriksaanDoc != null && nmPetugas != null && nmKapten != null && isAllRadio){
+        if (isAllFilled && nmPetugas != null && nmKapten != null && isAllRadio){
             if (isUpdate){
                 onSaveData(PHQCModel(
                     id = phqc.id,
                     kapalId = phqc.kapalId,
                     kapal = phqc.kapal,
                     tujuan = tujuan,
-                    dokumenKapal = dokumen,
+                    dokumenKapal = "",
                     lokasiPemeriksaan = pemeriksaan,
                     jumlahABK = jmlABK.toInt(),
                     deteksiDemam = demam.toInt(),
@@ -538,7 +545,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     kesimpulan = kesimpulan,
                     petugasPelaksana = nmPetugas!!,
                     signature = base64Sign!!,
-                    pemeriksaanFile = pemeriksaanDoc!!,
+                    pemeriksaanFile = "",
                     tanggalDiperiksa = tanggal,
                     jenisLayanan = radioMap["LAYANAN"]!!,
                     jenisPelayaran = radioMap["PELAYARAN"]!!,
@@ -559,7 +566,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     kapalId = kapal.id,
                     kapal = kapal,
                     tujuan = tujuan,
-                    dokumenKapal = dokumen,
+                    dokumenKapal = "",
                     lokasiPemeriksaan = pemeriksaan,
                     jumlahABK = jmlABK.toInt(),
                     deteksiDemam = demam.toInt(),
@@ -577,7 +584,7 @@ class PHQCInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSelecte
                     kesimpulan = kesimpulan,
                     petugasPelaksana = nmPetugas!!,
                     signature = base64Sign!!,
-                    pemeriksaanFile = pemeriksaanDoc!!,
+                    pemeriksaanFile = "",
                     tanggalDiperiksa = tanggal,
                     jenisLayanan = radioMap["LAYANAN"]!!,
                     jenisPelayaran = radioMap["PELAYARAN"]!!,

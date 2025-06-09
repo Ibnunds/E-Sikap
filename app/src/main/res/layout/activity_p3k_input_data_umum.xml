@@ -119,14 +119,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    android:hint="@string/lokasi_pemeriksaan">
+                    android:hint="@string/lokasi_pemeriksaan"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdownLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular"
+                        android:inputType="none"
+                        app:simpleItems="@array/lokasi_list"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout

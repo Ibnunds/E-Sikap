@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lokasi_list">
+        <item>Pel. Tarakan</item>
+        <item>Bunyu</item>
+        <item>Nunukan</item>
+        <item>Tg. Selor</item>
+        <item>Sebatik</item>
+        <item>Berau</item>
+        <item>Malinau</item>
+    </string-array>
+    <string-array name="risk_list">
+        <item>Low Risk</item>
+        <item>High Risk</item>
+    </string-array>
+    <string-array name="note_list">
+        <item>Valid</item>
+        <item>Not Valid</item>
+    </string-array>
+    <string-array name="sscec_list">
+        <item>Low risk sanitation is issued SSCEC certification</item>
+        <item>High sanitation requires quarantine measures (Disinsection / Fumigation)</item>
+    </string-array>
+    <string-array name="recomendation_list">
+        <item>No health problems</item>
+        <item>There is a health problem, quarantine measures are taken (disinsection/fumigation/decontamination/disinfection)</item>
+    </string-array>
+</resources>

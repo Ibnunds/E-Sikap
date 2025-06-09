@@ -68,11 +68,14 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 hasMasalah = true
                 binding.healthFileLayout.visibility = View.VISIBLE
                 binding.etMasalahNote.visibility = View.VISIBLE
+                binding.etCatatanKesehatan.visibility = View.GONE
             }else{
                 hasMasalah = false
                 masalahDoc = null
                 binding.healthFileLayout.visibility = View.GONE
                 binding.etMasalahNote.visibility = View.GONE
+                binding.etCatatanKesehatan.visibility = View.VISIBLE
+
             }
         }
 
@@ -127,6 +130,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             )
 
             etMasalahNote.editText?.isEnabled = false
+            etCatatanKesehatan.editText?.isEnabled = false
 
             btnSelectHasil.visibility = View.GONE
             btnSelectMasalah.visibility = View.GONE
@@ -134,41 +138,79 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         }
     }
 
+    fun getRadioButtonId(value: Int, trueId: Int, falseId: Int, neutralId: Int? = null): Int {
+        return when (value) {
+            1 -> trueId
+            2 -> falseId
+            else -> neutralId ?: falseId // Default ke falseId jika neutralId tidak ada
+        }
+    }
+
     private fun initExistingData() {
-        val dapurVal = if (getCheckedIdByString(copSanitasi.sanDapur) == 1) R.id.radio_dapur_true else R.id.radio_dapur_false
-        val dapurVecValue = if (getCheckedIdByString(copSanitasi.vecDapur) == 1) R.id.radio_dapurVec_true else R.id.radio_dapurVec_false
-        val pantryValue = if (getCheckedIdByString(copSanitasi.sanRuangRakit) == 1) R.id.radio_pantry_true else R.id.radio_pantry_false
-        val pantryVecValue = if (getCheckedIdByString(copSanitasi.vecRuangRakit) == 1) R.id.radio_pantryVec_true else R.id.radio_pantryVec_false
-        val gudangValue = if (getCheckedIdByString(copSanitasi.sanGudang) == 1) R.id.radio_gudang_true else R.id.radio_gudang_false
-        val gudangVecValue = if (getCheckedIdByString(copSanitasi.vecGudang) == 1) R.id.radio_gudangVec_true else R.id.radio_gudangVec_false
-        val palkaValue = if (getCheckedIdByString(copSanitasi.sanPalka) == 1) R.id.radio_palka_true else R.id.radio_palka_false
-        val palkaVecValue = if (getCheckedIdByString(copSanitasi.vecPalka) == 1) R.id.radio_palkaVec_true else R.id.radio_palkaVec_false
-        val ruangTidurValue = if (getCheckedIdByString(copSanitasi.sanRuangTidur) == 1) R.id.radio_quarter_true else R.id.radio_quarter_false
-        val ruangTidurVecValue = if (getCheckedIdByString(copSanitasi.vecRuangTidur) == 1) R.id.radio_quarterVec_true else R.id.radio_quarterVec_false
-        val abkValue = if (getCheckedIdByString(copSanitasi.sanABKReq) == 1) R.id.radio_abk_true else R.id.radio_abk_false
-        val abkVecValue = if (getCheckedIdByString(copSanitasi.vecABKReq) == 1) R.id.radio_abkVec_true else R.id.radio_abkVec_false
-        val perwiraValue = if (getCheckedIdByString(copSanitasi.sanPerwira) == 1) R.id.radio_perwira_true else R.id.radio_perwira_false
-        val perwiraVecValue = if (getCheckedIdByString(copSanitasi.vecPerwira) == 1) R.id.radio_perwiraVec_true else R.id.radio_perwiraVec_false
-        val penumpangValue = if (getCheckedIdByString(copSanitasi.sanPenumpang) == 1) R.id.radio_penumpang_true else R.id.radio_penumpang_false
-        val penumpangVecValue = if (getCheckedIdByString(copSanitasi.vecPenumpang) == 1) R.id.radio_penumpangVec_true else R.id.radio_penumpangVec_false
-        val geladakValue = if (getCheckedIdByString(copSanitasi.sanGeladak) == 1) R.id.radio_deck_true else R.id.radio_deck_false
-        val geladakVecValue = if (getCheckedIdByString(copSanitasi.vecGeladak) == 1) R.id.radio_deckVec_true else R.id.radio_deckVec_false
-        val waterValue = if (getCheckedIdByString(copSanitasi.sanAirMinum) == 1) R.id.radio_water_true else R.id.radio_water_false
-        val waterVecValue = if (getCheckedIdByString(copSanitasi.vecAirMinum) == 1) R.id.radio_waterVec_true else R.id.radio_waterVec_false
-        val limbaCairValue = if (getCheckedIdByString(copSanitasi.sanLimbaCair) == 1) R.id.radio_limba_true else R.id.radio_limba_false
-        val limbaCairVecValue = if (getCheckedIdByString(copSanitasi.vecLimbaCair) == 1) R.id.radio_limbaVec_true else R.id.radio_limbaVec_false
 
-        val genanganValue = if (getCheckedIdByString(copSanitasi.sanAirTergenang) == 1) R.id.radio_genangan_true else R.id.radio_genangan_false
-        val genanganVecValue = if (getCheckedIdByString(copSanitasi.vecAirTergenang) == 1) R.id.radio_airTergenangVec_true else R.id.radio_airTergenangVec_false
+        // Dapur
+        val dapurVal = getRadioButtonId(getCheckedIdByString(copSanitasi.sanDapur), R.id.radio_dapur_true, R.id.radio_dapur_false, R.id.radio_dapur_neutral)
+        val dapurVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecDapur), R.id.radio_dapurVec_true, R.id.radio_dapurVec_false, R.id.radio_dapurVec_neutral)
 
-        val engineValue = if (getCheckedIdByString(copSanitasi.sanRuangMesin) == 1) R.id.radio_engine_true else R.id.radio_engine_false
-        val engineVecValue = if (getCheckedIdByString(copSanitasi.vecRuangMesin) == 1) R.id.radio_mesinVec_true else R.id.radio_mesinVec_false
+        // Pantry
+        val pantryValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanRuangRakit), R.id.radio_pantry_true, R.id.radio_pantry_false, R.id.radio_pantry_neutral)
+        val pantryVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecRuangRakit), R.id.radio_pantryVec_true, R.id.radio_pantryVec_false, R.id.radio_pantryVec_neutral)
 
-        val medikValue = if (getCheckedIdByString(copSanitasi.sanFasilitasMedik) == 1) R.id.radio_medik_true else R.id.radio_medik_false
-        val medikVecValue = if (getCheckedIdByString(copSanitasi.vecFasilitasMedik) == 1) R.id.radio_medikVec_true else R.id.radio_medikVec_false
+        // Gudang
+        val gudangValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanGudang), R.id.radio_gudang_true, R.id.radio_gudang_false, R.id.radio_gudang_neutral)
+        val gudangVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecGudang), R.id.radio_gudangVec_true, R.id.radio_gudangVec_false, R.id.radio_gudangVec_neutral)
 
-        val otherAreaValue = if (getCheckedIdByString(copSanitasi.sanAreaLainnya) == 1) R.id.radio_otherArea_true else R.id.radio_otherArea_false
-        val otherAreaVecValue = if (getCheckedIdByString(copSanitasi.vecAreaLainnya) == 1) R.id.radio_otherAreaVec_true else R.id.radio_otherAreaVec_false
+        // Palka
+        val palkaValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanPalka), R.id.radio_palka_true, R.id.radio_palka_false, R.id.radio_palka_neutral)
+        val palkaVecValue =  getRadioButtonId(getCheckedIdByString(copSanitasi.vecPalka), R.id.radio_palkaVec_true, R.id.radio_palkaVec_false, R.id.radio_palkaVec_neutral)
+
+        // Ruang tidur
+        val ruangTidurValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanRuangTidur), R.id.radio_quarter_true, R.id.radio_quarter_false, R.id.radio_quarter_neutral)
+        val ruangTidurVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecRuangTidur), R.id.radio_quarterVec_true, R.id.radio_quarterVec_false, R.id.radio_quarterVec_neutral)
+
+        // Abk
+        val abkValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanABKReq), R.id.radio_abk_true, R.id.radio_abk_false, R.id.radio_abk_neutral)
+        val abkVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecABKReq), R.id.radio_abkVec_true, R.id.radio_abkVec_false, R.id.radio_abkVec_neutral)
+
+        // Perwira
+        val perwiraValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanPerwira), R.id.radio_perwira_true, R.id.radio_perwira_false, R.id.radio_perwira_neutral)
+        val perwiraVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecPerwira), R.id.radio_perwiraVec_true, R.id.radio_perwiraVec_false, R.id.radio_perwiraVec_neutral)
+
+        // Penumpang
+        val penumpangValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanPenumpang), R.id.radio_penumpang_true, R.id.radio_penumpang_false, R.id.radio_penumpang_neutral)
+        val penumpangVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecPenumpang), R.id.radio_penumpangVec_true, R.id.radio_penumpangVec_false, R.id.radio_penumpangVec_neutral)
+
+        // Geladak
+        val geladakValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanGeladak), R.id.radio_deck_true, R.id.radio_deck_false, R.id.radio_deck_neutral)
+        val geladakVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecGeladak), R.id.radio_deckVec_true, R.id.radio_deckVec_false, R.id.radio_deckVec_neutral)
+
+        // Water
+        val waterValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanAirMinum), R.id.radio_water_true, R.id.radio_water_false, R.id.radio_water_neutral)
+        val waterVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecAirMinum), R.id.radio_waterVec_true, R.id.radio_waterVec_false, R.id.radio_waterVec_neutral)
+
+        // Limba
+        val limbaCairValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanLimbaCair), R.id.radio_limba_true, R.id.radio_limba_false, R.id.radio_limba_neutral)
+        val limbaCairVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecLimbaCair), R.id.radio_limbaVec_true, R.id.radio_limbaVec_false, R.id.radio_limbaVec_neutral)
+
+
+        // Genangan
+        val genanganValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanAirTergenang), R.id.radio_genangan_true, R.id.radio_genangan_false, R.id.radio_genangan_neutral)
+        val genanganVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecAirTergenang), R.id.radio_airTergenangVec_true, R.id.radio_airTergenangVec_false, R.id.radio_airTergenangVec_neutral)
+
+
+        // Engine
+        val engineValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanRuangMesin), R.id.radio_engine_true, R.id.radio_engine_false, R.id.radio_engine_neutral)
+        val engineVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecRuangMesin), R.id.radio_mesinVec_true, R.id.radio_mesinVec_false, R.id.radio_mesinVec_neutral)
+
+
+         // Medik
+        val medikValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanFasilitasMedik), R.id.radio_medik_true, R.id.radio_medik_false, R.id.radio_medik_neutral)
+        val medikVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecFasilitasMedik), R.id.radio_medikVec_true, R.id.radio_medikVec_false, R.id.radio_medikVec_neutral)
+
+
+        // Other
+        val otherAreaValue = getRadioButtonId(getCheckedIdByString(copSanitasi.sanAreaLainnya), R.id.radio_otherArea_true, R.id.radio_otherArea_false, R.id.radio_otherArea_neutral)
+        val otherAreaVecValue = getRadioButtonId(getCheckedIdByString(copSanitasi.vecAreaLainnya), R.id.radio_otherAreaVec_true, R.id.radio_otherAreaVec_false, R.id.radio_otherVec_neutral)
 
         val rekomendasiValue = if (getCheckedIdByString(copSanitasi.rekomendasi) == 1) R.id.radio_disinseksi else if (getCheckedIdByString(copSanitasi.rekomendasi) == 2) R.id.radio_fumigasi else R.id.radio_no_problem
         val resikoValue = if (getCheckedIdByString(copSanitasi.resikoSanitasi) == 1) R.id.radio_resiko_tinggi else if (getCheckedIdByString(copSanitasi.resikoSanitasi) == 2) R.id.radio_resiko_rendah else R.id.radio_resiko_no
@@ -234,11 +276,15 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             binding.prevMasalah.visibility = View.VISIBLE
             Picasso.get().load(masalahDoc).fit().into(binding.prevMasalah)
 
-            binding.etMasalahNote.editText?.setText(copSanitasi.masalahKesehatanCatatan)
+            //binding.etMasalahNote.editText?.setText(copSanitasi.masalahKesehatanCatatan)
+            binding.dropdownNote.setText(copSanitasi.masalahKesehatanCatatan, false)
+            binding.etCatatanKesehatan.visibility = View.GONE
         }else{
             hasMasalah = false
             binding.healthFileLayout.visibility = View.GONE
             binding.etMasalahNote.visibility = View.GONE
+            binding.etCatatanKesehatan.visibility = View.VISIBLE
+            binding.etCatatanKesehatan.editText?.setText(copSanitasi.catatanKesehatan)
         }
     }
 
@@ -278,16 +324,18 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
             // SSCEC Masalah
             val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
+            val catatanKesehatanVal = binding.etCatatanKesehatan.editText?.text.toString()
 
             InputValidation.isAllFieldComplete(
                 binding.etMasalahNote
             )
 
+            val requireCatatanKesehatan = !hasMasalah && catatanKesehatanVal.isEmpty()
             val requireMasalahDoc = hasMasalah && masalahDoc.isNullOrEmpty()
             val requireMasalahCatatan = hasMasalah && masalahCatatanVal.isEmpty()
 
             val errorMessage = when {
-                binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireMasalahCatatan -> getString(R.string.data_not_completed)
+                binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireCatatanKesehatan || requireMasalahCatatan -> getString(R.string.data_not_completed)
                 binding.radioRekomendasi.checkedRadioButtonId == -1 -> getString(R.string.data_not_completed)
                 else -> null
             }
@@ -338,6 +386,7 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val healthValue = getSelectedRadioGroupValue(binding.radioHealth)
         val vektorValue = getSelectedRadioGroupValue(binding.radioVektor)
         val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
+        val catatanKesehatan = binding.etCatatanKesehatan.editText?.text.toString()
 
         val sanitasiData = SanitasiModel(
             sanDapur = dapurValue,
@@ -377,7 +426,8 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             vecRuangMesin = engineVecVal,
             vecFasilitasMedik = medikVecVal,
             vecAreaLainnya = otherAreaVecVal,
-            tandatandaVektor = vektorValue
+            tandatandaVektor = vektorValue,
+            catatanKesehatan = catatanKesehatan
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
@@ -441,6 +491,10 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
         if (checkedRadioButton.text == "Does Not Meet Requirements"){
             return "Tidak Memenuhi Syarat"
+        }
+
+        if (checkedRadioButton.text == "No Room / Not Checked"){
+            return "Tidak Ada Ruang / Tidak Diperiksa"
         }
 
         // vector en

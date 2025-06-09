@@ -44,4 +44,5 @@ data class SanitasiModel(
     @ColumnInfo(name = "hasil_pemeriksaan_kapal") var pemeriksanDoc: String = "",
     @ColumnInfo(name = "hasil_file") var hasilFile: String = "",
     @ColumnInfo(name = "rekomendasi") var rekomendasi: String = "",
+    @ColumnInfo(name = "catatan_kesehatan") var catatanKesehatan: String = "",
 ) : Parcelable
