@@ -18,9 +18,9 @@ android {
     defaultConfig {
         applicationId = "com.ardclient.esikap"
         minSdk = 24
-        targetSdk = 33
-        versionCode = 5
-        versionName = "2"
+        targetSdk = 34
+        versionCode = 10
+        versionName = "7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

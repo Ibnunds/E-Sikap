@@ -113,18 +113,18 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         binding.dropdownRekomendasi.setOnItemClickListener { _, _, position, _ ->
             if (position == 1){
                 hasMasalah = true
-                binding.healthFileLayout.visibility = View.VISIBLE
+               // binding.healthFileLayout.visibility = View.VISIBLE
             }else{
                 hasMasalah = false
                 masalahDoc = null
-                binding.healthFileLayout.visibility = View.GONE
+                //binding.healthFileLayout.visibility = View.GONE
             }
         }
 
-        binding.btnSelectMasalah.setOnClickListener {
-            //selectedDocType = "MASALAH"
-            pickDocument("MASALAH_KESEHATAN")
-        }
+//        binding.btnSelectMasalah.setOnClickListener {
+//            //selectedDocType = "MASALAH"
+//            pickDocument("MASALAH_KESEHATAN")
+//        }
     }
 
     private fun onUploadedUI() {
@@ -132,7 +132,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             InputValidation.disableRadioGroup(radioKarantina)
             InputValidation.disableRadioGroup(radioActivity)
             saveButton.visibility = View.GONE
-            btnSelectMasalah.visibility = View.GONE
+            //btnSelectMasalah.visibility = View.GONE
         }
     }
 
@@ -199,12 +199,12 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         //binding.etRekomendasi.editText?.setText(copDocData.rekomendasi)
         binding.dropdownRekomendasi.setText(copDocData.rekomendasi, false)
         if (!copDocData.rekomendasiDoc.isNullOrEmpty()){
-            binding.healthFileLayout.visibility = View.VISIBLE
+            //binding.healthFileLayout.visibility = View.VISIBLE
 
             masalahDoc = copDocData.rekomendasiDoc
-            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
-            binding.prevMasalah.visibility = View.VISIBLE
-            Picasso.get().load(masalahDoc).fit().into(binding.prevMasalah)
+            //binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
+            //binding.prevMasalah.visibility = View.VISIBLE
+            //Picasso.get().load(masalahDoc).fit().into(binding.prevMasalah)
         }
     }
 
@@ -233,49 +233,36 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
     }
 
     private fun onSaveButton() {
-        val isInputFilled = InputValidation.isAllFieldComplete(
-            binding.etRekomendasi
-        )
+        val isInputFilled = InputValidation.isAllFieldComplete(binding.etRekomendasi)
 
-        if (radioMap["KARANTINA"] != null && radioMap["ACTIVITY"] != null && isInputFilled){
-            var isDataComplete = true // Variabel flag untuk menandai apakah semua data lengkap
+        if (radioMap["KARANTINA"] != null && radioMap["ACTIVITY"] != null && isInputFilled) {
+            val emptyFields = mutableListOf<String>()
 
             for (item in bindingListData) {
                 val key = item.key
                 val valueInRadioMap = radioMap[key]
-                val noteVal = noteMap[key]
-                val docVal = docMap[key]
 
-                if (valueInRadioMap.isNullOrBlank()){
-                    isDataComplete = false
-                    break
-                }
-
-                if ((valueInRadioMap == "Ada" && docVal.isNullOrEmpty() && item.needDoc)){
-                    isDataComplete = false
-                    break
-                }
-
-                if ((item.needNote && noteVal.isNullOrEmpty())){
-                    isDataComplete = false
-                    break
+                if (valueInRadioMap.isNullOrBlank()) {
+                    emptyFields.add(key) // simpan field yang kosong
                 }
             }
 
-            if (hasMasalah && masalahDoc.isNullOrEmpty()){
-                isDataComplete = false
-            }
-
-            if (!isDataComplete) {
-                Toast.makeText(this@CopInputDokumenActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
+            if (emptyFields.isNotEmpty()) {
+                val message = getString(R.string.data_not_completed) +
+                        "\nKosong: " + emptyFields.joinToString(", ")
+                Toast.makeText(this@CopInputDokumenActivity, message, Toast.LENGTH_LONG).show()
             } else {
                 onDataCompleted()
             }
-        }else{
-            Toast.makeText(this@CopInputDokumenActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(
+                this@CopInputDokumenActivity,
+                getString(R.string.data_not_completed),
+                Toast.LENGTH_SHORT
+            ).show()
         }
-
     }
+
 
     private fun onDataCompleted() {
         val rekomendasi = binding.etRekomendasi.editText?.text.toString()
@@ -334,8 +321,7 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
             daftarStoreDoc = docMap["DAFTARSTORE"] ?: "",
             daftarStoreNote = noteMap["DAFTARSTORE"] ?: "",
             rekomendasi = rekomendasi,
-            rekomendasiDoc = if (hasMasalah) masalahDoc!! else ""
-
+            rekomendasiDoc = if (hasMasalah) masalahDoc ?: "" else ""
         )
 
          intent.putExtra("COP_DOC", copDokumen)
@@ -361,9 +347,9 @@ class CopInputDokumenActivity : AppCompatActivity(), ImageSelectorModal.OnImageS
         // apply to recycler view
         if (pickedDoc == "MASALAH_KESEHATAN"){
             masalahDoc = imageUri.toString()
-            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
-            binding.prevMasalah.visibility = View.VISIBLE
-            Picasso.get().load(imageUri).fit().into(binding.prevMasalah)
+//            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
+//            binding.prevMasalah.visibility = View.VISIBLE
+//            Picasso.get().load(imageUri).fit().into(binding.prevMasalah)
         }else{
             val uriString = imageUri.toString()
             docMap[pickedDoc] = uriString

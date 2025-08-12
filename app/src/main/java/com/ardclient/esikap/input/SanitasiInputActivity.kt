@@ -63,31 +63,34 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         }
 
         // on health issue checked
+        //binding.etMasalahNote.visibility = View.GONE
+        //binding.etCatatanKesehatan.visibility = View.GONE
+
         binding.radioHealth.setOnCheckedChangeListener{_, checkedId ->
             if (checkedId == R.id.radio_health_true){
                 hasMasalah = true
-                binding.healthFileLayout.visibility = View.VISIBLE
-                binding.etMasalahNote.visibility = View.VISIBLE
-                binding.etCatatanKesehatan.visibility = View.GONE
+                //binding.healthFileLayout.visibility = View.VISIBLE
+               // binding.etMasalahNote.visibility = View.VISIBLE
+               // binding.etCatatanKesehatan.visibility = View.GONE
             }else{
                 hasMasalah = false
                 masalahDoc = null
-                binding.healthFileLayout.visibility = View.GONE
-                binding.etMasalahNote.visibility = View.GONE
-                binding.etCatatanKesehatan.visibility = View.VISIBLE
+                //binding.healthFileLayout.visibility = View.GONE
+                //binding.etMasalahNote.visibility = View.GONE
+                //binding.etCatatanKesehatan.visibility = View.VISIBLE
 
             }
         }
 
-        binding.btnSelectMasalah.setOnClickListener {
-            selectedDocType = "MASALAH"
-            pickDocument()
-        }
+//        binding.btnSelectMasalah.setOnClickListener {
+//            selectedDocType = "MASALAH"
+//            pickDocument()
+//        }
 
-        binding.btnSelectHasil.setOnClickListener {
-            selectedDocType = "HASIL"
-            pickDocument()
-        }
+//        binding.btnSelectHasil.setOnClickListener {
+//            selectedDocType = "HASIL"
+//            pickDocument()
+//        }
     }
 
     private fun onUploadedUI() {
@@ -129,11 +132,11 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
                 radioVektor
             )
 
-            etMasalahNote.editText?.isEnabled = false
-            etCatatanKesehatan.editText?.isEnabled = false
+            //etMasalahNote.editText?.isEnabled = false
+            //etCatatanKesehatan.editText?.isEnabled = false
 
-            btnSelectHasil.visibility = View.GONE
-            btnSelectMasalah.visibility = View.GONE
+//            btnSelectHasil.visibility = View.GONE
+//            btnSelectMasalah.visibility = View.GONE
             saveButton.visibility = View.GONE
         }
     }
@@ -257,34 +260,34 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
 
         // Doc
         hasilDoc = copSanitasi.pemeriksanDoc
-        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
-        binding.prevHasil.visibility = View.VISIBLE
-        if (hasilDoc != null){
-            Picasso.get().load(copSanitasi.pemeriksanDoc).fit().into(binding.prevHasil)
-        }
+//        binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
+//        binding.prevHasil.visibility = View.VISIBLE
+//        if (hasilDoc != null){
+//            Picasso.get().load(copSanitasi.pemeriksanDoc).fit().into(binding.prevHasil)
+//        }
 
 
 
         // Has masalah kesehatan
         if (getCheckedIdByString(copSanitasi.masalahKesehatan) == 1){
             hasMasalah = true
-            binding.healthFileLayout.visibility = View.VISIBLE
-            binding.etMasalahNote.visibility = View.VISIBLE
+            //binding.healthFileLayout.visibility = View.VISIBLE
+            //binding.etMasalahNote.visibility = View.VISIBLE
 
             masalahDoc = copSanitasi.masalahKesehatanFile
-            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
-            binding.prevMasalah.visibility = View.VISIBLE
-            Picasso.get().load(masalahDoc).fit().into(binding.prevMasalah)
+//            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
+//            binding.prevMasalah.visibility = View.VISIBLE
+            //Picasso.get().load(masalahDoc).fit().into(binding.prevMasalah)
 
             //binding.etMasalahNote.editText?.setText(copSanitasi.masalahKesehatanCatatan)
-            binding.dropdownNote.setText(copSanitasi.masalahKesehatanCatatan, false)
-            binding.etCatatanKesehatan.visibility = View.GONE
+            //binding.dropdownNote.setText(copSanitasi.masalahKesehatanCatatan, false)
+            //binding.etCatatanKesehatan.visibility = View.GONE
         }else{
             hasMasalah = false
-            binding.healthFileLayout.visibility = View.GONE
-            binding.etMasalahNote.visibility = View.GONE
-            binding.etCatatanKesehatan.visibility = View.VISIBLE
-            binding.etCatatanKesehatan.editText?.setText(copSanitasi.catatanKesehatan)
+            //binding.healthFileLayout.visibility = View.GONE
+           // binding.etMasalahNote.visibility = View.GONE
+            //binding.etCatatanKesehatan.visibility = View.VISIBLE
+            //binding.etCatatanKesehatan.editText?.setText(copSanitasi.catatanKesehatan)
         }
     }
 
@@ -320,31 +323,32 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val isAllChecked = checkIsAllChecked()
 
 
-        if (isAllChecked && hasilDoc != null) {
+        if (isAllChecked) {
 
             // SSCEC Masalah
-            val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
-            val catatanKesehatanVal = binding.etCatatanKesehatan.editText?.text.toString()
+            //val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
+            //val catatanKesehatanVal = binding.etCatatanKesehatan.editText?.text.toString()
 
-            InputValidation.isAllFieldComplete(
-                binding.etMasalahNote
-            )
+//            InputValidation.isAllFieldComplete(
+//                binding.etMasalahNote
+//            )
 
-            val requireCatatanKesehatan = !hasMasalah && catatanKesehatanVal.isEmpty()
-            val requireMasalahDoc = hasMasalah && masalahDoc.isNullOrEmpty()
-            val requireMasalahCatatan = hasMasalah && masalahCatatanVal.isEmpty()
+            //val requireCatatanKesehatan = !hasMasalah && catatanKesehatanVal.isEmpty()
+            //val requireMasalahDoc = hasMasalah && masalahDoc.isNullOrEmpty()
+            //val requireMasalahCatatan = hasMasalah && masalahCatatanVal.isEmpty()
 
-            val errorMessage = when {
-                binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1 || requireMasalahDoc || requireCatatanKesehatan || requireMasalahCatatan -> getString(R.string.data_not_completed)
-                binding.radioRekomendasi.checkedRadioButtonId == -1 -> getString(R.string.data_not_completed)
-                else -> null
-            }
+//            val errorMessage = when {
+//                binding.radioResiko.checkedRadioButtonId == -1 || binding.radioHealth.checkedRadioButtonId == -1
+//                //binding.radioRekomendasi.checkedRadioButtonId == -1 -> getString(R.string.data_not_completed)
+//                else -> null
+//            }
 
-            if (errorMessage != null) {
-                Toast.makeText(this@SanitasiInputActivity, errorMessage, Toast.LENGTH_SHORT).show()
-            } else {
-                onAllChecked()
-            }
+//            if (errorMessage != null) {
+//                Toast.makeText(this@SanitasiInputActivity, errorMessage, Toast.LENGTH_SHORT).show()
+//            } else {
+//                onAllChecked()
+//            }
+            onAllChecked()
         } else {
             Toast.makeText(this@SanitasiInputActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
         }
@@ -385,8 +389,8 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         val resikoValue = getSelectedRadioGroupValue(binding.radioResiko)
         val healthValue = getSelectedRadioGroupValue(binding.radioHealth)
         val vektorValue = getSelectedRadioGroupValue(binding.radioVektor)
-        val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
-        val catatanKesehatan = binding.etCatatanKesehatan.editText?.text.toString()
+        //val masalahCatatanVal = binding.etMasalahNote.editText?.text.toString()
+        //val catatanKesehatan = binding.etCatatanKesehatan.editText?.text.toString()
 
         val sanitasiData = SanitasiModel(
             sanDapur = dapurValue,
@@ -419,15 +423,15 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
             resikoSanitasi = resikoValue,
             masalahKesehatan = healthValue,
             masalahKesehatanFile = masalahDoc ?: "",
-            masalahKesehatanCatatan = masalahCatatanVal,
-            pemeriksanDoc = hasilDoc!!,
+            masalahKesehatanCatatan = "",
+            pemeriksanDoc = hasilDoc ?: "",
             hasilFile = "TESTING",
             vecAirTergenang = genanganVecValue,
             vecRuangMesin = engineVecVal,
             vecFasilitasMedik = medikVecVal,
             vecAreaLainnya = otherAreaVecVal,
             tandatandaVektor = vektorValue,
-            catatanKesehatan = catatanKesehatan
+            catatanKesehatan = ""
         )
 
         val intent = Intent(this@SanitasiInputActivity, CopInputActivity::class.java)
@@ -548,15 +552,15 @@ class SanitasiInputActivity : AppCompatActivity(), ImageSelectorModal.OnImageSel
         when(selectedDocType){
             "MASALAH" -> {
                 masalahDoc = uriString
-                binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
-                binding.prevMasalah.visibility = View.VISIBLE
-                Picasso.get().load(uriString).fit().into(binding.prevMasalah)
+//                binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
+//                binding.prevMasalah.visibility = View.VISIBLE
+                //Picasso.get().load(uriString).fit().into(binding.prevMasalah)
             }
             "HASIL" -> {
                 hasilDoc = uriString
-                binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
-                binding.prevHasil.visibility = View.VISIBLE
-                Picasso.get().load(hasilDoc).fit().into(binding.prevHasil)
+//                binding.btnSelectHasil.text = getString(R.string.update_dokumen_title)
+//                binding.prevHasil.visibility = View.VISIBLE
+                //Picasso.get().load(hasilDoc).fit().into(binding.prevHasil)
             }
         }
     }

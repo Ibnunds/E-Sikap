@@ -33,38 +33,38 @@
             android:textSize="12sp"
             android:text="@string/radio_isfalse"/>
     </RadioGroup>
-    <ImageView
-        android:id="@+id/prevDoc"
-        android:layout_width="154dp"
-        android:layout_height="210dp"
-        android:background="@drawable/bg_signature_pad"
-        android:visibility="gone"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="12dp"/>
-    <Button
-        android:id="@+id/btnSelectDoc"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/upload_dokumen_title"
-        app:icon="@drawable/ic_doc"
-        android:visibility="gone"
-        app:iconPadding="8dp"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/in_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/note_title"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+<!--    <ImageView-->
+<!--        android:id="@+id/prevDoc"-->
+<!--        android:layout_width="154dp"-->
+<!--        android:layout_height="210dp"-->
+<!--        android:background="@drawable/bg_signature_pad"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginBottom="12dp"/>-->
+<!--    <Button-->
+<!--        android:id="@+id/btnSelectDoc"-->
+<!--        style="@style/Widget.Material3.Button.IconButton.Filled"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/upload_dokumen_title"-->
+<!--        app:icon="@drawable/ic_doc"-->
+<!--        android:visibility="gone"-->
+<!--        app:iconPadding="8dp"/>-->
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/in_note"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:hint="@string/note_title"-->
+<!--        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
 
-        <AutoCompleteTextView
-            android:id="@+id/dropdown_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            app:simpleItems="@array/note_list"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+<!--        <AutoCompleteTextView-->
+<!--            android:id="@+id/dropdown_input"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="none"-->
+<!--            app:simpleItems="@array/note_list"-->
+<!--            />-->
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 </LinearLayout>

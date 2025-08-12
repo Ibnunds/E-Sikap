@@ -1487,113 +1487,113 @@
                             android:textSize="12sp" />
                     </RadioGroup>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/etCatatanKesehatan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:layout_marginTop="6dp"
-                        android:hint="@string/note_title">
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/etCatatanKesehatan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="14dp"-->
+<!--                        android:layout_marginTop="6dp"-->
+<!--                        android:hint="@string/note_title">-->
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/poppins_regular"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:fontFamily="@font/poppins_regular"-->
+<!--                            />-->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/health_file_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="14dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/health_file_layout"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:layout_marginBottom="14dp"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:visibility="gone">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="8dp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/bukti_masalah_kesehatan_title"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginVertical="8dp"-->
+<!--                        android:fontFamily="@font/poppins_semibold"-->
+<!--                        android:text="@string/bukti_masalah_kesehatan_title"-->
+<!--                        android:textSize="12sp" />-->
 
-                    <ImageView
-                        android:id="@+id/prevMasalah"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/prevMasalah"-->
+<!--                        android:layout_width="154dp"-->
+<!--                        android:layout_height="210dp"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:layout_marginBottom="12dp"-->
+<!--                        android:background="@drawable/bg_signature_pad"-->
+<!--                        android:visibility="gone" />-->
 
-                    <Button
-                        android:id="@+id/btnSelectMasalah"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/upload_dokumen_title"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp" />
+<!--                    <Button-->
+<!--                        android:id="@+id/btnSelectMasalah"-->
+<!--                        style="@style/Widget.Material3.Button.IconButton.Filled"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/upload_dokumen_title"-->
+<!--                        app:icon="@drawable/ic_doc"-->
+<!--                        app:iconPadding="8dp" />-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/etMasalahNote"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="14dp"
-                    android:hint="@string/catatan_permasalahan_title"
-                    android:visibility="visible"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/etMasalahNote"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="14dp"-->
+<!--                    android:hint="@string/catatan_permasalahan_title"-->
+<!--                    android:visibility="visible"-->
+<!--                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
 
-                    <AutoCompleteTextView
-                        android:id="@+id/dropdownNote"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"
-                        app:simpleItems="@array/risk_list"
-                        />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/dropdownNote"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="none"-->
+<!--                        app:simpleItems="@array/risk_list"-->
+<!--                        />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="14dp"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="14dp"-->
+<!--                    android:orientation="vertical">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="8dp"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="@string/hasil_pemeriksaan_sanitasi_title"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginVertical="8dp"-->
+<!--                        android:fontFamily="@font/poppins_semibold"-->
+<!--                        android:text="@string/hasil_pemeriksaan_sanitasi_title"-->
+<!--                        android:textSize="12sp" />-->
 
-                    <ImageView
-                        android:id="@+id/prevHasil"
-                        android:layout_width="154dp"
-                        android:layout_height="210dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/bg_signature_pad"
-                        android:visibility="gone" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/prevHasil"-->
+<!--                        android:layout_width="154dp"-->
+<!--                        android:layout_height="210dp"-->
+<!--                        android:layout_marginTop="8dp"-->
+<!--                        android:layout_marginBottom="12dp"-->
+<!--                        android:background="@drawable/bg_signature_pad"-->
+<!--                        android:visibility="gone" />-->
 
-                    <Button
-                        android:id="@+id/btnSelectHasil"
-                        style="@style/Widget.Material3.Button.IconButton.Filled"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/upload_dokumen_title"
-                        app:icon="@drawable/ic_doc"
-                        app:iconPadding="8dp" />
-                </LinearLayout>
+<!--                    <Button-->
+<!--                        android:id="@+id/btnSelectHasil"-->
+<!--                        style="@style/Widget.Material3.Button.IconButton.Filled"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/upload_dokumen_title"-->
+<!--                        app:icon="@drawable/ic_doc"-->
+<!--                        app:iconPadding="8dp" />-->
+<!--                </LinearLayout>-->
 
 
                 <Button

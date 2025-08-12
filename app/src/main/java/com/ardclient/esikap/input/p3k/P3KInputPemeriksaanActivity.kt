@@ -13,6 +13,7 @@ import com.ardclient.esikap.databinding.ActivityP3kInputPemeriksaanBinding
 import com.ardclient.esikap.modal.ImageSelectorModal
 import com.ardclient.esikap.model.reusable.PemeriksaanKapalModel
 import com.ardclient.esikap.utils.InputValidation
+import com.ardclient.esikap.utils.InputValidation.loadImageIfNotEmpty
 import com.ardclient.esikap.utils.LocaleHelper
 import com.squareup.picasso.Picasso
 
@@ -58,20 +59,12 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
 
         // on issue checked
         binding.radioMasalah.setOnCheckedChangeListener{_, checkedId ->
-            if (checkedId == R.id.radio_masalah_true){
-                needExtra = true
-                binding.masalahFileLayout.visibility = View.VISIBLE
-                binding.etMasalahNote.visibility = View.GONE
-            }else{
-                needExtra = false
-                binding.masalahFileLayout.visibility = View.GONE
-                binding.etMasalahNote.visibility = View.VISIBLE
-            }
+            needExtra = checkedId == R.id.radio_masalah_true
         }
 
-        binding.btnSelectMasalah.setOnClickListener {
-            pickDocument()
-        }
+//        binding.btnSelectMasalah.setOnClickListener {
+//            pickDocument()
+//        }
     }
 
     private fun onUploadedUI() {
@@ -88,8 +81,8 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
                 radioMasalah
             )
 
-            btnSelectMasalah.visibility = View.GONE
-            etMasalahNote.editText?.isEnabled = false
+//            btnSelectMasalah.visibility = View.GONE
+//            etMasalahNote.editText?.isEnabled = false
 
             saveButton.visibility = View.GONE
         }
@@ -160,29 +153,20 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
             radioNarkotik.check(narkotikId)
             radioResiko.check(resikoId)
             radioMasalah.check(masalahId)
-
-            if (getCheckedIntByString(pemeriksaanKapal.masalah) == 1){
-                needExtra = true
-                binding.masalahFileLayout.visibility = View.VISIBLE
-                binding.etMasalahNote.visibility = View.GONE
-            }else{
-                binding.etMasalahNote.visibility = View.VISIBLE
-                binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
-            }
         }
-
-        Log.d("FILE", pemeriksaanKapal.masalahFile)
 
         // document
         if (getCheckedIntByString(pemeriksaanKapal.masalah) == 1){
-            binding.etMasalahNote.visibility = View.GONE
-            binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
-            binding.prevMasalah.visibility  =View.VISIBLE
-            Picasso.get().load(pemeriksaanKapal.masalahFile).fit().into(binding.prevMasalah)
+            if (pemeriksaanKapal.masalahFile.isNotEmpty()) {
+//                binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
+//                binding.prevMasalah.visibility = View.VISIBLE
+//                binding.prevMasalah.loadImageIfNotEmpty(pemeriksaanKapal.masalahFile)
+                masalahDoc = pemeriksaanKapal.masalahFile
+            }
 
-            masalahDoc = pemeriksaanKapal.masalahFile
-        }else{
-            binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
+            needExtra = true
+//            binding.etMasalahNote.visibility = View.VISIBLE
+//            binding.etMasalahNote.editText?.setText(pemeriksaanKapal.masalahCatatan)
         }
     }
 
@@ -214,16 +198,17 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
                 radioMasalah
             )
 
-            val isInputFilled = InputValidation.isAllFieldComplete(
-                etMasalahNote
-            )
+            val isInputFilled = true
 
             if (isAllFilled) {
-                val isValid = if (needExtra) !masalahDoc.isNullOrBlank() else isInputFilled
-                if (isValid) {
+                if (isInputFilled) {
                     onValidInput()
                 } else {
-                    Toast.makeText(this@P3KInputPemeriksaanActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@P3KInputPemeriksaanActivity,
+                        getString(R.string.data_not_completed),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } else {
                 Toast.makeText(this@P3KInputPemeriksaanActivity, getString(R.string.data_not_completed), Toast.LENGTH_SHORT).show()
@@ -242,7 +227,7 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
            val obatLainnyaVal = InputValidation.getSelectedRadioGroupValue(this, radioObatLainnya)
            val resikoVal = InputValidation.getSelectedRadioGroupValue(this, radioResiko)
            val masalahVal = InputValidation.getSelectedRadioGroupValue(this, radioMasalah)
-           val masalahNote = if (needExtra) etMasalahNote.editText?.text.toString() else "-"
+           val masalahNote = "-"
 
            // trans
 
@@ -292,9 +277,9 @@ class P3KInputPemeriksaanActivity : AppCompatActivity(), ImageSelectorModal.OnIm
     override fun onImageSelected(imageUri: Uri) {
         val uriString = imageUri.toString()
         masalahDoc = uriString
-        binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
-        binding.prevMasalah.visibility  =View.VISIBLE
-        Picasso.get().load(uriString).fit().into(binding.prevMasalah)
+        //binding.btnSelectMasalah.text = getString(R.string.update_dokumen_title)
+//        binding.prevMasalah.visibility  =View.VISIBLE
+//        Picasso.get().load(uriString).fit().into(binding.prevMasalah)
     }
 
     override fun attachBaseContext(base: Context?) {

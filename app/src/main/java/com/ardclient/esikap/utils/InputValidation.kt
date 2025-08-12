@@ -1,11 +1,13 @@
 package com.ardclient.esikap.utils
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.viewbinding.ViewBinding
 import com.ardclient.esikap.R
 import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.Picasso
 
 object InputValidation {
     fun isAllFieldComplete(vararg fields: TextInputLayout): Boolean{
@@ -50,6 +52,18 @@ object InputValidation {
     fun disabledAllRadio(vararg radios: RadioGroup) {
         radios.forEach { radio ->
             disableRadioGroup(radio)
+        }
+    }
+
+    fun ImageView.loadImageIfNotEmpty(path: String?) {
+        if (!path.isNullOrEmpty()) {
+            Picasso.get()
+                .load(path)
+                .fit()
+                .into(this)
+        } else {
+            // Opsional: set placeholder atau clear image
+            this.setImageDrawable(null)
         }
     }
 }
